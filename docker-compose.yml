@@ -1,33 +1,4 @@
 services:
-  postgres:
-    image: postgres:15
-    container_name: euklydia-postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres20
-      POSTGRES_DB: euklydia_prod
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: euklydia-pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@euklydia.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-    ports:
-      - "5050:80"
-    depends_on:
-      - postgres
-
   backend:
     build: ./backend
     container_name: euklydia-backend
@@ -35,20 +6,14 @@ services:
       - ./backend/.env.docker
     ports:
       - "8000:8000"
-    depends_on:
-      postgres:
-        condition: service_healthy
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    volumes:
-      - ./backend:/app
 
   frontend:
-    build: ./euklydia-frontend
+    build:
+      context: ./euklydia-frontend
+      args:
+        - REACT_APP_API_URL=https://euklydia-academy-backend-488435447606.europe-west1.run.app
     container_name: euklydia-frontend
     ports:
       - "3000:80"
     depends_on:
       - backend
-
-volumes:
-  postgres_data:
