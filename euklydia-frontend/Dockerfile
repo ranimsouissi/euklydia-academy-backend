@@ -8,8 +8,8 @@ RUN npm install
 
 COPY . .
 
-# ← AJOUT : recevoir la variable au moment du build
-ARG REACT_APP_API_URL
+# ← Valeur par défaut pour Cloud Run (URL backend, pas un secret)
+ARG REACT_APP_API_URL=https://euklydia-academy-backend-488435447606.europe-west1.run.app
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 RUN npm run build
