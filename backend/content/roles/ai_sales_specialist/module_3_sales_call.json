@@ -1,0 +1,349 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Sales Specialist",
+  "source": "PDF Parcours AI Sales Specialist v1.1 — Mai 2026",
+  "display_order": 3,
+  "title": "Sales Call Preparation",
+  "skill_name": "Conversations commerciales assistées par IA",
+  "level": "Expert",
+  "journey_stage": "Cycle de vente — Closing",
+  "estimated_duration_min": 180,
+  "format": "blended",
+  "is_active": true,
+  "description": "Prépare, exécute et analyse tes appels commerciaux avec l'aide d'agents IA : briefing pré-call complet en 3 minutes, copilot temps réel pour la gestion d'objections, transcription automatique et mise à jour CRM. Tu réduis ton temps de préparation de 70-85 % et documentes 100 % de tes appels.",
+  "learning_objective": "À l'issue de ce module, l'apprenant sait préparer, exécuter et analyser ses appels commerciaux avec l'aide d'agents IA — gagnant en productivité et en qualité de données dès les premiers appels, et augmentant son taux de closing sur le moyen terme.",
+  "expected_outcome": "Réduction de 70 à 85 % du temps de préparation par appel, > 95 % des appels documentés dans le CRM, +15 à +25 % d'amélioration relative du close rate (observatoire J+30/J+60).",
+  "why_this_module": "Les appels commerciaux représentent le moment de vérité du cycle de vente. Pourtant, beaucoup de commerciaux y arrivent insuffisamment préparés et exploitent mal leurs appels post-mortem (notes incomplètes, mise à jour CRM partielle). En Afrique du Nord, la dimension relationnelle, le multilinguisme et le calendrier culturel ajoutent une complexité que peu de copilots intègrent nativement.",
+  "recommended_when": "Quand tu as 3+ appels commerciaux par jour, que ton temps de préparation par appel dépasse 15 minutes, ou que moins de 80 % de tes appels sont correctement documentés dans le CRM.",
+  "role_based_example": "Karim a 5 appels prévus aujourd'hui. Avant chaque appel, il consulte rapidement le profil LinkedIn du prospect (5 min). Pendant l'appel, quand le prospect émet une objection sur le prix, il improvise. Après l'appel, il prend des notes au stylo qu'il oubliera de mettre dans le CRM. Karim arrive souvent à l'appel avec un sentiment d'impréparation, et redoute particulièrement les objections sur le prix qu'il sait mal gérer. Avec ce module, Karim génère un briefing complet en 3 minutes, utilise un copilot pour gérer les objections en temps réel, et documente 100 % de ses appels automatiquement.",
+  "takeaway": "Un agent multi-fonction couvre le cycle complet : briefing pré-call, transcription temps réel, suggestions d'objection handling, post-call analysis, deal scoring, mise à jour CRM. Les solutions partielles (briefing seul, transcription seule) manquent l'aspect critique du temps réel — c'est là que se gagne ou se perd l'appel.",
+  "action_point": "Cette semaine : identifie 5 appels importants, génère leur briefing avec le Prompt 1, utilise Otter/Fireflies/Notta pour la transcription, et applique le Prompt 3 pour le résumé post-appel et la mise à jour CRM.",
+  "practical_application": "Application directe sur tes vrais appels de la semaine. Tu mesures ton temps de préparation avant/après et tu construis ta bibliothèque personnelle d'objection handling à partir de tes appels réels.",
+  "key_concepts": [
+    "Pre-call briefing assisté par IA (poste, entreprise, actualités, pain points)",
+    "Génération d'un briefing complet en 3 minutes",
+    "Anticipation et gestion temps réel des objections",
+    "Copilots temps réel : Fireflies, Otter, Notta, Gong",
+    "Transcription et résumé automatique des appels",
+    "Mise à jour CRM automatique avec les insights de l'appel",
+    "Mesure de la qualité des appels et identification des axes de progression",
+    "Adaptation au contexte Afrique du Nord (langue, dimension relationnelle, calendrier culturel)"
+  ],
+  "next_recommended_module": "Certificat AI Sales Specialist + Bridge commercial",
+  "prompt_examples": [
+    {
+      "id": "prompt_1_pre_call_briefing",
+      "title": "Prompt 1 — Pre-call briefing complet",
+      "use_case": "Générer une fiche de préparation 8 sections en 3 minutes avant un RDV",
+      "tags": [
+        "briefing",
+        "préparation",
+        "pré-call"
+      ],
+      "content": "Tu es un sales engineer B2B expérimenté au Maghreb. Génère un briefing pré-call complet pour ce rendez-vous commercial.\n\nPROSPECT :\n- Nom : [NOM] | Poste : [POSTE] | Entreprise : [ENTREPRISE]\n- Secteur : [SECTEUR] | Effectif : [EFFECTIF] | Pays : [PAYS]\n- Infos LinkedIn copiées : [INFOS_LINKEDIN_COPIEES]\n\nCONTEXTE :\n- Source du lead : [SOURCE]\n- Échanges précédents : [HISTORIQUE_BREF]\n- Objectif de mon appel : [OBJECTIF]\n- Langue prévue de l'appel : [FR / AR-FR mix / EN]\n\nMON OFFRE : [DESCRIPTION_OFFRE]\n\nGÉNÈRE UN BRIEFING STRUCTURÉ :\n1. RÉSUMÉ EXÉCUTIF (3 lignes)\n2. OBJECTIFS DE L'APPEL (3 max)\n3. 5 QUESTIONS À POSER (du plus ouvert au plus précis)\n4. 3 OBJECTIONS PROBABLES (avec réponse préparée)\n5. ANGLE D'ACCROCHE\n6. SIGNAUX D'ACHAT À DÉTECTER\n7. NEXT STEPS POSSIBLES (3 scénarios : positif / mitigé / négatif)\n8. CONTEXTE RELATIONNEL MAGHREB\n   - Connaissance commune potentielle (LinkedIn mutual connections)\n   - Parcours commun à explorer (école, université, ville)\n   - Référence régionale qu'on peut citer (client commun, entreprise locale)\n\nAdapte les questions et l'angle d'accroche à la langue de l'appel.",
+      "variables": [
+        "NOM",
+        "POSTE",
+        "ENTREPRISE",
+        "SECTEUR",
+        "EFFECTIF",
+        "PAYS",
+        "INFOS_LINKEDIN_COPIEES",
+        "SOURCE",
+        "HISTORIQUE_BREF",
+        "OBJECTIF",
+        "DESCRIPTION_OFFRE"
+      ],
+      "expected_output": "Briefing 8 sections (résumé, objectifs, questions, objections, angle, signaux, next steps, relationnel)",
+      "tools": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "prompt_2_objection_library",
+      "title": "Prompt 2 — Bibliothèque d'objection handling",
+      "use_case": "Construire une bibliothèque réutilisable d'objections et réponses préparées",
+      "tags": [
+        "objections",
+        "bibliothèque",
+        "préparation"
+      ],
+      "content": "Tu es un coach commercial B2B au Maghreb.\nConstruis une bibliothèque d'objection handling pour mon offre.\n\nMON OFFRE :\n- Description : [DESCRIPTION_OFFRE]\n- Prix moyen avec devise (TND/MAD/DZD/EUR/USD) : [PRIX_MOYEN]\n- Cible : [CIBLE]\n- Différenciation : [DIFFERENCIATION]\n\nLISTE DE 3 À 10 OBJECTIONS COURANTES DANS TON SECTEUR :\n1. [OBJECTION_1] (ex : 'C'est trop cher')\n2. [OBJECTION_2] (ex : 'On a déjà un fournisseur')\n3-10. ...\n\nNOTE MAGHREB : si tes objections incluent des dimensions relationnelles ('je dois en parler à mon associé', 'vous êtes recommandé par qui ?') ou de calendrier culturel ('après le Ramadan'), précise-le pour des réponses adaptées au contexte régional.\n\nPOUR CHAQUE OBJECTION, GÉNÈRE :\n1. Reformulation empathique\n2. Question d'approfondissement\n3. Réponse argumentée (preuve sociale + différenciation + ROI)\n4. Phrase de re-engagement",
+      "variables": [
+        "DESCRIPTION_OFFRE",
+        "PRIX_MOYEN",
+        "CIBLE",
+        "DIFFERENCIATION",
+        "OBJECTION_1",
+        "OBJECTION_2"
+      ],
+      "expected_output": "Bibliothèque de 3-10 objections avec réponse en 4 étapes",
+      "tools": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "prompt_3_post_call_analysis",
+      "title": "Prompt 3 — Résumé post-appel et next steps",
+      "use_case": "Analyser une transcription d'appel et générer un rapport structuré + suivi",
+      "tags": [
+        "post-call",
+        "analyse",
+        "CRM"
+      ],
+      "content": "Tu es un sales operations manager au Maghreb. Analyse cette transcription d'appel.\n\nTRANSCRIPTION : [COLLER_LA_TRANSCRIPTION_OTTER_FIREFLIES_NOTTA]\nCONTEXTE : Prospect, Date, Durée appel\n\nNOTE : si la transcription contient des passages incompréhensibles ou en arabe non transcrit (marqués [inaudible] ou [arabe]), travaille uniquement avec les portions claires et précise dans le rapport ce qui n'a pas pu être analysé.\n\nGÉNÈRE UN RAPPORT STRUCTURÉ :\n1. SCORE DEAL HEALTH (0-100) basé sur la grille v2.0 :\n   - Engagement émotionnel du prospect (0-25)\n   - Clarté du besoin exprimé (0-25)\n   - Présence d'un budget évoqué (0-25)\n   - Champion interne identifié + decision process clair (0-25)\n2. PAIN POINTS IDENTIFIÉS (max 3)\n3. CHAMPION INTERNE\n4. DECISION PROCESS\n5. OBJECTIONS NON RÉSOLUES\n6. ACTIONS NEXT STEPS (numérotées avec délai)\n7. MISE À JOUR CRM\n8. SUIVI SUGGÉRÉ\n   - Canal recommandé : email / WhatsApp / LinkedIn (selon préférence évoquée)\n   - Brouillon de message (max 100 mots, adapté au canal)",
+      "variables": [
+        "COLLER_LA_TRANSCRIPTION_OTTER_FIREFLIES_NOTTA"
+      ],
+      "expected_output": "Rapport 8 sections avec deal health, pain points, next steps, CRM update, suivi",
+      "tools": [
+        "ChatGPT",
+        "Otter / Fireflies / Notta (pour la transcription)"
+      ]
+    }
+  ],
+  "practical_exercise": {
+    "title": "Mission : Applique le briefing IA + transcription sur 5 appels cette semaine",
+    "duration_minutes": 60,
+    "tools_required": [
+      "ChatGPT",
+      "Otter.ai OU Fireflies OU Notta.ai (pour FR)",
+      "Ton CRM"
+    ],
+    "objective": "Tester sur 5 appels réels la chaîne complète briefing → transcription → post-call summary, et mesurer le temps gagné.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Sélection des appels",
+        "description": "Identifie 5 appels prévus dans ta semaine (priorise les plus importants)."
+      },
+      {
+        "n": 2,
+        "title": "Briefing pré-call",
+        "description": "24h avant chaque appel : génère un briefing avec le Prompt 1."
+      },
+      {
+        "n": "2.5",
+        "title": "Contexte relationnel Maghreb",
+        "description": "Avant de générer le briefing, ajoute dans le Prompt 1 une section 'Contexte relationnel' Maghreb (connaissance commune, parcours commun, référence régionale)."
+      },
+      {
+        "n": 3,
+        "title": "Chronométrage du gain",
+        "description": "Chronomètre ton temps de préparation et compare aux ~20 min en manuel."
+      },
+      {
+        "n": 4,
+        "title": "Transcription temps réel",
+        "description": "Pendant l'appel : active Otter / Fireflies / Notta pour la transcription."
+      },
+      {
+        "n": 5,
+        "title": "Résumé post-appel",
+        "description": "Après chaque appel : génère le résumé avec le Prompt 3."
+      },
+      {
+        "n": 6,
+        "title": "Mise à jour CRM",
+        "description": "Mets à jour le CRM avec les next steps identifiés."
+      },
+      {
+        "n": 7,
+        "title": "Bilan en 3 lignes",
+        "description": "Combien d'appels documentés avant/après ? Quel insight aurais-je manqué sans la transcription ?"
+      }
+    ],
+    "success_criteria": [
+      "5 appels documentés à 100 % dans le CRM",
+      "Temps de préparation moyen ≤ 10 min/appel (vs ~20 min en manuel)",
+      "Au moins 2 next steps précis identifiés par appel"
+    ],
+    "maghreb_note": "Otter et Fireflies sont optimisés pour l'anglais. Pour des appels en pur français, considère Notta.ai (free 120 min/mois). Pour des appels mêlant arabe/français/dialecte, accepte que la transcription sera imparfaite — concentre-toi sur le post-call summary à partir de tes notes manuelles."
+  },
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils de Sales Call — Comparatif Afrique du Nord",
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
+      "rows": [
+        [
+          "ChatGPT",
+          "Gratuit / Plus 20$/mois",
+          "Briefing, objection handling, post-appel",
+          "Free tier suffit pour démarrer"
+        ],
+        [
+          "Otter.ai",
+          "Gratuit (300 min/mois) / 17$/mois",
+          "Transcription EN principalement",
+          "Limité sur le français Maghreb"
+        ],
+        [
+          "Fireflies",
+          "Free / 18$/mois",
+          "Copilot temps réel + résumé auto",
+          "Carte internationale requise pour Pro"
+        ],
+        [
+          "Notta.ai",
+          "Free tier 120 min/mois",
+          "Meilleur sur le français Maghreb",
+          "Recommandé pour appels FR"
+        ],
+        [
+          "Microsoft Teams / Google Meet",
+          "Souvent inclus dans suites pro",
+          "Transcription native FR",
+          "Si déjà dans la stack, l'utiliser en priorité"
+        ],
+        [
+          "WhisperAI",
+          "Gratuit (open source) ou via API",
+          "Excellent multilingue, manipulation requise",
+          "Pour profils techniques uniquement"
+        ],
+        [
+          "HubSpot / Salesforce",
+          "Variable",
+          "Stockage notes, deal stages, historique",
+          "Cohérent avec Module 1 (scoring)"
+        ]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows de Sales Call — 2 niveaux",
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
+      "rows": [
+        [
+          "W1 : Préparation manuelle assistée IA (no-code)",
+          "ChatGPT + LinkedIn + CRM + Otter/Notta",
+          "20-30 min première fois",
+          "0-17 USD/mois",
+          "Débutant"
+        ],
+        [
+          "W2 : Briefing automatique 24h avant l'appel (low-code)",
+          "Google Calendar + HubSpot API + OpenAI API + Gmail + Fireflies/Notta",
+          "2-3h première fois",
+          "~10-30 USD/mois (OpenAI selon volume)",
+          "Intermédiaire"
+        ]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — Sales Call",
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
+      "rows": [
+        [
+          "Temps de préparation par appel",
+          "Court terme (J+14)",
+          "À renseigner",
+          "Réduction de 70 à 85 %"
+        ],
+        [
+          "% appels documentés dans le CRM",
+          "Court terme (J+14)",
+          "À renseigner",
+          "> 95 %"
+        ],
+        [
+          "Close rate des opportunités",
+          "Observatoire (J+30/J+60)",
+          "À renseigner",
+          "+15 à +25 % d'amélioration relative"
+        ]
+      ]
+    }
+  },
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Les appels commerciaux représentent le moment de vérité du cycle de vente. Pourtant, beaucoup de commerciaux y arrivent insuffisamment préparés et exploitent mal leurs appels post-mortem (notes incomplètes, mise à jour CRM partielle).",
+      "pain_points": [
+        "Préparation rapide (5 min) basée uniquement sur LinkedIn",
+        "Improvisation face aux objections sur le prix",
+        "Notes papier oubliées, CRM non mis à jour",
+        "Sentiment d'impréparation et stress avant les appels critiques",
+        "Multilinguisme FR/AR/EN mal géré",
+        "Calendrier culturel (Ramadan, fêtes, weekends différents) non intégré"
+      ],
+      "maghreb_specifics": [
+        "Multilinguisme (français/arabe/anglais selon l'interlocuteur)",
+        "Importance des relations personnelles (références, parcours commun, recommandations)",
+        "Calendrier culturel (Ramadan, fêtes, weekends différents selon les pays)"
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Génère ton premier briefing pré-call en 3 minutes",
+        "duration_min": 10,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT",
+        "steps": [
+          "Ouvre LinkedIn et note 3 infos clés sur ton prospect : poste actuel, ancienneté, post récent",
+          "Ouvre la fiche CRM du prospect et note le score BANT et les échanges précédents",
+          "Colle le Prompt 1 (Briefing Pré-Call) dans ChatGPT et remplace [NOM], [ENTREPRISE], [CONTEXTE]",
+          "Lis le briefing généré — vérifie que les pain points correspondent à ce que tu sais du prospect",
+          "Prépare 3 questions ouvertes basées sur le briefing pour structurer ton appel",
+          "Sauvegarde le briefing dans la fiche CRM avant l'appel"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Configure Fireflies + workflow post-appel automatique (+ alt. Notta.ai pour FR)",
+        "duration_min": 15,
+        "format": "guide pas-à-pas",
+        "tool": "Fireflies",
+        "steps": [
+          "Crée un compte Fireflies.ai (free tier suffisant pour démarrer) et connecte-le à ton Google Meet ou Zoom",
+          "Active l'enregistrement automatique : Paramètres > Intégrations > activer ton outil de visio",
+          "Après ton prochain appel, ouvre Fireflies et attends la transcription (2-5 minutes)",
+          "Copie la transcription et colle-la dans ChatGPT avec le Prompt 3 (Résumé Post-Call)",
+          "Le résumé généré contient : décisions prises, objections, prochaines étapes — copie-le dans ton CRM",
+          "Alternative Maghreb : utilise Notta.ai (interface FR, free tier 120 min/mois) si Fireflies est trop lent sur ta connexion"
+        ]
+      }
+    ],
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {
+          "when": "J0",
+          "what": "Mesure ton temps de préparation par appel et ton taux de documentation CRM (baseline)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Mesure temps de prep et % appels documentés — compare à ta baseline"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif — close rate observatoire (cycles longs)"
+        },
+        {
+          "when": "J+60",
+          "what": "Consolidation finale — impact sur le close rate et la qualité pipeline"
+        }
+      ]
+    }
+  }
+}

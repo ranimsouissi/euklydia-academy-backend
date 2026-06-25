@@ -1,0 +1,455 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Designer",
+  "source": "PDF Parcours AI Designer v1.1 — Mai 2026",
+  "display_order": 2,
+  "title": "UX Optimization",
+  "skill_name": "AI UX Intelligence",
+  "level": "Pratique",
+  "journey_stage": "Cycle design — Optimisation",
+  "estimated_duration_min": 300,
+  "format": "blended",
+  "is_active": true,
+  "description": "Conduis un audit UX assisté par IA qui combine analytics comportementale (Hotjar/Clarity), évaluation heuristique automatisée (10 heuristiques de Nielsen), analyse de verbatims utilisateurs et recommandations priorisées par ROI. Tu identifies les vraies frictions, les corriges par ordre d'impact et mesures l'amélioration de l'engagement (+20 à +30 %).",
+  "learning_objective": "À l'issue de ce module, l'apprenant sait conduire un audit UX assisté par IA en 1-2 jours (vs 5-10 jours en manuel) qui identifie 10-15 frictions priorisées par ROI et mesure l'amélioration de l'engagement après corrections.",
+  "expected_outcome": "Taux d'engagement +20 à +30 % après corrections, durée d'audit UX complet réduite de 5-10 jours à 1-2 jours, 10-15 frictions identifiées et priorisées (vs ressenti subjectif).",
+  "why_this_module": "Beaucoup de produits digitaux au Maghreb (sites e-commerce, apps mobiles, dashboards internes) souffrent d'une UX médiocre : taux de conversion bas, taux de rebond élevé, abandons en checkout, frustrations utilisateur. Le designer fait du « beau » sans toujours comprendre où se cachent les vraies frictions, et l'audit UX classique (heuristiques manuelles, tests utilisateurs lourds) prend trop de temps pour les rythmes de production actuels.",
+  "recommended_when": "Quand le taux de conversion d'une page critique stagne, que tu fais des changements UX au pifomètre sans diagnostic data-driven, ou que tu n'as pas de méthode reproductible pour identifier les frictions.",
+  "role_based_example": "Yasmine est en charge du site e-commerce de la PME où elle travaille. Le taux de conversion stagne à 1,2 % depuis 6 mois. La direction lui demande « d'améliorer l'UX », mais sans budget pour des tests utilisateurs en labo. Yasmine ouvre le site, regarde les pages les unes après les autres, change un bouton ici, déplace une section là, mais elle ne sait pas si ses changements résolvent vraiment quelque chose. Avec ce module, Yasmine conduit un audit complet en 2 jours, identifie 12 frictions priorisées, et observe +25 % d'engagement après corrections.",
+  "takeaway": "Un diagnostic UX rigoureux ne se fait pas au feeling. La triangulation « heatmaps + heuristiques de Nielsen + verbatims » assistée par IA révèle les vraies frictions et permet de prioriser objectivement. C'est défendable auprès du business et reproductible dans le temps.",
+  "action_point": "Cette semaine : choisis 1 page critique de ton produit, configure Hotjar (essai gratuit), collecte 7 jours de données, applique le Prompt 1 (audit heuristique), et identifie les 3 frictions top priorité avec le Prompt 3 (playbook).",
+  "practical_application": "Application directe sur ton produit ou celui d'un client. Tu mesures l'engagement avant/après, tu construis ta bibliothèque de playbooks réutilisables par type de friction, et tu prouves le ROI de ton intervention UX.",
+  "key_concepts": [
+    "10 heuristiques de Nielsen et leur application à un produit digital",
+    "Configuration Hotjar / Microsoft Clarity (heatmaps + recordings)",
+    "Analyse de verbatims utilisateurs en lot avec ChatGPT",
+    "Audit UX assisté par IA en 1 à 2 jours",
+    "Priorisation des frictions UX par ROI (impact business / effort)",
+    "UX improvement playbooks reproductibles par type de friction",
+    "Mesure de l'amélioration de l'engagement avant/après corrections",
+    "Framework Insight → Action Mapping (livrable Euklydia)"
+  ],
+  "next_recommended_module": "Design System Automation",
+  "prompt_examples": [
+    {
+      "id": "prompt_1_audit_heuristique",
+      "title": "Prompt 1 — Audit heuristique automatisé d'un écran",
+      "use_case": "Évaluer un écran selon les 10 heuristiques de Nielsen en quelques minutes",
+      "tags": [
+        "audit",
+        "Nielsen",
+        "heuristiques"
+      ],
+      "content": "Tu es un UX expert senior, certifié sur les heuristiques de Nielsen.\nConduis un audit heuristique complet de cet écran.\n\nÉCRAN ANALYSÉ :\n- Type : [PAGE_WEB / ÉCRAN_APP / DASHBOARD]\n- URL ou capture : [URL_OU_DESCRIPTION_DETAILLEE]\n- Objectif utilisateur : [QUE_VEUT_ACCOMPLIR_LE_USER]\n- Persona principal : [PERSONA]\n- Contexte d'usage : [MOBILE / DESKTOP / TABLETTE]\n\nPOUR CHACUNE DES 10 HEURISTIQUES DE NIELSEN, ÉVALUE :\n1. Visibilité du statut système\n2. Correspondance entre système et monde réel\n3. Contrôle utilisateur et liberté\n4. Cohérence et standards\n5. Prévention des erreurs\n6. Reconnaissance plutôt que mémorisation\n7. Flexibilité et efficacité d'utilisation\n8. Esthétique et design minimaliste\n9. Aide à reconnaître/diagnostiquer/résoudre erreurs\n10. Aide et documentation\n\nFORMAT DE RÉPONSE PAR HEURISTIQUE :\n═══ HEURISTIQUE N°X — [Nom] ═══\nScore : [/10]\nConstat : [observation factuelle]\nFriction identifiée : [problème concret pour le user]\nRecommandation : [correction proposée]\nEffort de correction : [FAIBLE / MOYEN / ÉLEVÉ]\nImpact business estimé : [FAIBLE / MOYEN / ÉLEVÉ]\n\nEN CONCLUSION :\n- Top 3 frictions à corriger en priorité\n- Score global UX (moyenne pondérée)\n- Estimation gain conversion potentiel",
+      "variables": [
+        "URL_OU_DESCRIPTION_DETAILLEE",
+        "QUE_VEUT_ACCOMPLIR_LE_USER",
+        "PERSONA"
+      ],
+      "expected_output": "Audit 10 heuristiques + Top 3 frictions + score global + gain estimé",
+      "tools": [
+        "ChatGPT",
+        "Capture d'écran de la page"
+      ]
+    },
+    {
+      "id": "prompt_2_verbatims",
+      "title": "Prompt 2 — Synthèse et analyse de verbatims utilisateurs",
+      "use_case": "Transformer 50-200 verbatims en insights actionnables",
+      "tags": [
+        "verbatims",
+        "NPS",
+        "qualitatif"
+      ],
+      "content": "Tu es un UX researcher senior B2C/B2B au Maghreb.\nAnalyse ces verbatims utilisateurs et extrais les insights actionnables.\n\nCONTEXTE :\n- Produit : [DESCRIPTION_PRODUIT]\n- Source des verbatims : [NPS / GOOGLE / SUPPORT / INTERVIEWS]\n- Volume : [NB_VERBATIMS]\n- Période : [DATES]\n\nVERBATIMS À ANALYSER :\n[COLLER_LES_VERBATIMS_BRUTS_50_A_200]\n\nGÉNÈRE UNE ANALYSE STRUCTURÉE :\n1. CLASSIFICATION DES VERBATIMS\n   - % positifs / négatifs / neutres\n   - Top 5 thèmes positifs (récurrents)\n   - Top 5 thèmes négatifs (récurrents)\n\n2. PAIN POINTS UX IDENTIFIÉS\n   Pour chaque pain point :\n   - Description (avec citations exemples)\n   - Volume (nombre de verbatims concernés)\n   - Étape du parcours impactée\n   - Sévérité (BLOQUANT / GÊNANT / MINEUR)\n\n3. JOBS-TO-BE-DONE NON SATISFAITS\n   Ce que les utilisateurs essaient de faire mais n'arrivent pas\n\n4. RECOMMANDATIONS PRIORISÉES\n   - Quick wins (faible effort, fort impact)\n   - Mid-term (effort moyen)\n   - Strategic (chantiers de fond)\n\n5. CITATIONS REPRÉSENTATIVES\n   3 verbatims à mettre en avant pour convaincre la direction",
+      "variables": [
+        "DESCRIPTION_PRODUIT",
+        "NB_VERBATIMS",
+        "DATES",
+        "COLLER_LES_VERBATIMS_BRUTS_50_A_200"
+      ],
+      "expected_output": "Classification + pain points + JTBD + recommandations + citations",
+      "tools": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "prompt_3_ux_playbook",
+      "title": "Prompt 3 — UX improvement playbook par type de friction",
+      "use_case": "Construire une bibliothèque de réponses standard aux frictions UX courantes",
+      "tags": [
+        "playbook",
+        "patterns",
+        "résolution"
+      ],
+      "content": "Tu es un UX designer senior, expert e-commerce et SaaS.\nConstruis un playbook complet pour résoudre cette friction UX.\n\nFRICTION IDENTIFIÉE :\n- Type : [CHECKOUT / NAVIGATION / FORMULAIRE / ERREUR / SEARCH]\n- Description : [DETAIL_DU_PROBLEME]\n- Métrique impactée : [CONVERSION / RÉTENTION / SATISFACTION]\n- Sévérité : [BLOQUANT / GÊNANT / MINEUR]\n- Contexte : [B2B / B2C, type de produit, persona]\n\nGÉNÈRE LE PLAYBOOK EN 7 SECTIONS :\n1. ANATOMIE DE LA FRICTION\n   Pourquoi cette friction existe (psycho user + design)\n\n2. 3 PATTERNS DE RÉSOLUTION\n   Pattern A : [solution la plus courante]\n   Pattern B : [solution alternative]\n   Pattern C : [solution premium]\n   Pour chacun : pros/cons + exemples concrets de marques\n\n3. RECOMMANDATION PRINCIPALE\n   Le pattern à privilégier dans ton contexte + justification\n\n4. SPÉCIFICATIONS DESIGN\n   - États visuels (default / hover / active / disabled / error)\n   - Microcopy recommandée\n   - Animations / transitions\n   - Responsive behavior\n\n5. CHECKLIST AVANT MISE EN PROD\n   - Tests utilisateurs (n=5)\n   - Validation accessibilité (WCAG 2.1 AA)\n   - Tests sur appareils Maghreb dominants\n\n6. KPI À TRACKER POST-LANCEMENT\n\n7. EXEMPLES DE BENCHMARK\n   2-3 marques qui font ça très bien (avec captures)",
+      "variables": [
+        "DETAIL_DU_PROBLEME"
+      ],
+      "expected_output": "Playbook 7 sections : anatomie, 3 patterns, recommandation, specs, checklist, KPIs, benchmark",
+      "tools": [
+        "ChatGPT"
+      ]
+    }
+  ],
+  "practical_exercise": {
+    "title": "Mission : Audit UX d'une page critique + 3 corrections mockupées",
+    "duration_minutes": 120,
+    "tools_required": [
+      "Hotjar (essai gratuit)",
+      "ChatGPT",
+      "Figma"
+    ],
+    "objective": "Conduire un audit UX complet d'une page critique en 2 jours et livrer 3 mockups de corrections validées par l'équipe.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Page critique",
+        "description": "Choisis 1 page critique de ton produit (la plus importante pour le business)."
+      },
+      {
+        "n": 2,
+        "title": "Configuration Hotjar",
+        "description": "Configure Hotjar et collecte 7 jours de données comportementales (heatmaps + recordings)."
+      },
+      {
+        "n": 3,
+        "title": "Audit heuristique",
+        "description": "Applique le Prompt 1 et obtiens l'audit heuristique de la page (10 heuristiques + Top 3 frictions)."
+      },
+      {
+        "n": 4,
+        "title": "Triangulation",
+        "description": "Identifie les 3 frictions top priorité en croisant l'audit IA et les données Hotjar (heatmaps + recordings)."
+      },
+      {
+        "n": 5,
+        "title": "Playbooks",
+        "description": "Applique le Prompt 3 et obtiens le playbook complet pour chaque friction (3 patterns + recommandation)."
+      },
+      {
+        "n": "5.5",
+        "title": "Insight → Action Mapping",
+        "description": "Pour chacune des 3 frictions, applique le framework Insight → Action Mapping (livrable Euklydia v1.1) pour formaliser la connexion entre l'insight UX et la décision design tracée."
+      },
+      {
+        "n": 6,
+        "title": "Mockups Figma",
+        "description": "Mockupe les 3 corrections dans Figma (états visuels + microcopy + responsive)."
+      },
+      {
+        "n": 7,
+        "title": "Présentation équipe",
+        "description": "Présente les corrections à ton équipe (designers + devs + PO) et obtiens la validation pour la mise en prod."
+      }
+    ],
+    "success_criteria": [
+      "3 corrections mockupées validées par l'équipe",
+      "3 mappings Insight → Action documentés (insight + diagnostic + action + impact + owner + deadline)",
+      "Mise en production planifiée dans les 2 semaines suivantes",
+      "Audit UX complet livré en moins de 2 jours (vs 5-10 jours en manuel)"
+    ],
+    "maghreb_note": "Pour les produits digitaux Maghreb, teste sur les appareils dominants de la région (Android entry-level avec écran 5-6 pouces, connexions 3G/4G fluctuantes). Les frictions liées au temps de chargement et au tactile imprécis sont souvent sous-estimées. Pour les verbatims, accepte les retours en mix arabe/français — ChatGPT les analyse très bien si tu colles tels quels."
+  },
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils — Comparatif Maghreb",
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
+      "rows": [
+        [
+          "Hotjar / Microsoft Clarity",
+          "Free / 32 USD/mois (Hotjar)",
+          "Heatmaps + session recordings + sondages contextuels",
+          "Microsoft Clarity 100 % gratuit, alternative recommandée"
+        ],
+        [
+          "Google Analytics 4",
+          "Free",
+          "Données quantitatives (parcours, conversions, durées)",
+          "Free et largement adopté"
+        ],
+        [
+          "ChatGPT / Claude",
+          "Free / 20 USD/mois",
+          "Audit heuristique + analyse verbatims + playbooks + Insight → Action",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Figma + Figma AI",
+          "Free / 12 USD/mois",
+          "Mockups des corrections et présentation aux parties prenantes",
+          "Free tier convient"
+        ],
+        [
+          "Maze / UserTesting",
+          "À partir de 99 USD/mois",
+          "Tests utilisateurs à distance pour valider les corrections",
+          "Carte internationale requise"
+        ],
+        [
+          "Make / n8n",
+          "Free / 20 USD/mois",
+          "Automatisation du workflow continu",
+          "n8n self-hosted = quasi-gratuit"
+        ],
+        [
+          "Jira / Linear",
+          "Free / variable",
+          "Suivi des corrections UX en équipe avec dev",
+          "Free tier convient à une petite équipe"
+        ]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows — 2 niveaux",
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
+      "rows": [
+        [
+          "W1 : Audit UX express d'une page critique (no-code, 2h)",
+          "Hotjar + ChatGPT + Figma",
+          "30 min première fois",
+          "0 USD (free tiers)",
+          "Débutant"
+        ],
+        [
+          "W2 : UX intelligence en continu (low-code)",
+          "Hotjar API + GA4 + OpenAI API + Make + Jira API + Figma AI",
+          "3-5h première fois",
+          "~50-100 USD/mois",
+          "Intermédiaire"
+        ]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — UX Optimization",
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
+      "rows": [
+        [
+          "Durée d'un audit UX complet",
+          "Court terme (J+14)",
+          "À renseigner",
+          "1 à 2 jours (vs 5-10 jours manuel)"
+        ],
+        [
+          "Nombre de frictions identifiées et priorisées",
+          "Court terme (J+14)",
+          "Ressenti subjectif",
+          "10-15 frictions classées par ROI"
+        ],
+        [
+          "Taux d'engagement (temps + interactions)",
+          "Moyen terme (J+30)",
+          "À renseigner (post-correction)",
+          "+20 à +30 % après corrections"
+        ]
+      ]
+    }
+  },
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Beaucoup de produits digitaux au Maghreb (sites e-commerce, apps mobiles, dashboards internes) souffrent d'une UX médiocre : taux de conversion bas, taux de rebond élevé, abandons en checkout, frustrations utilisateur. Le designer fait du « beau » sans toujours comprendre où se cachent les vraies frictions.",
+      "pain_points": [
+        "Engagement faible sans diagnostic précis du problème",
+        "Audit UX subjectif basé sur le ressenti du designer seul",
+        "Pas d'analyse data-driven du parcours utilisateur réel",
+        "Recommandations non priorisées (toutes semblent importantes)",
+        "Difficile de prouver l'impact business des changements UX",
+        "L'équipe dev priorise les features plutôt que les corrections UX"
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Configure Hotjar et lance ton premier audit en 30 min",
+        "duration_min": 15,
+        "format": "guide pas-à-pas",
+        "tool": "Hotjar",
+        "steps": [
+          "Crée un compte Hotjar (free tier : 35 sessions/jour) et copie le code de tracking généré",
+          "Colle le code dans le <head> de ton site ou demande à ton développeur de l'intégrer",
+          "Va dans Hotjar > Heatmaps > Créer une heatmap sur ta page la plus importante (accueil ou page produit)",
+          "Active l'enregistrement de sessions : Recordings > Créer un enregistrement sur la même page",
+          "Attends 48h minimum pour accumuler assez de données (au moins 20 sessions)",
+          "Analyse les zones rouges (clics fréquents) et les zones froides (ignorées) — note les 3 problèmes UX prioritaires"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Analyse 100 verbatims clients en 20 minutes",
+        "duration_min": 20,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT",
+        "steps": [
+          "Rassemble tes verbatims clients : avis Google, commentaires réseaux sociaux, emails support, réponses NPS",
+          "Copie 20 à 100 verbatims dans un fichier texte — un verbatim par ligne",
+          "Ouvre ChatGPT et colle le Prompt 2 (Analyse de verbatims) depuis la section Prompts ci-dessus",
+          "Colle tes verbatims dans le prompt et demande une analyse par thème : frustrations, compliments, suggestions",
+          "Récupère le tableau de synthèse généré : thème, fréquence, verbatim représentatif, recommandation UX",
+          "Priorise les 3 thèmes les plus fréquents et intègre-les dans ton prochain cycle de design"
+        ]
+      }
+    ],
+    "_v1_1_additions": "Les 2 sections ci-dessous (insight_action_mapping, external_references) sont les ajouts du PDF v1.1 — sections 3.4.2 et 3.4.6.",
+    "insight_action_mapping": {
+      "title": "Insight → Action Mapping — Livrable Euklydia",
+      "source": "PDF v1.1 §3.4.2",
+      "description": "Framework Euklydia permettant de transformer un insight UX brut (issu de Hotjar, GA4, verbatims, audit heuristique) en action concrète, datée, mesurable et attribuable. Ce livrable formalise la connexion entre les données comportementales et les décisions design.",
+      "anatomy": {
+        "title": "Anatomie d'un mapping Insight → Action",
+        "description": "Un mapping contient 6 champs obligatoires garantissant qu'aucun insight collecté ne reste dormant : chaque observation génère une décision design tracée.",
+        "fields": [
+          {
+            "id": "insight_brut",
+            "name": "Insight brut",
+            "description": "Observation factuelle issue de la donnée",
+            "example": "73 % des users abandonnent au step 2 du checkout"
+          },
+          {
+            "id": "source",
+            "name": "Source",
+            "description": "Origine de la donnée",
+            "options": [
+              "Hotjar",
+              "GA4",
+              "Verbatims",
+              "Heuristique",
+              "Test utilisateur"
+            ]
+          },
+          {
+            "id": "diagnostic",
+            "name": "Diagnostic",
+            "description": "Interprétation UX de l'insight",
+            "example": "Friction probable sur le champ adresse, format non détecté"
+          },
+          {
+            "id": "action_proposee",
+            "name": "Action proposée",
+            "description": "Correction design concrète avec scoping clair",
+            "example": "Refonte du champ adresse avec autocomplete + détection automatique du format pays"
+          },
+          {
+            "id": "impact_attendu",
+            "name": "Impact attendu",
+            "description": "KPI cible quantifié avec délai d'observation",
+            "example": "+5 pts sur taux conversion step 2, observable J+14"
+          },
+          {
+            "id": "owner_deadline",
+            "name": "Owner & deadline",
+            "description": "Designer responsable + date de mise en prod cible",
+            "example": "Yasmine — mise en prod prévue dans 10 jours ouvrés"
+          }
+        ]
+      },
+      "associated_prompt": {
+        "id": "prompt_insight_action",
+        "title": "Prompt associé — Génération automatique d'un mapping",
+        "use_case": "Transformer un insight brut en action concrète et mesurable",
+        "content": "Tu es un UX strategist Euklydia.\nTransforme cet insight brut en action concrète et mesurable.\n\nINSIGHT BRUT :\n- Donnée observée : [METRIQUE_OU_VERBATIM]\n- Source : [HOTJAR / GA4 / VERBATIM / HEURISTIQUE]\n- Page/écran concerné : [URL_OU_ÉCRAN]\n- Période : [DATES]\n\nGÉNÈRE UN MAPPING INSIGHT → ACTION :\n1. INSIGHT REFORMULÉ\n   En 1 phrase claire, sans jargon\n2. DIAGNOSTIC UX\n   Hypothèse explicative (avec heuristique Nielsen liée)\n3. ACTION PROPOSÉE\n   - Description précise (1-2 phrases)\n   - Scope (composant / page / parcours)\n   - Effort estimé (heures de design + heures de dev)\n4. IMPACT ATTENDU\n   - KPI ciblé + variation attendue (+X %)\n   - Délai pour observer l'impact\n5. OWNER & DEADLINE\n   - Designer responsable\n   - Date de mise en prod cible\n6. CRITÈRE DE SUCCÈS / ÉCHEC\n   Comment savoir, à J+14, si l'action a fonctionné",
+        "variables": [
+          "METRIQUE_OU_VERBATIM",
+          "URL_OU_ÉCRAN",
+          "DATES"
+        ],
+        "expected_output": "Mapping structuré en 6 sections : insight reformulé, diagnostic, action, impact, owner, critère succès",
+        "tools": [
+          "ChatGPT"
+        ]
+      },
+      "commercial_value": "Ce livrable est l'élément central du AI UX Intelligence Framework Euklydia. Il garantit qu'aucun insight collecté ne reste dormant : chaque observation génère une décision design tracée, défendable auprès du business et reproductible dans le temps."
+    },
+    "external_references": {
+      "title": "Références externes — Sources d'inspiration officielles",
+      "source": "PDF v1.1 §3.4.6",
+      "description": "Cette section regroupe les ressources externes officielles qui complètent le contenu pédagogique du module UX Optimization.",
+      "categories": [
+        {
+          "id": "hotjar_ux_insights",
+          "name": "Hotjar UX insights",
+          "resources": [
+            {
+              "label": "Hotjar Learning Hub",
+              "url_hint": "hotjar.com/learn",
+              "description": "Best practices heatmaps, session recordings, surveys."
+            },
+            {
+              "label": "UX Glossary Hotjar",
+              "url_hint": "hotjar.com/ux-design",
+              "description": "Vocabulaire UX standardisé utilisé dans les playbooks Euklydia."
+            }
+          ]
+        },
+        {
+          "id": "nielsen_norman_group",
+          "name": "Nielsen Norman Group UX frameworks",
+          "resources": [
+            {
+              "label": "Les 10 heuristiques d'utilisabilité de Jakob Nielsen",
+              "url_hint": "nngroup.com/articles/ten-usability-heuristics",
+              "description": "Base de l'audit heuristique du Prompt 1."
+            },
+            {
+              "label": "UX Maturity Model (NN/g)",
+              "url_hint": "nngroup.com/articles/ux-maturity-model",
+              "description": "Référentiel pour positionner la maturité UX d'une organisation."
+            },
+            {
+              "label": "Discount Usability Engineering",
+              "url_hint": "nngroup.com/articles/discount-usability",
+              "description": "Approche pragmatique de tests utilisateurs avec budget limité (n=5)."
+            },
+            {
+              "label": "Frameworks NN/g de priorisation des frictions",
+              "url_hint": "nngroup.com/articles/prioritization-matrices",
+              "description": "Impact × Effort matrix — intégrés au mapping Insight → Action."
+            }
+          ]
+        }
+      ],
+      "pedagogical_usage": "Ces références sont citées tout au long du module comme sources de vérité méthodologiques. La rigueur académique du Nielsen Norman Group apporte une légitimité forte au contenu Euklydia auprès des designers seniors et des décideurs."
+    },
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {
+          "when": "J0",
+          "what": "Mesure tes métriques UX actuels : taux de conversion, bounce rate, time-on-page (baseline)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Compare les métriques UX avant/après optimisation IA"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif — impact sur la conversion (observatoire)"
+        },
+        {
+          "when": "J+60",
+          "what": "Consolidation finale — impact long terme sur les conversions"
+        }
+      ]
+    }
+  }
+}

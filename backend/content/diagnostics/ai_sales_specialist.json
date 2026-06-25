@@ -1,0 +1,149 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Sales Specialist",
+  "career_path_id": 79,
+  "source": "PDF Parcours AI Sales Specialist v1.1 — Mai 2026",
+  "last_updated": "2026-05-12",
+
+  "skills": [
+    {
+      "name": "Qualification IA des leads",
+      "description": "Capacité à utiliser l'IA pour qualifier des leads selon des frameworks reconnus (BANT, fit produit, signaux d'achat) et à intégrer le scoring dans son CRM. Compétence couvrant 8 axes : frameworks de qualification, prompts ChatGPT, signaux d'achat LinkedIn, classification A/B/C/D, scoring CRM natif, workflows multi-étapes, mesure d'impact, et adaptation au contexte B2B Afrique du Nord."
+    },
+    {
+      "name": "Prospection hyper-personnalisée",
+      "description": "Capacité à concevoir et déployer des séquences de prospection multi-canal (email + LinkedIn + WhatsApp) personnalisées par persona avec l'IA. Compétence couvrant 8 axes : personnalisation à l'échelle, emails personnalisés, séquences multi-touch, segmentation par persona, A/B tests, contextualisation par actualité, mesure reply/meeting rates, et adaptation multi-langue Afrique du Nord."
+    },
+    {
+      "name": "Conversations commerciales assistées par IA",
+      "description": "Capacité à préparer, exécuter et analyser des appels commerciaux avec l'aide d'agents IA (briefing pré-call, gestion d'objections en temps réel, post-call analysis, deal scoring). Compétence couvrant 8 axes : briefing pré-call, génération de briefings, gestion d'objections temps réel, copilots, transcription, mise à jour CRM auto, mesure qualité, et adaptation au contexte relationnel Afrique du Nord."
+    }
+  ],
+
+  "scoring_logic": {
+    "questions_per_skill": 3,
+    "options_per_question": 4,
+    "score_mapping": {
+      "0_correct": 0,
+      "1_correct": 33,
+      "2_correct": 67,
+      "3_correct": 100
+    },
+    "module_priority_rules": [
+      {"score_range": "0-33", "level": "Faible maîtrise", "priority": "HIGH"},
+      {"score_range": "67", "level": "Maîtrise partielle", "priority": "MEDIUM"},
+      {"score_range": "100", "level": "Bonne maîtrise", "priority": "LOW"}
+    ]
+  },
+
+  "questions": [
+    {
+      "skill_index": 0,
+      "order": 1,
+      "dimension": "Connaissance",
+      "text": "Qu'est-ce qu'un « lead score » dans un contexte de vente B2B ?",
+      "option_a": "Un système de tri par ancienneté de la fiche dans le CRM",
+      "option_b": "Une note attribuée à un prospect selon son potentiel d'achat et son fit avec l'offre",
+      "option_c": "Le nombre de visites du prospect sur le site web",
+      "option_d": "Le nombre d'emails envoyés au prospect",
+      "correct_answer": "B",
+      "explanation": "Un lead score est une évaluation chiffrée du potentiel d'un prospect, basée sur des critères business (BANT, fit produit, intent signals). Ce n'est ni un tri temporel, ni une simple métrique d'engagement web ou d'envoi."
+    },
+    {
+      "skill_index": 0,
+      "order": 2,
+      "dimension": "Application",
+      "text": "Tu reçois 200 leads par mois via ton site web. Quelle est la méthode la plus efficace pour les qualifier rapidement avec l'IA ?",
+      "option_a": "Lire chaque fiche lead manuellement et noter de 1 à 10",
+      "option_b": "Configurer HubSpot AI ou Salesforce Einstein avec des critères BANT et fit produit",
+      "option_c": "Demander à ChatGPT de juger sans données structurées",
+      "option_d": "Ignorer les leads dont le budget annoncé est inférieur à un seuil arbitraire",
+      "correct_answer": "B",
+      "explanation": "Sur 200 leads/mois, le scoring natif IA d'un CRM avec des critères structurés (BANT + fit) est la solution la plus scalable. Le manuel ne tient pas la cadence, ChatGPT sans données n'est pas fiable, et un seuil arbitraire fait perdre des opportunités."
+    },
+    {
+      "skill_index": 0,
+      "order": 3,
+      "dimension": "Maîtrise",
+      "text": "Tu veux mettre en place un scoring multi-critères (BANT + signaux d'intent + fit produit) intégré à ton CRM en temps réel. Quelle architecture est la plus robuste à long terme ?",
+      "option_a": "Faire le scoring manuellement chaque vendredi sur Excel",
+      "option_b": "Utiliser uniquement les règles natives du CRM, sans IA générative",
+      "option_c": "Combiner enrichissement automatique des données, scoring IA via API, et synchronisation CRM en temps réel",
+      "option_d": "Demander à ChatGPT à chaque nouveau lead par copier-coller manuel",
+      "correct_answer": "C",
+      "explanation": "Une architecture robuste combine 3 composants : (1) enrichissement automatique des données prospects, (2) scoring IA via API pour évaluation continue, (3) synchronisation CRM en temps réel. Le manuel ne scale pas, les règles seules manquent de sophistication, le copier-coller est non-reproductible."
+    },
+    {
+      "skill_index": 1,
+      "order": 1,
+      "dimension": "Connaissance",
+      "text": "Qu'est-ce que la « personnalisation à l'échelle » (personalization at scale) dans un contexte d'outreach commercial ?",
+      "option_a": "Envoyer le même email à 10 000 prospects en parallèle",
+      "option_b": "Adapter chaque message aux caractéristiques du prospect grâce à l'IA, sur un grand volume",
+      "option_c": "Personnaliser uniquement le prénom dans l'objet de l'email",
+      "option_d": "Utiliser des templates différents pour 3-4 segments de prospects (segmentation manuelle)",
+      "correct_answer": "B",
+      "explanation": "La personnalisation à l'échelle utilise l'IA pour adapter chaque message individuellement aux caractéristiques du prospect, sur un grand volume. Ce n'est ni du spam de masse, ni la simple personnalisation du prénom, ni la segmentation manuelle traditionnelle."
+    },
+    {
+      "skill_index": 1,
+      "order": 2,
+      "dimension": "Application",
+      "text": "Tu veux lancer une séquence d'outreach multi-touch sur 500 prospects segmentés par persona. Quelle approche est la plus efficace ?",
+      "option_a": "Utiliser un seul template d'email envoyé à tous",
+      "option_b": "Construire 3 séquences segmentées par persona, multi-canal (email + LinkedIn + WhatsApp), avec variables IA + A/B test sur les variantes",
+      "option_c": "Envoyer 500 InMails LinkedIn manuellement",
+      "option_d": "Demander à ChatGPT de rédiger 500 emails uniques manuellement",
+      "correct_answer": "B",
+      "explanation": "L'approche optimale combine segmentation par persona, multi-canal (incluant WhatsApp - canal dominant Afrique du Nord), variables IA pour la personnalisation, et A/B testing pour optimiser. Le template unique manque de pertinence, le manuel ne scale pas."
+    },
+    {
+      "skill_index": 1,
+      "order": 3,
+      "dimension": "Maîtrise",
+      "text": "Tu veux déployer un agent autonome qui enrichit chaque prospect, génère un email contextualisé, et orchestre une séquence multi-canal (email + LinkedIn + WhatsApp). Quelle architecture est nécessaire ?",
+      "option_a": "Une plateforme d'emailing classique avec mail merge",
+      "option_b": "Sales Navigator + copier-coller manuel dans ChatGPT",
+      "option_c": "Une stack combinant : (1) source d'enrichissement de données prospects, (2) IA générative, (3) orchestrateur de workflow, (4) outils d'envoi multi-canal",
+      "option_d": "WhatsApp Business uniquement avec messages prédéfinis",
+      "correct_answer": "C",
+      "explanation": "Un agent autonome multi-canal nécessite 4 composants logiques : enrichissement des données, IA générative pour la rédaction contextualisée, orchestrateur de workflow pour le pilotage, et outils d'envoi multi-canal. Les autres options sont soit trop simples, soit non-scalables."
+    },
+    {
+      "skill_index": 2,
+      "order": 1,
+      "dimension": "Connaissance",
+      "text": "Qu'est-ce qu'un « pre-call briefing » assisté par IA ?",
+      "option_a": "Une réunion d'équipe avant chaque appel commercial",
+      "option_b": "Une fiche de préparation générée par l'IA avec les infos clés du prospect (poste, entreprise, actualités, pain points)",
+      "option_c": "Un script de vente lu mot-à-mot pendant l'appel",
+      "option_d": "Une analyse post-appel uniquement",
+      "correct_answer": "B",
+      "explanation": "Un pre-call briefing assisté par IA est une fiche de préparation générée automatiquement avant l'appel, contenant les informations clés du prospect. Ce n'est pas une réunion, ni un script rigide, ni une analyse post-appel."
+    },
+    {
+      "skill_index": 2,
+      "order": 2,
+      "dimension": "Application",
+      "text": "En plein appel commercial, le prospect émet une objection forte sur le prix. Comment l'IA peut-elle t'aider en temps réel ?",
+      "option_a": "Elle ne peut pas, l'IA n'est utile qu'avant ou après l'appel",
+      "option_b": "Un copilot transcrit l'appel en live et suggère des éléments de réponse contextuels (témoignages clients, ROI, comparatifs)",
+      "option_c": "Elle propose un script de réponse standard à lire mot-à-mot",
+      "option_d": "Elle alerte le manager qui doit rejoindre l'appel",
+      "correct_answer": "B",
+      "explanation": "Un copilot conversationnel temps réel transcrit l'appel et suggère des éléments contextuels pertinents (témoignages, ROI, comparatifs) pour gérer l'objection. Les scripts standards manquent de contextualisation, et l'escalade au manager n'est pas une bonne pratique systématique."
+    },
+    {
+      "skill_index": 2,
+      "order": 3,
+      "dimension": "Maîtrise",
+      "text": "Tu veux industrialiser tes appels commerciaux avec un agent multi-fonction. Quelles capacités doit avoir cet agent ?",
+      "option_a": "Uniquement la transcription post-appel",
+      "option_b": "Uniquement le briefing pré-call",
+      "option_c": "Briefing pré-call + transcription temps réel + suggestions d'objection handling + post-call analysis + deal scoring + mise à jour CRM automatique",
+      "option_d": "Briefing pré-call + transcription post-appel uniquement (sans temps réel)",
+      "correct_answer": "C",
+      "explanation": "Un agent multi-fonction industrialisé doit couvrir le cycle complet : préparation (briefing), exécution (transcription temps réel + objection handling), analyse (post-call + deal scoring), et automation (mise à jour CRM). Les solutions partielles manquent l'aspect critique du temps réel."
+    }
+  ]
+}

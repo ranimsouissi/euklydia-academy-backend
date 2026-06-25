@@ -1,0 +1,123 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Designer",
+  "career_path_id": 81,
+  "source": "PDF Parcours AI Designer v1.1 — Mai 2026",
+
+  "skills": [
+    {
+      "name": "AI Visual Ideation & Concept",
+      "description": "Capacité à utiliser l'IA générative (Midjourney, DALL-E, Stable Diffusion, Figma AI) pour produire rapidement des concepts visuels variés et itérer efficacement à partir d'un brief."
+    },
+    {
+      "name": "AI UX Intelligence",
+      "description": "Capacité à conduire un audit UX assisté par IA, identifier les frictions dans l'expérience utilisateur, et générer des recommandations actionnables (heuristiques de Nielsen, analytics comportementale, A/B tests)."
+    },
+    {
+      "name": "AI Design System & Ops",
+      "description": "Capacité à construire et maintenir un design system avec l'aide de l'IA : génération de composants, design tokens, validation de cohérence, automatisation du design ops."
+    }
+  ],
+
+  "questions": [
+    {
+      "order": 1,
+      "skill_index": 0,
+      "text": "Qu'est-ce qu'un prompt visuel dans le contexte de l'IA générative pour le design ?",
+      "option_a": "Un croquis dessiné à la main qu'on scanne dans l'IA.",
+      "option_b": "Une instruction textuelle structurée (sujet + style + cadrage + ambiance) donnée à l'IA pour générer un visuel précis.",
+      "option_c": "Un type de filtre Photoshop.",
+      "option_d": "Une commande vocale destinée à un assistant IA.",
+      "correct_answer": "B",
+      "explanation": "Un prompt visuel est une instruction textuelle structurée combinant sujet, style, cadrage et ambiance, qui guide l'IA générative (Midjourney, DALL-E, Stable Diffusion) vers un visuel précis. Niveau cognitif : Connaissance."
+    },
+    {
+      "order": 2,
+      "skill_index": 0,
+      "text": "Tu reçois un brief : « 5 propositions de logo pour une marque de cosmétique naturelle marocaine ». Quelle approche IA est la plus efficace ?",
+      "option_a": "Demander à Midjourney « fais-moi un logo de cosmétique » et choisir le premier résultat.",
+      "option_b": "Construire un prompt structuré (style + références + éléments locaux + contraintes), itérer en plusieurs variations, puis raffiner les 2-3 meilleurs concepts.",
+      "option_c": "Faire les 5 logos manuellement sans utiliser l'IA.",
+      "option_d": "Copier les logos des concurrents et les modifier légèrement.",
+      "correct_answer": "B",
+      "explanation": "L'approche professionnelle combine un prompt structuré, l'itération en plusieurs variations, puis le raffinement des meilleurs concepts. C'est le workflow Diverger → Sélectionner → Raffiner du module. Niveau cognitif : Application."
+    },
+    {
+      "order": 3,
+      "skill_index": 0,
+      "text": "Tu veux industrialiser ton processus d'idéation visuelle pour livrer 10 concepts en 30 minutes au lieu de 2 jours. Quelle architecture choisir ?",
+      "option_a": "Un seul outil (Midjourney) sans framework de prompt.",
+      "option_b": "Garder un workflow 100 % manuel sur Illustrator.",
+      "option_c": "Bibliothèque de prompts par style/use case + Midjourney/DALL-E avec paramètres avancés (--ar, --style, --chaos) + workflow d'itération v1→v10 + critères d'évaluation.",
+      "option_d": "Demander à un freelance de tout faire.",
+      "correct_answer": "C",
+      "explanation": "L'industrialisation passe par une architecture complète : bibliothèque de prompts versionnée, paramètres avancés Midjourney maîtrisés, workflow d'itération v1→v10 chronométré, et critères d'évaluation objectifs. Niveau cognitif : Maîtrise."
+    },
+    {
+      "order": 4,
+      "skill_index": 1,
+      "text": "Que sont les 10 heuristiques de Nielsen dans le contexte UX ?",
+      "option_a": "10 commandements pour réussir une réunion design.",
+      "option_b": "10 principes universels d'utilisabilité (visibilité du système, cohérence, prévention d'erreurs, etc.) servant de référentiel pour évaluer une interface.",
+      "option_c": "10 styles graphiques tendance.",
+      "option_d": "10 outils de prototypage.",
+      "correct_answer": "B",
+      "explanation": "Les 10 heuristiques de Jakob Nielsen sont des principes universels d'utilisabilité (visibilité du statut, cohérence, prévention d'erreurs, etc.) qui constituent le référentiel de référence du Nielsen Norman Group pour évaluer une interface. Niveau cognitif : Connaissance."
+    },
+    {
+      "order": 5,
+      "skill_index": 1,
+      "text": "Le taux de conversion de la page checkout d'un site e-commerce stagne. Comment l'IA peut-elle aider à diagnostiquer le problème UX ?",
+      "option_a": "Refaire la page en plus joli.",
+      "option_b": "Combiner Hotjar (heatmaps + recordings) + audit IA des heuristiques de Nielsen + analyse LLM des verbatims utilisateurs pour identifier les frictions et prioriser les corrections.",
+      "option_c": "Demander aux développeurs d'ajouter des animations.",
+      "option_d": "Augmenter le budget marketing pour compenser.",
+      "correct_answer": "B",
+      "explanation": "La triangulation est la clé : Hotjar pour le comportemental, audit IA des heuristiques Nielsen pour l'évaluation experte, et analyse LLM des verbatims pour le qualitatif. Cette combinaison révèle les vraies frictions et permet de prioriser. Niveau cognitif : Application."
+    },
+    {
+      "order": 6,
+      "skill_index": 1,
+      "text": "Tu veux mettre en place un système d'audit UX continu qui détecte les frictions et propose des actions correctives en quasi-temps réel. Quelle stack utiliser ?",
+      "option_a": "Faire un audit UX manuel chaque trimestre.",
+      "option_b": "Uniquement Google Analytics sans outils complémentaires.",
+      "option_c": "Hotjar/Microsoft Clarity (comportemental) + GA4 (quantitatif) + LLM (synthèse + recommandations) + Figma (mockups correctifs) + workflow Make/n8n pour alerter et créer les tickets Jira.",
+      "option_d": "Demander aux utilisateurs de remplir un long questionnaire.",
+      "correct_answer": "C",
+      "explanation": "Un système d'audit UX continu requiert l'intégration de plusieurs couches : comportemental (Hotjar/Clarity), quantitatif (GA4), synthèse IA (LLM), production correctifs (Figma) et orchestration (Make/n8n). C'est le workflow W2 du module 2. Niveau cognitif : Maîtrise."
+    },
+    {
+      "order": 7,
+      "skill_index": 2,
+      "text": "Que sont les design tokens dans un design system ?",
+      "option_a": "Des badges qu'on attribue aux meilleurs designers.",
+      "option_b": "Des variables nommées qui stockent les valeurs visuelles atomiques d'une marque (couleurs, typographies, espacements, rayons) pour garantir la cohérence multi-supports.",
+      "option_c": "Des fichiers Photoshop.",
+      "option_d": "Des cryptomonnaies pour designers.",
+      "correct_answer": "B",
+      "explanation": "Les design tokens sont des variables nommées (ex: color.primary.600, spacing.md) qui stockent les valeurs visuelles atomiques d'une marque. Ils sont la fondation d'un design system industrialisé et permettent la sync Figma ↔ code. Niveau cognitif : Connaissance."
+    },
+    {
+      "order": 8,
+      "skill_index": 2,
+      "text": "Ton entreprise a 4 produits digitaux qui n'ont aucune cohérence visuelle (boutons différents, palettes différentes, typos différentes). Comment l'IA peut-elle aider à reprendre le contrôle ?",
+      "option_a": "Refaire chaque produit à la main, projet par projet.",
+      "option_b": "Faire un audit de cohérence assisté par IA, extraire des design tokens communs, générer une bibliothèque de composants Figma, et valider la cohérence des futurs écrans avec un système automatisé.",
+      "option_c": "Imposer une seule couleur partout.",
+      "option_d": "Demander à chaque équipe de continuer comme elle veut.",
+      "correct_answer": "B",
+      "explanation": "L'approche professionnelle est : audit de cohérence IA, extraction de tokens communs, génération de bibliothèque Figma, validation automatisée. C'est le workflow W1 du module 3 (Bootstrap design system en 1 semaine). Niveau cognitif : Application."
+    },
+    {
+      "order": 9,
+      "skill_index": 2,
+      "text": "Tu veux déployer une plateforme de design ops qui génère automatiquement les composants, valide la cohérence et synchronise avec le code. Quelles capacités doit-elle avoir ?",
+      "option_a": "Uniquement un fichier Figma partagé sans gouvernance.",
+      "option_b": "Uniquement un guide PDF de la charte graphique.",
+      "option_c": "Figma AI (génération de composants) + design tokens centralisés (Tokens Studio) + validation IA de cohérence + sync vers GitHub via API + documentation auto + monitoring des écarts.",
+      "option_d": "Demander aux développeurs d'inventer leurs propres composants à chaque projet.",
+      "correct_answer": "C",
+      "explanation": "Une plateforme de design ops industrialisée combine génération (Figma AI), centralisation (Tokens Studio), validation IA, sync code (GitHub API), documentation auto et monitoring. C'est le Scalable Design Ops Framework du module 3. Niveau cognitif : Maîtrise."
+    }
+  ]
+}

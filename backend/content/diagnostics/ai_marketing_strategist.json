@@ -1,0 +1,149 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Marketing Strategist",
+  "career_path_id": 80,
+  "source": "PDF Parcours AI Marketing Strategist v1.1 — Mai 2026",
+  "last_updated": "2026-05-12",
+
+  "skills": [
+    {
+      "name": "AI Content Strategy & Creation",
+      "description": "Capacité à construire une stratégie de contenu IA-augmentée : encoder une brand voice dans des prompts IA, structurer un calendrier éditorial trimestriel multi-canal, générer du contenu cohérent (blog, LinkedIn, newsletter), industrialiser le repurposing, et mesurer l'engagement. Compétence couvrant 8 axes : encodage brand voice, prompts par persona, calendrier trimestriel, repurposing multi-canal, mesure engagement, bibliothèque de prompts, pipeline semi-automatisé, et adaptation bilingue FR/AR Afrique du Nord."
+    },
+    {
+      "name": "AI Campaign & Growth Optimization",
+      "description": "Capacité à construire et opérer une growth loop IA : générer des variantes d'ad copy à grande échelle, produire des visuels publicitaires avec l'IA, concevoir des A/B tests rigoureux, lire les données de performance, et scaler intelligemment. Compétence couvrant 8 axes : leviers CTR/CPC/CVR/CAC/ROAS, génération ad copy, génération visuels, A/B testing structuré, lecture rapports Meta/Google/TikTok, growth loop continue, capitalisation insights, et adaptation plateformes dominantes Afrique du Nord."
+    },
+    {
+      "name": "AI Audience Intelligence",
+      "description": "Capacité à extraire des personas data-driven à partir de données utilisateurs (CRM, GA4, Meta, e-commerce), les enrichir avec l'IA, et activer chaque segment avec un messaging personnalisé. Compétence couvrant 8 axes : frameworks de segmentation (RFM, behavioral, psychographique), extraction multi-sources, clustering IA, adaptation messaging par persona, configuration audiences custom, mesure relevance score, boucle d'apprentissage continue, et spécificités culturelles Afrique du Nord."
+    }
+  ],
+
+  "scoring_logic": {
+    "questions_per_skill": 3,
+    "options_per_question": 4,
+    "score_mapping": {
+      "0_correct": 0,
+      "1_correct": 33,
+      "2_correct": 67,
+      "3_correct": 100
+    },
+    "module_priority_rules": [
+      {"score_range": "0-33", "level": "Faible maîtrise", "priority": "HIGH"},
+      {"score_range": "67", "level": "Maîtrise partielle", "priority": "MEDIUM"},
+      {"score_range": "100", "level": "Bonne maîtrise", "priority": "LOW"}
+    ]
+  },
+
+  "questions": [
+    {
+      "skill_index": 0,
+      "order": 1,
+      "dimension": "Connaissance",
+      "text": "Qu'est-ce qu'une brand voice dans un contexte de marketing de contenu IA ?",
+      "option_a": "Le ton de la voix dans une publicité radio.",
+      "option_b": "L'identité éditoriale d'une marque (ton, vocabulaire, style) qu'on encode dans l'IA pour produire du contenu cohérent.",
+      "option_c": "Le nom du compte officiel d'une marque sur les réseaux sociaux.",
+      "option_d": "Un type de chatbot vocal.",
+      "correct_answer": "B",
+      "explanation": "Une brand voice est l'identité éditoriale d'une marque (ton, vocabulaire, style) qu'on encode dans des prompts IA pour produire du contenu cohérent à grande échelle. Ce n'est ni une voix audio, ni un compte social, ni un chatbot."
+    },
+    {
+      "skill_index": 0,
+      "order": 2,
+      "dimension": "Application",
+      "text": "Tu dois publier 4 articles de blog par mois pour une marque B2B au Maghreb. Quelle est la méthode la plus efficace avec l'IA ?",
+      "option_a": "Demander à ChatGPT « écris-moi un article sur le marketing digital ».",
+      "option_b": "Construire un calendrier éditorial trimestriel, créer des prompts structurés par persona et thème, puis itérer en révision humaine.",
+      "option_c": "Copier-coller des articles de concurrents et les reformuler.",
+      "option_d": "Écrire les 4 articles à la main sans IA.",
+      "correct_answer": "B",
+      "explanation": "Une stratégie de contenu efficace combine planification (calendrier trimestriel), structuration (prompts par persona et thème), et révision humaine. Les prompts trop génériques produisent du contenu plat, le plagiat est illégal et risqué, et le manuel ne scale pas."
+    },
+    {
+      "skill_index": 0,
+      "order": 3,
+      "dimension": "Maîtrise",
+      "text": "Tu veux industrialiser la production de contenu (blog + LinkedIn + newsletter) avec une ligne éditoriale cohérente et un calendrier auto-piloté. Quelle architecture choisir ?",
+      "option_a": "Tout faire manuellement chaque lundi sur Notion.",
+      "option_b": "Utiliser uniquement Canva avec ses templates par défaut.",
+      "option_c": "Construire un système : prompt stack par persona + RAG sur la brand voice + calendrier éditorial automatisé (Notion AI / Airtable + Make) + revue humaine.",
+      "option_d": "Demander à un freelance de tout faire et arrêter d'utiliser l'IA.",
+      "correct_answer": "C",
+      "explanation": "Une architecture industrielle combine 4 composants : prompt stack par persona, RAG (Retrieval-Augmented Generation) sur la brand voice pour la cohérence, calendrier automatisé (Notion AI ou Airtable + Make), et revue humaine. Les autres options sont soit non-scalables, soit limitées en cohérence éditoriale."
+    },
+    {
+      "skill_index": 1,
+      "order": 1,
+      "dimension": "Connaissance",
+      "text": "Que signifie CAC dans un contexte de campagne marketing ?",
+      "option_a": "Coût d'Affichage Cumulé.",
+      "option_b": "Coût d'Acquisition Client : montant moyen dépensé en publicité pour acquérir un nouveau client.",
+      "option_c": "Conversion d'Audience Ciblée.",
+      "option_d": "Cost Adjustment Calculation.",
+      "correct_answer": "B",
+      "explanation": "CAC = Coût d'Acquisition Client. C'est le montant moyen dépensé en publicité pour acquérir un nouveau client, calculé en divisant la dépense totale par le nombre de nouveaux clients acquis. C'est l'un des KPIs principaux en performance marketing."
+    },
+    {
+      "skill_index": 1,
+      "order": 2,
+      "dimension": "Application",
+      "text": "Ta campagne Meta Ads a un CAC élevé (40 € au lieu de 25 €). Quelle approche IA est la plus efficace pour le réduire ?",
+      "option_a": "Augmenter le budget pour compenser le CAC élevé.",
+      "option_b": "Lancer un A/B test multi-créa avec 5+ variantes générées par IA (angles, accroches, visuels), couper les sous-performantes et scaler les gagnantes.",
+      "option_c": "Garder la même créa et changer uniquement l'audience.",
+      "option_d": "Arrêter la campagne et passer 100% en SEO.",
+      "correct_answer": "B",
+      "explanation": "Un A/B test multi-créa structuré (5+ variantes générées par IA + coupe des sous-performantes + scale des gagnantes) est l'approche méthodique pour réduire le CAC. Augmenter le budget ne résout pas le problème de fond, changer seulement l'audience est partiel, et abandonner la plateforme est extrême."
+    },
+    {
+      "skill_index": 1,
+      "order": 3,
+      "dimension": "Maîtrise",
+      "text": "Tu veux mettre en place une growth loop IA qui génère, teste et optimise les créas publicitaires en continu. Quelle stack utiliser ?",
+      "option_a": "Excel + envoi manuel des créas chaque vendredi.",
+      "option_b": "Uniquement Meta Ads Manager sans outil externe.",
+      "option_c": "GPT-4 (ad copy) + Midjourney/DALL-E (visuels) + AdCreative.ai + Meta/Google Ads API + dashboard de performance + boucle d'apprentissage automatique.",
+      "option_d": "Demander à un graphiste freelance 50 visuels.",
+      "correct_answer": "C",
+      "explanation": "Une growth loop industrielle combine 5 composants : IA générative texte (GPT-4), IA générative visuelle (Midjourney/DALL-E/AdCreative.ai), API Meta/Google Ads pour le déploiement automatique, dashboard de performance, et boucle d'apprentissage. Les autres options sont soit manuelles soit incomplètes."
+    },
+    {
+      "skill_index": 2,
+      "order": 1,
+      "dimension": "Connaissance",
+      "text": "Qu'est-ce qu'un persona marketing data-driven ?",
+      "option_a": "Un avatar fictif inventé sans données.",
+      "option_b": "Une représentation synthétique d'un segment client construite à partir de données réelles (analytics, CRM, feedback) et enrichie par l'IA.",
+      "option_c": "Le compte personnel du fondateur de l'entreprise.",
+      "option_d": "Une page « À propos » sur le site web.",
+      "correct_answer": "B",
+      "explanation": "Un persona data-driven est une représentation synthétique d'un segment client construite à partir de données réelles (analytics, CRM, feedback) et enrichie par l'IA. Il diffère du persona intuitif (inventé) car il est extrait de signaux comportementaux réels et validé par la donnée."
+    },
+    {
+      "skill_index": 2,
+      "order": 2,
+      "dimension": "Application",
+      "text": "Tu as 10 000 utilisateurs dans ta base mais ton ciblage publicitaire est imprécis. Comment l'IA peut-elle améliorer ta segmentation ?",
+      "option_a": "Cibler tout le monde de manière identique.",
+      "option_b": "Faire une segmentation comportementale (recency, frequency, monetary + centres d'intérêt) avec un LLM qui traduit la donnée en personas actionnables.",
+      "option_c": "Segmenter uniquement par âge.",
+      "option_d": "Acheter une base externe sans la qualifier.",
+      "correct_answer": "B",
+      "explanation": "Une segmentation comportementale RFM (Recency, Frequency, Monetary) + centres d'intérêt, traduite en personas actionnables par un LLM, est l'approche moderne. Cibler tout le monde dilue le message, segmenter uniquement par âge est trop simpliste, et acheter une base externe non qualifiée est risqué."
+    },
+    {
+      "skill_index": 2,
+      "order": 3,
+      "dimension": "Maîtrise",
+      "text": "Tu veux déployer un système d'audience intelligence en continu qui détecte automatiquement les nouveaux segments à fort potentiel. Quelles capacités doit-il avoir ?",
+      "option_a": "Uniquement un export CSV trimestriel.",
+      "option_b": "Uniquement les rapports natifs de Google Analytics.",
+      "option_c": "Connexion CRM + analytics + LLM pour clustering + génération de personas + détection automatique de patterns + recommandation de canaux + alimentation des campagnes.",
+      "option_d": "Demander à chaque utilisateur de remplir un formulaire de 50 questions.",
+      "correct_answer": "C",
+      "explanation": "Un système d'audience intelligence en continu nécessite 6 capacités : connexion multi-sources (CRM + analytics), clustering IA, génération de personas, détection automatique de patterns, recommandation de canaux, et alimentation directe des campagnes. Les solutions partielles ou intrusives (formulaires longs) ne sont pas exploitables à l'échelle."
+    }
+  ]
+}

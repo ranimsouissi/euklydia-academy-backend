@@ -1,0 +1,533 @@
+{
+  "$schema_version": "1.1",
+  "role": "AI Project Manager",
+  "career_path_id": 82,
+  "module_order": 2,
+  "source": "PDF Parcours AI Project Manager v1.1 — Mai 2026 — Ranim Souissi",
+  "v1_1_additions": [
+    "Note pédagogique PMI (PMBOK, PMP, PMI-RMP) — section_content.pmi_explanatory_note",
+    "Predictive Risk Models (livrable Euklydia : 4 piliers architecture) — section_content.predictive_risk_models",
+    "Risques contextuels Maghreb (8 risques détaillés) — section_content.maghreb_contextual_risks",
+    "Références externes (PMI frameworks + Monday.com risk tracking) — section_content.external_references"
+  ],
+  "display_order": 2,
+  "title": "Risk Identification",
+  "skill_name": "AI Risk Intelligence",
+  "level": "Pratique",
+  "estimated_duration_min": 300,
+  "format": "blended",
+  "journey_stage": "Cycle de pilotage — Risques",
+  "is_active": true,
+  "next_recommended_module": "Team Productivity Optimization",
+  "description": "Conduis une risk discovery IA-augmentée qui identifie 80 % des risques majeurs dès le J0, met en place une veille continue via l'analyse des comptes-rendus et tickets, et déclenche les playbooks de mitigation adaptés. Tu réduis tes retards projet de 30 % minimum.",
+  "learning_objective": "À l'issue de ce module, l'apprenant sait (1) conduire un atelier de risk discovery exhaustif en 1 heure (15-25 risques structurés), (2) détecter les signaux faibles dans les comptes-rendus et tickets, et (3) construire des playbooks de mitigation activables immédiatement.",
+  "expected_outcome": "−30 % de retards projet sur l'année (vs 60-80 % de projets en retard), 15-25 risques identifiés au démarrage (vs 3-5 génériques), délai entre apparition d'un signal et action correctrice de 0-3 jours (vs 1-4 semaines).",
+  "why_this_module": "Beaucoup d'équipes projet au Maghreb fonctionnent en mode réactif face aux risques : on découvre les problèmes quand ils surviennent (retard d'un fournisseur, départ d'un membre clé, dépendance technique cachée), puis on improvise. Cette approche génère des retards, des dépassements de budget et de la frustration. L'identification proactive des risques est connue depuis longtemps en gestion de projet, mais elle reste rarement appliquée car perçue comme chronophage.",
+  "recommended_when": "Quand 50 %+ de tes projets accumulent des retards, que ton risk register contient moins de 5 risques génériques, ou que tu réagis aux problèmes au lieu de les anticiper.",
+  "role_based_example": "Karim pilote un projet de migration cloud sur 4 mois. Au démarrage, il fait une « petite analyse de risques » de 30 minutes en comité : 3 risques sont identifiés. Trois mois plus tard, le projet a 6 semaines de retard. Causes : un fournisseur qui n'a pas livré à temps, une dépendance API non identifiée, un développeur clé qui a démissionné, un changement de scope demandé par la direction. Aucun de ces risques n'avait été anticipé. Avec ce module, Karim conduit une risk discovery exhaustive et met en place une veille continue.",
+  "takeaway": "L'anticipation des risques n'est pas une affaire de chance ou d'expérience seule : c'est une méthode reproductible. La risk intelligence IA-augmentée transforme une activité subjective en un processus structuré qui couvre 6 catégories (technique, humain, fournisseur, scope, financier, externe) et déclenche des playbooks préparés.",
+  "action_point": "Cette semaine : choisis un projet en cours, prépare le brief enrichi (équipe, stack, fournisseurs, stakeholders), applique le Prompt 1 (risk discovery), anime un atelier équipe de 45 min pour valider, et construis 3 playbooks de mitigation pour les risques majeurs.",
+  "practical_application": "Application directe sur tes vrais projets en cours. Tu construis ta bibliothèque de playbooks par type de risque, tu mesures la réduction des retards, et tu structures une cadence de revue hebdomadaire.",
+  "key_concepts": [
+    "Framework de gestion des risques du PMI (Project Management Institute)",
+    "Conduite d'une session de risk discovery exhaustive en 1 heure",
+    "Construction d'un risk register structuré (probabilité × impact × mitigation)",
+    "Détection des signaux faibles dans les comptes-rendus, tickets et messages Slack",
+    "Construction de playbooks de mitigation par type de risque (technique, humain, fournisseur)",
+    "Mise en place d'une veille continue automatisée du risque",
+    "Communication des risques aux stakeholders avec le bon niveau de détail"
+  ],
+  "prompt_examples": [
+    {
+      "id": "prompt_1_risk_discovery",
+      "title": "Prompt 1 — Atelier de risk discovery exhaustif",
+      "use_case": "Conduire une session structurée qui couvre les 6 catégories principales de risques",
+      "tags": [
+        "risk discovery",
+        "atelier",
+        "PMI"
+      ],
+      "content": "Tu es un risk manager senior certifié PMP/PMI-RMP avec 15 ans d'expérience.\nConduis un atelier de risk discovery exhaustif sur ce projet.\n\nPROJET ANALYSÉ :\n- Nom : [NOM_PROJET]\n- Objectif : [OBJECTIF]\n- Durée : [DUREE_PREVUE]\n- Budget : [BUDGET]\n- Équipe : [PROFILS_ET_NOMBRE]\n- Type : [DEV / TRANSFORMATION / OPS / MARKETING]\n- Stack technique / fournisseurs : [TECH_ET_PARTENAIRES]\n- Stakeholders clés : [SPONSORS_ET_PARTIES_PRENANTES]\n\nPOUR CHAQUE CATÉGORIE, IDENTIFIE 3 À 5 RISQUES :\n1. RISQUES TECHNIQUES\n   (architecture, performance, sécurité, dette technique...)\n\n2. RISQUES HUMAINS / ÉQUIPE\n   (turnover, surcharge, compétences manquantes, conflits...)\n\n3. RISQUES FOURNISSEURS / PARTENAIRES\n   (retard livraison, dépendance, qualité, contractuel...)\n\n4. RISQUES DE SCOPE\n   (changements demandés, périmètre flou, sur-spécification...)\n\n5. RISQUES FINANCIERS\n   (dépassement budget, retard de paiement, taux de change...)\n\n6. RISQUES EXTERNES\n   (réglementaire, géopolitique, Maghreb-spécifique : fêtes, pannes électricité,\n   disponibilité talents...)\n\nPOUR CHAQUE RISQUE GÉNÈRE :\n- Description claire (1 phrase)\n- Probabilité (1-5)\n- Impact (1-5)\n- Score de criticité (proba × impact)\n- Signal d'alerte précoce à surveiller\n- Action de mitigation préventive\n- Plan de contingence si le risque se matérialise\n- Owner désigné dans l'équipe\n\nFINIS PAR :\n- Top 5 risques à priorité absolue\n- Recommandation de cadence de revue (hebdo / bimensuel)",
+      "variables": [
+        "NOM_PROJET",
+        "OBJECTIF",
+        "DUREE_PREVUE",
+        "BUDGET",
+        "PROFILS_ET_NOMBRE",
+        "TECH_ET_PARTENAIRES",
+        "SPONSORS_ET_PARTIES_PRENANTES"
+      ],
+      "expected_output": "15-25 risques structurés sur 6 catégories + Top 5 + cadence de revue",
+      "tools": [
+        "ChatGPT (gratuit ou Plus)",
+        "Notion / Asana"
+      ]
+    },
+    {
+      "id": "prompt_2_signaux_faibles",
+      "title": "Prompt 2 — Détection de signaux faibles dans les comptes-rendus",
+      "use_case": "Analyser comptes-rendus et messages Slack pour détecter automatiquement les signaux faibles",
+      "tags": [
+        "signaux faibles",
+        "veille",
+        "Slack"
+      ],
+      "content": "Tu es un risk analyst senior, expert en analyse sémantique de communications projet.\nAnalyse ces extraits et identifie les signaux faibles cachés.\n\nCONTEXTE PROJET :\n- Nom : [PROJET]\n- Phase actuelle : [PHASE]\n- Risques déjà identifiés : [TOP_5_RISQUES_REGISTRE]\n\nDOCUMENTS À ANALYSER :\n- Comptes-rendus de réunion (2 dernières semaines) : [COLLER]\n- Messages Slack pertinents : [COLLER]\n- Tickets bloqués / en retard : [COLLER]\n- Emails stakeholders : [COLLER]\n\nGÉNÈRE UNE ANALYSE EN 5 SECTIONS :\n1. SIGNAUX FAIBLES DÉTECTÉS\n   Pour chaque signal :\n   - Citation exacte (avec source)\n   - Risque potentiel sous-jacent\n   - Lien avec un risque connu (si oui) ou nouveau\n   - Niveau d'attention requis (faible / moyen / élevé)\n\n2. CHANGEMENTS DE TON / SENTIMENT\n   - Membres de l'équipe : moral, engagement, frustration\n   - Stakeholders : confiance, agacement, désengagement\n\n3. SUJETS RÉCURRENTS NON RÉSOLUS\n   Problèmes mentionnés à plusieurs reprises sans avancée\n\n4. CONTRADICTIONS DÉTECTÉES\n   Décalage entre ce qui est dit et ce qui est fait\n\n5. RECOMMANDATIONS D'ACTIONS\n   - Conversations à avoir cette semaine (avec qui, sur quoi)\n   - Mises à jour à apporter au risk register\n   - Communication suggérée aux stakeholders",
+      "variables": [
+        "PROJET",
+        "PHASE",
+        "TOP_5_RISQUES_REGISTRE",
+        "COLLER"
+      ],
+      "expected_output": "Analyse 5 sections : signaux faibles, sentiment, sujets récurrents, contradictions, actions",
+      "tools": [
+        "ChatGPT",
+        "Slack",
+        "Asana / Jira"
+      ]
+    },
+    {
+      "id": "prompt_3_playbook",
+      "title": "Prompt 3 — Playbook de mitigation par type de risque",
+      "use_case": "Construire des playbooks de réponse standardisés pour les types de risques courants",
+      "tags": [
+        "playbook",
+        "mitigation",
+        "incident"
+      ],
+      "content": "Tu es un risk manager senior, expert en réponse aux incidents projet.\nConstruis un playbook de mitigation complet pour ce type de risque.\n\nRISQUE À ADRESSER :\n- Type : [TECHNIQUE / HUMAIN / FOURNISSEUR / SCOPE / FINANCIER / EXTERNE]\n- Description : [DESCRIPTION_RISQUE]\n- Sévérité actuelle : [FAIBLE / MOYENNE / ÉLEVÉE / CRITIQUE]\n- Contexte projet : [PHASE_ACTUELLE_+_DEADLINE]\n\nGÉNÈRE LE PLAYBOOK EN 7 SECTIONS :\n1. SIGNAUX D'ACTIVATION\n   Comment savoir que ce playbook doit être déclenché\n\n2. ÉVALUATION RAPIDE (15 min)\n   Questions clés à poser pour confirmer / qualifier\n\n3. ACTIONS IMMÉDIATES (24h)\n   - Action 1 : qui fait quoi, dans quel délai\n   - Action 2 : ...\n   - Action 3 : ...\n\n4. PARTIES PRENANTES À INFORMER\n   - Qui : équipe, sponsor, client\n   - Quoi : message clé adapté à chaque audience\n   - Quand : timing recommandé\n\n5. PLAN DE CONTINGENCE (si l'action immédiate ne suffit pas)\n   Plans B et C structurés avec critères de bascule\n\n6. SUIVI POST-INCIDENT\n   - Indicateurs à monitorer pour vérifier la résolution\n   - Cadence des points (jusqu'à clôture)\n\n7. APPRENTISSAGES À CAPITALISER\n   - Mise à jour du risk register pour les futurs projets\n   - Documentation à ajouter dans la base de connaissances",
+      "variables": [
+        "DESCRIPTION_RISQUE",
+        "PHASE_ACTUELLE_+_DEADLINE"
+      ],
+      "expected_output": "Playbook 7 sections : activation, évaluation, actions 24h, communication, contingence, suivi, apprentissages",
+      "tools": [
+        "ChatGPT",
+        "Notion (base de connaissances)"
+      ]
+    }
+  ],
+  "practical_exercise": {
+    "title": "Mission : Conduis un atelier risk discovery sur ton projet en cours",
+    "duration_minutes": 120,
+    "tools_required": [
+      "ChatGPT",
+      "Notion ou Asana"
+    ],
+    "objective": "Conduire une risk discovery exhaustive sur un projet réel et construire un risk register validé par l'équipe avec 3 playbooks de mitigation activables.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Choix du projet",
+        "description": "Choisis 1 projet en cours (idéalement en phase de démarrage ou milieu)."
+      },
+      {
+        "n": 2,
+        "title": "Brief enrichi",
+        "description": "Prépare le brief projet enrichi (équipe, stack, fournisseurs, stakeholders)."
+      },
+      {
+        "n": 3,
+        "title": "Risk discovery IA",
+        "description": "Applique le Prompt 1 et obtiens 15-25 risques structurés sur 6 catégories."
+      },
+      {
+        "n": 4,
+        "title": "Croisement Predictive Risk Models",
+        "description": "Croise les résultats avec les Predictive Risk Models Euklydia pour calibrer les probabilités à partir de l'historique des projets passés."
+      },
+      {
+        "n": 5,
+        "title": "Intégration 8 risques Maghreb",
+        "description": "Intègre les 8 risques contextuels Maghreb (calendrier religieux, électricité, talents, bus factor, taux de change, réglementaire, multicanaux, géopolitique) dans la catégorie 6."
+      },
+      {
+        "n": 6,
+        "title": "Atelier équipe",
+        "description": "Anime un atelier équipe (45 min) pour valider, ajouter, prioriser les risques avec ton équipe."
+      },
+      {
+        "n": 7,
+        "title": "Top 5 + playbooks",
+        "description": "Sélectionne le Top 5 et construis 3 playbooks de mitigation avec le Prompt 3."
+      },
+      {
+        "n": 8,
+        "title": "Cadence de revue",
+        "description": "Configure une revue hebdomadaire dans le calendrier de l'équipe + désigne un owner par risque."
+      }
+    ],
+    "success_criteria": [
+      "Risk register avec au moins 15 risques validés par l'équipe",
+      "Owner désigné pour chaque risque",
+      "Playbook construit pour les 3 risques majeurs"
+    ],
+    "maghreb_note": "Pour la catégorie « Risques externes Maghreb-spécifiques », pense explicitement à : décalage de calendrier (Ramadan, Aïd, fêtes nationales), pannes électriques régulières (Tunisie, Algérie), disponibilité talents (rareté de certains profils tech), contraintes réglementaires (RGPD européen pour clients UE, lois locales sur la donnée). Ces risques sont souvent ignorés des checklists internationales mais peuvent décaler un projet de plusieurs semaines. Voir la section dédiée 8 risques Maghreb pour le détail complet."
+  },
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils — Comparatif Maghreb",
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
+      "rows": [
+        [
+          "ChatGPT / Claude",
+          "Free / 20 USD/mois",
+          "Risk discovery + signaux faibles + playbooks de mitigation",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Notion + Notion AI",
+          "Free / 10 USD/utilisateur/mois",
+          "Risk register, playbooks, base de connaissances post-projet",
+          "Free tier convient à un PM solo"
+        ],
+        [
+          "Asana / Monday.com",
+          "Free / variable",
+          "Suivi des risques avec champs custom (probabilité, impact, owner)",
+          "Asana free convient à une petite équipe"
+        ],
+        [
+          "Slack",
+          "Free / 7-12 USD/user/mois",
+          "Source des signaux faibles + canal de notification automatique",
+          "Free tier conserve 90j de messages"
+        ],
+        [
+          "Make / n8n",
+          "Free / 20 USD/mois",
+          "Orchestration du workflow de veille continue",
+          "n8n self-hosted = quasi-gratuit"
+        ],
+        [
+          "Loom",
+          "Free / 12 USD/mois",
+          "Communication asynchrone des risques aux stakeholders",
+          "Free tier 5 vidéos/mois suffit"
+        ]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows — 2 niveaux",
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
+      "rows": [
+        [
+          "W1 : Risk discovery au démarrage projet (no-code, 2h)",
+          "ChatGPT + Notion / Asana",
+          "30 min première fois",
+          "0 à 30 USD selon outils",
+          "Débutant"
+        ],
+        [
+          "W2 : Veille continue des signaux faibles (low-code)",
+          "Slack + Asana/Jira API + Make/n8n + ChatGPT API + Notion",
+          "4-6h première fois",
+          "~30-60 USD/mois",
+          "Intermédiaire"
+        ]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — Risk Identification",
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
+      "rows": [
+        [
+          "Nombre de risques identifiés au démarrage",
+          "Court terme (J+14)",
+          "3 à 5 risques génériques",
+          "15 à 25 risques structurés"
+        ],
+        [
+          "Délai signal → action correctrice",
+          "Court terme (J+14)",
+          "1 à 4 semaines (réactif)",
+          "0 à 3 jours (proactif)"
+        ],
+        [
+          "Retards projet sur l'année",
+          "Long terme (J+30 / fin de projet)",
+          "Présents sur 60-80 % des projets",
+          "−30 % de retards"
+        ]
+      ]
+    }
+  },
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Beaucoup d'équipes projet au Maghreb fonctionnent en mode réactif face aux risques : on découvre les problèmes quand ils surviennent (retard d'un fournisseur, départ d'un membre clé, dépendance technique cachée), puis on improvise. Cette approche génère des retards, des dépassements de budget et de la frustration.",
+      "pain_points": [
+        "Issues réactives au lieu de risques anticipés (cause de 70 % des retards)",
+        "Registre des risques minimaliste, jamais mis à jour pendant le projet",
+        "Pas de signaux faibles capturés dans les comptes-rendus quotidiens",
+        "Pas de playbooks de mitigation préparés en avance",
+        "Communication des risques aux stakeholders trop tardive",
+        "Apprentissage post-projet limité (les leçons ne capitalisent pas)"
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Conduis ton premier atelier risk discovery",
+        "duration_min": 20,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT + Notion",
+        "steps": [
+          "Prépare le brief projet enrichi : objectif, équipe, budget, délai, dépendances externes, contexte Maghreb",
+          "Colle le Prompt 1 (Risk Discovery) dans ChatGPT avec ton brief et génère la liste de 15 à 25 risques",
+          "Croise les risques générés avec les Predictive Risk Models pour calibrer les probabilités et impacts",
+          "Ajoute manuellement les risques contextuels Maghreb pertinents : Ramadan, coupures électricité, bus factor",
+          "Anime un atelier de 30 minutes avec ton équipe : chacun ajoute, priorise, et s'attribue un risque",
+          "Construis le risk register dans Notion : colonnes Risque, Probabilité, Impact, Responsable, Plan de mitigation"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Détecte les signaux faibles en 15 minutes par semaine",
+        "duration_min": 15,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT + Slack / Asana",
+        "steps": [
+          "Chaque lundi, exporte les messages Slack du canal projet et les tâches Asana de la semaine écoulée",
+          "Colle l'export dans ChatGPT avec le Prompt 2 (Détection Signaux Faibles)",
+          "Lis les signaux identifiés : retards cachés, tensions d'équipe, dépendances à risque",
+          "Pour chaque signal, décide d'une action : conversation à avoir, tâche à lancer, ou surveillance renforcée",
+          "Mets à jour le risk register avec les nouveaux signaux détectés et leur statut",
+          "Répète chaque semaine — en 4 semaines tu auras un historique de signaux précieux pour tes prochains projets"
+        ]
+      }
+    ],
+    "pmi_explanatory_note": {
+      "_v1_1_addition": true,
+      "title": "Note pédagogique : Qu'est-ce que le PMI ?",
+      "source": "PDF v1.1 §3.1 (encadré pédagogique)",
+      "intro": "Tout au long de ce module, on fait référence au PMI (Project Management Institute). Pour les apprenants non familiers, voici les acronymes clés à connaître.",
+      "definitions": [
+        {
+          "acronym": "PMI",
+          "full_name": "Project Management Institute",
+          "description": "Organisme de référence mondial pour la gestion de projet, basé aux USA et présent dans 200+ pays.",
+          "url_hint": "pmi.org"
+        },
+        {
+          "acronym": "PMBOK",
+          "full_name": "Project Management Body of Knowledge",
+          "description": "Le guide méthodologique de référence publié par le PMI (actuellement 7e édition)."
+        },
+        {
+          "acronym": "PMP",
+          "full_name": "Project Management Professional",
+          "description": "La certification généraliste de référence pour les chefs de projet."
+        },
+        {
+          "acronym": "PMI-RMP",
+          "full_name": "Risk Management Professional",
+          "description": "La certification spécialisée en gestion des risques, qui inspire la méthodologie de ce module."
+        }
+      ],
+      "reassurance_note": "Pas besoin d'être certifié pour suivre ce module — les prompts intègrent déjà l'expertise PMI sous forme exploitable."
+    },
+    "predictive_risk_models": {
+      "_v1_1_addition": true,
+      "title": "Predictive Risk Models — Livrable Euklydia",
+      "source": "PDF v1.1 §3.4.2",
+      "subtitle": "Modèles prédictifs qui transforment l'évaluation subjective en estimation calibrée par les données réelles",
+      "description": "Modèles prédictifs Euklydia qui s'appuient sur l'historique des projets passés (de l'apprenant et de la base anonymisée Euklydia) pour estimer la probabilité d'occurrence de chaque type de risque selon le contexte projet. Ces modèles transforment l'évaluation subjective « probabilité 3/5 » en estimation calibrée par les données réelles.",
+      "architecture_pillars": [
+        {
+          "pillar": 1,
+          "name": "Base de connaissances historique",
+          "description": "Chaque projet terminé enrichit la base : risques anticipés vs risques survenus, contexte (secteur, taille équipe, durée, stack), mitigation effective."
+        },
+        {
+          "pillar": 2,
+          "name": "Modèles par catégorie de risque",
+          "description": "Probabilité calibrée par catégorie",
+          "sub_models": [
+            {
+              "category": "Risques techniques",
+              "calibration": "probabilité par stack (legacy migration, microservices, AI/ML, mobile)"
+            },
+            {
+              "category": "Risques humains",
+              "calibration": "probabilité par taille d'équipe et turnover historique"
+            },
+            {
+              "category": "Risques fournisseurs",
+              "calibration": "probabilité par type de partenaire (SaaS, intégrateur, freelance, fournisseur local)"
+            },
+            {
+              "category": "Risques de scope",
+              "calibration": "probabilité par maturité du sponsor et niveau de spec initial"
+            },
+            {
+              "category": "Risques financiers",
+              "calibration": "probabilité par devise et nature contractuelle"
+            },
+            {
+              "category": "Risques externes Maghreb",
+              "calibration": "calibrés sur les patterns régionaux (cf. encadré dédié)"
+            }
+          ]
+        },
+        {
+          "pillar": 3,
+          "name": "Calibration de la probabilité",
+          "description": "Au lieu d'une estimation au feeling (1-5), l'apprenant obtient une probabilité chiffrée appuyée par l'historique : « ce type de risque s'est matérialisé sur 6 projets similaires sur 10 »."
+        },
+        {
+          "pillar": 4,
+          "name": "Recommandations de mitigation priorisées",
+          "description": "Les mitigations qui ont historiquement fonctionné sont remontées en priorité avec leur taux de succès observé."
+        }
+      ],
+      "pedagogical_usage": "Pendant l'execution task, l'apprenant croise les résultats du Prompt 1 (atelier risk discovery) avec les Predictive Risk Models pour calibrer son scoring. Sur sa propre base historique, il améliore la justesse de ses prédictions à chaque projet.",
+      "commercial_value": "Actif différenciant Euklydia : la calibration data-driven transforme l'art de l'estimation subjective en science reproductible, et capitalise l'historique des projets passés."
+    },
+    "maghreb_contextual_risks": {
+      "_v1_1_addition": true,
+      "title": "Risques contextuels Maghreb — 8 risques à toujours considérer",
+      "source": "PDF v1.1 §3.4.3",
+      "subtitle": "Encadré dédié — Risques spécifiques à la zone Tunisie / Algérie / Maroc / Libye / Égypte",
+      "intro": "Le Maghreb présente des risques spécifiques qui sont sous-estimés ou ignorés dans les frameworks internationaux. Cet encadré formalise les 8 risques contextuels majeurs à intégrer systématiquement au risk register pour la zone Maghreb.",
+      "risks": [
+        {
+          "n": 1,
+          "name": "Calendrier religieux variable (Ramadan, Aïd, fêtes nationales)",
+          "description": "Productivité réduite de 30-40 % pendant le Ramadan dans la plupart des entreprises. Dates des fêtes religieuses (Aïd al-Fitr, Aïd al-Adha) confirmées tardivement. Impact sur les jalons projet."
+        },
+        {
+          "n": 2,
+          "name": "Disponibilité électrique et connectivité",
+          "description": "Coupures électriques imprévues (Tunisie, Libye, Égypte). Connexion internet instable dans certaines zones. Impact direct sur les équipes remote et les démos clients."
+        },
+        {
+          "n": 3,
+          "name": "Disponibilité de talents seniors (tech, design, data)",
+          "description": "Pénurie de profils seniors qualifiés. Forte concurrence entre PME locales et entreprises offshore européennes. Risque de débauchage pendant le projet."
+        },
+        {
+          "n": 4,
+          "name": "Dépendance à 1 ou 2 talents clés (« bus factor » faible)",
+          "description": "Équipes PME souvent petites : 1 seul développeur senior, 1 seul designer. Son absence ou départ bloque tout le projet. À toujours mitiger par documentation et pairing."
+        },
+        {
+          "n": 5,
+          "name": "Taux de change et paiements internationaux",
+          "description": "Devise locale volatile (DT, DA, MAD, LBD, EGP). Paiements en USD/EUR pour outils SaaS sujets aux variations. Contrôle des changes (Algérie, Tunisie) qui complique les achats."
+        },
+        {
+          "n": 6,
+          "name": "Cadre réglementaire évolutif (data, RGPD-like)",
+          "description": "Lois sur la protection des données en évolution dans la région (ex : INPDP Tunisie, CNDP Maroc). Risque de non-conformité sur les projets data / IA."
+        },
+        {
+          "n": 7,
+          "name": "Communication multi-canaux et bilinguisme",
+          "description": "Équipes communiquent en arabe (dialecte), français, parfois anglais. WhatsApp parallèle à Slack/Teams. Risque de pertes d'information entre canaux."
+        },
+        {
+          "n": 8,
+          "name": "Contexte géopolitique régional",
+          "description": "Tensions régionales ponctuelles (Libye, frontières). Restrictions de voyage. Impact sur les projets multi-pays Maghreb."
+        }
+      ],
+      "pedagogical_usage": "Ces 8 risques sont systématiquement intégrés en catégorie 6 (Risques externes) du Prompt 1. L'apprenant les évalue pour son projet et active les mitigations correspondantes. Cette contextualisation Maghreb est une vraie différenciation d'Euklydia vs les frameworks internationaux génériques."
+    },
+    "external_references": {
+      "_v1_1_addition": true,
+      "title": "Références externes — Sources d'inspiration officielles",
+      "source": "PDF v1.1 §3.4.7",
+      "description": "Ressources externes officielles qui complètent le contenu pédagogique du module Risk Identification.",
+      "categories": [
+        {
+          "category": "Project Management Institute (PMI) risk frameworks",
+          "references": [
+            {
+              "name": "PMBOK Guide 7e édition",
+              "url_hint": "pmi.org/pmbok-guide-standards",
+              "description": "Référentiel mondial de gestion de projet, chapitre Risk Management."
+            },
+            {
+              "name": "PMI-RMP Examination Content Outline",
+              "url_hint": "pmi.org/certifications/risk-management-rmp",
+              "description": "Domaines de compétence officiels du risk manager (risk strategy, identification, analysis, response, monitoring)."
+            },
+            {
+              "name": "Practice Standard for Project Risk Management (PMI)",
+              "url_hint": "pmi.org",
+              "description": "Méthodologie détaillée de gestion des risques, base du framework des 6 catégories utilisé dans le Prompt 1."
+            },
+            {
+              "name": "PMI Pulse of the Profession reports",
+              "url_hint": "pmi.org/learning/thought-leadership/pulse",
+              "description": "Études annuelles sur les facteurs de succès / échec des projets, sources statistiques pour calibrer les Predictive Risk Models."
+            }
+          ]
+        },
+        {
+          "category": "Monday.com risk tracking",
+          "references": [
+            {
+              "name": "Monday.com Risk Register Templates",
+              "url_hint": "monday.com/templates",
+              "description": "Templates configurables de registre des risques avec champs custom (probabilité, impact, owner, statut)."
+            },
+            {
+              "name": "Monday.com Project Management Resources Hub",
+              "url_hint": "monday.com/blog/project-management",
+              "description": "Guides pratiques sur le suivi des risques en environnement agile."
+            },
+            {
+              "name": "Monday.com Automations",
+              "url_hint": "monday.com/automations",
+              "description": "Recettes d'automation pour notifier les owners de risques quand un seuil est franchi."
+            }
+          ]
+        }
+      ],
+      "pedagogical_usage": "La référence au PMI apporte une légitimité méthodologique forte à ce module et rassure les apprenants seniors ou ceux qui visent une certification. Monday.com est cité comme alternative concrète à Asana/Notion pour le suivi opérationnel des risques."
+    },
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {
+          "when": "J0",
+          "what": "Mesure ton taux de détection des risques actuel et ton délai moyen d'identification (baseline)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Compare le nombre de risques détectés avant/après IA"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif — impact sur la mitigation des risques projet"
+        },
+        {
+          "when": "J+60",
+          "what": "Consolidation finale — réduction des incidents non anticipés"
+        }
+      ]
+    }
+  }
+}

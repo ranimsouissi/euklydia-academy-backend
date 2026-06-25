@@ -1,0 +1,558 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Marketing Strategist",
+  "source": "PDF Parcours AI Marketing Strategist v1.1 — Mai 2026",
+  "display_order": 3,
+  "title": "Audience Insights & Segmentation",
+  "skill_name": "AI Audience Intelligence",
+  "level": "Expert",
+  "journey_stage": "Funnel marketing — Ciblage data-driven",
+  "estimated_duration_min": 180,
+  "format": "blended",
+  "is_active": true,
+  "description": "Extrais des personas data-driven à partir de tes propres données (CRM, GA4, Meta Insights, e-commerce), enrichis-les avec l'IA, et active chaque segment avec des messages personnalisés. Tu passes de 1-2 personas intuitifs à 4-6 personas data-driven, et tu observes une amélioration mesurable de ton taux de conversion grâce à un meilleur targeting.",
+  "learning_objective": "À l'issue de ce module, l'apprenant sait (1) extraire des personas data-driven à partir de ses propres données utilisateurs, et (2) activer chaque segment avec un messaging adapté pour améliorer son taux de conversion de manière mesurable.",
+  "expected_outcome": "Passage de 1-2 personas intuitifs à 4-6 personas data-driven, +25 % d'amélioration relative du taux de conversion sur les campagnes ciblées (observatoire J+30/J+60), relevance score Meta Ads / Google Ads ≥ 7/10.",
+  "why_this_module": "Beaucoup d'équipes marketing en Afrique du Nord ont accès à une masse de données utilisateurs (CRM, Google Analytics, Meta Insights, base e-commerce) mais n'arrivent pas à les transformer en personas actionnables. Résultat : la segmentation reste rudimentaire (âge + pays), les messages restent génériques, et le taux de conversion stagne ou régresse.",
+  "recommended_when": "Quand tu as 1 000+ utilisateurs/clients dans ta base mais que tu cibles « tout le monde » dans tes campagnes, que ton relevance score Meta est < 5/10, ou que ton taux de conversion stagne malgré une augmentation du budget.",
+  "role_based_example": "Lina, marketing manager d'une marque cosmétique au Maroc, a 25 000 clients dans sa base e-commerce et 40 000 abonnés Instagram. Quand elle lance une campagne, elle cible « femmes 25-45 ans Casablanca + Rabat ». Le ROAS est bas. Pourtant, dans sa base, il y a probablement 4 ou 5 segments très différents (jeunes urbaines bio-curieuses, mamans trentenaires fidèles à une marque, professionnelles 40+ premium...). Avec ce module, Lina extrait 5 personas data-driven en 30 minutes, adapte son messaging par segment, et observe un taux de conversion qui passe de 1.3 % à 2.1 % sur la campagne ciblée.",
+  "takeaway": "Un persona data-driven n'est pas un avatar inventé : il est extrait de signaux comportementaux réels (RFM, centres d'intérêt, parcours d'achat) et traduit en représentation actionnable par un LLM. La vraie valeur ne vient pas du persona lui-même mais de ce qu'il permet : un messaging adapté, un canal prioritaire, un budget bien alloué.",
+  "action_point": "Cette semaine : exporte un échantillon anonymisé de 50 utilisateurs de ta base, applique le Prompt 1 pour générer 4 personas data-driven, sélectionne le persona prioritaire pour ton prochain objectif business, et lance une campagne ciblée avec messaging adapté.",
+  "practical_application": "Application directe sur ta propre base utilisateurs : pas de cas fictif. Tu utilises tes vraies données (CRM ou GA4 ou e-commerce), tu construis tes 4-6 personas exploitables, et tu mesures le taux de conversion d'une campagne ciblée vs une campagne large.",
+  "key_concepts": [
+    "Frameworks de segmentation (RFM, behavioral, psychographique)",
+    "Extraction de données multi-sources (CRM, GA4, Meta, e-commerce)",
+    "Construction de personas data-driven via clustering IA + synthèse LLM",
+    "Adaptation du messaging par persona (tonalité, bénéfices, canaux)",
+    "Configuration d'audiences personnalisées dans Meta Ads / Google Ads",
+    "Mesure de la pertinence du ciblage (relevance score, conversion par segment)",
+    "Boucle d'apprentissage continu sur les segments performants",
+    "Spécificités culturelles Afrique du Nord (langue, valeurs, parcours d'achat)"
+  ],
+  "next_recommended_module": "Certificat AI Marketing Strategist",
+  "prompt_examples": [
+    {
+      "id": "prompt_1_personas_data_driven",
+      "title": "Prompt 1 — Génération de personas data-driven",
+      "use_case": "Transformer une base de données utilisateurs en 4-6 personas exploitables",
+      "tags": [
+        "personas",
+        "data-driven",
+        "clustering"
+      ],
+      "content": "Tu es un audience strategist senior B2B/B2C au Maghreb.\nConstruis 4 à 6 personas data-driven à partir de ces données.\n\nDONNÉES UTILISATEURS :\n- Source : [CRM / GA4 / META / E-COMMERCE]\n- Volume total : [NOMBRE_UTILISATEURS]\n- Variables disponibles : [LISTER : âge, ville, panier moyen, fréquence, produits préférés, source d'acquisition, etc.]\n- Échantillon (50 lignes représentatives anonymisées) : [COLLER_ECHANTILLON]\n\nMON OFFRE :\n- Produit/service : [DESCRIPTION]\n- Pays cibles : [PAYS_MAGHREB]\n- Objectif : [ACQUISITION / RÉTENTION / UPSELL]\n\nPOUR CHAQUE PERSONA GÉNÈRE :\n1. Nom évocateur (ex : « Yasmine la maman urbaine »)\n2. Description démographique (3 lignes)\n3. 3 pain points principaux\n4. 3 motivations d'achat\n5. Canaux préférés (avec ordre de priorité)\n6. Tonalité de communication recommandée\n7. 3 messages clés qui résonneraient\n8. Estimation : % de la base + valeur business\n9. Recommandation d'activation (campagne type, budget suggéré)\n\nEN CONCLUSION :\n- Quel persona prioriser pour [OBJECTIF] et pourquoi\n- Persona à éviter en acquisition payante (faible ROI attendu)",
+      "variables": [
+        "SOURCE",
+        "NOMBRE_UTILISATEURS",
+        "VARIABLES_DISPONIBLES",
+        "COLLER_ECHANTILLON",
+        "DESCRIPTION",
+        "PAYS_MAGHREB",
+        "OBJECTIF"
+      ],
+      "expected_output": "4-6 personas avec 9 dimensions chacun + recommandation de priorisation",
+      "tools": [
+        "ChatGPT",
+        "Claude"
+      ]
+    },
+    {
+      "id": "prompt_2_rfm_segmentation",
+      "title": "Prompt 2 — Segmentation comportementale RFM",
+      "use_case": "Classer une base e-commerce ou CRM en segments actionnables selon Recency, Frequency, Monetary",
+      "tags": [
+        "RFM",
+        "segmentation",
+        "e-commerce"
+      ],
+      "content": "Tu es un data analyst CRM spécialisé en e-commerce au Maghreb.\nAnalyse cette base et propose une segmentation RFM actionnable.\n\nBASE CLIENT :\n- Volume total : [NB_CLIENTS]\n- Période d'observation : [12_DERNIERS_MOIS]\n- Devise : [TND / MAD / DZD / EUR / USD]\n- Données disponibles : Recency, Frequency, Monetary\n- Échantillon (top 30 + bottom 30 anonymisés) : [COLLER_DONNÉES]\n\nMON OBJECTIF : [RÉTENTION / ACQUISITION / WIN-BACK]\n\nGÉNÈRE :\n1. SEUILS RFM ADAPTÉS À MON BUSINESS\n   - R : récence en jours (ex : R5 = 0-30, R1 = >180)\n   - F : nb commandes (ex : F5 = >10, F1 = 1)\n   - M : valeur cumulée (ex : M5 = top 20 % panier)\n2. 6 SEGMENTS PRIORITAIRES\n   - Champions (RFM 555)\n   - Loyaux (RFM 444-554)\n   - Potentiels (R5, F bas)\n   - À risque (R bas, F+M hauts)\n   - Hibernants (R très bas)\n   - Perdus (R1 F1 M1)\n3. POUR CHAQUE SEGMENT :\n   - % estimé de la base\n   - Valeur business\n   - Action recommandée (campagne, message, canal)\n   - Budget suggéré dans la devise locale\n4. PLAN D'ACTIVATION 30 JOURS",
+      "variables": [
+        "NB_CLIENTS",
+        "PERIODE",
+        "DEVISE",
+        "COLLER_DONNEES",
+        "OBJECTIF"
+      ],
+      "expected_output": "Seuils RFM + 6 segments avec actions + plan d'activation 30 jours",
+      "tools": [
+        "ChatGPT",
+        "Excel / Google Sheets (pour les calculs RFM)"
+      ]
+    },
+    {
+      "id": "prompt_3_persona_messaging",
+      "title": "Prompt 3 — Activation par persona (messaging adapté)",
+      "use_case": "Décliner 1 message produit en 4 versions adaptées chacune à un persona spécifique",
+      "tags": [
+        "messaging",
+        "adaptation",
+        "multi-persona"
+      ],
+      "content": "Tu es un copywriter B2C au Maghreb.\nAdapte le message produit à 4 personas distincts.\n\nMESSAGE SOURCE :\n- Produit : [PRODUIT]\n- Promesse générique : [MESSAGE_DE_BASE]\n\nPERSONAS À ACTIVER :\n- Persona 1 : [COLLER_PERSONA_1]\n- Persona 2 : [COLLER_PERSONA_2]\n- Persona 3 : [COLLER_PERSONA_3]\n- Persona 4 : [COLLER_PERSONA_4]\n\nPOUR CHAQUE PERSONA, GÉNÈRE :\n1. Hook adapté (3 secondes pour capter)\n2. Bénéfice principal (le seul qui compte pour CE persona)\n3. Preuve sociale ciblée (témoignage / chiffre crédible)\n4. Objection probable + réponse\n5. CTA adapté au canal préféré\n6. Format publicitaire recommandé (carrousel / vidéo / image)\n\nFORMAT DE SORTIE :\n═══ PERSONA 1 : [Nom] ═══\nHook : ...\nBénéfice : ...\nPreuve : ...\nObjection + Réponse : ...\nCTA : ...\nFormat : ...",
+      "variables": [
+        "PRODUIT",
+        "MESSAGE_DE_BASE",
+        "COLLER_PERSONA_1",
+        "COLLER_PERSONA_2",
+        "COLLER_PERSONA_3",
+        "COLLER_PERSONA_4"
+      ],
+      "expected_output": "4 messages adaptés par persona avec hook, bénéfice, preuve, objection, CTA, format",
+      "tools": [
+        "ChatGPT",
+        "Meta Ads Manager (pour configurer les audiences)"
+      ]
+    }
+  ],
+  "practical_exercise": {
+    "title": "Mission : Applique le Data-to-Insight Framework et active 1 campagne ciblée",
+    "duration_minutes": 90,
+    "tools_required": [
+      "ChatGPT",
+      "Ton CRM ou Google Analytics 4",
+      "Meta Ads OU Google Ads"
+    ],
+    "objective": "Extraire 4 personas data-driven en suivant le framework 5 étapes (COLLECT → CLEAN → CLUSTER → CHARACTERIZE → CONVERT), lancer une campagne ciblée avec messaging adapté, et obtenir un taux de conversion supérieur de ≥ 15 % à une campagne large équivalente.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "COLLECT — Export anonymisé de l'échantillon",
+        "description": "Exporte un échantillon anonymisé de tes données utilisateurs (50 lignes représentatives). Anonymise les données personnelles avant de les coller dans ChatGPT."
+      },
+      {
+        "n": "1.5",
+        "title": "Chronométrage baseline",
+        "description": "Note ton nombre de personas actuels (souvent 1-2 intuitifs) et ton taux de conversion habituel sur les campagnes larges."
+      },
+      {
+        "n": 2,
+        "title": "CLEAN — Nettoyage du dataset",
+        "description": "Dédoublonne, anonymise, standardise les formats (dates, devises). Utilise Sheets ou Segment CDP pour les bases > 5000 lignes."
+      },
+      {
+        "n": 3,
+        "title": "CLUSTER — Génération des 4 personas",
+        "description": "Applique le Prompt 1 et génère 4 personas data-driven exploitables avec leurs 9 dimensions chacun."
+      },
+      {
+        "n": 4,
+        "title": "CHARACTERIZE — Validation atelier",
+        "description": "Valide chaque persona en atelier équipe (ou seul). Vérifie qu'ils sont cohérents avec ta connaissance terrain."
+      },
+      {
+        "n": 5,
+        "title": "CONVERT — Sélection persona prioritaire",
+        "description": "Sélectionne le persona prioritaire pour ton prochain objectif business (acquisition, rétention, upsell). Applique le Prompt 3 pour générer le messaging adapté."
+      },
+      {
+        "n": 6,
+        "title": "Configuration audience custom",
+        "description": "Configure une audience custom dans Meta Ads (ou Google Ads) à partir de ton CRM ou de critères matchant le persona."
+      },
+      {
+        "n": 7,
+        "title": "Lancement et mesure",
+        "description": "Lance la campagne ciblée en parallèle d'une campagne large équivalente. Mesure le taux de conversion sur 14 jours."
+      }
+    ],
+    "success_criteria": [
+      "4 personas data-driven générés et documentés selon les 5 étapes du framework",
+      "1 campagne ciblée lancée avec messaging adapté",
+      "Taux de conversion de la campagne ciblée ≥ 15 % supérieur à la campagne large équivalente"
+    ],
+    "maghreb_note": "Pour les marques B2C en Afrique du Nord, les segments les plus puissants sont souvent : (1) les jeunes urbaines bio-curieuses (Casablanca / Tunis / Alger 25-35 ans), (2) les mamans trentenaires fidèles aux marques (30-40 ans, parcours produit), (3) la diaspora maghrébine en Europe (souvent négligée mais à fort pouvoir d'achat). Pour les marques B2B, segmente par taille d'entreprise et secteur plutôt que par titre de poste — les intitulés de poste sont moins normalisés en Afrique du Nord qu'en Europe."
+  },
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils — Comparatif et alternatives Afrique du Nord",
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
+      "rows": [
+        [
+          "ChatGPT / Claude",
+          "Free / 20 USD/mois",
+          "Génération personas + segmentation RFM + adaptation messaging",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Segment (CDP)",
+          "Free up to 1k visitors / Team 120 USD/mois",
+          "Customer Data Platform : centralisation et activation multi-sources (ajout v1.1)",
+          "Solution scalable pour les marques 10k+ utilisateurs"
+        ],
+        [
+          "Google Analytics 4",
+          "Gratuit",
+          "Source principale de données comportementales web",
+          "Standard en Afrique du Nord"
+        ],
+        [
+          "Meta Business Suite",
+          "Gratuit",
+          "Audiences custom + insights démographiques",
+          "Indispensable pour Maghreb (Meta = canal dominant)"
+        ],
+        [
+          "HubSpot / Salesforce",
+          "Variable",
+          "Données CRM clients + scoring + segmentation native",
+          "Cohérent si déjà utilisé en Module 1"
+        ],
+        [
+          "Mixpanel / Amplitude",
+          "Free / 25-89 USD/mois",
+          "Analyse comportementale produit avancée",
+          "Optionnel pour V1, utile si SaaS / app mobile"
+        ],
+        [
+          "Make / Fivetran",
+          "Free / 20 USD/mois",
+          "Synchronisation des sources de données",
+          "n8n self-hosted = quasi-gratuit"
+        ],
+        [
+          "BigQuery / Sheets",
+          "Free / pay-per-use",
+          "Stockage et calcul RFM à grande échelle",
+          "Sheets suffit jusqu'à 50 000 lignes"
+        ]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows — 2 niveaux de sophistication",
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
+      "rows": [
+        [
+          "W1 : Audit personas trimestriel (no-code)",
+          "CRM/GA4 + Excel + ChatGPT + Notion + Meta Ads",
+          "30-60 min première fois",
+          "0 USD (free tiers)",
+          "Débutant"
+        ],
+        [
+          "W2 : Audience intelligence en continu (low-code)",
+          "Make + BigQuery + OpenAI API + Slack + Meta Ads API",
+          "4-6h première fois",
+          "~50-100 USD/mois (selon volume)",
+          "Intermédiaire"
+        ],
+        [
+          "W2 low-cost Maghreb",
+          "Sheets + n8n + ChatGPT manuel + Meta Ads Manager",
+          "5-7h première fois",
+          "~5 USD/mois (VPS n8n)",
+          "Intermédiaire"
+        ]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — Baseline personnalisée → Cible J+14",
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
+      "rows": [
+        [
+          "Nombre de personas activés",
+          "Court terme (J+14)",
+          "1 ou 2 (intuition)",
+          "4 à 6 (data-driven)"
+        ],
+        [
+          "Relevance score Meta Ads",
+          "Court terme (J+14)",
+          "À renseigner",
+          "≥ 7/10"
+        ],
+        [
+          "Taux de conversion (campagnes ciblées)",
+          "Observatoire (J+30/J+60)",
+          "À renseigner",
+          "+25 % d'amélioration relative"
+        ]
+      ]
+    }
+  },
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Beaucoup d'équipes marketing en Afrique du Nord ont accès à une masse de données utilisateurs (CRM, Google Analytics, Meta Insights, base e-commerce) mais n'arrivent pas à les transformer en personas actionnables. Résultat : la segmentation reste rudimentaire (âge + pays), les messages restent génériques, et le taux de conversion stagne ou régresse.",
+      "pain_points": [
+        "Ciblage médiocre (CAC élevé, conversion basse)",
+        "Messages génériques qui ne résonnent fortement avec personne",
+        "Personas figés, basés sur l'intuition plutôt que sur la donnée",
+        "Pas de personnalisation des parcours (email, ads, web)",
+        "Données sous-exploitées : les insights restent dans les outils",
+        "Cycle de vie client mal compris (acquisition vs rétention)"
+      ],
+      "maghreb_specifics": [
+        "Multilinguisme (français / arabe / darija selon la cible)",
+        "Importance de la diaspora (souvent négligée, fort pouvoir d'achat)",
+        "Saisonnalités culturelles fortes (Ramadan, Aïd, rentrée scolaire)",
+        "Intitulés de poste moins normalisés qu'en Europe (segmentation B2B par taille/secteur)"
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Génère 4 personas data-driven en 30 minutes",
+        "duration_min": 15,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT",
+        "steps": [
+          "Rassemble tes données existantes : Google Analytics, stats réseaux sociaux, historique CRM — même partielles",
+          "Ouvre ChatGPT et colle le Prompt 1 (Persona Generator) depuis la section Prompts ci-dessus",
+          "Remplace [SECTEUR], [PAYS], [DONNEES] avec tes vraies données ou tes observations terrain",
+          "Génère 4 personas distincts — vérifie que chacun a un nom, un pain point, un canal préféré, et un frein à l'achat",
+          "Pour chaque persona, demande à ChatGPT : 'Quels sont les 3 contenus qui résonnent le plus avec ce persona ?'",
+          "Sauvegarde les 4 personas dans Notion avec une fiche par persona — ils serviront de référence pour toutes tes campagnes"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Configure une audience custom Meta basée sur tes personas",
+        "duration_min": 20,
+        "format": "guide pas-à-pas",
+        "tool": "Meta Ads Manager",
+        "steps": [
+          "Ouvre Meta Ads Manager et va dans Audiences > Créer une audience > Audience personnalisée",
+          "Choisis la source : liste de clients (CSV), trafic site web (Pixel), ou engagement Instagram/Facebook",
+          "Importe ta liste ou configure le Pixel selon le persona le plus prioritaire identifié à l'étape précédente",
+          "Crée ensuite une audience similaire (Lookalike) basée sur cette audience custom — commence à 1% de similarité",
+          "Configure les filtres géographiques : Tunisie, Maroc, Algérie selon tes marchés cibles Maghreb",
+          "Sauvegarde l'audience et utilise-la dans ta prochaine campagne en comparant les résultats avec ton audience large habituelle"
+        ]
+      }
+    ],
+    "_v1_1_additions": "Les 3 sections ci-dessous (data_to_insight_framework, from_data_to_strategy_workflows, references) sont les ajouts du PDF v1.1 — sections 4.4.2, 4.4.3 et 4.4.6. Segment CDP a été ajouté dans comparison_tables.tools (§4.4.5).",
+    "data_to_insight_framework": {
+      "title": "Data-to-Insight Translation Framework — 5 étapes",
+      "source": "PDF v1.1 §4.4.2",
+      "description": "Ce framework structure le passage de la donnée brute à l'insight actionnable. Il évite le piège classique du marketer qui « a beaucoup de data mais ne sait pas quoi en faire ». Opérationnalise l'exigence « Data-to-insight translation framework » du tableau de spécification.",
+      "steps": [
+        {
+          "id": "step_1_collect",
+          "step_number": 1,
+          "name": "COLLECT",
+          "key_question": "Quelles données ai-je à disposition et où ?",
+          "expected_output": "Inventaire des sources (CRM, GA4, Meta, e-commerce, Segment)"
+        },
+        {
+          "id": "step_2_clean",
+          "step_number": 2,
+          "name": "CLEAN",
+          "key_question": "Mes données sont-elles fiables et comparables ?",
+          "expected_output": "Dataset nettoyé, dédupliqué, anonymisé"
+        },
+        {
+          "id": "step_3_cluster",
+          "step_number": 3,
+          "name": "CLUSTER",
+          "key_question": "Quels groupes naturels émergent dans mes données ?",
+          "expected_output": "4-6 clusters identifiés (par comportement, valeur, parcours)"
+        },
+        {
+          "id": "step_4_characterize",
+          "step_number": 4,
+          "name": "CHARACTERIZE",
+          "key_question": "Comment décrire ces groupes en langage humain ?",
+          "expected_output": "Personas data-driven avec narratif (Prompt 1)"
+        },
+        {
+          "id": "step_5_convert",
+          "step_number": 5,
+          "name": "CONVERT",
+          "key_question": "Quelle action commerciale dérive de chaque insight ?",
+          "expected_output": "Plan d'activation : messaging, canaux, budgets, KPI cible"
+        }
+      ],
+      "applied_example": {
+        "title": "Exemple appliqué — Lina (marque cosmétique Maroc)",
+        "steps": [
+          {
+            "step": "1. COLLECT",
+            "application": "25 000 lignes clients e-commerce + 40 000 abonnés Instagram exportés"
+          },
+          {
+            "step": "2. CLEAN",
+            "application": "Dédoublonnage emails, anonymisation, format dates standardisé"
+          },
+          {
+            "step": "3. CLUSTER",
+            "application": "ChatGPT identifie 5 clusters : « Mamans fidèles », « Jeunes bio-curieuses », « Pros 40+ premium », « Occasionnelles », « Diaspora EU »"
+          },
+          {
+            "step": "4. CHARACTERIZE",
+            "application": "Pour chaque cluster : persona complet (Prompt 1)"
+          },
+          {
+            "step": "5. CONVERT",
+            "application": "Plan 90j : campagne fidélisation Mamans (Insta Reels) + acquisition Pros 40+ (FB+Search) + win-back Occasionnelles"
+          }
+        ]
+      },
+      "golden_rule": "Ne saute jamais une étape. Le marketer qui passe de COLLECT à CONVERT directement produit des décisions basées sur l'intuition, pas sur la donnée."
+    },
+    "from_data_to_strategy_workflows": {
+      "title": "« From data → strategy » Workflows — 2 workflows opérationnels",
+      "source": "PDF v1.1 §4.4.3",
+      "description": "Ces workflows opérationnalisent le Data-to-Insight Framework au quotidien. Opérationnalise l'exigence « From data → strategy workflows » du tableau de spécification.",
+      "workflows": [
+        {
+          "id": "workflow_A_audit_trimestriel",
+          "name": "Workflow A — Audit trimestriel data → personas → stratégie",
+          "type": "no-code",
+          "duration": "4h",
+          "framework_alignment": "Couvre les 5 étapes COLLECT → CLEAN → CLUSTER → CHARACTERIZE → CONVERT",
+          "steps": [
+            {
+              "n": 1,
+              "phase": "COLLECT",
+              "action": "Exporter CRM + GA4 + Meta sur 12 mois",
+              "tool": "CRM / GA4 / Meta"
+            },
+            {
+              "n": 2,
+              "phase": "CLEAN",
+              "action": "Dédupliquer, anonymiser dans Sheets ou Segment",
+              "tool": "Sheets / Segment"
+            },
+            {
+              "n": 3,
+              "phase": "CLUSTER",
+              "action": "Prompt 1 (Personas data-driven) sur échantillon 50 lignes",
+              "tool": "ChatGPT"
+            },
+            {
+              "n": 4,
+              "phase": "CHARACTERIZE",
+              "action": "Valider chaque persona en atelier équipe",
+              "tool": "Notion + atelier"
+            },
+            {
+              "n": 5,
+              "phase": "CONVERT",
+              "action": "Prompt 3 (messaging par persona) + plan 90j",
+              "tool": "ChatGPT + Notion"
+            },
+            {
+              "n": 6,
+              "phase": "ACTIVATE",
+              "action": "Configurer audiences custom Meta/Google + lancer campagnes ciblées",
+              "tool": "Meta / Google Ads"
+            }
+          ]
+        },
+        {
+          "id": "workflow_B_detection_continue",
+          "name": "Workflow B — Détection continue de nouveaux segments",
+          "type": "low-code",
+          "duration": "Boucle continue (hebdomadaire)",
+          "framework_alignment": "Automatise les phases CLUSTER et CHARACTERIZE",
+          "steps": [
+            {
+              "n": 1,
+              "phase": "Sync",
+              "action": "Sync hebdo : CRM + GA4 + Meta → BigQuery via Segment CDP",
+              "tool": "Segment / Fivetran"
+            },
+            {
+              "n": 2,
+              "phase": "Calcul",
+              "action": "Calcul automatique des indicateurs RFM hebdomadaires",
+              "tool": "BigQuery / Sheets"
+            },
+            {
+              "n": 3,
+              "phase": "Détection",
+              "action": "Détection de patterns inhabituels (nouveau segment émergent)",
+              "tool": "Make + LLM"
+            },
+            {
+              "n": 4,
+              "phase": "Génération",
+              "action": "Génération automatique d'un rapport persona via OpenAI API",
+              "tool": "OpenAI API"
+            },
+            {
+              "n": 5,
+              "phase": "Alerte",
+              "action": "Notification Slack : « Nouveau segment détecté + recommandation »",
+              "tool": "Slack"
+            },
+            {
+              "n": 6,
+              "phase": "Activation",
+              "action": "Sur validation humaine : sync audience custom Meta Ads",
+              "tool": "Meta Ads API"
+            }
+          ]
+        }
+      ]
+    },
+    "references": {
+      "title": "References & sources de veille",
+      "source": "PDF v1.1 §4.4.6",
+      "description": "Sources externes de référence pour la veille audience intelligence et les best practices segmentation.",
+      "sources": [
+        {
+          "name": "Segment Segmentation Resources",
+          "usage": "Frameworks officiels de segmentation et CDP best practices"
+        },
+        {
+          "name": "Mixpanel User Insights blog",
+          "usage": "Cas d'usage analyse comportementale produit"
+        },
+        {
+          "name": "Amplitude Behavioral Analytics Playbook",
+          "usage": "Méthodologies RFM et cohortes"
+        },
+        {
+          "name": "Google Analytics 4 Help Center",
+          "usage": "Audiences prédictives et machine learning natif"
+        },
+        {
+          "name": "Meta Audience Insights documentation",
+          "usage": "Custom Audiences et Lookalike best practices"
+        }
+      ]
+    },
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {
+          "when": "J0",
+          "what": "Mesure ton taux de segmentation actuel et la précision de tes personas (baseline)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Compare l'engagement par segment avant/après segmentation IA"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif — impact sur la conversion par persona"
+        },
+        {
+          "when": "J+60",
+          "what": "Consolidation finale — ROI de la segmentation sur les campagnes"
+        }
+      ]
+    }
+  }
+}

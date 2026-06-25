@@ -1,0 +1,123 @@
+{
+  "$schema_version": "1.1",
+  "role": "AI Project Manager",
+  "career_path_id": 82,
+  "source": "PDF Parcours AI Project Manager v1.1 — Mai 2026 — Ranim Souissi",
+
+  "skills": [
+    {
+      "name": "AI Project Planning",
+      "description": "Capacité à utiliser l'IA pour générer rapidement des plans projet structurés (roadmap, dépendances, jalons) et à les maintenir à jour de façon semi-automatisée dans Notion, Asana ou ClickUp."
+    },
+    {
+      "name": "AI Risk Intelligence",
+      "description": "Capacité à anticiper les risques projet de manière proactive (au lieu de réagir une fois le problème survenu) à l'aide de l'IA : détection des signaux faibles, scoring de probabilité, playbooks de mitigation."
+    },
+    {
+      "name": "AI Execution & Productivity",
+      "description": "Capacité à optimiser la productivité d'une équipe projet (planification de sprint, priorisation des tâches, équilibrage de la charge, suivi de performance) à l'aide de l'IA."
+    }
+  ],
+
+  "questions": [
+    {
+      "order": 1,
+      "skill_index": 0,
+      "text": "Qu'est-ce qu'une roadmap projet dans un contexte de gestion de projet ?",
+      "option_a": "La carte routière d'un déplacement professionnel.",
+      "option_b": "Un document visuel qui décrit les phases, jalons, livrables et dépendances d'un projet sur une ligne de temps.",
+      "option_c": "Un tableau Excel listant les bugs.",
+      "option_d": "Un planning quotidien des tâches de l'équipe.",
+      "correct_answer": "B",
+      "explanation": "Une roadmap projet est un document visuel qui décrit les phases, jalons, livrables et dépendances d'un projet sur une ligne de temps. C'est le socle de tout pilotage structuré. Niveau cognitif : Connaissance."
+    },
+    {
+      "order": 2,
+      "skill_index": 0,
+      "text": "Tu démarres un nouveau projet de 6 mois avec 8 personnes. Quelle approche IA est la plus efficace pour générer rapidement un plan structuré ?",
+      "option_a": "Demander à ChatGPT « fais-moi un planning » sans contexte.",
+      "option_b": "Préparer un brief structuré (objectif, livrables, contraintes, équipe), appliquer un prompt de génération de roadmap et itérer en revue d'équipe.",
+      "option_c": "Reprendre tel quel le planning du dernier projet similaire.",
+      "option_d": "Faire un plan détaillé tout seul sur Excel sans consulter l'équipe.",
+      "correct_answer": "B",
+      "explanation": "L'approche efficace combine brief structuré + prompt de génération de roadmap + itération en revue d'équipe. La qualité du prompt dépend du contexte fourni à l'IA, et la validation collective évite les angles morts. Niveau cognitif : Application."
+    },
+    {
+      "order": 3,
+      "skill_index": 0,
+      "text": "Tu veux industrialiser la création de plans projet pour livrer une roadmap initiale en moins de 1h au lieu de 2 jours. Quelle architecture choisir ?",
+      "option_a": "Faire chaque planning à la main sur Excel, projet par projet.",
+      "option_b": "Utiliser uniquement le template natif d'Asana sans IA.",
+      "option_c": "Bibliothèque de prompts par type de projet + GPT-4 (génération) + Notion AI / Asana (intégration) + workflow de validation humaine + revue d'équipe + mise à jour continue automatique.",
+      "option_d": "Demander à un consultant externe de tout faire.",
+      "correct_answer": "C",
+      "explanation": "L'industrialisation requiert une architecture complète : bibliothèque de prompts par type de projet + LLM pour génération + outil d'intégration (Notion AI/Asana) + workflow de validation humaine + revue d'équipe + mise à jour continue automatique. C'est le pattern de l'AI Planning Engine Euklydia. Niveau cognitif : Maîtrise."
+    },
+    {
+      "order": 4,
+      "skill_index": 1,
+      "text": "Qu'est-ce qu'un registre des risques (risk register) en gestion de projet ?",
+      "option_a": "La liste des employés ayant fait des erreurs.",
+      "option_b": "Un document vivant qui inventorie les risques identifiés, leur probabilité, leur impact, et les actions de mitigation associées.",
+      "option_c": "Un fichier RH confidentiel.",
+      "option_d": "Un rapport financier annuel.",
+      "correct_answer": "B",
+      "explanation": "Un risk register est un document vivant qui inventorie les risques identifiés, leur probabilité, leur impact, et les actions de mitigation associées. C'est l'artefact central de la gestion des risques selon le framework PMI. Niveau cognitif : Connaissance."
+    },
+    {
+      "order": 5,
+      "skill_index": 1,
+      "text": "Tu pilotes un projet stratégique. Comment l'IA peut-elle t'aider à anticiper les risques au lieu de les subir ?",
+      "option_a": "Attendre que les problèmes apparaissent puis improviser.",
+      "option_b": "Faire un atelier de risk discovery assisté par IA (analyse des projets similaires + signaux faibles dans les comptes-rendus + scoring probabilité×impact + playbooks de mitigation pré-rédigés).",
+      "option_c": "Faire confiance à l'expérience seule, sans documenter.",
+      "option_d": "Multiplier les réunions de status sans cadre méthodologique.",
+      "correct_answer": "B",
+      "explanation": "L'anticipation IA-augmentée combine : analyse des projets similaires (Predictive Risk Models), détection de signaux faibles dans les comptes-rendus, scoring probabilité×impact, et playbooks de mitigation pré-rédigés. C'est l'approche proactive contre la mode réactive. Niveau cognitif : Application."
+    },
+    {
+      "order": 6,
+      "skill_index": 1,
+      "text": "Tu veux mettre en place un système de risk intelligence en continu qui détecte les signaux faibles et alerte avant qu'un risque devienne incident. Quelle stack utiliser ?",
+      "option_a": "Faire un point risques uniquement en fin de projet.",
+      "option_b": "Demander à chaque membre d'envoyer un email hebdo libre.",
+      "option_c": "Sync continue (Jira / Asana / Slack) + LLM pour analyse sémantique des comptes-rendus et tickets + scoring automatique + alertes Slack + playbooks de mitigation contextuels + dashboard temps réel.",
+      "option_d": "Acheter un logiciel cher sans former l'équipe à l'utiliser.",
+      "correct_answer": "C",
+      "explanation": "Un système de risk intelligence industriel requiert : sync continue des sources (Jira/Asana/Slack) + LLM pour analyse sémantique + scoring automatique + alertes Slack + playbooks contextuels + dashboard temps réel. C'est l'architecture de l'AI Risk Intelligence System Euklydia. Niveau cognitif : Maîtrise."
+    },
+    {
+      "order": 7,
+      "skill_index": 2,
+      "text": "Qu'est-ce que la matrice Eisenhower dans la priorisation de tâches ?",
+      "option_a": "Un type de planning de fabrication industrielle.",
+      "option_b": "Une grille à 4 quadrants (urgent/important × non-urgent/non-important) qui aide à classer les tâches selon leur priorité réelle.",
+      "option_c": "Un format de réunion d'équipe.",
+      "option_d": "Une méthode de calcul de salaire.",
+      "correct_answer": "B",
+      "explanation": "La matrice Eisenhower est une grille à 4 quadrants (urgent/important × non-urgent/non-important) qui aide à classer les tâches selon leur priorité réelle. Elle élimine le « faux urgent » et révèle ce qui mérite réellement de l'attention. Niveau cognitif : Connaissance."
+    },
+    {
+      "order": 8,
+      "skill_index": 2,
+      "text": "Ton équipe a 50 tickets en backlog et chaque sprint, vous en livrez 10. Comment l'IA peut-elle aider à mieux prioriser ?",
+      "option_a": "Prendre les 10 premiers tickets de la liste sans réfléchir.",
+      "option_b": "Appliquer un prompt de priorisation Eisenhower + RICE (Reach, Impact, Confidence, Effort) sur le backlog complet, équilibrer la charge par membre et valider en sprint planning collectif.",
+      "option_c": "Laisser chaque membre choisir ses tickets favoris.",
+      "option_d": "Faire passer en priorité les tickets demandés par le chef le plus fort.",
+      "correct_answer": "B",
+      "explanation": "L'approche IA combine Eisenhower (4 quadrants) + RICE (Reach × Impact × Confidence / Effort) pour scorer objectivement, puis équilibrage de charge par membre, et validation collective en sprint planning. C'est le pattern du Workflow 1 de sprint planning éclair. Niveau cognitif : Application."
+    },
+    {
+      "order": 9,
+      "skill_index": 2,
+      "text": "Tu veux déployer un système d'optimisation de la productivité d'équipe qui automatise la planification de sprint, équilibre les charges et alerte sur les dérives. Quelles capacités doit-il avoir ?",
+      "option_a": "Uniquement un fichier Excel mis à jour à la main.",
+      "option_b": "Uniquement un Trello sans automatisation.",
+      "option_c": "Connexion Jira / ClickUp + LLM pour priorisation Eisenhower+RICE + moteur d'équilibrage de charge par membre + dashboard performance + alertes burn-out / retards + suggestions de re-priorisation hebdomadaires.",
+      "option_d": "Imposer 50 tâches par semaine à chaque membre, peu importe la charge.",
+      "correct_answer": "C",
+      "explanation": "Un système d'optimisation industriel combine : connexion Jira/ClickUp + LLM pour priorisation Eisenhower+RICE + moteur d'équilibrage de charge + dashboard performance + alertes burn-out/retards + suggestions de re-priorisation. C'est l'architecture de l'AI Execution Optimization System Euklydia. Niveau cognitif : Maîtrise."
+    }
+  ]
+}

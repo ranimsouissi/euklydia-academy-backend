@@ -1,0 +1,472 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Sales Specialist",
+  "source": "PDF Parcours AI Sales Specialist v1.1 — Mai 2026",
+  "display_order": 2,
+  "title": "Personalized Outreach at Scale",
+  "skill_name": "Prospection hyper-personnalisée",
+  "level": "Pratique",
+  "journey_stage": "Cycle de vente — Prospection",
+  "estimated_duration_min": 300,
+  "format": "blended",
+  "is_active": true,
+  "description": "Conçois et déploie des séquences de prospection multi-canal (email + LinkedIn + WhatsApp) personnalisées par persona avec l'IA. Tu passeras d'un reply rate de 2-5 % avec emails génériques à un reply rate 2 à 3× plus élevé grâce à la personnalisation à l'échelle, tout en intégrant WhatsApp — canal dominant en Afrique du Nord.",
+  "learning_objective": "À l'issue de ce module, l'apprenant sait concevoir et déployer des séquences de prospection multi-canal (email + LinkedIn + WhatsApp) personnalisées par persona avec l'IA, qui maintiennent la qualité tout en augmentant les RDV qualifiés.",
+  "expected_outcome": "Reply rate multi-canal multiplié par 2 à 3, +50 à +100 % de RDV qualifiés par semaine, > 50 % des prospects touchés sur au moins 2 canaux (vs 0 % en mono-canal).",
+  "why_this_module": "Les commerciaux B2B en Afrique du Nord rencontrent une difficulté majeure dans la prospection sortante : envoyer des messages génériques produit des taux de réponse très bas (autour de 2-5 %), tandis que la personnalisation manuelle prospect par prospect est trop lente pour atteindre un volume significatif. Et WhatsApp — canal dominant au Maghreb — est largement sous-exploité.",
+  "recommended_when": "Quand ton reply rate sur cold email est < 10 %, que tu utilises uniquement l'email comme canal, ou que tu obtiens moins de 3 RDV qualifiés par semaine pour 50+ prospects contactés.",
+  "role_based_example": "Karim, commercial B2B dans une PME tunisienne de services aux entreprises, veut faire grandir son pipeline. Il identifie 200 prospects (Directeurs Achats de PME industrielles 50-200 employés en Tunisie/Algérie/Maroc). Il commence à leur écrire un par un sur LinkedIn — après 30 messages il abandonne. Il bascule sur des cold emails copiés-collés, mais le reply rate tombe à 3 %. Avec ce module, Karim construit 3 séquences segmentées par persona, intègre WhatsApp pour les prospects clés, et passe de 1-2 RDV/semaine à 4-5.",
+  "takeaway": "La personnalisation à l'échelle ne se résume pas au prénom dans l'objet d'email : c'est une stack qui combine enrichissement, IA générative, séquencement multi-canal et A/B testing. Le canal WhatsApp en Afrique du Nord est un avantage compétitif majeur encore peu exploité.",
+  "action_point": "Cette semaine : identifie 30 prospects cibles, segmente-les en 2-3 personas, génère une séquence multi-canal pour chaque persona avec le Prompt 2, et lance la campagne avec un A/B test sur 3 variantes d'objet.",
+  "practical_application": "Application directe sur tes propres prospects et secteur. Tu construis une séquence reproductible pour ton ICP, mesures le reply rate par variante, et identifies le canal de meilleure conversion.",
+  "key_concepts": [
+    "Personnalisation à l'échelle vs templates segmentés (différence essentielle)",
+    "Génération d'emails personnalisés par persona avec ChatGPT",
+    "Construction de séquences multi-touch (email + LinkedIn + WhatsApp)",
+    "Segmentation par persona et logique d'A/B test sur l'accroche",
+    "Contextualisation par actualité ou signal pertinent du prospect",
+    "Mesure reply rate, meeting rate, qualité des réponses",
+    "Adaptation au canal et à la langue (WhatsApp + FR/AR/EN selon contexte)",
+    "Couverture multi-canal Afrique du Nord (intégration WhatsApp Business)"
+  ],
+  "next_recommended_module": "Sales Call Preparation",
+  "prompt_examples": [
+    {
+      "id": "prompt_1_cold_email",
+      "title": "Prompt 1 — Cold email personnalisé",
+      "use_case": "Générer un cold email court et personnalisé à partir du profil LinkedIn",
+      "tags": [
+        "cold email",
+        "personnalisation",
+        "LinkedIn"
+      ],
+      "content": "Tu es un copywriter B2B spécialisé en outreach commercial au Maghreb.\nGénère un cold email court (max 120 mots) pour ce prospect.\n\nPROSPECT :\n- Nom : [NOM] | Poste : [POSTE] | Entreprise : [ENTREPRISE]\n- Secteur : [SECTEUR] | Pays : [PAYS]\n- Langue préférée : [FR / AR / EN / mix]\n- Infos LinkedIn copiées (résumé, expérience, posts récents) : [INFOS_LINKEDIN_COPIEES]\n\nMON OFFRE :\n- Je vends : [DESCRIPTION_OFFRE]\n- Bénéfice principal : [VALUE_PROPOSITION]\n- Preuve sociale : [CLIENT_REFERENCE]\n\nCONSIGNE :\n1. Accroche personnalisée basée sur les infos LinkedIn (1-2 phrases).\n2. Lien avec mon offre (1 phrase).\n3. Preuve sociale rapide (1 phrase).\n4. CTA soft : proposer un call court (1 phrase).\n5. Signature : nom + poste + entreprise (3 lignes max).\n\nAdapte la langue à la préférence du prospect. Pour 'mix', utilise un français professionnel avec 1-2 expressions arabes naturelles si pertinent.\n\nGénère également :\n- Un objet d'email (max 8 mots).\n- Une variante alternative pour A/B test.",
+      "variables": [
+        "NOM",
+        "POSTE",
+        "ENTREPRISE",
+        "SECTEUR",
+        "PAYS",
+        "INFOS_LINKEDIN_COPIEES",
+        "DESCRIPTION_OFFRE",
+        "VALUE_PROPOSITION",
+        "CLIENT_REFERENCE"
+      ],
+      "expected_output": "Cold email + objet + variante A/B test",
+      "tools": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "prompt_2_multi_touch_sequence",
+      "title": "Prompt 2 — Séquence multi-touch par persona",
+      "use_case": "Construire une séquence de 4 messages multi-canal pour un persona",
+      "tags": [
+        "séquence",
+        "multi-canal",
+        "persona"
+      ],
+      "content": "Tu es un expert en outreach B2B multi-canal au Maghreb.\nConstruis une séquence de 4 messages pour ce persona.\n\nPERSONA CIBLE :\n- Profil (format suggéré : Poste + Type entreprise + Taille) : [NOM_PERSONA]\n- Pain points typiques : [3_PAIN_POINTS]\n- Objections fréquentes : [2_OBJECTIONS]\n\nMON OFFRE :\n- Description : [DESCRIPTION_OFFRE]\n- Différenciation : [POINT_DE_DIFFERENCIATION]\n\nCadence souhaitée : [STANDARD / SERREE / ESPACEE]\n\nCONSIGNE — séquence en 4 touches :\nTouch 1 (Jour 1) : Email d'introduction (max 100 mots)\nTouch 2 (Jour 4) : Connexion LinkedIn + message court (max 50 mots)\nTouch 3 (Jour 8) : Email de relance avec valeur (max 80 mots, CTA call 15 min)\nTouch 4 (Jour 12) : Message WhatsApp (recommandé Maghreb)\n  - Si le prospect n'a pas répondu après 3 touches\n  - Message ultra-court (3-4 lignes), ton chaleureux\n  - Voir Prompt 3 (WhatsApp Maghreb) pour la rédaction",
+      "variables": [
+        "NOM_PERSONA",
+        "3_PAIN_POINTS",
+        "2_OBJECTIONS",
+        "DESCRIPTION_OFFRE",
+        "POINT_DE_DIFFERENCIATION"
+      ],
+      "expected_output": "Séquence de 4 messages multi-canal sur 12 jours",
+      "tools": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "prompt_3_whatsapp_maghreb",
+      "title": "Prompt 3 — Message WhatsApp Maghreb",
+      "use_case": "Adapter un email cold pour le canal WhatsApp avec ton chaleureux régional",
+      "tags": [
+        "WhatsApp",
+        "Afrique du Nord",
+        "adaptation canal"
+      ],
+      "content": "Note : ce prompt s'utilise APRÈS le Prompt 1 (Cold email). Colle ici l'email généré pour l'adapter à WhatsApp.\n\nTu es un expert en outreach B2B au Maghreb. Adapte ce message pour WhatsApp.\n\nCONTEXTE WHATSAPP MAGHREB :\n- Style direct mais respectueux\n- Salutation chaleureuse adaptée à la culture\n- Court (3-4 lignes max, pas un email déguisé)\n- Voix humaine, pas marketing\n\nMESSAGE EMAIL ORIGINAL : [COLLER_EMAIL_GENERE]\nPROSPECT : Nom, Pays, Langue préférée [FR/AR/EN]\n\nGÉNÈRE :\n1. Version WhatsApp : courte, chaleureuse, naturelle.\n2. Salutation par pays (Pending validation Achref/Oumeima) :\n   - Tunisie/Algérie : 'Sahha' / 'Bonjour'\n   - Maroc : 'Salam' / 'Bonjour'\n   - Égypte/Libye : 'Asalam alaykum' / 'Bonjour'\n3. Inclus 1 emoji approprié maximum.\n4. CTA simple, adapté au contexte. Suggestions :\n   (1) demander un call court\n   (2) poser une question ouverte\n   (3) partager une ressource utile",
+      "variables": [
+        "COLLER_EMAIL_GENERE",
+        "NOM",
+        "PAYS",
+        "LANGUE"
+      ],
+      "expected_output": "Message WhatsApp court (3-4 lignes) avec salutation régionale",
+      "tools": [
+        "ChatGPT",
+        "WhatsApp Business app"
+      ]
+    }
+  ],
+  "practical_exercise": {
+    "title": "Mission : Lance ta première séquence personnalisée multi-canal sur 30 prospects",
+    "duration_minutes": 90,
+    "tools_required": [
+      "ChatGPT",
+      "Apollo (free) ou LinkedIn Sales Navigator",
+      "Brevo OU Lemlist (essai gratuit)",
+      "WhatsApp Business"
+    ],
+    "objective": "Construire une séquence multi-canal segmentée par persona, lancer un A/B test, et obtenir au moins 1 RDV qualifié à J+14.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Identification des prospects",
+        "description": "Identifie 30 prospects cibles via Apollo ou LinkedIn Sales Navigator."
+      },
+      {
+        "n": 2,
+        "title": "Segmentation par persona",
+        "description": "Segmente-les en 2-3 personas distincts."
+      },
+      {
+        "n": 3,
+        "title": "Génération des séquences",
+        "description": "Pour chaque persona, génère une séquence multi-touch couvrant au moins 2 canaux (email + LinkedIn ou email + WhatsApp) avec le Prompt 2."
+      },
+      {
+        "n": 4,
+        "title": "Lancement multi-canal",
+        "description": "Lance les séquences en t'assurant qu'au moins 50 % des prospects sont touchés sur au moins 2 canaux."
+      },
+      {
+        "n": "4.5",
+        "title": "Adaptation WhatsApp",
+        "description": "Sur les 30 prospects, sélectionne les 5-10 dont tu as le numéro WhatsApp. Adapte le message email avec le Prompt 3 (WhatsApp Maghreb) et envoie-le manuellement via WhatsApp Business."
+      },
+      {
+        "n": 5,
+        "title": "A/B test sur l'objet",
+        "description": "Active un A/B test sur 3 variantes d'objet d'email."
+      },
+      {
+        "n": 6,
+        "title": "Mesure des résultats à J+14",
+        "description": "Mesure : reply rate, meeting rate, qualité des réponses."
+      }
+    ],
+    "success_criteria": [
+      "Reply rate ≥ 1.5× ta baseline",
+      "≥ 50 % des prospects touchés sur au moins 2 canaux",
+      "Au moins 1 RDV qualifié obtenu (ou agendé pour J+14)"
+    ],
+    "maghreb_note": "WhatsApp Business est l'avantage régional clé. La plupart de tes concurrents l'ignorent encore — c'est ta fenêtre d'opportunité. Pour les prospects en arabe/français mixte, génère 2 versions du message et choisis la plus naturelle après lecture."
+  },
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils d'outreach — Comparatif Afrique du Nord",
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
+      "rows": [
+        [
+          "ChatGPT",
+          "Gratuit / Plus 20$/mois",
+          "Génération emails et messages multi-canal",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Apollo / Sales Nav",
+          "Apollo Free / 49$/mois",
+          "Identification + enrichissement prospects",
+          "Apollo free = 50 enrichissements/mois"
+        ],
+        [
+          "Lemlist",
+          "À partir de 39$/mois",
+          "Séquences multi-touch + A/B test",
+          "Carte internationale requise"
+        ],
+        [
+          "Brevo (alternative)",
+          "Free tier",
+          "Cold email + séquences (gratuit jusqu'à 300/jour)",
+          "Accepte cartes locales TN/MA"
+        ],
+        [
+          "WhatsApp Business",
+          "Gratuit (app) / Twilio API à l'usage",
+          "Canal additionnel essentiel Maghreb",
+          "App mobile gratuite suffit pour <100 prospects/mois"
+        ],
+        [
+          "PhantomBuster",
+          "À partir de 56$/mois",
+          "Automatisation LinkedIn",
+          "Optionnel pour V1"
+        ]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows d'outreach — 2 niveaux",
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
+      "rows": [
+        [
+          "W1 : Cold email manuel assisté ChatGPT",
+          "ChatGPT + Apollo free + Brevo + WhatsApp Business",
+          "30-45 min première fois",
+          "0 USD (free tiers)",
+          "Débutant"
+        ],
+        [
+          "W2 : Séquence multi-canal automatisée",
+          "Apollo + OpenAI API + Lemlist + PhantomBuster",
+          "2-4h première fois",
+          "~250 USD/mois",
+          "Intermédiaire"
+        ],
+        [
+          "W2 low-cost Maghreb",
+          "Brevo + n8n + ChatGPT manuel + WhatsApp Business",
+          "3-5h première fois",
+          "~5 USD/mois (VPS n8n)",
+          "Intermédiaire"
+        ]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — Outreach personnalisé",
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible (J+14)"
+      ],
+      "rows": [
+        [
+          "Reply rate moyen multi-canal",
+          "Court terme",
+          "À renseigner",
+          "2 à 3× la baseline"
+        ],
+        [
+          "Nombre de RDV qualifiés / semaine",
+          "Impact business",
+          "À renseigner",
+          "+50 à +100 %"
+        ],
+        [
+          "% prospects touchés sur ≥ 2 canaux",
+          "KPI Maghreb",
+          "0 % (mono-canal)",
+          "> 50 %"
+        ]
+      ]
+    }
+  },
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Les commerciaux B2B en Afrique du Nord rencontrent une difficulté majeure dans la prospection sortante : envoyer des messages génériques produit des taux de réponse très bas (autour de 2-5 %), tandis que la personnalisation manuelle prospect par prospect est trop lente pour atteindre un volume significatif.",
+      "pain_points": [
+        "Reply rate très bas (5-10 %) avec emails génériques",
+        "Personnalisation limitée au prénom et nom de l'entreprise",
+        "Aucune segmentation par persona ni A/B testing",
+        "Outreach mono-canal (souvent email uniquement)",
+        "Faible taux de RDV obtenus (1-2 RDV/semaine pour 50 prospects)",
+        "Pas d'utilisation de WhatsApp, pourtant canal dominant en Afrique du Nord"
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Génère ton premier cold email IA en 5 minutes",
+        "duration_min": 10,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT",
+        "steps": [
+          "Ouvre ChatGPT et colle le Prompt 1 (Cold Email Personnalisé) depuis la section Prompts ci-dessus",
+          "Remplace [NOM_PROSPECT], [ENTREPRISE], [SECTEUR] avec les infos de ton prospect réel",
+          "Remplace [PAIN_POINT] avec le problème spécifique identifié lors de ta recherche LinkedIn",
+          "Génère l'email et lis-le à voix haute — s'il sonne robotique, demande à ChatGPT de le reformuler plus naturellement",
+          "Copie l'email final dans ton outil d'envoi (Gmail, Brevo, ou Lemlist)",
+          "Mesure le temps total — tu devrais être sous les 5 minutes pour un email entièrement personnalisé"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Configure ta première séquence Lemlist multi-touch (+ alt. Brevo/Apollo)",
+        "duration_min": 20,
+        "format": "guide pas-à-pas",
+        "tool": "Lemlist",
+        "steps": [
+          "Connecte-toi à Lemlist (ou Brevo si tu utilises l'alternative Maghreb) et crée une nouvelle campagne",
+          "Nomme ta séquence : 'Outreach [Secteur cible] — [Mois]'",
+          "Ajoute l'étape 1 : Email J0 — colle ton cold email IA généré avec le Prompt 1",
+          "Ajoute l'étape 2 : Relance J+3 — email court de 3 lignes maximum avec une question ouverte",
+          "Ajoute l'étape 3 : Relance J+7 — email de breakup ('Je ne veux pas vous déranger...')",
+          "Importe ta liste de prospects (CSV) et lance la séquence sur 5 prospects test avant de scaler"
+        ]
+      }
+    ],
+    "_v1_1_additions": "Les 2 sections ci-dessous (persona_blueprint, bad_vs_good_outreach_library) sont les ajouts du PDF v1.1 — sections 3.4.1 (extension) et 3.4.2.",
+    "persona_blueprint": {
+      "title": "Blueprint — Les 10 personas",
+      "source": "PDF v1.1 §3.4.1",
+      "description": "Pour chaque persona, les éléments-clés pour générer un prompt complet sur le même modèle que les prompts détaillés. Les 2 premiers (CEO + Directeur Commercial) sont fournis en exemples complets dans prompt_examples ; les 8 autres se construisent depuis la structure-type ci-dessous.",
+      "personas": [
+        {
+          "id": 1,
+          "persona": "CEO / Dirigeant PME",
+          "pain_points": "Croissance, ROI, vision, performance globale",
+          "ton_recommande": "Peer-to-peer, business"
+        },
+        {
+          "id": 2,
+          "persona": "Directeur Commercial",
+          "pain_points": "Pipeline, forecast, quota, montée équipe",
+          "ton_recommande": "Tactique, chiffré, complice"
+        },
+        {
+          "id": 3,
+          "persona": "Directeur Marketing",
+          "pain_points": "Lead generation, CAC, attribution, ROI campagnes",
+          "ton_recommande": "Data-driven, créatif"
+        },
+        {
+          "id": 4,
+          "persona": "CTO / Directeur IT",
+          "pain_points": "Stack, sécurité, intégration, scalabilité",
+          "ton_recommande": "Technique, factuel"
+        },
+        {
+          "id": 5,
+          "persona": "CFO / Directeur Financier",
+          "pain_points": "ROI, contrôle coûts, prévisibilité, conformité",
+          "ton_recommande": "Rigoureux, KPI-driven"
+        },
+        {
+          "id": 6,
+          "persona": "COO / Directeur Opérations",
+          "pain_points": "Efficacité, automation, process, coûts opérationnels",
+          "ton_recommande": "Pragmatique, process"
+        },
+        {
+          "id": 7,
+          "persona": "Directeur Achats",
+          "pain_points": "Négociation, fournisseurs, conformité, total cost",
+          "ton_recommande": "Direct, négociateur"
+        },
+        {
+          "id": 8,
+          "persona": "DRH / People Manager",
+          "pain_points": "Talent, productivité, engagement, formation",
+          "ton_recommande": "Humain, valeurs"
+        },
+        {
+          "id": 9,
+          "persona": "Founder / Solo entrepreneur",
+          "pain_points": "Bootstrap, agilité, time-to-value, autonomie",
+          "ton_recommande": "Concret, no-BS"
+        },
+        {
+          "id": 10,
+          "persona": "Directeur Innovation",
+          "pain_points": "Digitalisation, projets IA, transformation, R&D",
+          "ton_recommande": "Visionnaire, pilote"
+        }
+      ],
+      "prompt_template_structure": "Tu es un copywriter B2B expert en outreach [PERSONA] au Maghreb.\nGénère un cold email court (max [NB_MOTS] mots) pour ce [PERSONA].\n\nPROSPECT : [Nom, Poste, Entreprise, Secteur, Pays, Signal récent]\nMON OFFRE : [Description, Impact KPI, Référence client]\n\nSTRUCTURE :\n1. Accroche [SIGNAL_PERTINENT_PERSONA] (1 phrase)\n2. Lien avec mon offre orienté [PAIN_PRINCIPAL_PERSONA] (1 phrase)\n3. Preuve sociale [TYPE_ADAPTE_PERSONA] (1 phrase)\n4. CTA adapté au pouvoir décisionnel du persona (1 phrase)\n\nCONTRAINTES : Ton [TON_RECOMMANDE_PERSONA] · Pas de jargon hors zone confort persona",
+      "complete_examples_in_prompts": [
+        "CEO / Dirigeant PME",
+        "Directeur Commercial"
+      ],
+      "implementation_note": "Les 8 prompts persona restants seront produits en détail lors de la phase d'implémentation à partir de ce blueprint."
+    },
+    "bad_vs_good_outreach_library": {
+      "title": "« Bad vs Good outreach » library",
+      "source": "PDF v1.1 §3.4.2",
+      "description": "Pour calibrer l'apprenant, cette bibliothèque présente 3 cas comparatifs concrets : un mauvais message à côté d'un bon message, avec analyse de ce qui change.",
+      "cases": [
+        {
+          "id": "case_1_cold_email_ceo_pme",
+          "channel": "Cold Email",
+          "target_persona": "CEO de PME industrielle",
+          "bad_version": {
+            "subject": "Solution révolutionnaire pour votre entreprise",
+            "body": "Cher Monsieur,\nNous sommes la société XYZ, leader dans le domaine de l'intelligence artificielle. Nous proposons des solutions innovantes qui vont transformer votre business. Nos clients sont très satisfaits. Pourriez-vous me dire quand nous pouvons organiser une démonstration de 1 heure ?\nCordialement."
+          },
+          "good_version": {
+            "subject": "Vu votre annonce sur l'usine de Sousse",
+            "body": "Bonjour [Prénom],\nVu votre récente expansion sur Sousse — bravo pour cette étape.\nOn aide des dirigeants comme vous (ex: [Client X], 80 personnes) à industrialiser leur prospection commerciale et avoir 2 à 3× plus de RDV qualifiés en 90 jours.\n15 min mardi ou jeudi pour voir si c'est pertinent pour vous ?\n[Signature]"
+          },
+          "analysis": "Objet personnalisé · Accroche sur signal réel (annonce expansion) · Preuve sociale ciblée (taille comparable) · KPI précis · CTA concret avec créneaux.",
+          "metrics": {
+            "bad_reply_rate": "1-2 %",
+            "good_reply_rate": "12-18 %"
+          }
+        },
+        {
+          "id": "case_2_linkedin_directeur_commercial",
+          "channel": "LinkedIn",
+          "target_persona": "Directeur Commercial",
+          "bad_version": {
+            "body": "Bonjour,\nJ'aimerais vous connecter pour étendre mon réseau professionnel et discuter de potentielles synergies. Notre entreprise propose des solutions de pointe."
+          },
+          "good_version": {
+            "body": "Bonjour [Prénom], votre post sur la difficulté à recruter des SDR au Maghreb m'a parlé. On aide des équipes commerciales comme la vôtre à doubler leur productivité sans recruter (via agents IA + prompts par persona). Je vous connecte au cas où ça peut servir un jour."
+          },
+          "analysis": "Référence à un post réel · Pain identifié explicitement · Bénéfice précis (doubler sans recruter) · Pas de CTA agressif.",
+          "metrics": {
+            "bad_accept_rate": "10-15 %",
+            "good_accept_rate": "45-60 %"
+          }
+        },
+        {
+          "id": "case_3_whatsapp_prospect_maghreb",
+          "channel": "WhatsApp",
+          "target_persona": "Prospect Maghreb",
+          "bad_version": {
+            "body": "Bonjour Monsieur, je me permets de vous contacter sur WhatsApp pour vous présenter notre offre commerciale. Nous sommes spécialisés dans l'intelligence artificielle. Êtes-vous disponible pour un rendez-vous ?"
+          },
+          "good_version": {
+            "body": "Sahha [Prénom] 👋\nSuite à votre échange avec [Personne commune] sur l'IA pour les ventes, je vous partage un cas concret d'un client à Tunis qui a 3x son pipeline en 60 jours.\nOn en parle 10 min cette semaine ?"
+          },
+          "analysis": "Salutation culturelle adaptée · Référence commune (warm intro) · 1 chiffre concret · CTA court adapté WhatsApp.",
+          "metrics": {
+            "bad_reply_rate": "3-5 %",
+            "good_reply_rate": "35-50 %"
+          }
+        }
+      ]
+    },
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {
+          "when": "J0",
+          "what": "Mesure ton reply rate actuel et nombre de RDV qualifiés/semaine (baseline)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Mesure reply rate et RDV/semaine après la séquence — compare à ta baseline"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif — impact durable sur le pipeline (RDV → opportunités)"
+        },
+        {
+          "when": "J+60",
+          "what": "Consolidation finale — impact long terme sur la conversion"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,239 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Designer",
+  "source": "PDF Parcours AI Designer v1.1 — Mai 2026",
+
+  "display_order": 1,
+  "title": "Rapid Concept Generation",
+  "skill_name": "AI Visual Ideation & Concept",
+  "level": "Fondation",
+  "journey_stage": "Cycle design — Idéation",
+  "estimated_duration_min": 240,
+  "format": "blended",
+  "is_active": true,
+
+  "description": "Apprends à construire une chaîne d'idéation IA-augmentée pour produire 10 concepts visuels variés en 30 minutes au lieu de 2 jours. Tu maîtriseras les prompts Midjourney structurés, le workflow d'itération v1→v10, et la présentation client professionnelle de tes concepts.",
+
+  "learning_objective": "À l'issue de ce module, l'apprenant sait (1) construire des prompts Midjourney structurés par style et use case, et (2) industrialiser un workflow d'idéation v1→v10 qui livre 10 concepts variés en 30 minutes.",
+
+  "expected_outcome": "Vitesse d'idéation multipliée par 5 (10 concepts en 30 min vs 2-3 concepts en 1 journée), 3 à 5 directions distinctes explorées par projet, temps moyen jusqu'au concept final validé réduit de 5-10 jours à 1-2 jours.",
+
+  "why_this_module": "Beaucoup de designers au Maghreb font face au même problème : un volume de demandes élevé (logos, visuels marketing, mockups, illustrations) et trop peu de temps pour explorer plusieurs pistes créatives. Résultat : on livre la première idée acceptable plutôt que la meilleure idée possible. La frustration s'installe pour le designer comme pour le client.",
+
+  "recommended_when": "Quand tu produis moins de 3 concepts par projet, que tu reçois régulièrement la demande « tu peux faire d'autres options ? », ou que ton temps moyen jusqu'au concept final validé dépasse 5 jours.",
+
+  "role_based_example": "Yasmine, designer in-house dans une PME e-commerce à Casablanca, gère seule tous les besoins visuels de l'entreprise : packshots produits, bannières social media, newsletter, mockups d'app, illustrations de blog. Le lundi matin, elle reçoit 5 nouvelles demandes urgentes. Elle ouvre Illustrator, démarre la première idée qui lui passe par la tête et livre dans la journée. Le client revient avec « tu peux faire 3 autres propositions ? »… mais Yasmine n'a déjà plus de temps. Avec ce module, Yasmine livre 10 concepts en 30 minutes et remonte la qualité de ses livrables.",
+
+  "takeaway": "L'idéation IA-augmentée transforme une activité chronophage et frustrante en un processus fluide qui élargit l'espace créatif exploré, raccourcit les boucles de feedback client, et libère le designer pour la valeur ajoutée (raffinement, narration de marque, présentation).",
+
+  "action_point": "Cette semaine : prends un brief réel, applique le Prompt 1 (brief structuré), génère 12 propositions Midjourney en 3 directions, sélectionne les 10 meilleurs concepts, et présente-les à un client ou collègue.",
+
+  "practical_application": "Application directe sur tes propres briefs : pas de cas fictif. Tu utilises Midjourney sur tes vrais projets, tu mesures le temps économisé, et tu construis ta bibliothèque personnelle de prompts réutilisables.",
+
+  "key_concepts": [
+    "Anatomie d'un prompt visuel efficace (sujet + style + cadrage + ambiance + paramètres)",
+    "Paramètres avancés Midjourney (--ar, --style, --chaos, --niji, --quality)",
+    "Bibliothèque de prompts par style/use case réutilisable",
+    "Workflow d'itération v1 → v10 (diverger, sélectionner, raffiner, finaliser)",
+    "Critères d'évaluation objectifs des concepts générés",
+    "Présentation client professionnelle (planche Figma, narration)",
+    "Adaptation au contexte Maghreb (codes culturels, palettes locales, références régionales)"
+  ],
+
+  "next_recommended_module": "UX Optimization",
+
+  "prompt_examples": [
+    {
+      "id": "prompt_1_brief_creatif",
+      "title": "Prompt 1 — Générateur de brief créatif structuré",
+      "use_case": "Transformer un brief client vague en brief créatif structuré exploitable",
+      "tags": ["brief", "structuration", "Maghreb"],
+      "content": "Tu es un directeur artistique senior au Maghreb.\nTransforme ce brief client en brief créatif structuré exploitable.\n\nBRIEF CLIENT REÇU :\n- Demande : [DESCRIPTION_BRUTE]\n- Marque : [NOM_MARQUE]\n- Secteur : [SECTEUR]\n- Cible : [PERSONA]\n- Pays : [PAYS_MAGHREB]\n- Budget temps : [DUREE_DISPONIBLE]\n- Contraintes connues : [CONTRAINTES]\n\nGÉNÈRE UN BRIEF CRÉATIF EN 7 SECTIONS :\n1. OBJECTIF VISUEL CLAIR\n   Ce que le visuel doit accomplir (informer / vendre / émouvoir / éduquer)\n2. CIBLE PRÉCISE\n   Persona, contexte d'utilisation, état émotionnel attendu\n3. MESSAGE CLÉ EN 1 PHRASE\n4. 3 DIRECTIONS CRÉATIVES DISTINCTES\n   Direction A : [angle + style + référence]\n   Direction B : [angle + style + référence]\n   Direction C : [angle + style + référence]\n5. ÉLÉMENTS À INTÉGRER OBLIGATOIREMENT\n   (logo, produit, codes culturels Maghreb si pertinents)\n6. ÉLÉMENTS À ÉVITER\n   Clichés, références concurrentes, codes inadaptés\n7. CRITÈRES D'ÉVALUATION DES PROPOSITIONS\n   Comment juger objectivement les concepts générés",
+      "variables": ["DESCRIPTION_BRUTE", "NOM_MARQUE", "SECTEUR", "PERSONA", "PAYS_MAGHREB", "DUREE_DISPONIBLE", "CONTRAINTES"],
+      "expected_output": "Brief créatif structuré en 7 sections + 3 directions distinctes",
+      "tools": ["ChatGPT (gratuit ou Plus)"]
+    },
+    {
+      "id": "prompt_2_bibliotheque_midjourney",
+      "title": "Prompt 2 — Bibliothèque de prompts Midjourney par style",
+      "use_case": "Générer des concepts variés en encodant 5 styles visuels de référence",
+      "tags": ["Midjourney", "styles", "bibliothèque"],
+      "content": "[À copier dans Midjourney, remplacer SUJET et BRAND]\n\nSTYLE 1 — Minimaliste éditorial\n/imagine [SUJET], minimalist editorial design,\nsoft natural light, muted palette, clean composition,\nmagazine quality --ar 4:5 --style raw --v 6\n\nSTYLE 2 — Lifestyle authentique\n/imagine [SUJET] in real-life context Maghreb,\ncandid lifestyle photography, warm natural light,\ndocumentary feel, 50mm lens --ar 1:1 --style raw\n\nSTYLE 3 — Product hero premium\n/imagine [SUJET] product photography, studio lighting,\nsoft shadows, premium feel, marble background,\nhyperrealistic, 4K --ar 4:5 --quality 2\n\nSTYLE 4 — Illustration éditoriale\n/imagine [SUJET], editorial illustration,\nflat design with subtle gradients, contemporary\nMediterranean color palette, vector style --ar 16:9\n\nSTYLE 5 — UGC / authentique\n/imagine [SUJET], iPhone photography style,\nuser-generated content vibe, natural imperfections,\nauthentic moment, slight grain --ar 9:16 --style raw\n\nPARAMÈTRES UTILES À CONNAÎTRE :\n- --ar : ratio (1:1 carré, 4:5 social, 9:16 reel, 16:9 web)\n- --style raw : moins de stylisation, plus photographique\n- --chaos 0-100 : variabilité (haut = plus surprenant)\n- --niji : style anime/illustration\n- --quality 0.25-2 : niveau de détail (coût en jetons)",
+      "variables": ["SUJET", "BRAND"],
+      "expected_output": "5 prompts Midjourney prêts à l'emploi par style + référence des paramètres",
+      "tools": ["Midjourney (essai ou Plus)"]
+    },
+    {
+      "id": "prompt_3_iteration_workflow",
+      "title": "Prompt 3 — Workflow d'itération v1 → v10",
+      "use_case": "Passer d'une 1ère idée à un concept final en 10 itérations en 30 minutes",
+      "tags": ["itération", "workflow", "raffinement"],
+      "content": "OBJECTIF : passer d'une 1ère idée à un concept final en 10 itérations.\n\nPHASE 1 — DIVERGER (5 minutes)\n/imagine [PROMPT_BASE_DIRECTION_A] --ar [RATIO]\n/imagine [PROMPT_BASE_DIRECTION_B] --ar [RATIO]\n/imagine [PROMPT_BASE_DIRECTION_C] --ar [RATIO]\n→ Tu obtiens 12 propositions (3 directions × 4 variations)\n\nPHASE 2 — SÉLECTIONNER (3 minutes)\nCritères :\n- Lisibilité du message principal\n- Cohérence avec brand voice\n- Originalité par rapport aux concurrents\n- Faisabilité technique de production\n→ Garder 2-3 propositions favorites\n\nPHASE 3 — RAFFINER (15 minutes)\nPour chaque proposition retenue, dans Midjourney :\n- V (variation forte) → 4 nouvelles variantes\n- U (upscale) → version haute résolution\n- /describe [URL_IMAGE] → analyser ce qui marche\n- Reprompter avec ajustements précis\n  (ex : change lighting to golden hour)\n\nPHASE 4 — FINALISER (5 minutes)\n- Upscale final + retouches Photoshop si nécessaire\n- Export aux formats requis (web, print, social)\n- Documentation : prompts utilisés + paramètres\n\nASTUCE : sauvegarder TOUS les prompts gagnants\ndans une bibliothèque Notion réutilisable.",
+      "variables": ["PROMPT_BASE_DIRECTION_A", "PROMPT_BASE_DIRECTION_B", "PROMPT_BASE_DIRECTION_C", "RATIO", "URL_IMAGE"],
+      "expected_output": "Workflow chronométré 30 min : diverger → sélectionner → raffiner → finaliser",
+      "tools": ["Midjourney", "Photoshop (optionnel)", "Notion (bibliothèque)"]
+    }
+  ],
+
+  "practical_exercise": {
+    "title": "Mission : Génère 10 concepts visuels sur un brief réel en 30 minutes",
+    "duration_minutes": 60,
+    "tools_required": ["ChatGPT (gratuit)", "Midjourney (essai ou Plus)", "Figma (gratuit)"],
+    "objective": "Appliquer la chaîne d'idéation IA sur un vrai brief, mesurer objectivement le temps gagné, et obtenir le retour client/collègue.",
+    "steps": [
+      {"n": 1, "title": "Sélection d'un brief réel", "description": "Prends un brief réel sur lequel tu travailles actuellement (ou récent)."},
+      {"n": 2, "title": "Brief structuré", "description": "Applique le Prompt 1 et obtiens un brief créatif structuré en 7 sections avec 3 directions distinctes."},
+      {"n": 3, "title": "Sélection des styles", "description": "Sélectionne 3 styles dans la bibliothèque (Prompt 2) selon les directions identifiées."},
+      {"n": 4, "title": "Génération chronométrée", "description": "Lance les 3 générations Midjourney (chronométrées 30 minutes) — applique la phase « Diverger » du workflow d'itération."},
+      {"n": 5, "title": "Sélection et raffinement", "description": "Applique les critères d'évaluation et sélectionne les 10 meilleurs concepts. Raffine les 2-3 favorites avec Variation/Upscale."},
+      {"n": 6, "title": "Présentation", "description": "Présente la planche de concepts dans Figma à un collègue ou au client, et collecte le feedback."}
+    ],
+    "success_criteria": [
+      "10 concepts variés livrés en 30 minutes (vs 1-2 jours en manuel)",
+      "Au moins 2 concepts jugés « surprise positive » par le client/collègue",
+      "Bibliothèque personnelle enrichie d'au moins 3 prompts gagnants"
+    ],
+    "maghreb_note": "Pour les briefs incluant des codes culturels (cosmétique marocaine, calligraphie arabe, motifs zellige), enrichis tes prompts avec des références régionales explicites : « Mediterranean color palette », « North African artisan craft », « warm earthy tones inspired by Marrakech ». Évite les clichés (chameaux, dunes) — privilégie lifestyle contemporain et authentique. Pour les références à des motifs traditionnels, cite la région d'origine pour précision."
+  },
+
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils — Comparatif Maghreb",
+      "headers": ["Outil", "Pricing", "Usage", "Note Maghreb"],
+      "rows": [
+        ["Midjourney", "10-30 USD/mois", "Outil principal de génération (concepts, lifestyle, illustrations)", "Carte internationale requise"],
+        ["DALL-E 3 (ChatGPT Plus)", "20 USD/mois", "Alternative pour briefs textuels précis et intégration ChatGPT", "Idéal si déjà abonné ChatGPT Plus"],
+        ["Stable Diffusion (local ou Replicate)", "Free / pay-per-use", "Open source, idéal pour usage massif ou clients sensibles à la donnée", "Manipulation technique requise"],
+        ["Figma + Figma AI", "Free / 12 USD/mois", "Présentation client + intégration des concepts dans des mockups", "Free tier suffisant pour démarrer"],
+        ["ChatGPT / Claude", "Free / 20 USD/mois", "Génération du brief structuré + analyse des concepts générés", "Free tier suffisant pour démarrer"],
+        ["Notion", "Free / 10 USD/mois", "Bibliothèque de prompts versionnée + documentation", "Free tier convient à un designer solo"],
+        ["Make / n8n", "Free / 20 USD/mois", "Automatisation du pipeline industriel", "n8n self-hosted ~5 USD/VPS = quasi-gratuit"]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows — 2 niveaux de sophistication",
+      "headers": ["Workflow", "Outils", "Setup", "Coût/mois", "Niveau"],
+      "rows": [
+        ["W1 : Sprint d'idéation 30 minutes (no-code)", "ChatGPT + Midjourney + Notion + Figma", "30 min première fois", "0 à 30 USD selon outils", "Débutant"],
+        ["W2 : Pipeline d'idéation industriel (low-code)", "Notion/Airtable + ChatGPT API + Midjourney API + Drive + Slack", "3-5h première fois", "~50-80 USD/mois", "Intermédiaire"]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — Baseline personnalisée → Cible",
+      "headers": ["Indicateur", "Niveau temporel", "Baseline (J0)", "Cible"],
+      "rows": [
+        ["Vitesse d'idéation (concepts par session)", "Court terme (J+14)", "À renseigner par l'apprenant", "10 concepts en 30 min (vs 2-3 en 1 journée → 5×)"],
+        ["Diversité créative explorée", "Court terme (J+14)", "À renseigner", "3 à 5 directions distinctes par projet"],
+        ["Temps moyen jusqu'au concept final validé", "Moyen terme (J+30)", "À renseigner", "1 à 2 jours (vs 5-10 jours)"]
+      ]
+    }
+  },
+
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Beaucoup de designers au Maghreb font face au même problème : un volume de demandes élevé (logos, visuels marketing, mockups, illustrations) et trop peu de temps pour explorer plusieurs pistes créatives. Résultat : on livre la première idée acceptable plutôt que la meilleure idée possible.",
+      "pain_points": [
+        "Idéation lente (2 à 3 jours pour produire 5 concepts variés)",
+        "Une seule piste explorée par projet, manque de diversité créative",
+        "Aller-retours infinis avec les clients qui veulent voir « d'autres options »",
+        "Burn-out créatif : « je n'ai plus d'idées, tout se ressemble »",
+        "Retard accumulé sur le pipeline projets",
+        "Sentiment de faire du « production » plutôt que du « design »"
+      ]
+    },
+    "kpi_pattern": {
+      "title": "Pattern temporel des KPIs (3 niveaux)",
+      "description": "Chaque module mesure ses KPIs sur trois niveaux temporels distincts, rendant le parcours défendable académiquement et crédible commercialement.",
+      "levels": [
+        {"level": "Court terme", "type": "Productivité (vitesse d'idéation)", "horizon": "Mesurable J+14", "examples": "Concepts par session, directions distinctes explorées"},
+        {"level": "Moyen terme", "type": "Qualité (boucles client)", "horizon": "Mesurable J+30", "examples": "Temps jusqu'au concept final validé, satisfaction client"},
+        {"level": "Long terme", "type": "Impact business (volume produit)", "horizon": "Observatoire J+30/J+60", "examples": "Nombre de projets livrés/mois, revenu freelance"}
+      ]
+    },
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {"when": "J0", "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"},
+        {"when": "J+7", "what": "Rappel par email + notification in-app"},
+        {"when": "J+14", "what": "Formulaire de mesure d'impact auto-affiché + rappel"},
+        {"when": "J+30", "what": "Rappel pour KPIs moyen terme (temps jusqu'au final)"}
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Configure ta bibliothèque de prompts en 20 minutes",
+        "duration_min": 15,
+        "format": "guide pas-à-pas",
+        "tool": "ChatGPT + Notion",
+        "steps": [
+          "Ouvre Notion et crée une nouvelle page intitulée 'Bibliothèque de prompts — [TON NOM]'",
+          "Crée un tableau avec 4 colonnes : Nom du prompt, Outil, Cas d'usage, Prompt complet",
+          "Colle le Prompt 1 (Génération de concepts) depuis la section Prompts ci-dessus dans la première ligne",
+          "Teste le prompt dans ChatGPT ou Midjourney avec un brief réel de ton portefeuille",
+          "Ajoute les 2 autres prompts du module dans le tableau — tu as une bibliothèque de 3 prompts opérationnels",
+          "Duplique cette page Notion pour chaque nouveau projet client — ta bibliothèque grandira au fil des modules"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Génère 10 concepts en 30 minutes (live)",
+        "duration_min": 25,
+        "format": "guide pas-à-pas",
+        "tool": "Midjourney / DALL-E",
+        "steps": [
+          "Ouvre un brief créatif réel (client ou personnel) et identifie 3 mots-clés visuels : style, ambiance, couleur dominante",
+          "Colle le Prompt 2 (Génération de concepts visuels) dans ChatGPT pour générer 5 variantes de prompt Midjourney",
+          "Copie le premier prompt dans Midjourney (ou DALL-E si tu n'as pas accès) et génère les 4 variantes",
+          "Sélectionne la meilleure variante et utilise /vary pour explorer des déclinaisons",
+          "Répète avec 2 autres prompts générés — tu obtiens 10 à 12 concepts en moins de 30 minutes",
+          "Exporte les 3 meilleurs concepts en PNG et organise-les dans un dossier Figma pour présentation client"
+        ]
+      }
+    ],
+
+    "_v1_1_additions": "La section ci-dessous (external_references) est l'ajout du PDF v1.1 — section 2.4.5.",
+
+    "external_references": {
+      "title": "Références externes — Sources d'inspiration officielles",
+      "source": "PDF v1.1 §2.4.5",
+      "description": "Cette section regroupe les ressources externes officielles qui complètent et nourrissent le contenu pédagogique du module. Elles sont citées comme références d'inspiration et de mise à jour continue, et seront fournies aux apprenants en complément des templates Euklydia.",
+      "categories": [
+        {
+          "id": "midjourney_prompt_guides",
+          "name": "Midjourney prompt guides",
+          "resources": [
+            {
+              "label": "Documentation officielle Midjourney",
+              "url_hint": "docs.midjourney.com",
+              "description": "Anatomie du prompt, paramètres avancés (--ar, --style, --chaos, --niji, --quality), commandes /imagine, /describe, /blend."
+            },
+            {
+              "label": "Communauté Midjourney Showcase",
+              "url_hint": "midjourney.com/showcase",
+              "description": "Bibliothèque visuelle de prompts gagnants par style — source d'inspiration pour enrichir la bibliothèque Notion personnelle."
+            }
+          ]
+        },
+        {
+          "id": "openai_dalle_documentation",
+          "name": "OpenAI DALL-E documentation",
+          "resources": [
+            {
+              "label": "Documentation officielle OpenAI",
+              "url_hint": "platform.openai.com/docs/guides/images",
+              "description": "Best practices de prompting visuel, gestion des aspect ratios, intégration via API."
+            },
+            {
+              "label": "ChatGPT + DALL-E 3 native integration",
+              "url_hint": "chatgpt.com (avec abonnement Plus)",
+              "description": "Workflow conversationnel pour itérer rapidement sur un brief visuel sans quitter ChatGPT."
+            }
+          ]
+        }
+      ],
+      "pedagogical_usage": "Ces références sont citées dans les tutoriels et utilisées comme matériel d'approfondissement pour les apprenants souhaitant aller au-delà du contenu Euklydia. Elles garantissent que le parcours reste à jour avec les évolutions rapides de Midjourney et DALL-E."
+    }
+  }
+}

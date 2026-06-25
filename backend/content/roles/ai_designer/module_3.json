@@ -1,0 +1,501 @@
+{
+  "$schema_version": "1.0",
+  "role": "AI Designer",
+  "source": "PDF Parcours AI Designer v1.1 — Mai 2026",
+  "display_order": 3,
+  "title": "Design System Automation",
+  "skill_name": "AI Design System & Ops",
+  "level": "Expert",
+  "journey_stage": "Cycle design — Industrialisation",
+  "estimated_duration_min": 300,
+  "format": "blended",
+  "is_active": true,
+  "description": "Construis et maintiens un design system IA-augmenté : audit de cohérence existant, extraction des design tokens, génération de composants Figma, validation automatisée, sync vers le code. Tu améliores de 40 % la cohérence visuelle de tes produits et industrialises le design ops.",
+  "learning_objective": "À l'issue de ce module, l'apprenant sait conduire un audit de cohérence multi-produits, extraire des design tokens consensuels, construire une bibliothèque de composants Figma documentée, et synchroniser les variables vers le code en production.",
+  "expected_outcome": "+40 % de cohérence visuelle inter-produits, temps de création d'un nouveau composant réduit de 1-4h à 10-30 min, taux de réutilisation des composants > 80 % (vs < 30 %).",
+  "why_this_module": "Beaucoup d'équipes design au Maghreb gèrent plusieurs produits digitaux (site web, app mobile, dashboard interne, supports marketing) sans design system unifié. Résultat : chaque produit a sa propre palette, ses propres boutons, ses propres typographies, ses propres composants. La marque devient incohérente, le designer passe son temps à recréer les mêmes éléments, et l'équipe dev invente ses propres composants à chaque sprint.",
+  "recommended_when": "Quand tu gères 2+ produits digitaux sans cohérence visuelle entre eux, que tu recrées les mêmes composants à chaque sprint, ou que ton taux de réutilisation des composants est inférieur à 50 %.",
+  "role_based_example": "Yasmine s'occupe désormais de 3 produits dans la PME e-commerce : le site web, l'application mobile cliente, et le dashboard admin interne. Chaque produit a été construit à un moment différent, par un designer différent, avec une charte différente. Quand Yasmine veut ajouter un bouton « Acheter », elle doit le redessiner à chaque fois car aucun fichier source n'est partagé. Pire : les développeurs ont leurs propres versions des composants en code. Avec ce module, Yasmine bootstrap un design system unifié en 1 semaine et obtient l'adoption de l'équipe.",
+  "takeaway": "Un design system n'est pas un fichier Figma figé : c'est une plateforme vivante qui combine tokens centralisés, composants générés à la demande, validation IA et sync Figma↔code. Cette industrialisation du design ops libère le designer pour la valeur ajoutée stratégique.",
+  "action_point": "Cette semaine : identifie 2-3 produits de ton entreprise, applique le Prompt 1 (audit cohérence), extrais 15-20 design tokens consensuels, et construis 5 composants atomiques avec le Prompt 2 (button, input, card, badge, link).",
+  "practical_application": "Application directe sur tes vrais produits ou ceux d'un client. Tu construis une bibliothèque de composants versionnée, tu mesures l'adoption par les designers et les devs, et tu industrialises le design ops de ton équipe.",
+  "key_concepts": [
+    "Architecture d'un design system (foundations, components, patterns)",
+    "Maîtrise des design tokens (couleurs, typos, espacements, rayons)",
+    "Audit de cohérence visuelle assisté par IA sur plusieurs produits",
+    "Utilisation de Figma AI pour générer rapidement des composants alignés",
+    "Configuration de Tokens Studio pour centraliser les variables de design",
+    "Synchronisation Figma ↔ code (variables CSS / Tailwind / iOS / Android)",
+    "Gouvernance du design system (versioning, contributions, monitoring)",
+    "Scalable Design Ops Framework Euklydia (5 piliers de gouvernance)"
+  ],
+  "next_recommended_module": "Certificat AI Designer + Bridge commercial BrandStudio",
+  "prompt_examples": [
+    {
+      "id": "prompt_1_audit_coherence",
+      "title": "Prompt 1 — Audit de cohérence visuelle multi-produits",
+      "use_case": "Auditer plusieurs produits existants pour extraire un set commun de design tokens",
+      "tags": [
+        "audit",
+        "tokens",
+        "cohérence"
+      ],
+      "content": "Tu es un design system architect senior.\nAudit la cohérence visuelle entre ces produits et propose un plan d'unification.\n\nPRODUITS À AUDITER :\nPour chacun, fournis :\n- Nom : [PRODUIT_1]\n- Type : [SITE / APP / DASHBOARD]\n- Captures clés : [DESCRIPTION_OU_LIEN]\n- Stack technique : [TECH]\n\nPRODUIT 1 : ...\nPRODUIT 2 : ...\nPRODUIT 3 : ...\n\nGÉNÈRE UN AUDIT EN 6 SECTIONS :\n1. INVENTAIRE DES FOUNDATIONS\n   Pour chaque produit, recense :\n   - Couleurs utilisées (estimation hex)\n   - Typographies (familles + tailles)\n   - Espacements observés (4, 8, 16... ?)\n   - Rayons de bordure\n\n2. ÉCARTS DE COHÉRENCE\n   Tableau comparatif des différences entre produits\n   Sévérité : MAJEURE / MOYENNE / MINEURE\n\n3. DESIGN TOKENS RECOMMANDÉS\n   Set unifié et nommé (color.primary.600, spacing.md, etc.)\n   Justification du choix (vs versions actuelles)\n\n4. COMPOSANTS À UNIFIER EN PRIORITÉ\n   Top 10 composants à standardiser (boutons, inputs, cards...)\n\n5. ROADMAP DE MIGRATION\n   Phase 1 (mois 1) : foundations\n   Phase 2 (mois 2-3) : composants atomiques\n   Phase 3 (mois 4+) : composants composites\n\n6. RISQUES ET QUICK WINS",
+      "variables": [
+        "PRODUIT_1",
+        "DESCRIPTION_OU_LIEN",
+        "TECH"
+      ],
+      "expected_output": "Audit 6 sections : inventaire, écarts, tokens recommandés, composants prioritaires, roadmap, risques",
+      "tools": [
+        "ChatGPT",
+        "Captures d'écran des produits"
+      ]
+    },
+    {
+      "id": "prompt_2_bibliotheque_composants",
+      "title": "Prompt 2 — Génération d'une bibliothèque de composants Figma",
+      "use_case": "Spécifier complètement un composant prêt à être construit dans Figma",
+      "tags": [
+        "composants",
+        "Figma",
+        "spec"
+      ],
+      "content": "Tu es un design system specialist senior, expert Figma.\nConstruis la spécification complète d'un composant.\n\nCOMPOSANT À SPÉCIFIER :\n- Nom : [BUTTON / INPUT / CARD / MODAL / NAV / ...]\n- Use cases : [QUAND_L_UTILISER]\n- Design tokens à utiliser : [COLLER_TOKENS_DISPO]\n\nGÉNÈRE LA SPEC EN 7 SECTIONS :\n1. ANATOMIE\n   Liste des sous-éléments (icon, label, container...)\n\n2. PROPS / VARIABLES\n   - Type (primary / secondary / tertiary / destructive)\n   - Size (sm / md / lg)\n   - Icon position (none / left / right / only)\n   - State (default / hover / active / disabled / loading / error)\n\n3. COMBINAISONS DE VARIANTS\n   Total = type × size × icon × state\n   Lister les combinaisons valides (vs invalides)\n\n4. SPÉCIFICATIONS VISUELLES\n   Pour chaque variant, donner :\n   - Background : token utilisé\n   - Border : token utilisé\n   - Text color : token utilisé\n   - Padding : token utilisé\n   - Border-radius : token utilisé\n\n5. RÈGLES D'ACCESSIBILITÉ\n   - Contraste WCAG 2.1 AA\n   - Focus visible\n   - Touch target 44×44 min\n   - Aria labels recommandés\n\n6. EXEMPLES D'UTILISATION (do / don't)\n\n7. SPEC POUR DEV\n   Variables CSS / Tailwind classes / props React équivalentes",
+      "variables": [
+        "QUAND_L_UTILISER",
+        "COLLER_TOKENS_DISPO"
+      ],
+      "expected_output": "Spec composant 7 sections : anatomie, props, variants, visuels, a11y, do/don't, spec dev",
+      "tools": [
+        "ChatGPT",
+        "Figma"
+      ]
+    },
+    {
+      "id": "prompt_3_documentation",
+      "title": "Prompt 3 — Documentation auto du design system",
+      "use_case": "Générer la documentation complète d'un composant au format Markdown",
+      "tags": [
+        "documentation",
+        "Markdown",
+        "composants"
+      ],
+      "content": "Tu es un design system documentation lead.\nGénère la documentation complète et utilisable de ce composant.\n\nCOMPOSANT :\n- Nom : [NOM_COMPOSANT]\n- Spec technique : [COLLER_LA_SPEC_DU_PROMPT_2]\n- Captures : [DESCRIPTION_DES_VARIANTS]\n\nGÉNÈRE LA DOC EN FORMAT MARKDOWN :\n\n# [Nom du composant]\n\n## Description\n[2-3 phrases : à quoi sert ce composant]\n\n## Quand l'utiliser\n- Use case 1 : ...\n- Use case 2 : ...\n- Use case 3 : ...\n\n## Quand NE PAS l'utiliser\n- Anti-pattern 1 + alternative recommandée\n- Anti-pattern 2 + alternative recommandée\n\n## Props\nTableau des props avec type, default, description\n\n## Variants\nPour chaque variant : capture + use case + exemple code\n\n## Accessibilité\n- Contraste\n- Clavier\n- Lecteurs d'écran\n- Touch targets\n\n## Exemples (do / don't)\nDO : [exemple correct] → pourquoi\nDON'T : [exemple incorrect] → pourquoi + alternative\n\n## Code (React + Tailwind)\n```jsx\n<Button variant=\"primary\" size=\"md\" icon=\"left\">\n  Acheter maintenant\n</Button>\n```\n\n## Changelog\n- v1.0 : création",
+      "variables": [
+        "NOM_COMPOSANT",
+        "COLLER_LA_SPEC_DU_PROMPT_2",
+        "DESCRIPTION_DES_VARIANTS"
+      ],
+      "expected_output": "Documentation Markdown complète : description, usage, props, variants, a11y, exemples, code",
+      "tools": [
+        "ChatGPT",
+        "Notion / Zeroheight"
+      ]
+    }
+  ],
+  "practical_exercise": {
+    "title": "Mission : Bootstrap un mini design system sur tes produits réels",
+    "duration_minutes": 180,
+    "tools_required": [
+      "Figma",
+      "Tokens Studio (plugin Figma)",
+      "ChatGPT"
+    ],
+    "objective": "Construire les fondations d'un design system unifié sur 2-3 produits réels et obtenir l'adoption par au moins 1 produit dans les 2 semaines suivantes.",
+    "steps": [
+      {
+        "n": 1,
+        "title": "Identification des produits",
+        "description": "Identifie 2 à 3 produits de ton entreprise (ou de tes clients)."
+      },
+      {
+        "n": 2,
+        "title": "Audit de cohérence",
+        "description": "Applique le Prompt 1 et obtiens l'audit de cohérence (inventaire + écarts + tokens recommandés)."
+      },
+      {
+        "n": 3,
+        "title": "Extraction des tokens",
+        "description": "Extrais 15 à 20 design tokens consensuels (couleurs + typos + spacing + radius)."
+      },
+      {
+        "n": 4,
+        "title": "Configuration Tokens Studio",
+        "description": "Configure ces tokens dans Tokens Studio + variables Figma pour centralisation."
+      },
+      {
+        "n": 5,
+        "title": "5 composants atomiques",
+        "description": "Construis 5 composants atomiques avec le Prompt 2 (button, input, card, badge, link)."
+      },
+      {
+        "n": 6,
+        "title": "Documentation",
+        "description": "Documente avec le Prompt 3 dans Notion ou Figma (un fichier de doc par composant)."
+      },
+      {
+        "n": "6.5",
+        "title": "Scalable Design Ops Framework",
+        "description": "Mets en place les 5 piliers du Scalable Design Ops Framework Euklydia (governance, contribution pipeline, versioning, adoption metrics, continuous audit) via le template Notion clé en main."
+      },
+      {
+        "n": 7,
+        "title": "Présentation et adoption",
+        "description": "Présente la bibliothèque à ton équipe (designers + devs) et obtiens leur adoption sur au moins 1 produit."
+      }
+    ],
+    "success_criteria": [
+      "Au moins 1 produit utilise les nouveaux composants dans les 2 semaines",
+      "15+ design tokens centralisés dans Tokens Studio",
+      "5 composants atomiques documentés et publiés dans la bibliothèque partagée",
+      "Template Scalable Design Ops Framework dupliqué et adapté à l'entreprise"
+    ],
+    "maghreb_note": "Si tu travailles avec des équipes hybrides Tunis-Casablanca-Alger ou des freelances distribués, le design system devient un actif stratégique : il évite que chaque collaborateur réinvente sa charte. Pour des produits ciblant un public arabe, intègre dans tes composants le support du RTL (right-to-left) dès la conception — c'est plus facile maintenant que rétroactivement."
+  },
+  "comparison_tables": {
+    "tools": {
+      "title": "Outils — Comparatif Maghreb",
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
+      "rows": [
+        [
+          "Figma + Figma AI",
+          "Free / 12 USD/mois (Pro)",
+          "Outil principal de construction du design system",
+          "Free tier permet de démarrer"
+        ],
+        [
+          "Tokens Studio (plugin Figma)",
+          "Free / 8 USD/mois",
+          "Centralisation des design tokens et sync vers code",
+          "Free tier suffisant"
+        ],
+        [
+          "ChatGPT / Claude",
+          "Free / 20 USD/mois",
+          "Audit cohérence + spec composants + documentation auto",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Style Dictionary",
+          "Open source",
+          "Build des variables CSS/Tailwind/iOS/Android depuis tokens.json",
+          "Open source, gratuit"
+        ],
+        [
+          "Storybook",
+          "Open source",
+          "Bibliothèque de composants live pour les développeurs",
+          "Open source, gratuit"
+        ],
+        [
+          "Zeroheight ou Supernova",
+          "À partir de 25 USD/mois",
+          "Documentation publique du design system",
+          "Notion AI peut servir d'alternative gratuite"
+        ],
+        [
+          "GitHub",
+          "Free / variable",
+          "Versioning et synchronisation Figma ↔ code",
+          "Free tier convient"
+        ]
+      ]
+    },
+    "workflows": {
+      "title": "Workflows — 2 niveaux",
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
+      "rows": [
+        [
+          "W1 : Bootstrap d'un design system en 1 semaine (no-code)",
+          "Figma + Tokens Studio + ChatGPT + Notion/Zeroheight",
+          "1 semaine première fois",
+          "0 à 30 USD selon outils",
+          "Débutant"
+        ],
+        [
+          "W2 : Sync Figma ↔ Code (low-code)",
+          "Tokens Studio + GitHub Actions + Style Dictionary + ChatGPT API + Slack",
+          "5-8h première fois",
+          "~20-40 USD/mois",
+          "Intermédiaire"
+        ]
+      ]
+    },
+    "kpi_targets": {
+      "title": "KPIs cibles — Design System Automation",
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
+      "rows": [
+        [
+          "Temps de création d'un nouveau composant",
+          "Court terme (J+14)",
+          "À renseigner (1 à 4h en manuel)",
+          "10 à 30 minutes"
+        ],
+        [
+          "Cohérence visuelle inter-produits (audit IA)",
+          "Moyen terme (J+30)",
+          "Faible (chaque produit indépendant)",
+          "+40 %"
+        ],
+        [
+          "Taux de réutilisation des composants",
+          "Moyen terme (J+30)",
+          "À renseigner (souvent < 30 %)",
+          "> 80 %"
+        ]
+      ]
+    }
+  },
+  "section_content": {
+    "use_case_detail": {
+      "title": "Le problème business",
+      "narrative": "Beaucoup d'équipes design au Maghreb gèrent plusieurs produits digitaux sans design system unifié. Résultat : chaque produit a sa propre palette, ses propres boutons, ses propres typographies. La marque devient incohérente, le designer passe son temps à recréer les mêmes éléments.",
+      "pain_points": [
+        "Incohérence visuelle entre les produits (même marque, expériences différentes)",
+        "Perte de temps massive sur les tâches répétitives (recréer des composants)",
+        "Aucun fichier Figma source unique, multiplicité des versions",
+        "Désynchronisation entre fichiers Figma et code en production",
+        "Impossible de scaler quand de nouveaux designers ou devs arrivent",
+        "La direction marketing se plaint : « la marque n'est pas reconnaissable »"
+      ]
+    },
+    "tutorials": [
+      {
+        "id": "t1",
+        "title": "Audit cohérence + extraction de design tokens",
+        "duration_min": 20,
+        "format": "guide pas-à-pas",
+        "tool": "Figma + ChatGPT",
+        "steps": [
+          "Ouvre ton fichier Figma principal et identifie toutes les couleurs utilisées via Edit > Select All with Same Fill",
+          "Note toutes les valeurs hex utilisées — tu trouveras probablement 15 à 30 couleurs non standardisées",
+          "Colle la liste dans ChatGPT avec le Prompt 1 (Audit Design System) pour identifier les incohérences",
+          "Récupère les recommandations : couleurs à fusionner, tokens à créer, hiérarchie à respecter",
+          "Dans Figma, crée une page 'Design Tokens' et définis tes couleurs primaires, secondaires, neutres et sémantiques",
+          "Remplace les couleurs incohérentes dans tes composants existants par les tokens standardisés"
+        ]
+      },
+      {
+        "id": "t2",
+        "title": "Génère ton premier composant Button complet",
+        "duration_min": 25,
+        "format": "guide pas-à-pas",
+        "tool": "Figma",
+        "steps": [
+          "Dans Figma, crée un nouveau frame 'Composants' et dessine un rectangle 120×40px pour ton bouton de base",
+          "Applique ton token de couleur primaire comme fond et ton token de texte blanc comme label",
+          "Convertis le frame en composant : clic droit > Create Component",
+          "Ajoute des variants : Default, Hover, Disabled, Loading — utilise le panneau Variants dans les propriétés",
+          "Colle le Prompt 2 (Documentation Composant) dans ChatGPT pour générer la documentation d'usage automatiquement",
+          "Copie la documentation générée dans une page Notion liée à ton Design System — ton composant est prêt à être partagé"
+        ]
+      }
+    ],
+    "commercial_bridge": {
+      "title": "Bridge commercial : BrandStudio",
+      "value_proposition": "Transform design performance through AI-driven concept generation, UX intelligence and design system automation with measurable KPI impact.",
+      "composition": [
+        "AI Design Ideation System → 5× faster ideation",
+        "AI UX Intelligence Framework → +20-30 % engagement",
+        "AI Design System Builder → +40 % consistency"
+      ],
+      "cta": "Book a demo and launch a 14-day pilot on your own data to unlock AI-powered design performance."
+    },
+    "_v1_1_additions": "Les 2 sections ci-dessous (scalable_design_ops_framework, external_references) sont les ajouts du PDF v1.1 — sections 4.4.2 et 4.4.6.",
+    "scalable_design_ops_framework": {
+      "title": "Scalable Design Ops Framework — Livrable Euklydia",
+      "source": "PDF v1.1 §4.4.2",
+      "description": "Framework Euklydia qui formalise la gouvernance et la scalabilité du design system. Il transforme un design system « one-shot » en une opération continue capable d'absorber la croissance de l'équipe (1 → 10 designers) et du portefeuille produit (1 → 5+ produits).",
+      "pillars": [
+        {
+          "id": "governance_model",
+          "order": 1,
+          "name": "Governance Model",
+          "description": "Définit qui peut contribuer au design system, comment proposer un nouveau composant, qui valide, comment versionner.",
+          "details": {
+            "roles": [
+              {
+                "role": "Design System Lead",
+                "responsibility": "Pilotage stratégique du design system",
+                "count": "1"
+              },
+              {
+                "role": "Contributors",
+                "responsibility": "Designers produit qui proposent de nouveaux composants",
+                "count": "N"
+              },
+              {
+                "role": "Reviewers",
+                "responsibility": "Lead designers + tech lead qui valident",
+                "count": "2-3"
+              }
+            ]
+          }
+        },
+        {
+          "id": "contribution_pipeline",
+          "order": 2,
+          "name": "Contribution Pipeline",
+          "description": "Workflow standardisé pour intégrer de nouveaux composants au design system.",
+          "details": {
+            "workflow": [
+              "RFC (Request For Component)",
+              "Spec via Prompt 2",
+              "Build Figma",
+              "Review",
+              "Merge",
+              "Doc auto via Prompt 3"
+            ],
+            "sla": {
+              "atomic_component": "5 jours ouvrés",
+              "composite_pattern": "10 jours ouvrés"
+            }
+          }
+        },
+        {
+          "id": "versioning_release",
+          "order": 3,
+          "name": "Versioning & Release",
+          "description": "Système de versioning sémantique du design system avec release notes auto-générées.",
+          "details": {
+            "versioning_scheme": "MAJOR.MINOR.PATCH (sémantique)",
+            "release_notes": "Auto-générées via prompt dédié à partir du changelog Figma + GitHub"
+          }
+        },
+        {
+          "id": "adoption_metrics",
+          "order": 4,
+          "name": "Adoption Metrics",
+          "description": "Dashboard de mesure de l'adoption du design system par les produits et les équipes.",
+          "details": {
+            "metrics": [
+              "% de composants utilisés vs réimplémentés (par produit)",
+              "% de composants utilisés vs réimplémentés (par équipe)"
+            ],
+            "alerts": "Notification Slack si un produit dérive (composants custom > 20 %)"
+          }
+        },
+        {
+          "id": "continuous_audit",
+          "order": 5,
+          "name": "Continuous Audit",
+          "description": "Application périodique de l'audit de cohérence pour mesurer la dérive et maintenir la qualité.",
+          "details": {
+            "frequency": "Mensuelle",
+            "method": "Application du Prompt 1 (audit cohérence) pour mesurer la dérive",
+            "integration": "Monitoring continu via l'AI Design System Builder Euklydia"
+          }
+        }
+      ],
+      "deliverable": {
+        "type": "Template Notion clé en main",
+        "description": "Template Notion contenant les 5 piliers structurés, à dupliquer et adapter à son entreprise.",
+        "contents": [
+          "RFC template (Request For Component)",
+          "Governance charter",
+          "Versioning rules",
+          "Adoption dashboard schema",
+          "Audit checklist"
+        ]
+      },
+      "commercial_value": "Ce framework est le différenciateur stratégique de l'AI Design System Builder Euklydia. Il transforme la formation en un actif organisationnel durable : l'apprenant repart avec un système de gouvernance reproductible et défendable auprès de sa direction."
+    },
+    "external_references": {
+      "title": "Références externes — Sources d'inspiration officielles",
+      "source": "PDF v1.1 §4.4.6",
+      "description": "Cette section regroupe les ressources externes officielles qui complètent le contenu pédagogique du module Design System Automation.",
+      "categories": [
+        {
+          "id": "figma_design_system_resources",
+          "name": "Figma design system resources",
+          "resources": [
+            {
+              "label": "Figma Best Practices for Design Systems",
+              "url_hint": "figma.com/best-practices",
+              "description": "Guide officiel : structuration, variants, auto-layout."
+            },
+            {
+              "label": "Figma Community Design Systems",
+              "url_hint": "figma.com/community",
+              "description": "Exemples industriels (Material Design, Polaris Shopify, Atlassian Design System) utilisés comme références."
+            },
+            {
+              "label": "Tokens Studio documentation officielle",
+              "url_hint": "tokens.studio/docs",
+              "description": "Gestion centralisée des design tokens et sync Figma ↔ code."
+            }
+          ]
+        },
+        {
+          "id": "adobe_design_automation",
+          "name": "Adobe design automation",
+          "resources": [
+            {
+              "label": "Adobe Firefly",
+              "url_hint": "firefly.adobe.com",
+              "description": "Modèle génératif Adobe pour la génération de composants, textures et illustrations alignés à une charte graphique."
+            },
+            {
+              "label": "Adobe Express avec Firefly",
+              "url_hint": "adobe.com/express",
+              "description": "Automatisation de la production de variantes visuelles sur les templates de marque (utile pour les marketing assets liés au design system)."
+            },
+            {
+              "label": "Adobe Creative Cloud Libraries",
+              "url_hint": "adobe.com/creativecloud/libraries",
+              "description": "Synchronisation des assets de marque entre Photoshop / Illustrator / Express, complément au flow Figma pour les équipes hybrides."
+            },
+            {
+              "label": "Adobe Firefly API",
+              "url_hint": "developer.adobe.com/firefly-services",
+              "description": "Automation programmatique de la génération de composants visuels conformes à la brand voice."
+            }
+          ]
+        }
+      ],
+      "pedagogical_usage": "Figma reste l'outil central du module, mais Adobe Firefly et Express sont présentés comme compléments stratégiques pour les équipes design qui produisent à la fois du produit digital (Figma) et des assets marketing dérivés (Adobe). Cette double référence reflète la réalité du marché Maghreb, où beaucoup de designers utilisent encore la suite Adobe en parallèle de Figma."
+    },
+    "kpi_measurement_method": {
+      "title": "Méthode de collecte des KPIs",
+      "milestones": [
+        {
+          "when": "J0",
+          "what": "Mesure ton temps de production design actuel et ton taux de réutilisation composants (baseline)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Compare temps de production et cohérence design avant/après automation"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif — impact sur la vélocité de l'équipe design"
+        },
+        {
+          "when": "J+60",
+          "what": "Consolidation finale — ROI du design system automatisé"
+        }
+      ]
+    }
+  }
+}
