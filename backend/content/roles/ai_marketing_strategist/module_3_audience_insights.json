@@ -553,6 +553,48 @@
           "what": "Consolidation finale — ROI de la segmentation sur les campagnes"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Google Analytics 4 — Guide audiences et segments",
+    "type": "article",
+    "url": "https://support.google.com/analytics/answer/9267572",
+    "description": "Documentation officielle GA4 sur la création d'audiences prédictives et la segmentation comportementale — source principale de données pour le Prompt 1.",
+    "tags": ["GA4", "audiences", "segmentation", "données"]
+  },
+  {
+    "id": "r2",
+    "title": "Meta Business Suite — Custom Audiences et Lookalike",
+    "type": "article",
+    "url": "https://www.facebook.com/business/help/744354708981227",
+    "description": "Guide officiel Meta pour créer des audiences personnalisées depuis une liste CRM et des audiences similaires (Lookalike) — directement lié au tutorial t2.",
+    "tags": ["Meta", "Custom Audience", "Lookalike", "Maghreb"]
+  },
+  {
+    "id": "r3",
+    "title": "Segment — Customer Data Platform gratuit",
+    "type": "tool",
+    "url": "https://segment.com",
+    "description": "CDP pour centraliser et activer les données multi-sources (CRM, GA4, e-commerce). Free tier jusqu'à 1 000 visiteurs/mois — recommandé pour les marques 10k+ utilisateurs.",
+    "tags": ["CDP", "données", "centralisation", "segmentation"]
+  },
+  {
+    "id": "r4",
+    "title": "Amplitude — Playbook RFM et analyse comportementale",
+    "type": "article",
+    "url": "https://amplitude.com/blog/rfm-analysis",
+    "description": "Guide Amplitude sur la méthode RFM (Recency, Frequency, Monetary) avec exemples concrets — complémentaire au Prompt 2 Segmentation RFM.",
+    "tags": ["RFM", "comportemental", "e-commerce", "segmentation"]
+  },
+  {
+    "id": "r5",
+    "title": "Mixpanel — Analyse comportementale produit",
+    "type": "tool",
+    "url": "https://mixpanel.com",
+    "description": "Outil d'analyse comportementale avancée. Free tier disponible — utile pour les marques SaaS ou app mobile en Afrique du Nord.",
+    "tags": ["comportemental", "SaaS", "app mobile", "analytics"]
+  }
+]
   }
 }

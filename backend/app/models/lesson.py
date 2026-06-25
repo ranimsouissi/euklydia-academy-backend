@@ -42,8 +42,7 @@ class Lesson(Base):
     # Script vidéo ou contenu textuel principal
     video_script_fr: Mapped[str | None] = mapped_column(Text, nullable=True)
     video_script_en: Mapped[str | None] = mapped_column(Text, nullable=True)
-    video_url_fr: Mapped[str | None] = mapped_column(String(500), nullable=True)
-    video_url_en: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    
 
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 

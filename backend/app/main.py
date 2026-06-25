@@ -19,7 +19,11 @@ VIDEOS_DIR = BASE_DIR.parent / "videos"
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
-app = FastAPI(title="Euklydia Academy API", version="0.1.0")
+app = FastAPI(
+    title="Euklydia Academy API",
+    version="0.1.0",
+    redirect_slashes=False,
+)
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -27,6 +31,7 @@ app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origin_regex=r"https://.*\.ngrok-free\.app|https://.*\.ngrok\.app|https://.*\.ngrok\.io",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

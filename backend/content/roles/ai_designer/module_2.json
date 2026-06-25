@@ -450,6 +450,48 @@
           "what": "Consolidation finale — impact long terme sur les conversions"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Nielsen Norman Group — 10 heuristiques d'utilisabilité",
+    "type": "article",
+    "url": "https://www.nngroup.com/articles/ten-usability-heuristics",
+    "description": "Référence officielle des 10 heuristiques de Nielsen — base méthodologique du Prompt 1 (audit heuristique). Source de vérité incontournable en UX.",
+    "tags": ["Nielsen", "heuristiques", "audit UX", "référence"]
+  },
+  {
+    "id": "r2",
+    "title": "Nielsen Norman Group — Matrice de priorisation des frictions",
+    "type": "article",
+    "url": "https://www.nngroup.com/articles/prioritization-matrices",
+    "description": "Framework Impact × Effort pour prioriser les frictions UX par ROI — intégré au mapping Insight → Action d'Euklydia.",
+    "tags": ["priorisation", "ROI", "Impact × Effort", "frictions"]
+  },
+  {
+    "id": "r3",
+    "title": "Microsoft Clarity — Alternative gratuite à Hotjar",
+    "type": "tool",
+    "url": "https://clarity.microsoft.com",
+    "description": "Outil de heatmaps et session recordings 100 % gratuit — alternative recommandée à Hotjar pour le Maghreb. Aucune limite de sessions.",
+    "tags": ["heatmaps", "recordings", "free", "Maghreb"]
+  },
+  {
+    "id": "r4",
+    "title": "Hotjar Learning Hub — Best practices UX",
+    "type": "article",
+    "url": "https://www.hotjar.com/learn",
+    "description": "Guide officiel Hotjar sur les heatmaps, session recordings et surveys — complément direct au tutorial t1 du module.",
+    "tags": ["Hotjar", "heatmaps", "UX", "best practices"]
+  },
+  {
+    "id": "r5",
+    "title": "NN/g — Discount Usability Engineering (tests n=5)",
+    "type": "article",
+    "url": "https://www.nngroup.com/articles/discount-usability",
+    "description": "Approche pragmatique de tests utilisateurs avec budget limité (5 utilisateurs suffisent) — idéal pour les équipes Maghreb sans budget test en labo.",
+    "tags": ["tests utilisateurs", "budget limité", "n=5", "pragmatique"]
+  }
+]
   }
 }

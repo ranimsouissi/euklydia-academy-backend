@@ -528,6 +528,48 @@
           "what": "Consolidation finale — réduction des incidents non anticipés"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "PMI — Practice Standard for Project Risk Management",
+    "type": "article",
+    "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+    "description": "Référentiel officiel PMI de gestion des risques — base méthodologique des 6 catégories utilisées dans le Prompt 1 (risk discovery). Référence d'autorité mondiale.",
+    "tags": ["PMI", "PMBOK", "risques", "référence"]
+  },
+  {
+    "id": "r2",
+    "title": "PMI — Pulse of the Profession (études annuelles)",
+    "type": "article",
+    "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+    "description": "Études annuelles PMI sur les facteurs de succès et d'échec des projets — sources statistiques pour calibrer les Predictive Risk Models.",
+    "tags": ["PMI", "statistiques", "projets", "benchmark"]
+  },
+  {
+    "id": "r3",
+    "title": "Monday.com — Templates Risk Register configurables",
+    "type": "tool",
+    "url": "https://monday.com/templates/project-management",
+    "description": "Templates de registre des risques avec champs custom (probabilité, impact, owner, statut) — alternative à Notion/Asana pour le suivi opérationnel des risques.",
+    "tags": ["risk register", "templates", "suivi", "Monday.com"]
+  },
+  {
+    "id": "r4",
+    "title": "Monday.com — Automations pour notification des risques",
+    "type": "article",
+    "url": "https://monday.com/automations",
+    "description": "Recettes d'automation pour notifier les owners de risques quand un seuil est franchi — complément direct au Workflow 2 (veille continue).",
+    "tags": ["automation", "notification", "owner", "risques"]
+  },
+  {
+    "id": "r5",
+    "title": "PMI-RMP — Certification Risk Management Professional",
+    "type": "article",
+    "url": "https://www.pmi.org/certifications/risk-management-rmp",
+    "description": "Domaines de compétence officiels du risk manager PMI-RMP — référence pour les apprenants souhaitant approfondir ou se certifier en gestion des risques.",
+    "tags": ["PMI-RMP", "certification", "risk manager", "compétences"]
+  }
+]
   }
 }

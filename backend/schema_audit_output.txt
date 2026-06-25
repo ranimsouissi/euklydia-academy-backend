@@ -1,0 +1,273 @@
+﻿=== QUERY 1: ALL TABLES ===
+activities
+alembic_version
+diagnostic_sessions
+career_paths
+learner_activity_logs
+learner_path_logs
+learner_skill_mastery
+lessons
+module_skills
+modules
+oauth_accounts
+oauth_states
+password_reset_tokens
+questions
+roles
+skills
+units
+user_module_progress
+user_profiles
+user_responses
+user_skill_scores
+users
+
+=== QUERY 2: ALL COLUMNS ===
+activities|id|integer|NO|nextval('activities_id_seq'::regclass)
+activities|lesson_id|integer|NO|NULL
+activities|type|character varying|NO|NULL
+activities|title_fr|character varying|YES|NULL
+activities|title_en|character varying|YES|NULL
+activities|content_fr|json|YES|NULL
+activities|content_en|json|YES|NULL
+activities|order|integer|NO|NULL
+activities|passing_score|integer|NO|NULL
+activities|is_required|boolean|NO|NULL
+activities|is_assessed|boolean|NO|NULL
+activities|has_hints|boolean|NO|NULL
+activities|hints_fr|json|YES|NULL
+activities|hints_en|json|YES|NULL
+activities|rubric_fr|json|YES|NULL
+activities|rubric_en|json|YES|NULL
+activities|is_active|boolean|NO|NULL
+activities|created_at|timestamp without time zone|NO|NULL
+alembic_version|version_num|character varying|NO|NULL
+diagnostic_sessions|id|integer|NO|nextval('diagnostic_sessions_id_seq'::regclass)
+diagnostic_sessions|user_id|integer|NO|NULL
+diagnostic_sessions|career_path_id|integer|NO|NULL
+diagnostic_sessions|global_score_percent|double precision|NO|NULL
+diagnostic_sessions|created_at|timestamp without time zone|NO|now()
+career_paths|id|integer|NO|nextval('career_paths_id_seq'::regclass)
+career_paths|name|character varying|NO|NULL
+career_paths|description|character varying|YES|NULL
+learner_activity_logs|id|integer|NO|nextval('learner_activity_logs_id_seq'::regclass)
+learner_activity_logs|user_id|integer|NO|NULL
+learner_activity_logs|activity_id|integer|NO|NULL
+learner_activity_logs|lesson_id|integer|NO|NULL
+learner_activity_logs|score|integer|YES|NULL
+learner_activity_logs|attempts|integer|NO|NULL
+learner_activity_logs|time_on_task_seconds|integer|YES|NULL
+learner_activity_logs|hints_used|integer|NO|NULL
+learner_activity_logs|status|character varying|NO|NULL
+learner_activity_logs|learner_response|character varying|YES|NULL
+learner_activity_logs|llm_feedback_fr|character varying|YES|NULL
+learner_activity_logs|llm_feedback_en|character varying|YES|NULL
+learner_activity_logs|detailed_results|json|YES|NULL
+learner_activity_logs|started_at|timestamp without time zone|NO|NULL
+learner_activity_logs|completed_at|timestamp without time zone|YES|NULL
+learner_activity_logs|created_at|timestamp without time zone|NO|NULL
+learner_path_logs|id|integer|NO|nextval('learner_path_logs_id_seq'::regclass)
+learner_path_logs|user_id|integer|NO|NULL
+learner_path_logs|from_lesson_id|integer|YES|NULL
+learner_path_logs|to_lesson_id|integer|YES|NULL
+learner_path_logs|trigger|character varying|NO|NULL
+learner_path_logs|reason_fr|text|YES|NULL
+learner_path_logs|reason_en|text|YES|NULL
+learner_path_logs|context_snapshot|json|YES|NULL
+learner_path_logs|decision_source|character varying|NO|NULL
+learner_path_logs|created_at|timestamp without time zone|NO|NULL
+learner_skill_mastery|id|integer|NO|nextval('learner_skill_mastery_id_seq'::regclass)
+learner_skill_mastery|user_id|integer|NO|NULL
+learner_skill_mastery|skill_id|integer|NO|NULL
+learner_skill_mastery|mastery_score|double precision|NO|NULL
+learner_skill_mastery|mastery_level|character varying|NO|NULL
+learner_skill_mastery|confidence|double precision|NO|NULL
+learner_skill_mastery|evidence_count|integer|NO|NULL
+learner_skill_mastery|last_update_reason|text|YES|NULL
+learner_skill_mastery|last_updated_at|timestamp without time zone|NO|NULL
+learner_skill_mastery|created_at|timestamp without time zone|NO|NULL
+lessons|id|integer|NO|nextval('lessons_id_seq'::regclass)
+lessons|unit_id|integer|NO|NULL
+lessons|prerequisite_lesson_id|integer|YES|NULL
+lessons|title_fr|character varying|NO|NULL
+lessons|title_en|character varying|NO|NULL
+lessons|description_fr|text|YES|NULL
+lessons|description_en|text|YES|NULL
+lessons|format|character varying|NO|NULL
+lessons|difficulty_level|integer|NO|NULL
+lessons|order|integer|NO|NULL
+lessons|estimated_duration_min|integer|YES|NULL
+lessons|video_script_fr|text|YES|NULL
+lessons|video_script_en|text|YES|NULL
+lessons|video_url_fr|character varying|YES|NULL
+lessons|video_url_en|character varying|YES|NULL
+lessons|is_active|boolean|NO|NULL
+lessons|created_at|timestamp without time zone|NO|NULL
+module_skills|id|integer|NO|nextval('module_skills_id_seq'::regclass)
+module_skills|module_id|integer|NO|NULL
+module_skills|skill_id|integer|NO|NULL
+modules|id|integer|NO|nextval('modules_id_seq'::regclass)
+modules|level|character varying|NO|NULL
+modules|estimated_duration_min|integer|YES|NULL
+modules|format|character varying|YES|NULL
+modules|is_active|boolean|NO|NULL
+modules|created_at|timestamp without time zone|NO|NULL
+modules|role|character varying|YES|NULL
+modules|journey_stage|character varying|YES|NULL
+modules|display_order|integer|YES|NULL
+modules|quiz_url|character varying|YES|NULL
+modules|infographic_en_url|character varying|YES|NULL
+modules|infographic_fr_url|character varying|YES|NULL
+modules|video_en_url|character varying|YES|NULL
+modules|video_fr_url|character varying|YES|NULL
+modules|title_en|character varying|NO|NULL
+modules|title_fr|character varying|YES|NULL
+modules|description_en|text|YES|NULL
+modules|description_fr|text|YES|NULL
+modules|learning_objective_en|text|YES|NULL
+modules|learning_objective_fr|text|YES|NULL
+modules|expected_outcome_en|text|YES|NULL
+modules|expected_outcome_fr|text|YES|NULL
+modules|key_concepts_en|json|YES|NULL
+modules|key_concepts_fr|json|YES|NULL
+modules|role_based_example_en|text|YES|NULL
+modules|role_based_example_fr|text|YES|NULL
+modules|takeaway_en|text|YES|NULL
+modules|takeaway_fr|text|YES|NULL
+modules|action_point_en|text|YES|NULL
+modules|action_point_fr|text|YES|NULL
+modules|practical_application_en|text|YES|NULL
+modules|practical_application_fr|text|YES|NULL
+modules|recommended_when_en|text|YES|NULL
+modules|recommended_when_fr|text|YES|NULL
+modules|why_this_module_en|text|YES|NULL
+modules|why_this_module_fr|text|YES|NULL
+modules|next_recommended_module_en|character varying|YES|NULL
+modules|next_recommended_module_fr|character varying|YES|NULL
+modules|comparison_tables_en|json|YES|NULL
+modules|comparison_tables_fr|json|YES|NULL
+modules|quiz_questions_en|json|YES|NULL
+modules|quiz_questions_fr|json|YES|NULL
+modules|prompt_examples_en|json|YES|NULL
+modules|prompt_examples_fr|json|YES|NULL
+modules|section_content_en|json|YES|NULL
+modules|section_content_fr|json|YES|NULL
+modules|practical_exercise_en|json|YES|NULL
+modules|practical_exercise_fr|json|YES|NULL
+oauth_accounts|id|integer|NO|nextval('oauth_accounts_id_seq'::regclass)
+oauth_accounts|user_id|integer|NO|NULL
+oauth_accounts|provider|character varying|NO|NULL
+oauth_accounts|provider_account_id|character varying|NO|NULL
+oauth_accounts|email|character varying|YES|NULL
+oauth_accounts|created_at|timestamp with time zone|NO|now()
+oauth_states|id|integer|NO|nextval('oauth_states_id_seq'::regclass)
+oauth_states|state|character varying|NO|NULL
+oauth_states|created_at|timestamp without time zone|NO|NULL
+oauth_states|expires_at|timestamp without time zone|NO|NULL
+oauth_states|used|boolean|NO|NULL
+password_reset_tokens|id|integer|NO|nextval('password_reset_tokens_id_seq'::regclass)
+password_reset_tokens|user_id|integer|NO|NULL
+password_reset_tokens|token_hash|character varying|NO|NULL
+password_reset_tokens|expires_at|timestamp without time zone|NO|NULL
+password_reset_tokens|used|boolean|NO|NULL
+password_reset_tokens|created_at|timestamp without time zone|NO|NULL
+questions|id|integer|NO|nextval('questions_id_seq'::regclass)
+questions|text|character varying|NO|NULL
+questions|skill_id|integer|NO|NULL
+questions|option_a|character varying|NO|NULL
+questions|option_b|character varying|NO|NULL
+questions|option_c|character varying|NO|NULL
+questions|option_d|character varying|NO|NULL
+questions|correct_answer|character varying|NO|NULL
+questions|explanation|text|YES|NULL
+questions|order|integer|NO|1
+roles|id|integer|NO|nextval('roles_id_seq'::regclass)
+roles|name|character varying|NO|NULL
+skills|id|integer|NO|nextval('skills_id_seq'::regclass)
+skills|name|character varying|NO|NULL
+skills|description|text|YES|NULL
+skills|career_path_id|integer|YES|NULL
+skills|use_case_name|character varying|YES|NULL
+skills|kpi_before|character varying|YES|NULL
+skills|kpi_after|character varying|YES|NULL
+skills|blueprint_name|character varying|YES|NULL
+skills|display_order|integer|YES|NULL
+units|id|integer|NO|nextval('units_id_seq'::regclass)
+units|module_id|integer|NO|NULL
+units|title_fr|character varying|NO|NULL
+units|title_en|character varying|NO|NULL
+units|description_fr|text|YES|NULL
+units|description_en|text|YES|NULL
+units|order|integer|NO|NULL
+units|estimated_duration_min|integer|YES|NULL
+units|is_active|boolean|NO|NULL
+units|created_at|timestamp without time zone|NO|NULL
+user_module_progress|id|integer|NO|nextval('user_module_progress_id_seq'::regclass)
+user_module_progress|user_id|integer|NO|NULL
+user_module_progress|module_id|integer|NO|NULL
+user_module_progress|status|character varying|NO|NULL
+user_module_progress|started_at|timestamp without time zone|YES|NULL
+user_module_progress|completed_at|timestamp without time zone|YES|NULL
+user_module_progress|created_at|timestamp without time zone|NO|NULL
+user_module_progress|updated_at|timestamp without time zone|NO|NULL
+user_module_progress|progress_percent|integer|NO|0
+user_profiles|user_id|integer|NO|NULL
+user_profiles|language|character varying|NO|NULL
+user_profiles|onboarding_completed|boolean|NO|NULL
+user_responses|id|integer|NO|nextval('user_responses_id_seq'::regclass)
+user_responses|user_id|integer|NO|NULL
+user_responses|question_id|integer|NO|NULL
+user_responses|created_at|timestamp without time zone|NO|NULL
+user_responses|diagnostic_session_id|integer|YES|NULL
+user_responses|selected_option|character varying|NO|NULL
+user_responses|is_correct|boolean|NO|NULL
+user_skill_scores|id|integer|NO|nextval('user_skill_scores_id_seq'::regclass)
+user_skill_scores|user_id|integer|NO|NULL
+user_skill_scores|skill_id|integer|NO|NULL
+user_skill_scores|score|integer|NO|NULL
+user_skill_scores|created_at|timestamp without time zone|NO|NULL
+user_skill_scores|diagnostic_session_id|integer|NO|NULL
+users|id|integer|NO|nextval('users_id_seq'::regclass)
+users|email|character varying|NO|NULL
+users|password_hash|character varying|YES|NULL
+users|role_id|integer|YES|NULL
+users|career_path_id|integer|YES|NULL
+users|full_name|character varying|YES|NULL
+users|created_at|timestamp without time zone|NO|NULL
+users|updated_at|timestamp without time zone|NO|NULL
+users|google_id|character varying|YES|NULL
+
+=== QUERY 3: FOREIGN KEYS ===
+users|career_path_id|career_paths|id
+users|role_id|roles|id
+questions|skill_id|skills|id
+user_skill_scores|skill_id|skills|id
+user_skill_scores|user_id|users|id
+user_responses|question_id|questions|id
+user_responses|user_id|users|id
+oauth_accounts|user_id|users|id
+user_profiles|user_id|users|id
+password_reset_tokens|user_id|users|id
+module_skills|module_id|modules|id
+module_skills|skill_id|skills|id
+user_module_progress|module_id|modules|id
+user_module_progress|user_id|users|id
+diagnostic_sessions|career_path_id|career_paths|id
+diagnostic_sessions|user_id|users|id
+user_skill_scores|diagnostic_session_id|diagnostic_sessions|id
+user_responses|diagnostic_session_id|diagnostic_sessions|id
+units|module_id|modules|id
+learner_skill_mastery|skill_id|skills|id
+learner_skill_mastery|user_id|users|id
+lessons|prerequisite_lesson_id|lessons|id
+lessons|unit_id|units|id
+activities|lesson_id|lessons|id
+learner_path_logs|from_lesson_id|lessons|id
+learner_path_logs|to_lesson_id|lessons|id
+learner_path_logs|user_id|users|id
+learner_activity_logs|activity_id|activities|id
+learner_activity_logs|lesson_id|lessons|id
+learner_activity_logs|user_id|users|id
+skills|career_path_id|career_paths|id
+
+Done.

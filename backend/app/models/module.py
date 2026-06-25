@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from datetime import datetime
 from sqlalchemy import String, Text, Integer, Boolean, DateTime, JSON
@@ -53,21 +53,10 @@ class Module(Base):
     why_this_module_en: Mapped[str | None] = mapped_column(Text, nullable=True)
     why_this_module_fr: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    next_recommended_module_en: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    next_recommended_module_fr: Mapped[str | None] = mapped_column(String(255), nullable=True)
-
-    infographic_en_url: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    infographic_fr_url: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    video_en_url: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    video_fr_url: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    quiz_url: Mapped[str | None] = mapped_column(String(255), nullable=True)
-
     comparison_tables_en: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     comparison_tables_fr: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
-    quiz_questions_en: Mapped[list | None] = mapped_column(JSON, nullable=True)
-    quiz_questions_fr: Mapped[list | None] = mapped_column(JSON, nullable=True)
-
+    
     prompt_examples_en: Mapped[list | None] = mapped_column(JSON, nullable=True)
     prompt_examples_fr: Mapped[list | None] = mapped_column(JSON, nullable=True)
 
@@ -77,19 +66,39 @@ class Module(Base):
     practical_exercise_en: Mapped[dict | None] = mapped_column(JSON, nullable=True)
     practical_exercise_fr: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    tutorials_fr: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    references_fr: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    progress_update_fr: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    next_recommended_module_en: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    next_recommended_module_fr: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
-    # ── Relations existantes ──────────────────────────────────────────────────
+    # â”€â”€ KPI before / after â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    kpi_before_en: Mapped[str | None] = mapped_column(Text, nullable=True)
+    kpi_before_fr: Mapped[str | None] = mapped_column(Text, nullable=True)
+    kpi_after_en:  Mapped[str | None] = mapped_column(Text, nullable=True)
+    kpi_after_fr:  Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    # â”€â”€ Execution Task â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # {"title": "...", "description": "...", "expected_output": "..."}
+    execution_task_en: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    execution_task_fr: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+
+    # â”€â”€ KPI Measurement â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # {"method": "...", "target": "...", "timeline": "J+14"}
+    kpi_measurement_en: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    kpi_measurement_fr: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.utcnow, nullable=False
+    )
+
     skill_links = relationship(
         "ModuleSkill",
         back_populates="module",
         cascade="all, delete-orphan",
     )
 
-    # ── Nouvelle relation vers les unités ─────────────────────────────────────
-    # Permet de naviguer : module.units → unit.lessons → lesson.activities
-    # Nécessaire pour le moteur d'apprentissage adaptatif
     units = relationship(
         "Unit",
         back_populates="module",

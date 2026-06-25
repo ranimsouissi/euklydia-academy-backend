@@ -586,6 +586,48 @@
           "what": "Consolidation finale — impact long terme sur le budget optimisé"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Meta Ads Manager — Guide de démarrage officiel",
+    "type": "article",
+    "url": "https://www.facebook.com/business/help/200000840044554",
+    "description": "Documentation officielle Meta pour créer et optimiser ses campagnes publicitaires — A/B testing natif, Advantage+ et Dynamic Creative inclus.",
+    "tags": ["Meta Ads", "campagnes", "A/B test", "officiel"]
+  },
+  {
+    "id": "r2",
+    "title": "AdCreative.ai — Génération automatique d'ads",
+    "type": "tool",
+    "url": "https://www.adcreative.ai",
+    "description": "Plateforme de génération automatique d'ads (texte + visuel) avec scoring IA. Free trial 7 jours — cartes locales TN/MA acceptées.",
+    "tags": ["visuels", "ads", "IA générative", "Maghreb"]
+  },
+  {
+    "id": "r3",
+    "title": "Google Ads — Guide d'optimisation Smart Bidding",
+    "type": "article",
+    "url": "https://support.google.com/google-ads/answer/7065882",
+    "description": "Guide officiel Google sur le Smart Bidding et les Responsive Search Ads — complémentaire au Prompt 3 A/B test.",
+    "tags": ["Google Ads", "Smart Bidding", "optimisation", "CPC"]
+  },
+  {
+    "id": "r4",
+    "title": "TikTok Ads Manager — Démarrage campagnes Maghreb",
+    "type": "tool",
+    "url": "https://ads.tiktok.com",
+    "description": "Plateforme publicitaire TikTok — CAC souvent 30-50 % inférieur à Meta sur la cible 18-35 ans en Afrique du Nord. Free trial disponible.",
+    "tags": ["TikTok", "Maghreb", "CAC", "18-35 ans"]
+  },
+  {
+    "id": "r5",
+    "title": "HubSpot — Frameworks AIDA et PAS pour ad copy",
+    "type": "article",
+    "url": "https://blog.hubspot.com/marketing/aida-model",
+    "description": "Guide sur les frameworks de copywriting publicitaire AIDA et PAS — complément direct au Prompt 1 (Ad Copy Variants).",
+    "tags": ["copywriting", "AIDA", "PAS", "frameworks"]
+  }
+]
   }
 }

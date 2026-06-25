@@ -344,6 +344,48 @@
           "what": "Consolidation finale — impact sur le close rate et la qualité pipeline"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Notta.ai — Transcription optimisée français",
+    "type": "tool",
+    "url": "https://www.notta.ai",
+    "description": "Outil de transcription d'appels avec meilleure performance sur le français Maghreb. Free tier : 120 min/mois — recommandé pour les appels FR/AR mixtes.",
+    "tags": ["transcription", "français", "Maghreb", "free"]
+  },
+  {
+    "id": "r2",
+    "title": "Fireflies.ai — Copilot temps réel et résumé automatique",
+    "type": "tool",
+    "url": "https://fireflies.ai",
+    "description": "Enregistrement, transcription et résumé automatique des appels. S'intègre avec Google Meet, Zoom et Teams. Free tier disponible.",
+    "tags": ["transcription", "copilot", "CRM", "automatisation"]
+  },
+  {
+    "id": "r3",
+    "title": "Otter.ai — Guide de démarrage",
+    "type": "article",
+    "url": "https://otter.ai/blog/how-to-use-otter-ai",
+    "description": "Guide officiel pour configurer Otter.ai et l'intégrer à ton workflow d'appels. Free tier : 300 min/mois — optimisé anglais.",
+    "tags": ["transcription", "setup", "appels", "free"]
+  },
+  {
+    "id": "r4",
+    "title": "Gérer les objections commerciales — Framework LAER",
+    "type": "article",
+    "url": "https://blog.hubspot.com/sales/handling-common-sales-objections",
+    "description": "Guide HubSpot sur les techniques de gestion d'objections (Listen, Acknowledge, Explore, Respond) — complémentaire au Prompt 2 Objection Library.",
+    "tags": ["objections", "LAER", "technique", "closing"]
+  },
+  {
+    "id": "r5",
+    "title": "Whisper — Transcription multilingue open source",
+    "type": "tool",
+    "url": "https://github.com/openai/whisper",
+    "description": "Modèle open source d'OpenAI pour la transcription multilingue (FR/AR/EN). Gratuit et excellent sur le dialecte maghrébin — pour profils techniques.",
+    "tags": ["transcription", "multilingue", "open-source", "arabe"]
+  }
+]
   }
 }

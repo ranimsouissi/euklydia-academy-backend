@@ -212,6 +212,54 @@ def build_tutorial_chunks(session):
 
     print(f"  → {len(chunks)} chunks tutoriels construits")
     return chunks
+def build_resource_chunks(session):
+    rows = session.execute(text("""
+        SELECT id, title_fr, role, section_content_fr
+        FROM modules
+        WHERE is_active = true
+          AND section_content_fr IS NOT NULL
+    """)).fetchall()
+
+    chunks = []
+    for row in rows:
+        section_content = row.section_content_fr
+        if not section_content:
+            continue
+
+        resources = section_content.get("resources", [])
+        if not resources:
+            continue
+
+        for resource in resources:
+            parts = [f"Ressource : {resource.get('title', '')}"]
+            if resource.get("type"):
+                parts.append(f"Type : {resource['type']}")
+            if resource.get("description"):
+                parts.append(f"Description : {resource['description']}")
+            if resource.get("url"):
+                parts.append(f"URL : {resource['url']}")
+            if resource.get("tags"):
+                parts.append(f"Tags : {', '.join(resource['tags'])}")
+
+            if not parts:
+                continue
+
+            chunks.append({
+                "source_type": "module",
+                "source_id":   row.id,
+                "lang":        LANG,
+                "chunk_text":  "\n".join(parts),
+                "metadata":    {
+                    "module_title": row.title_fr,
+                    "role": row.role,
+                    "section": "resources",
+                    "resource_id": resource.get("id", ""),
+                    "resource_url": resource.get("url", ""),
+                },
+            })
+
+    print(f"  → {len(chunks)} chunks resources construits")
+    return chunks
 
 # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # PIPELINE
@@ -230,6 +278,7 @@ def run():
         all_chunks.extend(build_skill_chunks(session))
         all_chunks.extend(build_question_chunks(session))
         all_chunks.extend(build_tutorial_chunks(session))
+        all_chunks.extend(build_resource_chunks(session))
 
         total = len(all_chunks)
         print(f"\nâœ… Total : {total} chunks Ã  embedder")

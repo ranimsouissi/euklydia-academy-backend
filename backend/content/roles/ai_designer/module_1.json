@@ -234,6 +234,48 @@
         }
       ],
       "pedagogical_usage": "Ces références sont citées dans les tutoriels et utilisées comme matériel d'approfondissement pour les apprenants souhaitant aller au-delà du contenu Euklydia. Elles garantissent que le parcours reste à jour avec les évolutions rapides de Midjourney et DALL-E."
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Documentation officielle Midjourney",
+    "type": "article",
+    "url": "https://docs.midjourney.com",
+    "description": "Référence officielle Midjourney : anatomie du prompt, paramètres avancés (--ar, --style, --chaos, --niji, --quality), commandes /imagine, /describe, /blend.",
+    "tags": ["Midjourney", "prompt", "paramètres", "officiel"]
+  },
+  {
+    "id": "r2",
+    "title": "Midjourney Showcase — Bibliothèque de prompts gagnants",
+    "type": "article",
+    "url": "https://www.midjourney.com/showcase",
+    "description": "Bibliothèque visuelle de prompts gagnants par style — source d'inspiration pour enrichir ta bibliothèque Notion personnelle.",
+    "tags": ["Midjourney", "inspiration", "styles", "bibliothèque"]
+  },
+  {
+    "id": "r3",
+    "title": "OpenAI DALL-E 3 — Guide de prompting visuel",
+    "type": "article",
+    "url": "https://platform.openai.com/docs/guides/images",
+    "description": "Documentation officielle OpenAI sur le prompting visuel avec DALL-E 3 — best practices, aspect ratios, intégration API. Alternative à Midjourney.",
+    "tags": ["DALL-E", "OpenAI", "prompting", "images"]
+  },
+  {
+    "id": "r4",
+    "title": "Figma — Outil de présentation client gratuit",
+    "type": "tool",
+    "url": "https://www.figma.com",
+    "description": "Outil de design et présentation client. Free tier suffisant pour organiser et présenter tes planches de concepts IA-augmentés.",
+    "tags": ["Figma", "présentation", "mockup", "free"]
+  },
+  {
+    "id": "r5",
+    "title": "Notion — Templates bibliothèque de prompts",
+    "type": "tool",
+    "url": "https://www.notion.so/templates/category/design",
+    "description": "Templates Notion pour organiser ta bibliothèque de prompts versionnée et documenter tes workflows d'idéation — free tier suffisant pour designer solo.",
+    "tags": ["Notion", "bibliothèque", "organisation", "free"]
+  }
+]
   }
 }

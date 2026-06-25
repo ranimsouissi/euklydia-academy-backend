@@ -24,8 +24,8 @@ class Settings(BaseSettings):
     # --- Frontend ---
     FRONTEND_URL: str
 
-    # --- Assessment ---
-    ASSESSMENT_COOLDOWN_DAYS: int = 0
+    # --- diagnostic ---
+    diagnostic_COOLDOWN_DAYS: int = 0
 
     # --- Email ---
     SMTP_SERVER: str

@@ -193,6 +193,7 @@
         ]
       }
     ],
+    
 
     "_v1_1_additions": "Les 2 sections ci-dessous (scoring_logic_templates, scoring_calibration_examples) sont les ajouts du PDF v1.1 — sections 2.4.2 et 2.4.3.",
 
@@ -283,6 +284,48 @@
           {"error": "Noter Need=25 sur la base d'une supposition", "consequence": "Hallucination commerciale, biais de confirmation"}
         ]
       }
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Le framework BANT expliqué — Guide complet",
+    "type": "article",
+    "url": "https://blog.hubspot.com/sales/bant",
+    "description": "Guide officiel HubSpot sur la méthode BANT avec exemples concrets pour qualifier des leads B2B.",
+    "tags": ["BANT", "qualification", "fondation"]
+  },
+  {
+    "id": "r2",
+    "title": "Configurer le Lead Scoring dans HubSpot",
+    "type": "article",
+    "url": "https://knowledge.hubspot.com/contacts/use-traditional-lead-scoring",
+    "description": "Documentation officielle HubSpot pour activer et configurer le scoring de leads — étapes pas-à-pas.",
+    "tags": ["HubSpot", "scoring", "CRM", "no-code"]
+  },
+  {
+    "id": "r3",
+    "title": "Apollo.io — Enrichissement de prospects",
+    "type": "tool",
+    "url": "https://www.apollo.io",
+    "description": "Outil d'enrichissement de données prospects. Free tier disponible (~50 enrichissements/mois) — compatible Maghreb.",
+    "tags": ["enrichissement", "prospection", "free"]
+  },
+  {
+    "id": "r4",
+    "title": "n8n — Automatisation low-cost (self-hosted)",
+    "type": "tool",
+    "url": "https://n8n.io",
+    "description": "Alternative à Zapier self-hostée sur VPS (~5 USD/mois). Idéal pour construire le workflow de scoring automatique sans coût élevé.",
+    "tags": ["workflow", "automatisation", "low-cost", "Maghreb"]
+  },
+  {
+    "id": "r5",
+    "title": "Zoho CRM — Alternative acceptant les cartes locales",
+    "type": "tool",
+    "url": "https://www.zoho.com/crm",
+    "description": "CRM avec scoring IA intégré (Zia). Accepte les cartes bancaires locales TN/DZ/MA — recommandé comme alternative à HubSpot Pro.",
+    "tags": ["CRM", "Zoho", "Maghreb", "scoring"]
+  }
+]
   }
 }

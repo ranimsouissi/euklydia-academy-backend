@@ -8,7 +8,7 @@ import app.models.role
 import app.models.skill
 import app.models.question
 import app.models.career_path
-import app.models.assessment_session
+import app.models.diagnostic_session
 import app.models.user_skill_score
 import app.models.user_response
 import app.models.oauth_account
@@ -21,29 +21,25 @@ import app.models.activity
 import app.models.learner_activity_log
 import app.models.learner_skill_mastery
 import app.models.learner_path_log
+import app.models.module
+import app.models.module_skill
 
 from app.db.session import SessionLocal
 
 # ── Career Paths (ids 79-82) ─────────────────────────────────────────────────
 from app.scripts.seed_career_paths import seed_career_paths
 
-# ── Assessments (skills + questions) ─────────────────────────────────────────
-from app.scripts.seed_ai_sales_specialist import seed_ai_sales_specialist
-from app.scripts.seed_ai_marketing_strategist import seed_ai_marketing_strategist
-from app.scripts.seed_ai_designer import seed_ai_designer
-from app.scripts.seed_ai_project_manager import seed_ai_project_manager
+# ── diagnostics (skills + questions) — diagnostics uniquement ────────────────
+from app.scripts.seed_ai_sales_specialist_diagnostic import seed_ai_sales_specialist_diagnostic
+from app.scripts.seed_ai_marketing_strategist_diagnostic import seed_ai_marketing_strategist_diagnostic
+from app.scripts.seed_ai_designer_diagnostic import seed_ai_designer_diagnostic
+from app.scripts.seed_ai_project_manager_diagnostic import seed_ai_project_manager_diagnostic
 
-# ── Modules ───────────────────────────────────────────────────────────────────
+# ── Modules pédagogiques (modules + units + lessons + module_skills) ─────────
 from app.scripts.seed_ai_sales_specialist_modules import seed_ai_sales_specialist_modules
 from app.scripts.seed_ai_marketing_strategist_modules import seed_ai_marketing_strategist_modules
 from app.scripts.seed_ai_designer_modules import seed_ai_designer_modules
 from app.scripts.seed_ai_project_manager_modules import seed_ai_project_manager_modules
-
-# ── Units / Lessons / Activities ──────────────────────────────────────────────
-from app.scripts.seed_ai_sales_units_lessons import seed_ai_sales_units_lessons
-from app.scripts.seed_ai_marketing_units_lessons import seed_ai_marketing_units_lessons
-from app.scripts.seed_ai_designer_units_lessons import seed_ai_designer_units_lessons
-from app.scripts.seed_ai_project_manager_units_lessons import seed_ai_project_manager_units_lessons
 
 
 def main():
@@ -56,34 +52,35 @@ def main():
         print("\n🎯 Étape 0 — Career Paths (79-82)")
         seed_career_paths(db)
 
-        # ── Étape 1 — Assessments ─────────────────────────────────────────────
-        print("\n📋 Étape 1 — Assessments (skills + questions)")
-        seed_ai_sales_specialist(db)
-        seed_ai_marketing_strategist(db)
-        seed_ai_designer(db)
-        seed_ai_project_manager(db)
+        # ── Étape 1 — diagnostics (diagnostics) ───────────────────────────────
+        print("\n📋 Étape 1 — diagnostics (skills + questions)")
+        seed_ai_sales_specialist_diagnostic(db)
+        seed_ai_marketing_strategist_diagnostic(db)
+        seed_ai_designer_diagnostic(db)
+        seed_ai_project_manager_diagnostic(db)
 
-        # ── Étape 2 — Modules ─────────────────────────────────────────────────
-        print("\n📦 Étape 2 — Modules (Fondations / Pratique / Expert)")
+        # ── Étape 2 — Modules pédagogiques ────────────────────────────────────
+        # Pré-requis : les diagnostics doivent être seedés AVANT les modules
+        # (les modules référencent les skills créées par les diagnostics).
+        print("\n📚 Étape 2 — Modules pédagogiques (modules + units + lessons)")
         seed_ai_sales_specialist_modules(db)
         seed_ai_marketing_strategist_modules(db)
         seed_ai_designer_modules(db)
         seed_ai_project_manager_modules(db)
 
-        # ── Étape 3 — Units / Lessons / Activities ────────────────────────────
-        print("\n📚 Étape 3 — Units, Lessons, Activities")
-        seed_ai_sales_units_lessons(db)
-        seed_ai_marketing_units_lessons(db)
-        seed_ai_designer_units_lessons(db)
-        seed_ai_project_manager_units_lessons(db)
-
         db.commit()
         print("\n" + "=" * 50)
-        print("✅ Seed complet — 4 rôles seedés avec succès")
-        print("   AI Sales Specialist      (role_id=79)")
-        print("   AI Marketing Strategist  (role_id=80)")
-        print("   AI Designer              (role_id=81)")
-        print("   AI Project Manager       (role_id=82)")
+        print("✅ Seed terminé avec succès")
+        print("\n   Diagnostics seedés :")
+        print("   • AI Sales Specialist      (career_path_id=79)")
+        print("   • AI Marketing Strategist  (career_path_id=80)")
+        print("   • AI Designer              (career_path_id=81)")
+        print("   • AI Project Manager       (career_path_id=82)")
+        print("\n   Modules pédagogiques seedés :")
+        print("   • AI Sales Specialist      (3 modules + 15 units + 45 lessons)")
+        print("   • AI Marketing Strategist  (3 modules + 15 units + 45 lessons)")
+        print("   • AI Designer              (3 modules + 15 units + 45 lessons)")
+        print("   • AI Project Manager       (3 modules + 15 units + 45 lessons)")
         print("=" * 50)
 
     except Exception as e:

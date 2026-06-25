@@ -483,6 +483,48 @@
           "what": "Consolidation finale — ROI de l'optimisation sur les livrables"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Atlassian Agile Coach — Guides Scrum et Sprint Planning",
+    "type": "article",
+    "url": "https://www.atlassian.com/agile",
+    "description": "Guides officiels Atlassian sur Scrum, Kanban, sprint planning et rétrospectives — référence méthodologique directe des 3 prompts du module.",
+    "tags": ["Scrum", "Kanban", "sprint", "rétrospective"]
+  },
+  {
+    "id": "r2",
+    "title": "Jira Software — Documentation officielle",
+    "type": "article",
+    "url": "https://support.atlassian.com/jira-software-cloud",
+    "description": "Documentation officielle Jira pour la configuration des sprints, custom fields et automation rules — complémentaire aux tutorials t1 et t2.",
+    "tags": ["Jira", "sprints", "automation", "configuration"]
+  },
+  {
+    "id": "r3",
+    "title": "ClickUp University — Formations gratuites productivité",
+    "type": "article",
+    "url": "https://university.clickup.com",
+    "description": "Formations gratuites sur la productivité d'équipe et l'usage avancé de ClickUp — alternative à Jira recommandée pour les équipes pluridisciplinaires.",
+    "tags": ["ClickUp", "formation", "gratuit", "productivité"]
+  },
+  {
+    "id": "r4",
+    "title": "ClickUp Templates — Sprint Planning et Team Workload",
+    "type": "tool",
+    "url": "https://clickup.com/templates",
+    "description": "Templates de workflows productivité (sprint planning, OKR tracking, team workload) — directement exploitables avec les Prompts 1 et 2.",
+    "tags": ["ClickUp", "templates", "workload", "OKR"]
+  },
+  {
+    "id": "r5",
+    "title": "Looker Studio — Dashboard performance gratuit",
+    "type": "tool",
+    "url": "https://lookerstudio.google.com",
+    "description": "Outil gratuit Google pour construire un dashboard performance hebdomadaire d'équipe — cité dans comparison_tables comme solution gratuite.",
+    "tags": ["dashboard", "performance", "gratuit", "Google"]
+  }
+]
   }
 }

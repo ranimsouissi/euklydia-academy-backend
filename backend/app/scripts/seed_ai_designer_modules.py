@@ -1,603 +1,795 @@
 """
-Seed Modules — AI Designer (career_path_id=81)
-3 modules : Fondations / Pratique / Expert
+Seed AI Designer — Modules pédagogiques (refactoré v1.1)
 
-Même structure que seed_ai_sales_specialist_modules.py
-Inclut : section_content, key_concepts, learning_objective, expected_outcome,
-         why_this_module, recommended_when, takeaway, ModuleSkill mapping
+Charge le contenu depuis content/roles/ai_designer/module_*.json
+(architecture Option 3 — JSON externe comme source de vérité).
 
-Ordre d'exécution :
-  1. seed_ai_designer.py          (assessment skills + questions)
-  2. seed_ai_designer_modules.py  ← ce fichier
-  3. seed_ai_designer_units_lessons.py
+Contenu pédagogique des 3 modules du parcours AI Designer :
+- Module 1 : Rapid Concept Generation
+- Module 2 : UX Optimization
+- Module 3 : Design System Automation
+
+Source : PDF Parcours AI Designer v1.1 — Mai 2026.
+
+Architecture pédagogique : chaque module est structuré en 5 unités logiques
+qui regroupent les 7 sections du PDF (Use Case, KPI, Skills, Execution Content,
+Execution Task, KPI Measurement, Progress Update).
+
+Refactor : le contenu pédagogique (MODULE_1/2/3) est externalisé dans des
+fichiers JSON content/roles/ai_designer/module_*.json. Ce script
+ne contient plus que la structure pédagogique (UNITS_TEMPLATE, LESSONS_BY_MODULE)
+et la logique d'insertion BDD.
+
+Idempotent : skip si déjà seedé.
 """
+from __future__ import annotations
 
 from app.models.module import Module
+from app.models.unit import Unit
+from app.models.lesson import Lesson
 from app.models.module_skill import ModuleSkill
 from app.models.skill import Skill
+from app.scripts.content_loader import load_role_modules
 
 
+# =============================================================================
+# Constantes
+# =============================================================================
+ROLE = "AI Designer"
+CAREER_PATH_ID = 81
+ROLE_SLUG = "ai_designer"
+
+
+# =============================================================================
+# UNITS — 5 unités par module (total : 15)
+# =============================================================================
+UNITS_TEMPLATE = [
+    {
+        "order": 1,
+        "title_fr": "Comprendre le problème business",
+        "description_fr": (
+            "Le contexte design spécifique en Afrique du Nord, les pain points "
+            "typiques que tu rencontres dans ton quotidien, et les KPIs que tu "
+            "vas mesurer avant/après pour valider ton progrès."
+        ),
+        "estimated_duration_min": 30,
+    },
+    {
+        "order": 2,
+        "title_fr": "Compétences activées",
+        "description_fr": (
+            "Les 7 compétences précises que ce module développe, du niveau "
+            "Connaissance au niveau Maîtrise. Auto-évaluation initiale et "
+            "alignement avec ton score diagnostic."
+        ),
+        "estimated_duration_min": 20,
+    },
+    {
+        "order": 3,
+        "title_fr": "Execution Content",
+        "description_fr": (
+            "Le cœur opérationnel du module : 3 prompts validés, 2 workflows "
+            "(no-code + low-code), comparatif d'outils avec alternatives "
+            "Maghreb, et tutoriels vidéo."
+        ),
+        "estimated_duration_min": 90,
+    },
+    {
+        "order": 4,
+        "title_fr": "Mission terrain",
+        "description_fr": (
+            "L'Execution Task chronométrée : tu appliques les prompts sur tes "
+            "vrais projets, tu mesures le temps gagné, et tu valides 3 "
+            "critères de réussite chiffrés."
+        ),
+        "estimated_duration_min": 60,
+    },
+    {
+        "order": 5,
+        "title_fr": "Mesure d'impact & Progression",
+        "description_fr": (
+            "Comment collecter ta baseline à J0, mesurer l'impact à J+14, et "
+            "lire les KPIs moyen terme à J+30. Mise à jour de ton score skill "
+            "et recommandation du module suivant."
+        ),
+        "estimated_duration_min": 30,
+    },
+]
+
+
+# =============================================================================
+# LESSONS — Préservé tel quel depuis le seed original AI Designer v1.0
+# Structure : LESSONS_BY_MODULE[module_display_order][unit_order] = [list of lessons]
+# Format des leçons : video, exercise, tutorial, case_study, quiz
+# Difficulty 1-5 : 1=très facile (intro) → 5=très difficile (maîtrise)
+# =============================================================================
+LESSONS_BY_MODULE = {
+    # =========================================================================
+    # MODULE 1 — Rapid Concept Generation
+    # =========================================================================
+    1: {
+        # Unit 1 — Comprendre le problème business
+        1: [
+            {
+                "title_fr": "Le quotidien de Yasmine : 5 demandes urgentes le lundi matin",
+                "description_fr": (
+                    "Étude de cas concrète : Yasmine, designer e-commerce à "
+                    "Casablanca, et son problème de production visuelle "
+                    "chronophage face à un volume de demandes élevé."
+                ),
+                "format": "case_study",
+                "difficulty_level": 1,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Pain points des designers in-house en Afrique du Nord",
+                "description_fr": (
+                    "Les 6 pain points typiques : idéation lente, piste unique, "
+                    "aller-retours infinis, burn-out créatif, retard pipeline, "
+                    "sentiment de production."
+                ),
+                "format": "video",
+                "difficulty_level": 1,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Pattern temporel des KPIs : court / moyen / long terme",
+                "description_fr": (
+                    "Comprendre pourquoi on distingue KPIs de productivité (J+14), "
+                    "qualité (J+30), et impact business (volumes mensuels)."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+        # Unit 2 — Compétences activées
+        2: [
+            {
+                "title_fr": "Les 7 compétences de l'idéation visuelle IA",
+                "description_fr": (
+                    "Tour d'horizon des 7 compétences : anatomie d'un prompt, "
+                    "paramètres avancés Midjourney, bibliothèque de prompts, "
+                    "workflow d'itération, critères d'évaluation, présentation, "
+                    "adaptation Maghreb."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Auto-évaluation initiale",
+                "description_fr": (
+                    "Compare ton score diagnostic au niveau attendu et identifie "
+                    "tes compétences faibles à prioriser dans ce module."
+                ),
+                "format": "quiz",
+                "difficulty_level": 2,
+                "estimated_duration_min": 5,
+            },
+        ],
+        # Unit 3 — Execution Content
+        3: [
+            {
+                "title_fr": "Prompt 1 — Brief créatif structuré (anatomie)",
+                "description_fr": (
+                    "Décortique le Prompt 1 : transformation d'un brief vague en "
+                    "7 sections exploitables avec 3 directions distinctes. Pourquoi "
+                    "chaque section compte."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Prompt 2 — Bibliothèque de prompts Midjourney par style",
+                "description_fr": (
+                    "Les 5 styles visuels de référence (minimaliste éditorial, "
+                    "lifestyle authentique, product hero premium, illustration "
+                    "éditoriale, UGC) avec paramètres avancés (--ar, --style, --chaos)."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Prompt 3 — Workflow d'itération v1 → v10",
+                "description_fr": (
+                    "Workflow chronométré 30 min en 4 phases : diverger (5 min) → "
+                    "sélectionner (3 min) → raffiner (15 min) → finaliser (5 min)."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Workflow 1 — Sprint d'idéation 30 minutes (no-code)",
+                "description_fr": (
+                    "Pipeline complet : ChatGPT (brief) → Midjourney (génération 3 "
+                    "directions × 4 variations) → sélection critères → raffinement → "
+                    "planche Figma. Setup 30 min."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 20,
+            },
+            {
+                "title_fr": "Workflow 2 — Pipeline d'idéation industriel (low-code)",
+                "description_fr": (
+                    "Pipeline industriel : Notion/Airtable trigger → ChatGPT API "
+                    "(brief auto) → Midjourney API → Drive sauvegarde → Slack "
+                    "validation humaine. Pour studios et agences."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 4,
+                "estimated_duration_min": 25,
+            },
+        ],
+        # Unit 4 — Mission terrain
+        4: [
+            {
+                "title_fr": "Mission : Génère 10 concepts visuels en 30 minutes",
+                "description_fr": (
+                    "60 minutes chronométrées sur un brief réel. Critères de "
+                    "réussite : 10 concepts variés en 30 min, 2+ « surprise "
+                    "positive » par le client, bibliothèque enrichie de 3+ "
+                    "prompts gagnants."
+                ),
+                "format": "exercise",
+                "difficulty_level": 4,
+                "estimated_duration_min": 60,
+            },
+        ],
+        # Unit 5 — Mesure d'impact & Progression
+        5: [
+            {
+                "title_fr": "Collecte de la baseline à J0",
+                "description_fr": (
+                    "Comment mesurer honnêtement ton temps actuel d'idéation et "
+                    "ta diversité créative avant tout changement. Formulaire intégré."
+                ),
+                "format": "exercise",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Mécanisme de relance J+7 / J+14 / J+30",
+                "description_fr": (
+                    "Comprendre pourquoi on mesure plusieurs fois : isoler l'effet "
+                    "du module, distinguer effet ponctuel vs durable, observer le "
+                    "moyen terme sur le temps jusqu'au final validé."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Lecture du dashboard et recommandation suivante",
+                "description_fr": (
+                    "Lire ton comparatif baseline vs J+14, mettre à jour ton score "
+                    "skill « AI Visual Ideation & Concept », et choisir ton "
+                    "prochain module."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+    },
+
+    # =========================================================================
+    # MODULE 2 — UX Optimization
+    # =========================================================================
+    2: {
+        1: [
+            {
+                "title_fr": "Le quotidien de Yasmine : taux de conversion stagnant",
+                "description_fr": (
+                    "Étude de cas : Yasmine fait des changements UX au pifomètre "
+                    "sur le site e-commerce, sans budget pour des tests labo, "
+                    "sans diagnostic data-driven."
+                ),
+                "format": "case_study",
+                "difficulty_level": 1,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Pain points UX en Afrique du Nord",
+                "description_fr": (
+                    "Les 6 pain points : engagement faible, audit subjectif, pas "
+                    "d'analyse data-driven, recommandations non priorisées, "
+                    "impact business non démontré, dev qui priorise les features."
+                ),
+                "format": "video",
+                "difficulty_level": 1,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Pourquoi tester sur les appareils Maghreb dominants",
+                "description_fr": (
+                    "Frictions liées au tactile imprécis sur Android entry-level, "
+                    "temps de chargement sur 3G/4G fluctuantes, accessibilité "
+                    "souvent oubliée."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+        2: [
+            {
+                "title_fr": "Les 7 compétences de l'UX Intelligence",
+                "description_fr": (
+                    "Heuristiques de Nielsen, Hotjar/Clarity, analyse verbatims, "
+                    "audit IA, priorisation par ROI, playbooks réutilisables, "
+                    "mesure de l'engagement."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Triangulation : heatmaps + heuristiques + verbatims",
+                "description_fr": (
+                    "Pourquoi croiser 3 sources de données (comportementale, "
+                    "expert, qualitative) révèle les vraies frictions vs ressenti "
+                    "subjectif."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+        3: [
+            {
+                "title_fr": "Prompt 1 — Audit heuristique automatisé Nielsen",
+                "description_fr": (
+                    "Évaluer un écran sur les 10 heuristiques de Nielsen : "
+                    "score, constat, friction, recommandation, effort, impact "
+                    "business par heuristique."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Prompt 2 — Analyse de 50-200 verbatims utilisateurs",
+                "description_fr": (
+                    "Classification, pain points avec citations, jobs-to-be-done, "
+                    "recommandations priorisées (quick wins / mid-term / strategic), "
+                    "citations représentatives."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Prompt 3 — UX improvement playbook par friction",
+                "description_fr": (
+                    "Bibliothèque de réponses standard : anatomie de la friction, "
+                    "3 patterns de résolution, recommandation, specs design, "
+                    "checklist mise en prod, KPIs, benchmark."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Workflow 1 — Audit UX express d'une page critique (no-code, 2h)",
+                "description_fr": (
+                    "Pipeline 2h : Hotjar (7 jours) → Prompt 1 (audit heuristique) → "
+                    "triangulation Hotjar+IA → Prompt 3 (playbooks Top 3) → "
+                    "mockups Figma."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 20,
+            },
+            {
+                "title_fr": "Workflow 2 — UX intelligence en continu (low-code)",
+                "description_fr": (
+                    "Pipeline continu : Hotjar API + GA4 + Avis Google + Support → "
+                    "détection anomalies → rapport UX hebdo IA → tickets Jira auto → "
+                    "mockups Figma AI."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 4,
+                "estimated_duration_min": 25,
+            },
+        ],
+        4: [
+            {
+                "title_fr": "Mission : Audit UX d'une page critique + 3 corrections mockupées",
+                "description_fr": (
+                    "120 minutes étalées sur la semaine. Critères : 3 corrections "
+                    "validées par l'équipe, mise en prod planifiée dans 2 semaines, "
+                    "audit complet en moins de 2 jours."
+                ),
+                "format": "exercise",
+                "difficulty_level": 4,
+                "estimated_duration_min": 120,
+            },
+        ],
+        5: [
+            {
+                "title_fr": "Collecte baseline taux d'engagement et durée d'audit",
+                "description_fr": (
+                    "Mesurer honnêtement ton taux d'engagement actuel et le temps "
+                    "passé sur tes audits UX avant le module."
+                ),
+                "format": "exercise",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Bibliothèque personnelle de playbooks UX",
+                "description_fr": (
+                    "Conservation et amélioration continue de ta bibliothèque de "
+                    "playbooks par type de friction (checkout, navigation, formulaires, "
+                    "errors, search)."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Mise à jour du score skill et recommandation suivante",
+                "description_fr": (
+                    "Si skill 3 < 67/100, recommandation Module 3 (Design System "
+                    "Automation). Sinon : certificat AI Designer."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+    },
+
+    # =========================================================================
+    # MODULE 3 — Design System Automation
+    # =========================================================================
+    3: {
+        1: [
+            {
+                "title_fr": "Le quotidien de Yasmine : 3 produits, 3 chartes différentes",
+                "description_fr": (
+                    "Étude de cas : Yasmine recrée un bouton « Acheter » à chaque "
+                    "produit, et les développeurs ont leurs propres versions des "
+                    "composants en code."
+                ),
+                "format": "case_study",
+                "difficulty_level": 1,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Pain points du design ops en Afrique du Nord",
+                "description_fr": (
+                    "Les 6 pain points : incohérence visuelle, perte de temps, "
+                    "pas de fichier source unique, désynchronisation Figma↔code, "
+                    "non-scalabilité, marque non reconnaissable."
+                ),
+                "format": "video",
+                "difficulty_level": 1,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Spécificités Maghreb : équipes hybrides et RTL",
+                "description_fr": (
+                    "Pourquoi un design system devient stratégique pour les équipes "
+                    "Tunis-Casablanca-Alger ou avec freelances distribués, et "
+                    "comment intégrer le RTL (right-to-left) dès la conception."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+        2: [
+            {
+                "title_fr": "Les 7 compétences du Design System & Ops",
+                "description_fr": (
+                    "Architecture (foundations/components/patterns), design tokens, "
+                    "audit cohérence, Figma AI, Tokens Studio, sync Figma↔code, "
+                    "gouvernance."
+                ),
+                "format": "video",
+                "difficulty_level": 2,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Du fichier Figma figé à la plateforme vivante",
+                "description_fr": (
+                    "Pourquoi un design system industrialisé (tokens centralisés + "
+                    "composants générés + validation IA + sync code) surpasse les "
+                    "approches statiques (PDF charte, fichier Figma partagé)."
+                ),
+                "format": "video",
+                "difficulty_level": 3,
+                "estimated_duration_min": 10,
+            },
+        ],
+        3: [
+            {
+                "title_fr": "Prompt 1 — Audit de cohérence visuelle multi-produits",
+                "description_fr": (
+                    "Audit en 6 sections : inventaire foundations, écarts de "
+                    "cohérence (tableau comparatif), design tokens recommandés, "
+                    "composants prioritaires, roadmap migration, risques + quick wins."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Prompt 2 — Génération de composants Figma (spec)",
+                "description_fr": (
+                    "Spec complète d'un composant en 7 sections : anatomie, props, "
+                    "variants, spécifications visuelles, accessibilité (WCAG 2.1 AA), "
+                    "do/don't, spec dev (CSS/Tailwind/React)."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Prompt 3 — Documentation auto en Markdown",
+                "description_fr": (
+                    "Génération d'une documentation Markdown complète : description, "
+                    "use cases, anti-patterns, props, variants, accessibilité, "
+                    "exemples, code React+Tailwind, changelog."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 15,
+            },
+            {
+                "title_fr": "Workflow 1 — Bootstrap d'un design system en 1 semaine",
+                "description_fr": (
+                    "Pipeline 7 jours : J1 audit cohérence → J2 design tokens → "
+                    "J3 variables Figma → J4-J5 composants atomiques + variants → "
+                    "J6 documentation auto → J7 training équipe."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 3,
+                "estimated_duration_min": 20,
+            },
+            {
+                "title_fr": "Workflow 2 — Sync Figma ↔ Code (low-code)",
+                "description_fr": (
+                    "Pipeline industriel : Tokens Studio → GitHub Actions → "
+                    "Style Dictionary (build CSS/Tailwind/iOS/Android) → PR auto vers "
+                    "repos produit → validation IA + notification Slack."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 4,
+                "estimated_duration_min": 25,
+            },
+        ],
+        4: [
+            {
+                "title_fr": "Mission : Bootstrap un mini design system sur tes produits réels",
+                "description_fr": (
+                    "180 minutes étalées sur la semaine. Critères : 1+ produit "
+                    "utilise les nouveaux composants dans 2 semaines, 15+ tokens "
+                    "centralisés, 5 composants atomiques documentés et publiés."
+                ),
+                "format": "exercise",
+                "difficulty_level": 4,
+                "estimated_duration_min": 180,
+            },
+        ],
+        5: [
+            {
+                "title_fr": "Collecte baseline cohérence et temps de création composant",
+                "description_fr": (
+                    "Mesurer honnêtement ton temps de création d'un nouveau composant "
+                    "et la cohérence visuelle inter-produits avant le module."
+                ),
+                "format": "exercise",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Bibliothèque personnelle de composants Figma versionnée",
+                "description_fr": (
+                    "Conservation, versioning et amélioration continue de ta "
+                    "bibliothèque de composants par type (atomiques, composites, "
+                    "patterns)."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+            {
+                "title_fr": "Vue consolidée des 3 modules : parcours complet AI Designer",
+                "description_fr": (
+                    "Synthèse de ton parcours AI Designer : scores des 3 skills, "
+                    "KPIs avant/après, certificat, et bridge commercial BrandStudio "
+                    "(AI Design Ideation + AI UX Intelligence + AI Design System "
+                    "Builder)."
+                ),
+                "format": "tutorial",
+                "difficulty_level": 2,
+                "estimated_duration_min": 10,
+            },
+        ],
+    },
+}
+
+
+# =============================================================================
+# Fonction de seed principale (idempotente)
+# =============================================================================
 def seed_ai_designer_modules(db):
+    """
+    Seed les 3 modules + 15 units + lessons + jointures module_skills
+    pour le rôle AI Designer.
 
-    # ── Anti-doublon ──────────────────────────────────────────────────────────
-    existing = db.query(Module).filter_by(role="AI Designer").first()
-    if existing:
-        print("⚠️ AI Designer — modules déjà seedés, skip.")
+    Charge le contenu des modules depuis
+    content/roles/ai_designer/ (architecture Option 3).
+
+    Source de vérité : PDF v1.1 — Mai 2026.
+    """
+    # =========================================================================
+    # 0. Chargement des modules depuis les JSON
+    # =========================================================================
+    modules_data = load_role_modules(ROLE_SLUG)
+
+    # =========================================================================
+    # 1. Anti-doublon — skip si déjà seedé
+    # =========================================================================
+    existing_modules = (
+        db.query(Module)
+        .filter(Module.role == ROLE)
+        .count()
+    )
+    if existing_modules >= len(modules_data):
+        print(
+            f"⚠️  AI Designer modules déjà seedés "
+            f"({existing_modules} modules pour role='{ROLE}'), skip."
+        )
         return
 
-    # ── Récupérer les skills AI Designer (career_path_id = 81) ──────────────────────
-    skills = db.query(Skill).filter(Skill.career_path_id == 81).order_by(Skill.id.asc()).all()
-    if not skills:
-        print("❌ Aucun skill trouvé pour AI Designer (career_path_id=81)")
-        return
+    # =========================================================================
+    # 2. Récupérer les skills
+    # =========================================================================
+    skills_by_name = {}
+    for module_data in modules_data:
+        skill_name = module_data["skill_name"]
+        if skill_name in skills_by_name:
+            continue
+        skill = (
+            db.query(Skill)
+            .filter(
+                Skill.name == skill_name,
+                Skill.career_path_id == CAREER_PATH_ID,
+            )
+            .first()
+        )
+        if skill is None:
+            raise RuntimeError(
+                f"Skill '{skill_name}' introuvable pour career_path_id={CAREER_PATH_ID}. "
+                f"Lance d'abord seed_ai_designer_diagnostic.py."
+            )
+        skills_by_name[skill_name] = skill
 
-    skill_ids = [s.id for s in skills]
-    print(f"✅ Skills trouvés : {[s.name for s in skills]}")
+    # =========================================================================
+    # 3. Insérer les 3 modules + units + lessons + jointures module_skills
+    # =========================================================================
+    total_units_created = 0
+    total_lessons_created = 0
+    total_module_skill_links = 0
 
-    # ════════════════════════════════════════════════════════════════════════
-    # MODULE 1 — FONDATIONS (Débutant)
-    # ════════════════════════════════════════════════════════════════════════
-    module_fondations = Module(
-        title_fr="AI Designer — Fondations",
-        title_en="AI Designer — Foundations",
-        description_fr=(
-            "Vos premiers pas avec l'AI dans le design. Apprenez à générer vos premières images, "
-            "créer vos premiers wireframes, construire des brand assets basiques "
-            "et appliquer les règles éthiques fondamentales du design AI "
-            "dans le contexte du marché Afrique du Nord."
-        ),
-        description_en=(
-            "Your first steps with AI in design. Learn to generate your first images, "
-            "create your first wireframes, build basic brand assets "
-            "and apply the fundamental ethical rules of AI design "
-            "in the context of the North Africa market."
-        ),
-        learning_objective_fr=(
-            "Générer des images avec Midjourney et Adobe Firefly, "
-            "créer des wireframes mobiles avec Figma AI, "
-            "construire un logo et une palette de couleurs avec les outils AI, "
-            "et respecter les droits d'auteur et règles éthiques de base du design AI."
-        ),
-        learning_objective_en=(
-            "Generate images with Midjourney and Adobe Firefly, "
-            "create mobile wireframes with Figma AI, "
-            "build a logo and colour palette with AI tools, "
-            "and respect basic copyright and ethical rules of AI design."
-        ),
-        level="Beginner",
-        estimated_duration_min=180,
-        format="vidéo + quiz + exercices pratiques",
-        role="AI Designer",
-        journey_stage="foundation",
-        display_order=1,
-        expected_outcome_fr=(
-            "À la fin de ce module, l'apprenant génère des images professionnelles avec Midjourney, "
-            "crée des wireframes mobiles RTL/LTR avec Figma AI, "
-            "produit un premier logo et une palette de couleurs cohérente, "
-            "et applique les règles éthiques de base (droits commerciaux, transparence client)."
-        ),
-        expected_outcome_en=(
-            "By the end of this module, the learner generates professional images with Midjourney, "
-            "creates RTL/LTR mobile wireframes with Figma AI, "
-            "produces a first logo and coherent colour palette, "
-            "and applies basic ethical rules (commercial rights, client transparency)."
-        ),
-        key_concepts_fr=[
-            "Le design AI : révolution créative et outils essentiels",
-            "Midjourney : génération d'images professionnelles",
-            "Adobe Firefly : images avec droits commerciaux inclus",
-            "Figma AI : wireframes et interfaces mobiles",
-            "RTL vs LTR : design pour le marché Afrique du Nord",
-            "Brand assets basiques : logo, palette, typographie",
-            "Droits d'auteur et éthique du design AI",
-        ],
-        key_concepts_en=[
-            "AI design: creative revolution and essential tools",
-            "Midjourney: professional image generation",
-            "Adobe Firefly: images with commercial rights included",
-            "Figma AI: wireframes and mobile interfaces",
-            "RTL vs LTR: design for the North Africa market",
-            "Basic brand assets: logo, palette, typography",
-            "Copyright and ethics in AI design",
-        ],
-        section_content_fr={
-            "unite1": {
-                "title": "Unité 1 — L'AI dans le design",
-                "lessons": [
-                    {"id": "1.1", "title": "C'est quoi le design AI ?", "format": "Vidéo 10 min + Quiz"},
-                    {"id": "1.2", "title": "Les outils AI essentiels du designer", "format": "Vidéo 8 min + Tableau comparatif"},
-                    {"id": "1.3", "title": "Le design AI dans le contexte Afrique du Nord", "format": "Vidéo 8 min + Forum de discussion"},
-                ]
-            },
-            "unite2": {
-                "title": "Unité 2 — Générer ses premières images AI",
-                "lessons": [
-                    {"id": "2.1", "title": "Introduction à Midjourney", "format": "Tutoriel guidé + Exercice pratique"},
-                    {"id": "2.2", "title": "Créer des prompts visuels efficaces", "format": "Vidéo 12 min + Exercice pratique"},
-                    {"id": "2.3", "title": "Générer des images adaptées au marché Afrique du Nord", "format": "Projet pratique noté"},
-                ]
-            },
-            "unite3": {
-                "title": "Unité 3 — Design UI/UX basique avec AI",
-                "lessons": [
-                    {"id": "3.1", "title": "C'est quoi l'UI/UX ?", "format": "Vidéo 10 min + Quiz"},
-                    {"id": "3.2", "title": "Créer ses premiers wireframes avec Figma AI", "format": "Tutoriel guidé + Exercice"},
-                    {"id": "3.3", "title": "Adapter le design au contexte Afrique du Nord", "format": "Vidéo 10 min + Exercice pratique"},
-                ]
-            },
-            "unite4": {
-                "title": "Unité 4 — Créer ses premiers brand assets",
-                "lessons": [
-                    {"id": "4.1", "title": "C'est quoi un système de brand assets ?", "format": "Vidéo 10 min + Quiz"},
-                    {"id": "4.2", "title": "Créer un logo simple avec l'AI", "format": "Tutoriel guidé + Exercice pratique"},
-                    {"id": "4.3", "title": "Créer une palette de couleurs avec Coolors AI", "format": "Vidéo 8 min + Exercice"},
-                ]
-            },
-            "unite5": {
-                "title": "Unité 5 — Éthique AI basique en design",
-                "lessons": [
-                    {"id": "5.1", "title": "Droits d'auteur et images générées par l'AI", "format": "Vidéo 10 min + Quiz"},
-                    {"id": "5.2", "title": "Transparence avec les clients sur l'usage de l'AI", "format": "Cas pratiques interactifs"},
-                ]
-            },
-            "test_final": {
-                "title": "Test Final — Fondations",
-                "format": "10 questions QCM",
-                "duration": "30 minutes",
-                "score_minimum": "8/10",
-                "acces_suivant": "Module 2 — Pratique"
-            }
-        },
-        section_content_en={
-            "unite1": {
-                "title": "Unit 1 — AI in Design",
-                "lessons": [
-                    {"id": "1.1", "title": "What is AI design?", "format": "10 min video + Quiz"},
-                    {"id": "1.2", "title": "Essential AI tools for designers", "format": "8 min video + Comparison table"},
-                    {"id": "1.3", "title": "AI design in the North Africa context", "format": "8 min video + Discussion forum"},
-                ]
-            },
-            "unite2": {
-                "title": "Unit 2 — Generate Your First AI Images",
-                "lessons": [
-                    {"id": "2.1", "title": "Introduction to Midjourney", "format": "Guided tutorial + Practical exercise"},
-                    {"id": "2.2", "title": "Create effective visual prompts", "format": "12 min video + Practical exercise"},
-                    {"id": "2.3", "title": "Generate images for the North Africa market", "format": "Graded practical project"},
-                ]
-            },
-            "unite3": {
-                "title": "Unit 3 — Basic UI/UX Design with AI",
-                "lessons": [
-                    {"id": "3.1", "title": "What is UI/UX?", "format": "10 min video + Quiz"},
-                    {"id": "3.2", "title": "Create first wireframes with Figma AI", "format": "Guided tutorial + Exercise"},
-                    {"id": "3.3", "title": "Adapt design to North Africa context", "format": "10 min video + Practical exercise"},
-                ]
-            },
-            "unite4": {
-                "title": "Unit 4 — Create Your First Brand Assets",
-                "lessons": [
-                    {"id": "4.1", "title": "What is a brand assets system?", "format": "10 min video + Quiz"},
-                    {"id": "4.2", "title": "Create a simple logo with AI", "format": "Guided tutorial + Practical exercise"},
-                    {"id": "4.3", "title": "Create a colour palette with Coolors AI", "format": "8 min video + Exercise"},
-                ]
-            },
-            "unite5": {
-                "title": "Unit 5 — Basic AI Ethics in Design",
-                "lessons": [
-                    {"id": "5.1", "title": "Copyright and AI-generated images", "format": "10 min video + Quiz"},
-                    {"id": "5.2", "title": "Transparency with clients on AI usage", "format": "Interactive case studies"},
-                ]
-            },
-            "final_test": {
-                "title": "Final Test — Foundations",
-                "format": "10 MCQ questions",
-                "duration": "30 minutes",
-                "minimum_score": "8/10",
-                "next_access": "Module 2 — Practice"
-            }
-        },
-        takeaway_fr="L'AI ne remplace pas le designer — elle lui permet de créer plus vite, d'explorer plus d'options et de se concentrer sur la direction artistique.",
-        takeaway_en="AI does not replace the designer — it allows them to create faster, explore more options and focus on art direction.",
-        recommended_when_fr="Recommandé quand votre score est 0/2 sur un ou plusieurs skills (niveau Débutant).",
-        recommended_when_en="Recommended when your score is 0/2 on one or more skills (Beginner level).",
-        why_this_module_fr="Avant d'utiliser les outils AI design avancés, vous avez besoin de comprendre les fondamentaux, les droits d'auteur et le contexte visuel Afrique du Nord.",
-        why_this_module_en="Before using advanced AI design tools, you need to understand the fundamentals, copyright rules and the North Africa visual context.",
-        next_recommended_module_fr="AI Designer — Pratique",
-        next_recommended_module_en="AI Designer — Practice",
-        is_active=True,
-    )
-    db.add(module_fondations)
+    for module_data in modules_data:
+        # Skip individuel
+        existing_module = (
+            db.query(Module)
+            .filter(
+                Module.title_fr == module_data["title"],
+                Module.role == ROLE,
+            )
+            .first()
+        )
+        if existing_module:
+            continue
+
+        # ─── 3.1 Créer le module ──────────────────────────────────────────
+        module = Module(
+            title_fr=module_data["title"],
+            title_en=module_data["title"],
+            description_fr=module_data["description"],
+            description_en=module_data["description"],
+            learning_objective_fr=module_data["learning_objective"],
+            learning_objective_en=module_data["learning_objective"],
+            level=module_data["level"],
+            estimated_duration_min=module_data["estimated_duration_min"],
+            format=module_data["format"],
+            role=ROLE,
+            journey_stage=module_data["journey_stage"],
+            display_order=module_data["display_order"],
+            expected_outcome_fr=module_data["expected_outcome"],
+            expected_outcome_en=module_data["expected_outcome"],
+            key_concepts_fr=module_data["key_concepts"],
+            key_concepts_en=module_data["key_concepts"],
+            role_based_example_fr=module_data["role_based_example"],
+            role_based_example_en=module_data["role_based_example"],
+            takeaway_fr=module_data["takeaway"],
+            takeaway_en=module_data["takeaway"],
+            action_point_fr=module_data["action_point"],
+            action_point_en=module_data["action_point"],
+            practical_application_fr=module_data["practical_application"],
+            practical_application_en=module_data["practical_application"],
+            recommended_when_fr=module_data["recommended_when"],
+            recommended_when_en=module_data["recommended_when"],
+            why_this_module_fr=module_data["why_this_module"],
+            why_this_module_en=module_data["why_this_module"],
+            next_recommended_module_fr=module_data["next_recommended_module"],
+            next_recommended_module_en=module_data["next_recommended_module"],
+            comparison_tables_fr=module_data["comparison_tables"],
+            comparison_tables_en=module_data["comparison_tables"],
+            prompt_examples_fr=module_data["prompt_examples"],
+            prompt_examples_en=module_data["prompt_examples"],
+            section_content_fr=module_data["section_content"],
+            section_content_en=module_data["section_content"],
+            practical_exercise_fr=module_data["practical_exercise"],
+            practical_exercise_en=module_data["practical_exercise"],
+            is_active=module_data["is_active"],
+        )
+        db.add(module)
+        db.flush()
+
+        # ─── 3.2 Jointure module_skills ──────────────────────────────────
+        skill = skills_by_name[module_data["skill_name"]]
+        link = ModuleSkill(module_id=module.id, skill_id=skill.id)
+        db.add(link)
+        total_module_skill_links += 1
+
+        # ─── 3.3 Créer les 5 units ───────────────────────────────────────
+        units_created = {}
+        for unit_template in UNITS_TEMPLATE:
+            unit = Unit(
+                module_id=module.id,
+                title_fr=unit_template["title_fr"],
+                title_en=unit_template["title_fr"],
+                description_fr=unit_template["description_fr"],
+                description_en=unit_template["description_fr"],
+                order=unit_template["order"],
+                estimated_duration_min=unit_template["estimated_duration_min"],
+                is_active=True,
+            )
+            db.add(unit)
+            db.flush()
+            units_created[unit_template["order"]] = unit
+            total_units_created += 1
+
+        # ─── 3.4 Créer les lessons ───────────────────────────────────────
+        module_order = module_data["display_order"]
+        lessons_for_module = LESSONS_BY_MODULE.get(module_order, {})
+
+        for unit_order, lessons_list in lessons_for_module.items():
+            unit = units_created[unit_order]
+            for idx, lesson_data in enumerate(lessons_list, start=1):
+                lesson = Lesson(
+                    unit_id=unit.id,
+                    title_fr=lesson_data["title_fr"],
+                    title_en=lesson_data["title_fr"],
+                    description_fr=lesson_data["description_fr"],
+                    description_en=lesson_data["description_fr"],
+                    format=lesson_data["format"],
+                    difficulty_level=lesson_data["difficulty_level"],
+                    order=idx,
+                    estimated_duration_min=lesson_data["estimated_duration_min"],
+                    is_active=True,
+                )
+                db.add(lesson)
+                total_lessons_created += 1
+
     db.flush()
 
-    # ════════════════════════════════════════════════════════════════════════
-    # MODULE 2 — PRATIQUE (Intermédiaire)
-    # ════════════════════════════════════════════════════════════════════════
-    module_pratique = Module(
-        title_fr="AI Designer — Pratique",
-        title_en="AI Designer — Practice",
-        description_fr=(
-            "Créez des visuels professionnels et maîtrisez les outils AI avancés. "
-            "Développez vos compétences en prompting avancé, UI/UX bilingue AR/FR, "
-            "création vidéo avec Runway ML et ElevenLabs, "
-            "et systèmes de brand assets complets pour le marché Afrique du Nord."
-        ),
-        description_en=(
-            "Create professional visuals and master advanced AI tools. "
-            "Develop your advanced prompting, bilingual AR/FR UI/UX, "
-            "video creation with Runway ML and ElevenLabs, "
-            "and complete brand assets systems for the North Africa market."
-        ),
-        learning_objective_fr=(
-            "Maîtriser les techniques avancées de prompting culturel MENA, "
-            "créer des interfaces bilingues AR/FR complètes avec Figma AI, "
-            "produire des vidéos publicitaires avec Runway ML et ElevenLabs, "
-            "développer un système de brand assets complet et gérer les droits commerciaux."
-        ),
-        learning_objective_en=(
-            "Master advanced MENA cultural prompting techniques, "
-            "create complete bilingual AR/FR interfaces with Figma AI, "
-            "produce advertising videos with Runway ML and ElevenLabs, "
-            "develop a complete brand assets system and manage commercial rights."
-        ),
-        level="Intermediate",
-        estimated_duration_min=240,
-        format="vidéo + exercices pratiques + projets notés",
-        role="AI Designer",
-        journey_stage="practice",
-        display_order=2,
-        expected_outcome_fr=(
-            "À la fin de ce module, l'apprenant maîtrise le prompting avancé adapté au marché Afrique du Nord, "
-            "crée des interfaces mobiles bilingues RTL/LTR professionnelles, "
-            "produit des vidéos publicitaires complètes avec voix off bilingue, "
-            "et livre des systèmes de brand assets complets avec brand book."
-        ),
-        expected_outcome_en=(
-            "By the end of this module, the learner masters advanced prompting adapted to the North Africa market, "
-            "creates professional bilingual RTL/LTR mobile interfaces, "
-            "produces complete advertising videos with bilingual voice-over, "
-            "and delivers complete brand assets systems with brand book."
-        ),
-        key_concepts_fr=[
-            "Techniques avancées de prompting : négatifs, pondération, référence image",
-            "Prompting culturel pour le marché Afrique du Nord",
-            "Itération et amélioration des résultats AI",
-            "Design UI/UX avancé avec Figma AI — interfaces bilingues AR/FR",
-            "Création vidéo AI : Runway ML + ElevenLabs + CapCut AI",
-            "Système de brand assets complet et brand book professionnel",
-            "Droits commerciaux par outil AI et propriété intellectuelle",
-        ],
-        key_concepts_en=[
-            "Advanced prompting techniques: negatives, weighting, image reference",
-            "Cultural prompting for the North Africa market",
-            "AI result iteration and improvement",
-            "Advanced UI/UX design with Figma AI — bilingual AR/FR interfaces",
-            "AI video creation: Runway ML + ElevenLabs + CapCut AI",
-            "Complete brand assets system and professional brand book",
-            "Commercial rights by AI tool and intellectual property",
-        ],
-        section_content_fr={
-            "unite1": {
-                "title": "Unité 1 — Prompting visuel avancé",
-                "lessons": [
-                    {"id": "1.1", "title": "Les techniques avancées de prompting", "format": "Vidéo 12 min + Exercice pratique"},
-                    {"id": "1.2", "title": "Prompting culturel pour le marché Afrique du Nord", "format": "Vidéo 10 min + Exercice pratique"},
-                    {"id": "1.3", "title": "Itération et amélioration des résultats", "format": "Tutoriel guidé + Exercice pratique"},
-                ]
-            },
-            "unite2": {
-                "title": "Unité 2 — Design UI/UX avancé avec AI",
-                "lessons": [
-                    {"id": "2.1", "title": "Créer des interfaces complètes avec Figma AI", "format": "Tutoriel avancé + Exercice"},
-                    {"id": "2.2", "title": "Intégrer l'AI dans le processus UX", "format": "Vidéo 12 min + Exercice pratique"},
-                    {"id": "2.3", "title": "Interface bilingue arabe/français avec AI", "format": "Projet pratique noté"},
-                ]
-            },
-            "unite3": {
-                "title": "Unité 3 — Créer des vidéos avec l'AI",
-                "lessons": [
-                    {"id": "3.1", "title": "Introduction à Runway ML", "format": "Tutoriel guidé + Exercice pratique"},
-                    {"id": "3.2", "title": "Voix off en arabe et français avec ElevenLabs", "format": "Tutoriel guidé + Exercice"},
-                    {"id": "3.3", "title": "Ma première vidéo publicitaire AI complète", "format": "Projet pratique noté"},
-                ]
-            },
-            "unite4": {
-                "title": "Unité 4 — Système de brand assets complet",
-                "lessons": [
-                    {"id": "4.1", "title": "Créer une identité visuelle complète", "format": "Vidéo 12 min + Projet pratique"},
-                    {"id": "4.2", "title": "Templates réseaux sociaux avec AI", "format": "Tutoriel guidé + Exercice pratique"},
-                    {"id": "4.3", "title": "Guide d'utilisation de la marque (Brand Book)", "format": "Projet pratique noté"},
-                ]
-            },
-            "unite5": {
-                "title": "Unité 5 — Éthique AI intermédiaire",
-                "lessons": [
-                    {"id": "5.1", "title": "Droits commerciaux des images AI", "format": "Vidéo 12 min + Quiz éthique"},
-                    {"id": "5.2", "title": "Propriété intellectuelle et design AI", "format": "Cas pratiques interactifs"},
-                ]
-            },
-            "test_final": {
-                "title": "Test Final — Pratique",
-                "format": "10 questions QCM + 1 Projet",
-                "duration": "30 min (test) + 48h (projet)",
-                "score_minimum": "8/10 + Projet 70/100",
-                "acces_suivant": "Module 3 — Expert"
-            }
-        },
-        section_content_en={
-            "unite1": {
-                "title": "Unit 1 — Advanced Visual Prompting",
-                "lessons": [
-                    {"id": "1.1", "title": "Advanced prompting techniques", "format": "12 min video + Practical exercise"},
-                    {"id": "1.2", "title": "Cultural prompting for North Africa market", "format": "10 min video + Practical exercise"},
-                    {"id": "1.3", "title": "Iteration and result improvement", "format": "Guided tutorial + Practical exercise"},
-                ]
-            },
-            "unite2": {
-                "title": "Unit 2 — Advanced UI/UX Design with AI",
-                "lessons": [
-                    {"id": "2.1", "title": "Create complete interfaces with Figma AI", "format": "Advanced tutorial + Exercise"},
-                    {"id": "2.2", "title": "Integrate AI into the UX process", "format": "12 min video + Practical exercise"},
-                    {"id": "2.3", "title": "Bilingual Arabic/French interface with AI", "format": "Graded practical project"},
-                ]
-            },
-            "unite3": {
-                "title": "Unit 3 — Creating Videos with AI",
-                "lessons": [
-                    {"id": "3.1", "title": "Introduction to Runway ML", "format": "Guided tutorial + Practical exercise"},
-                    {"id": "3.2", "title": "Voice-over in Arabic and French with ElevenLabs", "format": "Guided tutorial + Exercise"},
-                    {"id": "3.3", "title": "My first complete AI advertising video", "format": "Graded practical project"},
-                ]
-            },
-            "unite4": {
-                "title": "Unit 4 — Complete Brand Assets System",
-                "lessons": [
-                    {"id": "4.1", "title": "Create a complete visual identity", "format": "12 min video + Practical project"},
-                    {"id": "4.2", "title": "Social media templates with AI", "format": "Guided tutorial + Practical exercise"},
-                    {"id": "4.3", "title": "Brand usage guide (Brand Book)", "format": "Graded practical project"},
-                ]
-            },
-            "unite5": {
-                "title": "Unit 5 — Intermediate AI Ethics",
-                "lessons": [
-                    {"id": "5.1", "title": "Commercial rights for AI images", "format": "12 min video + Ethics quiz"},
-                    {"id": "5.2", "title": "Intellectual property and AI design", "format": "Interactive case studies"},
-                ]
-            },
-            "final_test": {
-                "title": "Final Test — Practice",
-                "format": "10 MCQ + 1 Project",
-                "minimum_score": "8/10 + Project 70/100",
-                "next_access": "Module 3 — Expert"
-            }
-        },
-        takeaway_fr="Un AI Designer intermédiaire produit des visuels professionnels complets, crée des interfaces bilingues et livre des systèmes de brand assets cohérents.",
-        takeaway_en="An intermediate AI Designer produces complete professional visuals, creates bilingual interfaces and delivers coherent brand assets systems.",
-        recommended_when_fr="Recommandé quand votre score est 1/2 sur un ou plusieurs skills (niveau Intermédiaire).",
-        recommended_when_en="Recommended when your score is 1/2 on one or more skills (Intermediate level).",
-        why_this_module_fr="Ce module vous permet de passer de la création d'images basiques à une maîtrise complète du design AI professionnel adapté au marché Afrique du Nord.",
-        why_this_module_en="This module allows you to move from basic image creation to complete mastery of professional AI design adapted to the North Africa market.",
-        next_recommended_module_fr="AI Designer — Expert",
-        next_recommended_module_en="AI Designer — Expert",
-        is_active=True,
+    print(
+        f"✅ AI Designer modules seedés (depuis JSON) :\n"
+        f"   • {len(modules_data)} modules (role='{ROLE}')\n"
+        f"   • {total_units_created} units (5 par module)\n"
+        f"   • {total_lessons_created} lessons\n"
+        f"   • {total_module_skill_links} jointures module_skills"
     )
-    db.add(module_pratique)
-    db.flush()
-
-    # ════════════════════════════════════════════════════════════════════════
-    # MODULE 3 — EXPERT (Avancé)
-    # ════════════════════════════════════════════════════════════════════════
-    module_expert = Module(
-        title_fr="AI Designer — Expert",
-        title_en="AI Designer — Expert",
-        description_fr=(
-            "Pilotez une stratégie design AI complète et formez votre équipe. "
-            "Maîtrisez la calligraphie arabe et le design moderne, "
-            "mesurez le ROI de vos créations AI, "
-            "gérez les enjeux éthiques avancés du design AI en Afrique du Nord "
-            "et obtenez la certification officielle Euklydia AI Designer."
-        ),
-        description_en=(
-            "Lead a complete AI design strategy and train your team. "
-            "Master Arabic calligraphy and modern design, "
-            "measure the ROI of your AI creations, "
-            "manage advanced ethical issues of AI design in North Africa "
-            "and obtain the official Euklydia AI Designer certification."
-        ),
-        learning_objective_fr=(
-            "Construire et piloter un workflow design AI complet, "
-            "former et manager une équipe design AI, "
-            "créer des identités visuelles bilingues premium avec calligraphie arabe, "
-            "mesurer et présenter le ROI du design AI, "
-            "créer une politique design AI et gérer les crises éthiques créatives."
-        ),
-        learning_objective_en=(
-            "Build and lead a complete AI design workflow, "
-            "train and manage an AI design team, "
-            "create premium bilingual visual identities with Arabic calligraphy, "
-            "measure and present AI design ROI, "
-            "create an AI design policy and manage creative ethical crises."
-        ),
-        level="Advanced",
-        estimated_duration_min=300,
-        format="vidéo + exercices stratégiques + feedback mentor + certification",
-        role="AI Designer",
-        journey_stage="expert",
-        display_order=3,
-        expected_outcome_fr=(
-            "À la fin de ce module, l'apprenant pilote un workflow design AI complet avec productivité × 5, "
-            "forme son équipe aux outils AI design, "
-            "crée des identités visuelles bilingues premium fusionnant calligraphie arabe et design moderne, "
-            "mesure et présente le ROI de ses créations AI, "
-            "et détient la certification officielle Euklydia AI Designer."
-        ),
-        expected_outcome_en=(
-            "By the end of this module, the learner leads a complete AI design workflow with 5× productivity, "
-            "trains their team in AI design tools, "
-            "creates premium bilingual visual identities fusing Arabic calligraphy and modern design, "
-            "measures and presents AI design ROI, "
-            "and holds the official Euklydia AI Designer certification."
-        ),
-        key_concepts_fr=[
-            "Workflow design AI complet : productivité × 5",
-            "Former et piloter une équipe design AI",
-            "Orchestrer créativité humaine et AI",
-            "Calligraphie arabe et design moderne — identités visuelles premium",
-            "Identités visuelles bilingues AR/FR pour le marché Afrique du Nord",
-            "Tendances du design AI en Afrique du Nord 2025-2027",
-            "Mesurer le ROI du design AI et présenter aux clients",
-            "Politique design AI et gestion des crises éthiques créatives",
-        ],
-        key_concepts_en=[
-            "Complete AI design workflow: 5× productivity",
-            "Train and lead an AI design team",
-            "Orchestrate human creativity and AI",
-            "Arabic calligraphy and modern design — premium visual identities",
-            "Bilingual AR/FR visual identities for the North Africa market",
-            "AI design trends in North Africa 2025-2027",
-            "Measure AI design ROI and present to clients",
-            "AI design policy and managing creative ethical crises",
-        ],
-        section_content_fr={
-            "unite1": {
-                "title": "Unité 1 — Stratégie design AI globale",
-                "lessons": [
-                    {"id": "1.1", "title": "Construire son workflow design AI complet", "format": "Vidéo 15 min + Exercice stratégique"},
-                    {"id": "1.2", "title": "Intégrer l'AI dans tous les projets créatifs", "format": "Vidéo 12 min + Cas pratique"},
-                    {"id": "1.3", "title": "Présenter sa stratégie AI aux clients", "format": "Exercice pratique + Feedback mentor"},
-                ]
-            },
-            "unite2": {
-                "title": "Unité 2 — Piloter une équipe design AI",
-                "lessons": [
-                    {"id": "2.1", "title": "Former son équipe aux outils AI design", "format": "Vidéo 12 min + Exercice pratique"},
-                    {"id": "2.2", "title": "Orchestrer créativité humaine et AI", "format": "Vidéo 10 min + Simulation"},
-                    {"id": "2.3", "title": "Maintenir l'authenticité de la marque avec l'AI", "format": "Cas réel agence tunisienne"},
-                ]
-            },
-            "unite3": {
-                "title": "Unité 3 — Design AI avancé Afrique du Nord",
-                "lessons": [
-                    {"id": "3.1", "title": "Calligraphie arabe et design moderne", "format": "Vidéo 15 min + Projet pratique"},
-                    {"id": "3.2", "title": "Identités visuelles bilingues avec l'AI", "format": "Vidéo 12 min + Projet pratique"},
-                    {"id": "3.3", "title": "Tendances du design AI en Afrique du Nord", "format": "Vidéo + Forum de discussion"},
-                ]
-            },
-            "unite4": {
-                "title": "Unité 4 — Mesurer le ROI du design AI",
-                "lessons": [
-                    {"id": "4.1", "title": "Calculer la valeur créée par l'AI", "format": "Vidéo 12 min + Exercice pratique"},
-                    {"id": "4.2", "title": "Présenter les résultats à ses clients", "format": "Exercice + Feedback mentor"},
-                    {"id": "4.3", "title": "Optimiser son workflow AI continuellement", "format": "Exercice stratégique + Forum"},
-                ]
-            },
-            "unite5": {
-                "title": "Unité 5 — Gouvernance et Éthique AI avancée",
-                "lessons": [
-                    {"id": "5.1", "title": "Créer sa politique design AI", "format": "Vidéo 12 min + Exercice pratique"},
-                    {"id": "5.2", "title": "Gérer les crises éthiques créatives AI", "format": "Simulation interactive"},
-                ]
-            },
-            "unite6": {
-                "title": "Unité 6 — Certification Finale",
-                "is_cert": True,
-                "lessons": [
-                    {"id": "6.1", "title": "Test final — 20 questions", "format": "30 minutes | Score minimum 80%"},
-                    {"id": "6.2", "title": "Projet de certification — Dossier complet design AI", "format": "Évaluation jury Euklydia"},
-                ]
-            },
-            "certification_finale": {
-                "title": "Certification Finale — AI Designer",
-                "format": "Test 20 questions + Projet complet + Présentation jury Euklydia",
-                "score_minimum": "80% test + 75/100 projet",
-                "livrables": [
-                    "Portfolio design AI (10 créations)",
-                    "Identité visuelle bilingue AR/FR complète",
-                    "Interface mobile bilingue (5 écrans AR + 5 écrans FR)",
-                    "Vidéo publicitaire AI complète bilingue",
-                    "Politique design AI officielle",
-                    "Présentation stratégique clients"
-                ],
-                "certification": "Badge LinkedIn officiel + Certificat PDF + Annuaire Euklydia Afrique du Nord",
-                "validite": "2 ans"
-            }
-        },
-        section_content_en={
-            "unite1": {
-                "title": "Unit 1 — Global AI Design Strategy",
-                "lessons": [
-                    {"id": "1.1", "title": "Build your complete AI design workflow", "format": "15 min video + Strategic exercise"},
-                    {"id": "1.2", "title": "Integrate AI into all creative projects", "format": "12 min video + Case study"},
-                    {"id": "1.3", "title": "Present your AI strategy to clients", "format": "Practical exercise + Mentor feedback"},
-                ]
-            },
-            "unite2": {
-                "title": "Unit 2 — Lead an AI Design Team",
-                "lessons": [
-                    {"id": "2.1", "title": "Train your team in AI design tools", "format": "12 min video + Practical exercise"},
-                    {"id": "2.2", "title": "Orchestrate human creativity and AI", "format": "10 min video + Simulation"},
-                    {"id": "2.3", "title": "Maintain brand authenticity with AI", "format": "Real Tunisian agency case"},
-                ]
-            },
-            "unite3": {
-                "title": "Unit 3 — Advanced AI Design North Africa",
-                "lessons": [
-                    {"id": "3.1", "title": "Arabic calligraphy and modern design", "format": "15 min video + Practical project"},
-                    {"id": "3.2", "title": "Bilingual visual identities with AI", "format": "12 min video + Practical project"},
-                    {"id": "3.3", "title": "AI design trends in North Africa", "format": "Video + Discussion forum"},
-                ]
-            },
-            "unite4": {
-                "title": "Unit 4 — Measuring AI Design ROI",
-                "lessons": [
-                    {"id": "4.1", "title": "Calculate the value created by AI", "format": "12 min video + Practical exercise"},
-                    {"id": "4.2", "title": "Present results to clients", "format": "Exercise + Mentor feedback"},
-                    {"id": "4.3", "title": "Continuously optimise your AI workflow", "format": "Strategic exercise + Forum"},
-                ]
-            },
-            "unite5": {
-                "title": "Unit 5 — AI Governance and Advanced Ethics",
-                "lessons": [
-                    {"id": "5.1", "title": "Create your AI design policy", "format": "12 min video + Practical exercise"},
-                    {"id": "5.2", "title": "Manage creative AI ethical crises", "format": "Interactive simulation"},
-                ]
-            },
-            "unite6": {
-                "title": "Unit 6 — Final Certification",
-                "is_cert": True,
-                "lessons": [
-                    {"id": "6.1", "title": "Final test — 20 questions", "format": "30 minutes | Minimum score 80%"},
-                    {"id": "6.2", "title": "Certification project — Complete AI design portfolio", "format": "Euklydia jury evaluation"},
-                ]
-            },
-            "final_certification": {
-                "title": "Final Certification — AI Designer",
-                "format": "20Q test + Complete project + Euklydia jury presentation",
-                "minimum_score": "80% test + 75/100 project",
-                "certification": "Official LinkedIn badge + PDF certificate + Euklydia North Africa directory",
-                "validity": "2 years"
-            }
-        },
-        takeaway_fr="Un AI Designer certifié Euklydia pilote une stratégie design AI complète, forme son équipe et maîtrise l'esthétique visuelle unique de l'Afrique du Nord.",
-        takeaway_en="An Euklydia certified AI Designer leads a complete AI design strategy, trains their team and masters the unique visual aesthetic of North Africa.",
-        recommended_when_fr="Recommandé quand votre score est 2/2 sur un ou plusieurs skills (niveau Avancé).",
-        recommended_when_en="Recommended when your score is 2/2 on one or more skills (Advanced level).",
-        why_this_module_fr="Ce module vous prépare à la certification officielle Euklydia AI Designer et fait de vous un expert reconnu du design AI en Afrique du Nord.",
-        why_this_module_en="This module prepares you for the official Euklydia AI Designer certification and makes you a recognised AI design expert in North Africa.",
-        next_recommended_module_fr=None,
-        next_recommended_module_en=None,
-        is_active=True,
-    )
-    db.add(module_expert)
-    db.flush()
-
-    # ── ModuleSkill Mapping ───────────────────────────────────────────────────
-    for skill_id in skill_ids:
-        db.add(ModuleSkill(module_id=module_fondations.id, skill_id=skill_id))
-        db.add(ModuleSkill(module_id=module_pratique.id, skill_id=skill_id))
-        db.add(ModuleSkill(module_id=module_expert.id, skill_id=skill_id))
-
-    db.commit()
-    print(f"✅ AI Designer — 3 modules complets créés et liés aux {len(skill_ids)} skills")
-    print(f"   Module Fondations ID: {module_fondations.id}")
-    print(f"   Module Pratique ID:   {module_pratique.id}")
-    print(f"   Module Expert ID:     {module_expert.id}")

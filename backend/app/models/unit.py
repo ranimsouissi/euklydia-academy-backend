@@ -22,10 +22,21 @@ class Unit(Base):
     description_fr: Mapped[str | None] = mapped_column(Text, nullable=True)
     description_en: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    order: Mapped[int] = mapped_column(Integer, nullable=False)
-    estimated_duration_min: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    order:                  Mapped[int]      = mapped_column(Integer, nullable=False)
+    estimated_duration_min: Mapped[int|None] = mapped_column(Integer, nullable=True)
 
+    # ── Section type — Context Awareness Agent 1 ─────────────
+    # Valeurs : "use_case" | "kpi" | "execution_content"
+    #           "execution_task" | "kpi_measurement" | "progress_update"
+    section_type: Mapped[str | None] = mapped_column(
+        String(50), nullable=True, index=True
+    )
+
+    # ── Timestamps par section — time-to-mastery V2 ──────────
+    started_at:   Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+
+    is_active:  Mapped[bool]     = mapped_column(Boolean, default=True, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow, nullable=False
     )

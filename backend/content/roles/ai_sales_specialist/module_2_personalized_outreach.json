@@ -467,6 +467,48 @@
           "what": "Consolidation finale — impact long terme sur la conversion"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Brevo — Outil d'emailing gratuit (cartes locales acceptées)",
+    "type": "tool",
+    "url": "https://www.brevo.com",
+    "description": "Plateforme d'envoi d'emails et séquences multi-touch. Free tier jusqu'à 300 emails/jour — accepte les cartes bancaires locales TN/MA. Alternative recommandée à Lemlist pour le Maghreb.",
+    "tags": ["email", "séquence", "free", "Maghreb"]
+  },
+  {
+    "id": "r2",
+    "title": "Apollo.io — Identification et enrichissement de prospects",
+    "type": "tool",
+    "url": "https://www.apollo.io",
+    "description": "Outil de prospection B2B pour identifier et enrichir des prospects. Free tier : ~50 enrichissements/mois — suffisant pour démarrer.",
+    "tags": ["prospection", "enrichissement", "free", "B2B"]
+  },
+  {
+    "id": "r3",
+    "title": "WhatsApp Business — Guide de démarrage officiel",
+    "type": "article",
+    "url": "https://business.whatsapp.com/blog/how-to-get-started-with-whatsapp-business",
+    "description": "Guide officiel pour configurer WhatsApp Business — profil, catalogue, messages automatiques. Indispensable pour l'outreach au Maghreb.",
+    "tags": ["WhatsApp", "Maghreb", "canal", "setup"]
+  },
+  {
+    "id": "r4",
+    "title": "Guide A/B testing cold email — Brevo",
+    "type": "article",
+    "url": "https://www.brevo.com/blog/ab-testing-email",
+    "description": "Comment tester plusieurs variantes d'objet et de contenu pour maximiser le reply rate sur vos séquences cold email.",
+    "tags": ["A/B test", "cold email", "reply rate", "optimisation"]
+  },
+  {
+    "id": "r5",
+    "title": "Lemlist — Bibliothèque de templates cold email",
+    "type": "article",
+    "url": "https://lemlist.com/templates",
+    "description": "Bibliothèque de templates cold email B2B par secteur et persona — utile pour s'inspirer avant de personnaliser avec ChatGPT.",
+    "tags": ["templates", "cold email", "persona", "inspiration"]
+  }
+]
   }
 }

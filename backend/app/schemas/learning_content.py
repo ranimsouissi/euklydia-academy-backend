@@ -1,29 +1,30 @@
+# app/schemas/learning_content.py
 from __future__ import annotations
 from datetime import datetime
+from typing import Optional, Literal
 from pydantic import BaseModel
 
 
 # ─── Activity ────────────────────────────────────────────────────────────────
 
 class ActivityRead(BaseModel):
-    id: int
+    id:       int
     lesson_id: int
-    type: str
-    title_fr: str | None = None
-    title_en: str | None = None
-    content_fr: dict | None = None
-    content_en: dict | None = None
-    order: int
-    passing_score: int
+    type:     Literal[
+                "template",
+                "workflow",
+                "tool",
+                "tutorial",    # dette technique — à activer avant V2
+                "video"
+              ]
+    title_fr: Optional[str] = None
+    title_en: Optional[str] = None
+    content_fr: Optional[dict] = None
+    content_en: Optional[dict] = None
+    order:    int
     is_required: bool
-    is_assessed: bool
-    has_hints: bool
-    hints_fr: list | None = None
-    hints_en: list | None = None
-    rubric_fr: dict | None = None
-    rubric_en: dict | None = None
-    is_active: bool
-    created_at: datetime
+    is_active:   bool
+    created_at:  datetime
 
     class Config:
         from_attributes = True
@@ -32,22 +33,22 @@ class ActivityRead(BaseModel):
 # ─── Lesson ──────────────────────────────────────────────────────────────────
 
 class LessonRead(BaseModel):
-    id: int
+    id:      int
     unit_id: int
-    prerequisite_lesson_id: int | None = None
+    prerequisite_lesson_id: Optional[int] = None
     title_fr: str
     title_en: str
-    description_fr: str | None = None
-    description_en: str | None = None
-    format: str
+    description_fr: Optional[str] = None
+    description_en: Optional[str] = None
+    format:          str
     difficulty_level: int
-    order: int
-    estimated_duration_min: int | None = None
-    video_url_fr: str | None = None
-    video_url_en: str | None = None
-    is_active: bool
-    created_at: datetime
-    activities: list[ActivityRead] = []
+    order:            int
+    estimated_duration_min: Optional[int] = None
+    video_url_fr: Optional[str] = None
+    video_url_en: Optional[str] = None
+    is_active:    bool
+    created_at:   datetime
+    activities:   list[ActivityRead] = []
 
     class Config:
         from_attributes = True
@@ -55,15 +56,15 @@ class LessonRead(BaseModel):
 
 class LessonReadShort(BaseModel):
     """Version courte sans activities — pour les listes"""
-    id: int
+    id:      int
     unit_id: int
-    prerequisite_lesson_id: int | None = None
+    prerequisite_lesson_id: Optional[int] = None
     title_fr: str
     title_en: str
-    format: str
+    format:          str
     difficulty_level: int
-    order: int
-    estimated_duration_min: int | None = None
+    order:            int
+    estimated_duration_min: Optional[int] = None
     is_active: bool
 
     class Config:
@@ -73,17 +74,32 @@ class LessonReadShort(BaseModel):
 # ─── Unit ────────────────────────────────────────────────────────────────────
 
 class UnitRead(BaseModel):
-    id: int
+    id:        int
     module_id: int
-    title_fr: str
-    title_en: str
-    description_fr: str | None = None
-    description_en: str | None = None
-    order: int
-    estimated_duration_min: int | None = None
-    is_active: bool
+    title_fr:  str
+    title_en:  str
+    description_fr: Optional[str] = None
+    description_en: Optional[str] = None
+    order:     int
+    estimated_duration_min: Optional[int] = None
+
+    # Section type — indispensable pour le Context Awareness Agent 1
+    section_type: Optional[Literal[
+                    "use_case",
+                    "kpi",
+                    "execution_content",
+                    "execution_task",
+                    "kpi_measurement",
+                    "progress_update"
+                  ]] = None
+
+    # Timestamps pour time-to-mastery V2
+    started_at:   Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+
+    is_active:  bool
     created_at: datetime
-    lessons: list[LessonReadShort] = []
+    lessons:    list[LessonReadShort] = []
 
     class Config:
         from_attributes = True
@@ -91,17 +107,30 @@ class UnitRead(BaseModel):
 
 class UnitReadWithLessons(BaseModel):
     """Version complète avec leçons et activités"""
-    id: int
+    id:        int
     module_id: int
-    title_fr: str
-    title_en: str
-    description_fr: str | None = None
-    description_en: str | None = None
-    order: int
-    estimated_duration_min: int | None = None
-    is_active: bool
+    title_fr:  str
+    title_en:  str
+    description_fr: Optional[str] = None
+    description_en: Optional[str] = None
+    order:     int
+    estimated_duration_min: Optional[int] = None
+
+    section_type: Optional[Literal[
+                    "use_case",
+                    "kpi",
+                    "execution_content",
+                    "execution_task",
+                    "kpi_measurement",
+                    "progress_update"
+                  ]] = None
+
+    started_at:   Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+
+    is_active:  bool
     created_at: datetime
-    lessons: list[LessonRead] = []
+    lessons:    list[LessonRead] = []
 
     class Config:
         from_attributes = True

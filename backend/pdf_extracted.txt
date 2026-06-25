@@ -1,0 +1,2182 @@
+
+
+============================================================
+ PAGE 1
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+E U K L Y D I A  A C A D E M Y
+AI Learning Pathway
+Parcours complet
+AI Project Manager
+Diagnostic + 3 modules
+Project Planning · Risk Identification · Team Productivity
+Document de spécification du contenu pédagogique
+Version 1.1 — Pour validation CEO
+Préparé par Ranim Souissi — Stagiaire PFE Euklydia
+Mai 2026
+Page 1 / 53
+
+
+============================================================
+ PAGE 2
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Changelog — Version 1.1
+Cette version 1.1 intègre les ajouts identifiés lors de la revue de validation, afin d'aligner pleinement le 
+contenu pédagogique avec la table des use cases du rôle AI Project Manager et d'améliorer la cohérence 
+avec les autres rôles de la plateforme.
+Ajouts intégrés en v1.1
+Module 1 — Project Planning Automation
+•
+Section « Références externes » ajoutée : Notion AI planning guides + Asana project templates.
+•
+Livrable « Execution Timeline Models » formalisé comme livrable Euklydia nommé.
+ 
+Module 2 — Risk Identification
+•
+Section « Références externes » ajoutée : PMI risk frameworks (PMBOK, PMI-RMP) + 
+Monday.com risk tracking.
+•
+Livrable « Predictive Risk Models » formalisé comme livrable Euklydia nommé.
+•
+Encadré « Risques contextuels Maghreb » ajouté (Ramadan, fêtes religieuses, infrastructure, 
+talents).
+ 
+Module 3 — Team Productivity Optimization
+•
+Section « Références externes » ajoutée : Atlassian Jira guides + ClickUp productivity workflows.
+•
+Mini-glossaire ajouté (Eisenhower, RICE, sprint completion rate, burn-out).
+ 
+Ajustements transversaux
+•
+Note explicative « Système Euklydia vs Produit » ajoutée en introduction.
+•
+Note de bas de page expliquant le PMI (Project Management Institute) au Module 2.
+•
+Exemple visuel de mini-roadmap ajouté au Tutoriel 1 du Module 1.
+•
+Partie 5 — Bridge commercial global retirée (sera intégrée en V1 de la plateforme).
+Tous les ajouts v1.1 sont signalés dans le document par le badge 
+ NOUVEAU v1.1.
+★
+Page 2 / 53
+
+
+============================================================
+ PAGE 3
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Sommaire
+Introduction
+Vue d'ensemble du parcours · Architecture · Cible · Philosophie pédagogique · Note Système vs Produit
+Partie 1 — Diagnostic AI Project Manager
+Méthodologie · Les 9 questions QCM · Logique de scoring · Recommandation de parcours
+Partie 2 — Module 1 : Project Planning Automation
+Use Case · KPI · Skills · Execution Content · Execution Task · KPI Measurement · Références externes
+Partie 3 — Module 2 : Risk Identification
+Use Case · KPI · Skills · Execution Content · Risques Maghreb · Execution Task · KPI Measurement · 
+Références externes
+Partie 4 — Module 3 : Team Productivity Optimization
+Use Case · KPI · Skills · Execution Content · Glossaire · Execution Task · KPI Measurement · Références 
+externes
+Page 3 / 53
+
+
+============================================================
+ PAGE 4
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Introduction
+Ce document spécifie le contenu pédagogique complet du rôle AI Project Manager sur la plateforme 
+Euklydia Academy. Il sert de référence pour l'équipe produit, l'équipe pédagogique et l'équipe 
+commerciale avant la phase de production technique.
+Architecture globale du parcours
+Structure du parcours AI Project Manager :
+•
+Diagnostic (9 questions)
+•
+→ Score skill par skill (3 skills)
+•
+→ Recommandation : modules priorisés selon les scores faibles
+•
+→ Module 1 + Module 2 + Module 3
+Mapping use cases ↔ skills ↔ modules ↔ systèmes Euklydia
+Le parcours repose sur un mapping 1:1:1:1 qui garantit la cohérence entre la formation et les capacités 
+IA Euklydia mobilisables :
+#
+Use Case
+Skill
+Module
+Système Euklydia
+1
+Project Planning 
+Automation
+AI Project Planning
+Module 1
+AI Planning Engine
+2
+Risk Identification
+AI Risk Intelligence
+Module 2
+AI Risk Intelligence System
+3
+Team Productivity 
+Optimization
+AI Execution & 
+Productivity
+Module 3
+AI Execution Optimization 
+System
+ NOUVEAU v1.1 — 
+★
+Note importante : « Système Euklydia » vs « Produit Euklydia »
+Pourquoi parle-t-on de « Système » et non de « Produit » pour ce rôle ?
+Contrairement aux 3 autres rôles de la plateforme (AI Sales Specialist, AI Marketing Strategist, AI 
+Designer) qui présentent chacun un produit phare commercial unique (Sales Copilot Multi-Agent, 
+DeepSocial, BrandStudio), le rôle AI Project Manager s'appuie sur des capacités IA structurées sous forme 
+de systèmes internes Euklydia.
+ 
+Ces systèmes (AI Planning Engine, AI Risk Intelligence System, AI Execution Optimization System) 
+représentent les briques technologiques Euklydia qui industrialisent les pratiques apprises pendant le 
+parcours. Ils pourront être :
+•
+Commercialisés ensemble sous forme d'une suite future « Project Excellence Suite » (à valider 
+Page 4 / 53
+
+
+============================================================
+ PAGE 5
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+avec la stratégie produit Euklydia).
+•
+Ou présentés via les produits Euklydia existants déjà déployés chez des clients (à définir lors de 
+la phase commerciale).
+ 
+Cette nuance terminologique reflète une réalité produit : pour ce rôle, Euklydia capitalise sur ses systèmes 
+IA internes plutôt que sur une offre commerciale packagée distincte.
+Page 5 / 53
+
+
+============================================================
+ PAGE 6
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Cible du parcours
+Ce parcours s'adresse aux professionnels de la gestion de projet au Maghreb (Tunisie, Algérie, Maroc, 
+Libye, Égypte) : project managers, scrum masters, product managers, head of operations, dirigeants de 
+PME pilotant plusieurs équipes. Le contenu est conçu en français avec contextualisation Maghreb (cas 
+d'usage, secteurs locaux tech / industrie / services, contraintes de PME, équipes hybrides Tunis-
+Casablanca-Alger).
+Philosophie pédagogique
+Euklydia Academy applique une approche execution-driven : pas de théorie pure, pas de cours sur 
+l'histoire des méthodes agiles. Chaque module pousse l'apprenant à appliquer les pratiques sur ses vrais 
+projets en cours et à mesurer un impact KPI concret avant/après (gain de temps, réduction de retards, 
+productivité d'équipe).
+La formule Euklydia : Diagnostic → Identification des gaps → Activation ciblée des compétences → 
+Impact mesurable
+Page 6 / 53
+
+
+============================================================
+ PAGE 7
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Partie 1 — Diagnostic AI Project Manager
+1.1 Méthodologie de scoring
+Le diagnostic du rôle AI Project Manager contient 9 questions à choix multiples (QCM), réparties à raison 
+de 3 questions par skill. Cette structure permet une mesure fiable du niveau de l'apprenant tout en 
+restant rapide à compléter (4 à 5 minutes).
+Architecture du diagnostic :
+•
+3 skills × 3 questions = 9 questions au total
+•
+Chaque question propose 4 options (A / B / C / D) dont une seule est correcte
+•
+Les 3 questions par skill testent 3 dimensions cognitives : connaissance, application, maîtrise
+Logique de scoring (par skill)
+Conversion bonnes réponses → score normalisé :
+•
+0 bonne réponse → score 0/100
+•
+1 bonne réponse → score 33/100
+•
+2 bonnes réponses → score 67/100
+•
+3 bonnes réponses → score 100/100
+Le score est normalisé sur 0-100 conformément à l'Acceptance Criteria de la tâche Diagnostic Engine. Il 
+est stocké par skill dans la table user_skill_scores.
+1.2 Logique de recommandation des modules
+Le score par skill détermine la priorité du module correspondant dans le parcours personnalisé de 
+l'apprenant :
+Score skill
+Niveau apprenant
+Priorité module
+Position parcours
+0 ou 33
+Faible maîtrise
+HIGH
+À traiter en premier
+67
+Maîtrise partielle
+MEDIUM
+À traiter en second
+100
+Bonne maîtrise
+LOW
+Optionnel ou 
+approfondissement
+Exemple : parcours de Karim
+Page 7 / 53
+
+
+============================================================
+ PAGE 8
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Karim, project manager dans une PME tech à Tunis (gère 3 équipes en parallèle), passe le diagnostic et 
+obtient :
+•
+Skill 1 (Project Planning) : 67/100 → priorité MEDIUM
+•
+Skill 2 (Risk Intelligence) : 33/100 → priorité HIGH
+•
+Skill 3 (Productivity) : 0/100 → priorité HIGH
+Parcours recommandé pour Karim :
+•
+Module 3 — Team Productivity Optimization (priorité HIGH, score le plus faible)
+•
+Module 2 — Risk Identification (priorité HIGH)
+•
+Module 1 — Project Planning Automation (priorité MEDIUM)
+Le système de recommandation peut prioriser les deux skills à score le plus faible et placer la skill 
+partiellement maîtrisée en consolidation.
+Page 8 / 53
+
+
+============================================================
+ PAGE 9
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+1.3 Les 9 questions du diagnostic
+Les questions ci-dessous sont rédigées en français pour la cible Maghreb. Une version anglaise sera 
+produite ultérieurement pour le bilinguisme FR/EN. Les bonnes réponses sont indiquées en vert.
+Skill 1 — AI Project Planning
+Cette skill évalue ta capacité à utiliser l'IA pour générer rapidement des plans projet structurés 
+(roadmap, dépendances, jalons) et à les maintenir à jour de façon semi-automatisée dans Notion, Asana 
+ou ClickUp.
+Question 1.1 — Connaissance
+Qu'est-ce qu'une roadmap projet dans un contexte de gestion de projet ?
+•
+A) La carte routière d'un déplacement professionnel.
+B) Un document visuel qui décrit les phases, jalons, livrables et dépendances d'un projet sur une ligne 
+de temps. 
+ Bonne réponse
+✓
+•
+C) Un tableau Excel listant les bugs.
+•
+D) Un planning quotidien des tâches de l'équipe.
+Question 1.2 — Application
+Tu démarres un nouveau projet de 6 mois avec 8 personnes. Quelle approche IA est la plus efficace pour 
+générer rapidement un plan structuré ?
+•
+A) Demander à ChatGPT « fais-moi un planning » sans contexte.
+B) Préparer un brief structuré (objectif, livrables, contraintes, équipe), appliquer un prompt de 
+génération de roadmap et itérer en revue d'équipe. 
+ Bonne réponse
+✓
+•
+C) Reprendre tel quel le planning du dernier projet similaire.
+•
+D) Faire un plan détaillé tout seul sur Excel sans consulter l'équipe.
+Question 1.3 — Maîtrise
+Tu veux industrialiser la création de plans projet pour livrer une roadmap initiale en moins de 1h au lieu 
+de 2 jours. Quelle architecture choisir ?
+•
+A) Faire chaque planning à la main sur Excel, projet par projet.
+•
+B) Utiliser uniquement le template natif d'Asana sans IA.
+C) Bibliothèque de prompts par type de projet + GPT-4 (génération) + Notion AI / Asana (intégration) + 
+workflow de validation humaine + revue d'équipe + mise à jour continue automatique. 
+ Bonne 
+✓
+réponse
+•
+D) Demander à un consultant externe de tout faire.
+Page 9 / 53
+
+
+============================================================
+ PAGE 10
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Skill 2 — AI Risk Intelligence
+Cette skill évalue ta capacité à anticiper les risques projet de manière proactive (au lieu de réagir une 
+fois le problème survenu) à l'aide de l'IA : détection des signaux faibles, scoring de probabilité, 
+playbooks de mitigation.
+Question 2.1 — Connaissance
+Qu'est-ce qu'un registre des risques (risk register) en gestion de projet ?
+•
+A) La liste des employés ayant fait des erreurs.
+B) Un document vivant qui inventorie les risques identifiés, leur probabilité, leur impact, et les actions 
+de mitigation associées. 
+ Bonne réponse
+✓
+•
+C) Un fichier RH confidentiel.
+•
+D) Un rapport financier annuel.
+Question 2.2 — Application
+Tu pilotes un projet stratégique. Comment l'IA peut-elle t'aider à anticiper les risques au lieu de les 
+subir ?
+•
+A) Attendre que les problèmes apparaissent puis improviser.
+B) Faire un atelier de risk discovery assisté par IA (analyse des projets similaires + signaux faibles dans 
+les comptes-rendus + scoring probabilité×impact + playbooks de mitigation pré-rédigés). 
+ Bonne 
+✓
+réponse
+•
+C) Faire confiance à l'expérience seule, sans documenter.
+•
+D) Multiplier les réunions de status sans cadre méthodologique.
+Question 2.3 — Maîtrise
+Tu veux mettre en place un système de risk intelligence en continu qui détecte les signaux faibles et 
+alerte avant qu'un risque devienne incident. Quelle stack utiliser ?
+•
+A) Faire un point risques uniquement en fin de projet.
+•
+B) Demander à chaque membre d'envoyer un email hebdo libre.
+C) Sync continue (Jira / Asana / Slack) + LLM pour analyse sémantique des comptes-rendus et tickets + 
+scoring automatique + alertes Slack + playbooks de mitigation contextuels + dashboard temps réel. 
+ 
+✓
+Bonne réponse
+•
+D) Acheter un logiciel cher sans former l'équipe à l'utiliser.
+Page 10 / 53
+
+
+============================================================
+ PAGE 11
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Skill 3 — AI Execution & Productivity
+Cette skill évalue ta capacité à optimiser la productivité d'une équipe projet (planification de sprint, 
+priorisation des tâches, équilibrage de la charge, suivi de performance) à l'aide de l'IA.
+Question 3.1 — Connaissance
+Qu'est-ce que la matrice Eisenhower dans la priorisation de tâches ?
+•
+A) Un type de planning de fabrication industrielle.
+B) Une grille à 4 quadrants (urgent/important × non-urgent/non-important) qui aide à classer les 
+tâches selon leur priorité réelle. 
+ Bonne réponse
+✓
+•
+C) Un format de réunion d'équipe.
+•
+D) Une méthode de calcul de salaire.
+Question 3.2 — Application
+Ton équipe a 50 tickets en backlog et chaque sprint, vous en livrez 10. Comment l'IA peut-elle aider à 
+mieux prioriser ?
+•
+A) Prendre les 10 premiers tickets de la liste sans réfléchir.
+B) Appliquer un prompt de priorisation Eisenhower + RICE (Reach, Impact, Confidence, Effort) sur le 
+backlog complet, équilibrer la charge par membre et valider en sprint planning collectif. 
+ Bonne 
+✓
+réponse
+•
+C) Laisser chaque membre choisir ses tickets favoris.
+•
+D) Faire passer en priorité les tickets demandés par le chef le plus fort.
+Question 3.3 — Maîtrise
+Tu veux déployer un système d'optimisation de la productivité d'équipe qui automatise la planification 
+de sprint, équilibre les charges et alerte sur les dérives. Quelles capacités doit-il avoir ?
+•
+A) Uniquement un fichier Excel mis à jour à la main.
+•
+B) Uniquement un Trello sans automatisation.
+C) Connexion Jira / ClickUp + LLM pour priorisation Eisenhower+RICE + moteur d'équilibrage de charge 
+par membre + dashboard performance + alertes burn-out / retards + suggestions de re-priorisation 
+hebdomadaires. 
+ Bonne réponse
+✓
+•
+D) Imposer 50 tâches par semaine à chaque membre, peu importe la charge.
+1.4 Mapping question ↔ skill ↔ niveau cognitif
+Le tableau ci-dessous formalise le mapping entre chaque question et la skill testée. Il sert de référence 
+pour l'équipe technique lors de l'implémentation en base de données (table questions liée aux tables 
+skills et focus_areas).
+Page 11 / 53
+
+
+============================================================
+ PAGE 12
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Question
+Skill évaluée
+Niveau cognitif
+Bonne réponse
+Q1.1
+Skill 1 — Project Planning
+Connaissance
+B
+Q1.2
+Skill 1 — Project Planning
+Application
+B
+Q1.3
+Skill 1 — Project Planning
+Maîtrise
+C
+Q2.1
+Skill 2 — Risk Intelligence
+Connaissance
+B
+Q2.2
+Skill 2 — Risk Intelligence
+Application
+B
+Q2.3
+Skill 2 — Risk Intelligence
+Maîtrise
+C
+Q3.1
+Skill 3 — Productivity
+Connaissance
+B
+Q3.2
+Skill 3 — Productivity
+Application
+B
+Q3.3
+Skill 3 — Productivity
+Maîtrise
+C
+Page 12 / 53
+
+
+============================================================
+ PAGE 13
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Partie 2 — Module 1 : Project Planning Automation
+Carte d'identité du module
+Use Case :
+Project Planning Automation
+Skill mappée :
+AI Project Planning
+Durée moyenne :
+3 à 4 heures
+Système Euklydia associé :
+AI Planning Engine
+KPI promis :
+50 à 70 % de temps gagné en planification
+2.1 Use Case — Le problème business
+Beaucoup de project managers au Maghreb passent plusieurs jours à structurer un nouveau plan projet : 
+décomposition en phases, estimation des tâches, mapping des dépendances, allocation aux équipes. 
+C'est un travail nécessaire mais répétitif qui prend du temps au détriment des activités à plus forte 
+valeur ajoutée (coaching d'équipe, gestion des stakeholders, anticipation stratégique).
+Le quotidien typique
+Karim, project manager dans une PME tech à Tunis, gère 3 équipes en parallèle. Quand un nouveau 
+projet démarre, il passe 2 jours entiers à construire le planning sur Notion : il liste les tâches dans sa 
+tête, les estime au feeling, mappe les dépendances en mode brainstorming. Le résultat est souvent 
+incomplet, des tâches sont oubliées, les dépendances mal identifiées. Pendant ce temps, ses équipes 
+attendent et il n'a pas le temps d'animer les sprint reviews. Cette approche manuelle génère :
+•
+Planification lente (2 à 3 jours pour un plan projet de qualité moyenne).
+•
+Tâches oubliées ou mal estimées (entre 20 et 30 % d'écart sur le temps réel).
+•
+Dépendances non identifiées dès le départ → blocages en cours de route.
+•
+Pas de réutilisation des plans des projets précédents similaires.
+•
+Le PM est en retard sur ses autres responsabilités (coaching, stakeholders).
+•
+Plans peu lisibles et peu engageants pour les équipes.
+La promesse du module
+À l'issue de ce module, l'apprenant sait construire un plan projet IA-augmenté en moins de 1 heure : 
+décomposition automatique en phases et tâches, estimations appuyées par des projets similaires, 
+mapping des dépendances, intégration directe dans Notion, Asana ou ClickUp. Il libère 50 à 70 % de son 
+temps de planification pour des activités à plus forte valeur ajoutée.
+Page 13 / 53
+
+
+============================================================
+ PAGE 14
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+2.2 KPI — Before / After
+Indicateur
+Avant (baseline)
+Après (cible)
+Temps de création d'un plan 
+projet complet
+2 à 3 jours (manuel)
+30 à 60 min (-70%)
+Précision des estimations (vs 
+réel)
+Écart 20 à 30 %
+Écart < 10 %
+Identification des dépendances
+Découverte en cours de route
+Mappées dès le J0
+2.3 Skills mapped
+Ce module active la skill 1 — AI Project Planning. À l'issue du module, l'apprenant maîtrise concrètement 
+les compétences suivantes :
+•
+Comprendre la structure d'un plan projet professionnel (phases, jalons, livrables, dépendances).
+•
+Construire un brief structuré qui sera donné à l'IA pour générer le plan.
+•
+Utiliser ChatGPT / Claude pour générer une roadmap complète en moins de 1 heure.
+•
+Maîtriser Notion AI pour créer la base projet (timeline, base de tâches, dashboards).
+•
+Maîtriser Asana ou ClickUp et leurs templates IA-augmentés.
+•
+Construire une bibliothèque de plans templates par type de projet.
+•
+Mettre en place une boucle de revue + ajustement automatique du plan.
+Page 14 / 53
+
+
+============================================================
+ PAGE 15
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+2.4 Execution Content
+2.4.1 Templates — 3 prompts ChatGPT prêts à l'emploi
+Prompt 1 — Génération de roadmap projet complète
+Transformer un brief projet vague en roadmap structurée : phases, livrables, tâches, estimations, 
+dépendances.
+PROMPT À COPIER — Roadmap Projet Complète
+Tu es un project manager senior certifié PMP avec 15 ans d'expérience.
+Construis une roadmap projet complète et structurée.
+ 
+BRIEF PROJET :
+- Nom : [NOM_PROJET]
+- Objectif business : [OBJECTIF]
+- Livrables attendus : [LIVRABLES_PRINCIPAUX]
+- Deadline : [DATE_LIMITE]
+- Budget : [BUDGET]
+- Équipe disponible : [PROFILS_ET_NOMBRE]
+- Type de projet : [DEV / MARKETING / OPS / TRANSFORMATION]
+- Contraintes connues : [CONTRAINTES]
+ 
+GÉNÈRE UNE ROADMAP EN 6 SECTIONS :
+1. PHASES PROJET (4 à 6 phases macro)
+   Pour chaque phase : objectif, durée, livrables clés
+2. DÉCOMPOSITION EN TÂCHES (par phase)
+   Liste détaillée avec :
+   - Nom de la tâche
+   - Estimation (jours-homme)
+   - Profil requis
+   - Tâches prérequises
+3. JALONS CLÉS (3 à 5 milestones)
+   Date estimée + critère de validation
+4. DÉPENDANCES CRITIQUES
+   Identifier le chemin critique du projet
+5. RISQUES INITIAUX (top 5)
+   Probabilité × Impact + suggestion de mitigation
+6. RECOMMANDATIONS DE SUIVI
+   Cadence des points, KPI à tracker, format de reporting
+ 
+FORMAT DE SORTIE : tableau Markdown exploitable dans Notion
+Page 15 / 53
+
+
+============================================================
+ PAGE 16
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Prompt 2 — Estimation comparative basée sur projets similaires
+Affiner les estimations d'un nouveau projet en s'appuyant sur les données réelles des projets précédents 
+similaires.
+PROMPT À COPIER — Estimation par Comparaison
+Tu es un project manager senior expert en estimation.
+Affine les estimations de mon nouveau projet à partir de l'historique.
+ 
+NOUVEAU PROJET :
+- Type : [TYPE_PROJET]
+- Scope : [DESCRIPTION_DETAILLEE]
+- Complexité ressentie : [FAIBLE / MOYENNE / ÉLEVÉE]
+ 
+PROJETS SIMILAIRES TERMINÉS (historique) :
+Pour chacun, fournis :
+- Nom : [PROJET_X]
+- Type : [TYPE]
+- Estimé initial : [JOURS-HOMME]
+- Réel final : [JOURS-HOMME]
+- Écart : [%]
+- Cause principale d'écart : [CAUSE]
+ 
+PROJET 1 : ...
+PROJET 2 : ...
+PROJET 3 : ...
+ 
+GÉNÈRE :
+1. ESTIMATION RÉCALIBRÉE
+   - Estimation optimiste : [J/H]
+   - Estimation réaliste : [J/H]
+   - Estimation pessimiste : [J/H]
+   - Recommandation officielle (avec marge de sécurité) : [J/H]
+2. ZONES À RISQUE
+   Tâches/phases historiquement sous-estimées
+3. APPRENTISSAGES À APPLIQUER
+   Top 3 leçons des projets précédents à intégrer
+4. CONFIANCE GLOBALE
+   Note de 1 à 10 sur la fiabilité de l'estimation
+Page 16 / 53
+
+
+============================================================
+ PAGE 17
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Prompt 3 — Mise à jour automatique du plan projet
+À chaque sprint review, mettre à jour le plan projet en intégrant les écarts, blocages et changements de 
+scope sans tout refaire à la main.
+PROMPT À COPIER — Mise à Jour Plan Projet
+Tu es un project manager senior, expert en pilotage agile.
+Mets à jour mon plan projet en intégrant les nouveaux éléments.
+ 
+PLAN ACTUEL :
+[COLLER_LE_PLAN_PROJET_ACTUEL]
+ 
+ÉVÉNEMENTS DEPUIS LE DERNIER POINT :
+- Tâches terminées : [LISTE]
+- Tâches en cours : [LISTE_AVEC_AVANCEMENT]
+- Blocages identifiés : [DESCRIPTION]
+- Changements de scope : [AJOUTS_OU_RETRAITS]
+- Ressources modifiées : [DÉPARTS / ARRIVÉES]
+ 
+MA QUESTION :
+[POSE_TA_QUESTION_SPÉCIFIQUE]
+(ex : « la deadline du 30 juin est-elle encore tenable ? »)
+ 
+GÉNÈRE LA MISE À JOUR :
+1. STATUT GLOBAL (Vert / Jaune / Rouge)
+   Avec justification chiffrée
+2. IMPACT DES ÉVÉNEMENTS
+   Sur quoi chaque événement modifie le plan
+3. PLAN RÉVISÉ
+   Phases / jalons / dates mis à jour
+4. RECOMMANDATIONS D'ACTIONS
+   - Quick wins (cette semaine)
+   - Décisions à arbitrer (avec sponsor)
+   - Risques à monitorer de près
+5. COMMUNICATION SUGGÉRÉE
+   Brouillon de message Slack à l'équipe + email aux stakeholders
+Page 17 / 53
+
+
+============================================================
+ PAGE 18
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+ NOUVEAU v1.1 — 
+★
+2.4.2 Execution Timeline Models (livrable Euklydia)
+Bibliothèque Euklydia de modèles de timeline réutilisables, structurés par type de projet. Ces modèles 
+servent de point de départ pour générer rapidement un planning visuel avec phases, jalons et chemin 
+critique pré-câblés. Ils complètent les prompts de génération en fournissant une base graphique 
+exploitable directement.
+Les 4 timeline models Euklydia
+1. Dev Sprint Timeline (projets tech)
+•
+5 phases : Discovery → Design → Build → Test → Release. Jalons hebdomadaires, sprints de 2 
+semaines, démos bi-hebdo. Idéal pour projets logiciels 2-6 mois.
+ 
+2. Marketing Campaign Timeline (projets marketing)
+•
+5 phases : Brief → Concept → Production → Launch → Measure. Jalons : validation créa, go/no-
+go production, lancement, J+7 / J+14 / J+30 mesure. Idéal pour campagnes 4-12 semaines.
+ 
+3. Ops Transformation Timeline (projets opérationnels)
+•
+6 phases : Audit → Design cible → Pilot → Rollout équipe 1 → Rollout équipes 2-N → 
+Stabilisation. Jalons : validation pilote, go rollout, taux d'adoption 80 %. Idéal pour 
+transformations 3-12 mois.
+ 
+4. Strategic Initiative Timeline (projets transformation)
+•
+4 phases : Cadrage → Plan détaillé → Exécution multi-workstreams → Hand-over. Jalons 
+trimestriels, comités de pilotage mensuels, points sponsor bimensuels. Idéal pour 
+transformations 6-18 mois.
+ 
+Chaque modèle inclut :
+•
+Template Notion / Asana prêt à dupliquer avec phases et jalons pré-remplis.
+•
+Chemin critique pré-identifié (tâches bloquantes typiques).
+•
+Cadence de reporting suggérée (daily, weekly, monthly).
+•
+Liste des artifacts livrables attendus par phase.
+Usage pédagogique : l'apprenant choisit le modèle qui correspond le mieux à son projet réel pendant 
+l'execution task, puis personnalise les phases et estimations avec les Prompts 1 et 2. Ces modèles 
+incarnent le savoir-faire accumulé Euklydia et accélèrent significativement la production d'un plan 
+complet.
+Page 18 / 53
+
+
+============================================================
+ PAGE 19
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+2.4.3 Workflows — 2 workflows opérationnels
+Workflow 1 — Bootstrap d'un plan projet en 1h (no-code)
+Pour démarrer un nouveau projet avec un plan structuré complet en 1 heure chrono.
+#
+Étape
+Outil
+1
+Préparer le brief projet (15 min) : objectif, livrables, équipe, 
+contraintes
+Notion / Doc
+2
+Sélectionner le bon Execution Timeline Model (Dev / 
+Marketing / Ops / Strategic)
+Bibliothèque Notion
+3
+Appliquer le prompt 1 → roadmap complète
+ChatGPT / Claude
+4
+Appliquer le prompt 2 sur les estimations clés (recalibrage 
+par historique)
+ChatGPT
+5
+Importer la roadmap dans Notion ou Asana (template 
+projet)
+Notion / Asana
+6
+Revue d'équipe (30 min) : valider, ajuster, attribuer
+Réunion équipe
+7
+Communiquer le plan aux stakeholders + lancer le sprint 1
+Slack / Email
+Workflow 2 — Mise à jour continue du plan (low-code)
+Pour maintenir le plan à jour automatiquement à chaque sprint, sans recréer le document de zéro.
+#
+Étape
+Outil
+1
+Sync continue : Asana / Jira API → base centralisée Notion
+Make / n8n
+2
+Trigger hebdo : extraction de l'avancement du sprint 
+terminé
+Asana API
+3
+Action : appel ChatGPT API + prompt 3 → version révisée du 
+plan
+OpenAI API
+4
+Stockage : nouvelle version dans Notion avec versioning
+Notion API
+5
+Notification Slack : « Plan révisé — voici le diff »
+Slack
+6
+Validation humaine + ajustements en sprint planning
+Réunion équipe
+Page 19 / 53
+
+
+============================================================
+ PAGE 20
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+2.4.4 Tools — Les outils du module
+Outil
+Pricing
+Usage dans le module
+ChatGPT / Claude
+Free / 20 USD/mois
+Génération de roadmap, estimations, mises à jour 
+plan
+Notion + Notion AI
+Free / 10 
+USD/utilisateur/mois
+Plan projet, base de tâches, timeline, 
+documentation
+Asana
+Free (jusqu'à 15 users) / 
+11-25 USD/user
+Gestion de projets et sprints avec IA intégrée
+ClickUp
+Free / 7-12 
+USD/user/mois
+Alternative complète : tâches + docs + objectifs + 
+IA
+Make / n8n
+Free / 20 USD/mois
+Automatisation des syncs et mises à jour 
+automatiques
+Loom (optionnel)
+Free / 12 USD/mois
+Vidéos de communication aux stakeholders
+2.4.5 Tutorials — 2 tutoriels planifiés
+Tutoriel 1 — Génère ton premier plan projet en 1h (15 min)
+Format : vidéo screen-cast + template Notion à dupliquer.
+•
+Préparation du brief structuré (template prêt à remplir)
+•
+Sélection du bon Execution Timeline Model selon le type de projet
+•
+Application du prompt 1 sur un cas réel anonymisé
+•
+Lecture critique de la roadmap générée : ce qu'il faut garder, ajuster
+•
+Import automatisé dans Notion / Asana avec dépendances
+ NOUVEAU v1.1 — 
+★
+Exemple visuel : mini-roadmap générée par le prompt 1
+Voici un exemple concret de roadmap obtenue après application du Prompt 1 sur un projet de migration 
+cloud (PME tech, 4 mois, 5 personnes) :
+Phase
+Durée
+Livrable clé
+Tâches 
+principales
+Profil requis
+Jalon de validation
+1. 
+Discovery
+2 sem.
+Audit état 
+actuel
+Inventaire infra, 
+interviews 
+équipes, doc as-
+is
+Lead PM + 
+Tech lead
+Doc as-is signée 
+sponsor
+2. Design
+3 sem.
+Architecture 
+Schéma cible, 
+Architecte + 
+Validation comité 
+Page 20 / 53
+
+
+============================================================
+ PAGE 21
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Phase
+Durée
+Livrable clé
+Tâches 
+principales
+Profil requis
+Jalon de validation
+cible
+choix providers, 
+sécurité, FinOps
+Tech lead
+tech
+3. Pilot
+4 sem.
+1 service 
+migré
+Migration 
+service non-
+critique, tests, 
+ajustements
+Dev senior + 
+DevOps
+Pilote stable 7j
+4. Rollout
+5 sem.
+Tous services 
+migrés
+Migration par 
+lots, tests 
+régression, 
+formation
+Équipe 
+complète
+100% services migrés
+5. 
+Stabilisatio
+n
+2 sem.
+Run optimisé
+Monitoring, 
+FinOps, doc 
+finale, handover 
+ops
+Tech lead + 
+Ops
+KPI prod stables 14j
+Cette mini-roadmap est livrée en moins de 15 minutes via le Prompt 1. L'apprenant la personnalise 
+ensuite (dates précises, noms d'équipiers, estimations affinées avec le Prompt 2) avant import dans 
+Notion / Asana.
+Page 21 / 53
+
+
+============================================================
+ PAGE 22
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Tutoriel 2 — Recalibre tes estimations avec l'historique (20 min)
+Format : vidéo screen-cast + template Notion historique projets.
+•
+Construction de la base d'historique (3 à 5 projets terminés)
+•
+Application du prompt 2 sur le projet en cours
+•
+Comparaison estimation classique vs estimation IA
+•
+Définition de marges de sécurité par type de tâche
+ NOUVEAU v1.1 — 
+★
+2.4.6 Références externes (sources d'inspiration officielles)
+Cette section regroupe les ressources externes officielles qui complètent et nourrissent le contenu 
+pédagogique du module Project Planning Automation.
+Références officielles intégrées
+Notion AI planning guides
+•
+Documentation officielle Notion AI (notion.so/help/notion-ai) — best practices Q&A, autofill, 
+génération de tâches dans une base.
+•
+Notion Templates Gallery — templates de project management certifiés (Project Tracker, Sprint 
+Planner, OKR Dashboard) utilisés comme bases de personnalisation.
+•
+Notion AI for Project Management blog series — études de cas concrets d'usage de l'IA en 
+planification.
+ 
+Asana project templates
+•
+Asana Templates officiels (asana.com/templates) — bibliothèque de templates par type de 
+projet (product launch, marketing campaign, IT project).
+•
+Asana Academy — formations gratuites sur la gestion de projet structurée (cadence, 
+dependencies, milestones, portfolios).
+•
+Asana Intelligence (AI features) documentation — smart summaries, smart fields, smart status 
+pour automation native.
+Usage pédagogique : ces références sont citées dans les tutoriels et utilisées comme matériel 
+d'approfondissement pour les apprenants souhaitant aller au-delà du contenu Euklydia. Notion et Asana 
+étant les deux outils principaux du module, leur documentation officielle est citée comme référence 
+d'autorité.
+Page 22 / 53
+
+
+============================================================
+ PAGE 23
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+2.5 Execution Task
+Mission concrète à réaliser sur tes vraies données pour transformer la lecture en savoir-faire 
+opérationnel.
+Mission : Génère un plan projet complet en 1h sur un projet réel
+Durée : 90 minutes (incluant import et revue)
+Outils : ChatGPT (gratuit) + Notion ou Asana
+ 
+Étapes :
+•
+Choisis un projet à venir (idéalement à démarrer dans les 2 semaines).
+•
+Sélectionne l'Execution Timeline Model adapté (Dev / Marketing / Ops / Strategic).
+•
+Prépare le brief structuré (objectif, livrables, équipe, contraintes).
+•
+Applique le Prompt 1 et obtiens la roadmap complète.
+•
+Applique le Prompt 2 pour recalibrer les 5 estimations principales.
+•
+Importe le plan dans Notion ou Asana avec dépendances.
+•
+Présente le plan à ton équipe (ou sponsor) et collecte le feedback.
+ 
+Critère de réussite : tu as livré un plan projet complet et validé par ton équipe / sponsor en moins de 
+90 minutes au total.
+2.6 KPI Measurement
+La mesure d'impact se fait sur 14 jours après l'application de l'execution task, en comparant les 
+indicateurs avant et après.
+Indicateurs trackés
+•
+Temps total passé à construire le plan projet (avant vs après)
+•
+Nombre de tâches couvertes dans le plan (exhaustivité)
+•
+Nombre de dépendances identifiées dès le J0
+•
+Satisfaction de l'équipe sur la clarté du plan (note 1-5)
+Méthode de collecte
+Chronométrage manuel + saisie dans la plateforme Euklydia Academy à J+0 (baseline) et à J+14 (mesure 
+post-formation). Les données alimentent un dashboard apprenant individuel et le dashboard analytics 
+global d'Euklydia.
+Page 23 / 53
+
+
+============================================================
+ PAGE 24
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+2.7 Progress Update
+Synthèse de progression — Module 1 — À la fin du module, l'apprenant reçoit :
+•
+Comparatif KPI avant / après (graphique temps gagné)
+•
+Mise à jour du score skill 1 (Project Planning)
+•
+Bibliothèque personnelle des prompts utilisés et plans produits
+•
+Execution Timeline Model personnalisé prêt à réutiliser sur futurs projets
+•
+Recommandation pour la suite (Module 2 ou 3 selon priorités)
+Bridge système : présentation de l'AI Planning Engine d'Euklydia → industrialisation du processus de 
+planification avec génération automatique, recalibrage continu basé sur l'historique, et intégration 
+native dans les outils de gestion de projet de l'équipe.
+Page 24 / 53
+
+
+============================================================
+ PAGE 25
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Partie 3 — Module 2 : Risk Identification
+Carte d'identité du module
+Use Case :
+Risk Identification
+Skill mappée :
+AI Risk Intelligence
+Durée moyenne :
+3 à 5 heures
+Système Euklydia associé :
+AI Risk Intelligence System
+KPI promis :
+−30 % de retards projet
+3.1 Use Case — Le problème business
+Beaucoup d'équipes projet au Maghreb fonctionnent en mode réactif face aux risques : on découvre les 
+problèmes quand ils surviennent (retard d'un fournisseur, départ d'un membre clé, dépendance 
+technique cachée), puis on improvise. Cette approche génère des retards, des dépassements de budget 
+et de la frustration. L'identification proactive des risques est connue depuis longtemps en gestion de 
+projet, mais elle reste rarement appliquée car perçue comme chronophage.
+Le quotidien typique
+Karim pilote un projet de migration cloud sur 4 mois. Au démarrage, il fait une « petite analyse de 
+risques » de 30 minutes en comité : 3 risques sont identifiés. Trois mois plus tard, le projet a 6 semaines 
+de retard. Causes : un fournisseur qui n'a pas livré à temps, une dépendance API non identifiée, un 
+développeur clé qui a démissionné, un changement de scope demandé par la direction. Aucun de ces 
+risques n'avait été anticipé. Cette approche réactive génère :
+•
+Issues réactives au lieu de risques anticipés (cause de 70 % des retards).
+•
+Registre des risques minimaliste, jamais mis à jour pendant le projet.
+•
+Pas de signaux faibles capturés dans les comptes-rendus quotidiens.
+•
+Pas de playbooks de mitigation préparés en avance.
+•
+Communication des risques aux stakeholders trop tardive.
+•
+Apprentissage post-projet limité (les leçons ne capitalisent pas).
+La promesse du module
+À l'issue de ce module, l'apprenant sait conduire une risk discovery IA-augmentée qui identifie 80 % des 
+risques majeurs dès le J0, met en place une veille continue via l'analyse des comptes-rendus et tickets, 
+et déclenche les playbooks de mitigation adaptés. Il réduit ses retards projet de 30 % minimum.
+ NOUVEAU v1.1 — 
+★
+Note pédagogique : Qu'est-ce que le PMI ?
+Page 25 / 53
+
+
+============================================================
+ PAGE 26
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Tout au long de ce module, on fait référence au PMI (Project Management Institute). Pour les 
+apprenants non familiers :
+•
+PMI = Project Management Institute (institut.org), organisme de référence mondial pour la 
+gestion de projet, basé aux USA et présent dans 200+ pays.
+•
+PMBOK = Project Management Body of Knowledge, le guide méthodologique de référence 
+publié par le PMI (actuellement 7e édition).
+•
+PMP = Project Management Professional, la certification généraliste de référence pour les chefs 
+de projet.
+•
+PMI-RMP = Risk Management Professional, la certification spécialisée en gestion des risques, qui 
+inspire la méthodologie de ce module.
+Pas besoin d'être certifié pour suivre ce module — les prompts intègrent déjà l'expertise PMI sous forme 
+exploitable.
+Page 26 / 53
+
+
+============================================================
+ PAGE 27
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+3.2 KPI — Before / After
+Indicateur
+Avant (baseline)
+Après (cible)
+Retards projet sur l'année
+Présents sur 60 à 80 % des 
+projets
+−30 % de retards
+Risques identifiés au 
+démarrage du projet
+3 à 5 risques génériques
+15 à 25 risques structurés
+Délai entre apparition d'un 
+signal et action
+1 à 4 semaines (réactif)
+0 à 3 jours (proactif)
+3.3 Skills mapped
+Ce module active la skill 2 — AI Risk Intelligence. Compétences débloquées :
+•
+Comprendre le framework de gestion des risques du PMI (Project Management Institute).
+•
+Conduire une session de risk discovery exhaustive en 1 heure.
+•
+Construire un risk register structuré (probabilité × impact × mitigation).
+•
+Détecter les signaux faibles dans les comptes-rendus, tickets et messages Slack.
+•
+Construire des playbooks de mitigation par type de risque (technique, humain, fournisseur).
+•
+Mettre en place une veille continue automatisée du risque.
+•
+Communiquer les risques aux stakeholders avec le bon niveau de détail.
+Page 27 / 53
+
+
+============================================================
+ PAGE 28
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+3.4 Execution Content
+3.4.1 Templates — 3 prompts ChatGPT essentiels
+Prompt 1 — Atelier de risk discovery exhaustif
+Conduire une session d'identification des risques structurée qui couvre les 6 catégories principales 
+(technique, humain, fournisseur, scope, financier, externe).
+PROMPT À COPIER — Atelier Risk Discovery
+Tu es un risk manager senior certifié PMP/PMI-RMP avec 15 ans d'expérience.
+Conduis un atelier de risk discovery exhaustif sur ce projet.
+ 
+PROJET ANALYSÉ :
+- Nom : [NOM_PROJET]
+- Objectif : [OBJECTIF]
+- Durée : [DUREE_PREVUE]
+- Budget : [BUDGET]
+- Équipe : [PROFILS_ET_NOMBRE]
+- Type : [DEV / TRANSFORMATION / OPS / MARKETING]
+- Stack technique / fournisseurs : [TECH_ET_PARTENAIRES]
+- Stakeholders clés : [SPONSORS_ET_PARTIES_PRENANTES]
+ 
+POUR CHAQUE CATÉGORIE, IDENTIFIE 3 À 5 RISQUES :
+1. RISQUES TECHNIQUES
+   (architecture, performance, sécurité, dette technique...)
+2. RISQUES HUMAINS / ÉQUIPE
+   (turnover, surcharge, compétences manquantes, conflits...)
+3. RISQUES FOURNISSEURS / PARTENAIRES
+   (retard livraison, dépendance, qualité, contractuel...)
+4. RISQUES DE SCOPE
+   (changements demandés, périmètre flou, sur-spécification...)
+5. RISQUES FINANCIERS
+   (dépassement budget, retard de paiement, taux de change...)
+6. RISQUES EXTERNES
+   (réglementaire, géopolitique, Maghreb-spécifique : fêtes,
+    pannes électricité, disponibilité talents...)
+ 
+POUR CHAQUE RISQUE GÉNÈRE :
+- Description claire (1 phrase)
+- Probabilité (1-5)
+- Impact (1-5)
+- Score de criticité (proba × impact)
+- Signal d'alerte précoce à surveiller
+- Action de mitigation préventive
+Page 28 / 53
+
+
+============================================================
+ PAGE 29
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+- Plan de contingence si le risque se matérialise
+- Owner désigné dans l'équipe
+ 
+FINIS PAR :
+- Top 5 risques à priorité absolue
+- Recommandation de cadence de revue (hebdo / bimensuel)
+Page 29 / 53
+
+
+============================================================
+ PAGE 30
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Prompt 2 — Détection de signaux faibles dans les comptes-rendus
+Analyser les comptes-rendus de réunion et messages Slack pour détecter automatiquement les signaux 
+faibles avant qu'ils deviennent des incidents.
+PROMPT À COPIER — Détection de Signaux Faibles
+Tu es un risk analyst senior, expert en analyse sémantique de communications 
+projet.
+Analyse ces extraits et identifie les signaux faibles cachés.
+ 
+CONTEXTE PROJET :
+- Nom : [PROJET]
+- Phase actuelle : [PHASE]
+- Risques déjà identifiés : [TOP_5_RISQUES_REGISTRE]
+ 
+DOCUMENTS À ANALYSER :
+- Comptes-rendus de réunion (2 dernières semaines) : [COLLER]
+- Messages Slack pertinents : [COLLER]
+- Tickets bloqués / en retard : [COLLER]
+- Emails stakeholders : [COLLER]
+ 
+GÉNÈRE UNE ANALYSE EN 5 SECTIONS :
+1. SIGNAUX FAIBLES DÉTECTÉS
+   Pour chaque signal :
+   - Citation exacte (avec source)
+   - Risque potentiel sous-jacent
+   - Lien avec un risque connu (si oui) ou nouveau
+   - Niveau d'attention requis (faible / moyen / élevé)
+2. CHANGEMENTS DE TON / SENTIMENT
+   - Membres de l'équipe : moral, engagement, frustration
+   - Stakeholders : confiance, agacement, désengagement
+3. SUJETS RÉCURRENTS NON RÉSOLUS
+   Problèmes mentionnés à plusieurs reprises sans avancée
+4. CONTRADICTIONS DÉTECTÉES
+   Décalage entre ce qui est dit et ce qui est fait
+5. RECOMMANDATIONS D'ACTIONS
+   - Conversations à avoir cette semaine (avec qui, sur quoi)
+   - Mises à jour à apporter au risk register
+   - Communication suggérée aux stakeholders
+Page 30 / 53
+
+
+============================================================
+ PAGE 31
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Prompt 3 — Playbook de mitigation par type de risque
+Construire des playbooks de réponse standardisés pour les types de risques courants, à activer 
+immédiatement quand un risque se matérialise.
+PROMPT À COPIER — Playbook de Mitigation
+Tu es un risk manager senior, expert en réponse aux incidents projet.
+Construis un playbook de mitigation complet pour ce type de risque.
+ 
+RISQUE À ADRESSER :
+- Type : [TECHNIQUE / HUMAIN / FOURNISSEUR / SCOPE / FINANCIER / EXTERNE]
+- Description : [DESCRIPTION_RISQUE]
+- Sévérité actuelle : [FAIBLE / MOYENNE / ÉLEVÉE / CRITIQUE]
+- Contexte projet : [PHASE_ACTUELLE_+_DEADLINE]
+ 
+GÉNÈRE LE PLAYBOOK EN 7 SECTIONS :
+1. SIGNAUX D'ACTIVATION
+   Comment savoir que ce playbook doit être déclenché
+2. ÉVALUATION RAPIDE (15 min)
+   Questions clés à poser pour confirmer / qualifier
+3. ACTIONS IMMÉDIATES (24h)
+   - Action 1 : qui fait quoi, dans quel délai
+   - Action 2 : ...
+   - Action 3 : ...
+4. PARTIES PRENANTES À INFORMER
+   - Qui : équipe, sponsor, client
+   - Quoi : message clé adapté à chaque audience
+   - Quand : timing recommandé
+5. PLAN DE CONTINGENCE (si l'action immédiate ne suffit pas)
+   Plans B et C structurés avec critères de bascule
+6. SUIVI POST-INCIDENT
+   - Indicateurs à monitorer pour vérifier la résolution
+   - Cadence des points (jusqu'à clôture)
+7. APPRENTISSAGES À CAPITALISER
+   - Mise à jour du risk register pour les futurs projets
+   - Documentation à ajouter dans la base de connaissances
+Page 31 / 53
+
+
+============================================================
+ PAGE 32
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+ NOUVEAU v1.1 — 
+★
+3.4.2 Predictive Risk Models (livrable Euklydia)
+Modèles prédictifs Euklydia qui s'appuient sur l'historique des projets passés (de l'apprenant et de la 
+base anonymisée Euklydia) pour estimer la probabilité d'occurrence de chaque type de risque selon le 
+contexte projet. Ces modèles transforment l'évaluation subjective « probabilité 3/5 » en estimation 
+calibrée par les données réelles.
+Architecture des Predictive Risk Models
+1. Base de connaissances historique
+•
+Chaque projet terminé enrichit la base : risques anticipés vs risques survenus, contexte (secteur, 
+taille équipe, durée, stack), mitigation effective.
+ 
+2. Modèles par catégorie de risque
+•
+Risques techniques : probabilité par stack (legacy migration, microservices, AI/ML, mobile).
+•
+Risques humains : probabilité par taille d'équipe et turnover historique.
+•
+Risques fournisseurs : probabilité par type de partenaire (SaaS, intégrateur, freelance, 
+fournisseur local).
+•
+Risques de scope : probabilité par maturité du sponsor et niveau de spec initial.
+•
+Risques financiers : probabilité par devise et nature contractuelle.
+•
+Risques externes Maghreb : calibrés sur les patterns régionaux (cf. encadré dédié).
+ 
+3. Calibration de la probabilité
+•
+Au lieu d'une estimation au feeling (1-5), l'apprenant obtient une probabilité chiffrée appuyée 
+par l'historique : « ce type de risque s'est matérialisé sur 6 projets similaires sur 10 ».
+ 
+4. Recommandations de mitigation priorisées
+•
+Les mitigations qui ont historiquement fonctionné sont remontées en priorité avec leur taux de 
+succès observé.
+Usage pédagogique : pendant l'execution task, l'apprenant croise les résultats du Prompt 1 (atelier risk 
+discovery) avec les Predictive Risk Models pour calibrer son scoring. Sur sa propre base historique, il 
+améliore la justesse de ses prédictions à chaque projet.
+Page 32 / 53
+
+
+============================================================
+ PAGE 33
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+ NOUVEAU v1.1 — 
+★
+3.4.3 Risques contextuels Maghreb (encadré dédié)
+Le Maghreb présente des risques spécifiques qui sont sous-estimés ou ignorés dans les frameworks 
+internationaux. Cet encadré formalise les 8 risques contextuels majeurs à intégrer systématiquement au 
+risk register pour la zone Tunisie / Algérie / Maroc / Libye / Égypte.
+8 risques contextuels Maghreb à toujours considérer
+1. Calendrier religieux variable (Ramadan, Aïd, fêtes nationales)
+•
+Productivité réduite de 30-40 % pendant le Ramadan dans la plupart des entreprises. Dates des 
+fêtes religieuses (Aïd al-Fitr, Aïd al-Adha) confirmées tardivement. Impact sur les jalons projet.
+ 
+2. Disponibilité électrique et connectivité
+•
+Coupures électriques imprévues (Tunisie, Libye, Égypte). Connexion internet instable dans 
+certaines zones. Impact direct sur les équipes remote et les démos clients.
+ 
+3. Disponibilité de talents seniors (tech, design, data)
+•
+Pénurie de profils seniors qualifiés. Forte concurrence entre PME locales et entreprises offshore 
+européennes. Risque de débauchage pendant le projet.
+ 
+4. Dépendance à 1 ou 2 talents clés (« bus factor » faible)
+•
+Équipes PME souvent petites : 1 seul développeur senior, 1 seul designer. Son absence ou départ 
+bloque tout le projet. À toujours mitiger par documentation et pairing.
+ 
+5. Taux de change et paiements internationaux
+•
+Devise locale volatile (DT, DA, MAD, LBD, EGP). Paiements en USD/EUR pour outils SaaS sujets 
+aux variations. Contrôle des changes (Algérie, Tunisie) qui complique les achats.
+ 
+6. Cadre réglementaire évolutif (data, RGPD-like)
+•
+Lois sur la protection des données en évolution dans la région (ex : INPDP Tunisie, CNDP Maroc). 
+Risque de non-conformité sur les projets data / IA.
+ 
+7. Communication multi-canaux et bilinguisme
+•
+Équipes communiquent en arabe (dialecte), français, parfois anglais. WhatsApp parallèle à 
+Slack/Teams. Risque de pertes d'information entre canaux.
+ 
+8. Contexte géopolitique régional
+•
+Tensions régionales ponctuelles (Libye, frontières). Restrictions de voyage. Impact sur les projets 
+multi-pays Maghreb.
+Page 33 / 53
+
+
+============================================================
+ PAGE 34
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Usage pédagogique : ces 8 risques sont systématiquement intégrés en catégorie 6 (Risques externes) du 
+Prompt 1. L'apprenant les évalue pour son projet et active les mitigations correspondantes. Cette 
+contextualisation Maghreb est une vraie différenciation d'Euklydia vs les frameworks internationaux 
+génériques.
+Page 34 / 53
+
+
+============================================================
+ PAGE 35
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+3.4.4 Workflows — 2 workflows opérationnels
+Workflow 1 — Risk discovery au démarrage projet (no-code, 2h)
+Pour conduire une session de risk discovery exhaustive et utile dès le J0 du projet.
+#
+Étape
+Outil
+1
+Préparer le brief projet enrichi (objectif, équipe, stack, 
+fournisseurs)
+Notion
+2
+Appliquer le prompt 1 → 15-25 risques structurés par 
+catégorie
+ChatGPT / Claude
+3
+Croiser avec les Predictive Risk Models pour calibrer les 
+probabilités
+Base historique
+4
+Intégrer les 8 risques contextuels Maghreb dans la catégorie 
+6
+Checklist Notion
+5
+Atelier équipe (45 min) : valider, ajouter, prioriser les 
+risques
+Réunion équipe
+6
+Top 5 risques : appliquer le prompt 3 pour le playbook de 
+mitigation
+ChatGPT
+7
+Importer le risk register et les playbooks dans Notion / 
+Asana
+Notion / Asana
+8
+Désigner un owner par risque et planifier la cadence de 
+revue
+Notion / Slack
+Workflow 2 — Veille continue des signaux faibles (low-code)
+Pour maintenir un système d'écoute permanent qui détecte les signaux faibles dans les communications 
+quotidiennes du projet.
+#
+Étape
+Outil
+1
+Sync continue : Slack channels projet + Asana / Jira tickets + 
+comptes-rendus
+Make / n8n
+2
+Trigger hebdo : extraction des messages des 7 derniers jours
+API Slack / Asana
+3
+Action : appel ChatGPT API + prompt 2 → analyse signaux 
+faibles
+OpenAI API
+4
+Stockage : nouveaux signaux ajoutés au risk register Notion
+Notion API
+Page 35 / 53
+
+
+============================================================
+ PAGE 36
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+#
+Étape
+Outil
+5
+Notification Slack au PM : « 3 nouveaux signaux à examiner 
+»
+Slack
+6
+Si signal critique : déclenchement automatique du playbook 
+prompt 3
+ChatGPT API
+Page 36 / 53
+
+
+============================================================
+ PAGE 37
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+3.4.5 Tools — Les outils du module
+Outil
+Pricing
+Usage dans le module
+ChatGPT / Claude
+Free / 20 USD/mois
+Risk discovery + signaux faibles + playbooks de 
+mitigation
+Notion + Notion AI
+Free / 10 
+USD/utilisateur/mois
+Risk register, playbooks, base de connaissances 
+post-projet
+Asana / Monday.com
+Free / variable
+Suivi des risques avec champs custom 
+(probabilité, impact, owner)
+Slack
+Free / 7-12 
+USD/user/mois
+Source des signaux faibles + canal de notification 
+automatique
+Make / n8n
+Free / 20 USD/mois
+Orchestration du workflow de veille continue
+Loom
+Free / 12 USD/mois
+Communication asynchrone des risques aux 
+stakeholders
+3.4.6 Tutorials
+Tutoriel 1 — Conduis ton premier atelier risk discovery (20 min)
+•
+Préparation du brief projet enrichi
+•
+Application du prompt 1 et lecture critique des 15-25 risques
+•
+Croisement avec les Predictive Risk Models pour calibrer les probabilités
+•
+Intégration des 8 risques contextuels Maghreb
+•
+Animation de l'atelier équipe : ajouter, prioriser, attribuer
+•
+Construction du risk register dans Notion ou Asana
+Tutoriel 2 — Détecte les signaux faibles en 15 minutes par semaine (15 min)
+•
+Configuration de l'export hebdomadaire Slack + Asana
+•
+Application du prompt 2 et lecture critique des signaux
+•
+Décision : conversation à avoir, action à lancer, surveillance
+•
+Mise à jour du risk register avec les nouveaux signaux
+Page 37 / 53
+
+
+============================================================
+ PAGE 38
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+ NOUVEAU v1.1 — 
+★
+3.4.7 Références externes (sources d'inspiration officielles)
+Cette section regroupe les ressources externes officielles qui complètent le contenu pédagogique du 
+module Risk Identification.
+Références officielles intégrées
+Project Management Institute (PMI) risk frameworks
+•
+PMBOK Guide 7e édition (pmi.org/pmbok-guide-standards) — référentiel mondial de gestion de 
+projet, chapitre Risk Management.
+•
+PMI-RMP Examination Content Outline — domaines de compétence officiels du risk manager 
+(risk strategy, identification, analysis, response, monitoring).
+•
+Practice Standard for Project Risk Management (PMI) — méthodologie détaillée de gestion des 
+risques, base du framework des 6 catégories utilisé dans le Prompt 1.
+•
+PMI Pulse of the Profession reports — études annuelles sur les facteurs de succès / échec des 
+projets, sources statistiques pour calibrer les Predictive Risk Models.
+ 
+Monday.com risk tracking
+•
+Monday.com Risk Register Templates (monday.com/templates) — templates configurables de 
+registre des risques avec champs custom (probabilité, impact, owner, statut).
+•
+Monday.com Project Management Resources Hub — guides pratiques sur le suivi des risques en 
+environnement agile.
+•
+Monday.com Automations — recettes d'automation pour notifier les owners de risques quand 
+un seuil est franchi.
+Usage pédagogique : la référence au PMI apporte une légitimité méthodologique forte à ce module et 
+rassure les apprenants seniors ou ceux qui visent une certification. Monday.com est cité comme 
+alternative concrète à Asana/Notion pour le suivi opérationnel des risques.
+Page 38 / 53
+
+
+============================================================
+ PAGE 39
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+3.5 Execution Task
+Mission : Conduis un atelier risk discovery sur ton projet en cours
+Durée : 120 minutes (étalées sur la semaine)
+Outils : ChatGPT + Notion ou Asana
+ 
+Étapes :
+•
+Choisis 1 projet en cours (idéalement en phase de démarrage ou milieu).
+•
+Prépare le brief projet enrichi (équipe, stack, fournisseurs, stakeholders).
+•
+Applique le prompt 1 et obtiens 15-25 risques structurés.
+•
+Croise avec les Predictive Risk Models pour calibrer les probabilités.
+•
+Intègre les 8 risques contextuels Maghreb dans la catégorie 6.
+•
+Anime un atelier équipe (45 min) pour valider et prioriser.
+•
+Construis 3 playbooks de mitigation avec le prompt 3.
+•
+Configure une revue hebdomadaire dans le calendrier de l'équipe.
+ 
+Critère de réussite : ton risk register contient au moins 15 risques validés par l'équipe, avec un owner 
+désigné et un playbook pour les 3 risques majeurs.
+3.6 KPI Measurement
+Indicateurs trackés
+•
+Nombre de risques identifiés au démarrage du projet
+•
+Nombre de signaux faibles détectés et adressés par mois
+•
+Délai moyen entre apparition d'un signal et action correctrice
+•
+Taux de retards évités grâce à l'anticipation
+Méthode de collecte
+Comparaison du registre des risques au J0 et à J+30. Tracking via Notion ou Asana des actions de 
+mitigation déclenchées. Période d'observation : 30 jours minimum, idéalement jusqu'à la fin du projet.
+3.7 Progress Update
+Synthèse de progression — Module 2 — À la fin du module, l'apprenant reçoit :
+•
+Comparatif anticipation des risques avant / après
+•
+Bibliothèque personnelle de playbooks de mitigation par type de risque
+Page 39 / 53
+
+
+============================================================
+ PAGE 40
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+•
+Risk register complet avec les 8 risques Maghreb intégrés
+•
+Mise à jour du score skill 2 (Risk Intelligence)
+•
+Recommandation pour le Module 3 (Team Productivity Optimization)
+Bridge système : présentation de l'AI Risk Intelligence System d'Euklydia → industrialisation full-cycle 
+(risk discovery automatisée, veille continue des signaux faibles, déclenchement automatique des 
+playbooks, dashboard risque temps réel).
+Page 40 / 53
+
+
+============================================================
+ PAGE 41
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Partie 4 — Module 3 : Team Productivity Optimization
+Carte d'identité du module
+Use Case :
+Team Productivity Optimization
+Skill mappée :
+AI Execution & Productivity
+Durée moyenne :
+3 à 5 heures
+Système Euklydia associé :
+AI Execution Optimization System
+KPI promis :
++25 % de productivité d'équipe
+4.1 Use Case — Le problème business
+Beaucoup d'équipes projet au Maghreb travaillent dur mais avancent lentement : backlog inflationniste, 
+tâches qui traînent en cours, sprints qui ne se terminent pas, charge mal répartie entre les membres. Le 
+project manager passe son temps à courir après les tâches au lieu d'optimiser le système. Les rituels 
+agiles (daily, sprint planning, retrospective) sont parfois perçus comme une perte de temps plutôt qu'un 
+levier de productivité.
+Le quotidien typique
+L'équipe de Karim a 80 tickets dans le backlog Jira. À chaque sprint planning, Karim improvise une 
+priorisation au feeling : « celui-ci est urgent, celui-là est important ». Au bout du sprint de 2 semaines, 
+seulement 60 % des tickets prévus sont livrés. Certains développeurs sont surchargés, d'autres en sous-
+charge. Personne n'a une vision claire de qui fait quoi. Cette absence de méthode génère :
+•
+Productivité faible : seulement 60 % du sprint planifié est livré.
+•
+Priorisation au feeling, pas alignée sur la valeur business.
+•
+Charge mal équilibrée entre les membres (burn-out d'un côté, ennui de l'autre).
+•
+Backlog en croissance permanente, pas de tri régulier.
+•
+Sprint planning chronophage et peu structuré.
+•
+Pas de visibilité claire sur la performance individuelle / équipe.
+La promesse du module
+À l'issue de ce module, l'apprenant sait optimiser la productivité de son équipe avec l'IA : priorisation du 
+backlog selon Eisenhower + RICE, sprint planning en 30 minutes au lieu de 2 heures, équilibrage 
+automatique de la charge, dashboard performance hebdomadaire. Il observe une amélioration de 25 % 
+de la productivité de son équipe.
+ NOUVEAU v1.1 — 
+★
+Mini-glossaire pour démarrer le module
+Page 41 / 53
+
+
+============================================================
+ PAGE 42
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Avant de plonger dans le module, voici les concepts clés que tu rencontreras. Pas besoin de tout retenir 
+maintenant — reviens ici en cas de doute.
+Terme
+Définition courte
+Matrice Eisenhower
+Grille à 4 quadrants (urgent/important) pour classer les tâches selon leur 
+priorité réelle. Permet d'éliminer le « faux urgent ».
+Framework RICE
+Méthode de priorisation produit : Reach (portée) × Impact × Confidence 
+(certitude) / Effort. Donne un score numérique comparable entre tickets.
+Sprint
+Itération de 1 à 4 semaines (typiquement 2) pendant laquelle l'équipe livre 
+un ensemble fini de tâches.
+Sprint completion rate
+Pourcentage de tâches prévues qui ont réellement été livrées à la fin du 
+sprint. Métrique reine de la productivité d'équipe.
+Backlog
+Liste de toutes les tâches à faire, classée par priorité, qui alimente les futurs 
+sprints.
+Story points
+Unité d'estimation relative de la complexité d'une tâche (souvent suite de 
+Fibonacci : 1, 2, 3, 5, 8, 13).
+Vélocité
+Nombre moyen de story points (ou tickets) livrés par l'équipe par sprint. Sert 
+à calibrer la capacité du prochain sprint.
+Burn-out
+État d'épuisement professionnel lié à une surcharge ou un déséquilibre 
+prolongé. Risque majeur des équipes surchargées.
+Burn-down chart
+Graphique montrant le travail restant à faire au cours du sprint. Permet de 
+détecter les retards en temps réel.
+Rétrospective
+Réunion de fin de sprint où l'équipe analyse ce qui a bien fonctionné, les 
+points d'amélioration et les actions à mener.
+Page 42 / 53
+
+
+============================================================
+ PAGE 43
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+4.2 KPI — Before / After
+Indicateur
+Avant (baseline)
+Après (cible)
+Productivité d'équipe (sprint 
+completion rate)
+60 % du sprint livré
++25 % (75-85 %)
+Durée du sprint planning
+2 à 3 heures
+30 à 45 minutes
+Équilibrage de la charge entre 
+membres
+Écart 30-50 % entre les plus / 
+moins chargés
+Écart < 15 %
+4.3 Skills mapped
+Ce module active la skill 3 — AI Execution & Productivity. Compétences débloquées :
+•
+Maîtriser la matrice Eisenhower et le framework RICE (Reach, Impact, Confidence, Effort).
+•
+Conduire un sprint planning IA-augmenté en 30-45 minutes.
+•
+Équilibrer la charge de travail entre les membres avec l'IA.
+•
+Construire un dashboard performance d'équipe hebdomadaire.
+•
+Détecter les signaux de burn-out et de sous-charge avant qu'ils impactent.
+•
+Maîtriser Jira AI ou ClickUp AI pour automatiser le suivi.
+•
+Animer des rétrospectives data-driven avec recommandations IA.
+Page 43 / 53
+
+
+============================================================
+ PAGE 44
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+4.4 Execution Content
+4.4.1 Templates — 3 prompts ChatGPT essentiels
+Prompt 1 — Priorisation du backlog Eisenhower + RICE
+Trier rapidement un backlog de 50 à 200 tickets en appliquant les frameworks Eisenhower et RICE pour 
+révéler ce qui mérite vraiment d'être fait en priorité.
+PROMPT À COPIER — Priorisation Backlog Eisenhower + RICE
+Tu es un product manager senior, expert en priorisation produit.
+Priorise ce backlog en appliquant Eisenhower + RICE.
+ 
+CONTEXTE :
+- Produit / projet : [DESCRIPTION]
+- Objectif business du trimestre : [OBJECTIF]
+- Capacité de l'équipe (sprint) : [POINTS_OU_JOURS]
+- Persona utilisateur principal : [PERSONA]
+ 
+BACKLOG À PRIORISER :
+Pour chaque ticket :
+- ID : [TICKET-XXX]
+- Titre : [TITRE]
+- Description courte : [DESC]
+- Demandeur : [QUI]
+- Estimation : [JOURS]
+ 
+TICKET 1 : ...
+TICKET 2 : ...
+[etc. jusqu'à 50-200 tickets]
+ 
+GÉNÈRE LA PRIORISATION :
+1. CLASSIFICATION EISENHOWER (4 quadrants)
+   - Q1 : urgent + important (à faire maintenant)
+   - Q2 : non-urgent + important (à planifier)
+   - Q3 : urgent + non-important (à déléguer)
+   - Q4 : non-urgent + non-important (à éliminer)
+2. SCORING RICE
+   Pour chaque ticket Q1 et Q2 :
+   - Reach : combien d'utilisateurs impactés (1-10)
+   - Impact : effet par utilisateur (1-3)
+   - Confidence : niveau de certitude (% : 50/80/100)
+   - Effort : jours-homme requis
+   - Score RICE = (R × I × C) / E
+3. RECOMMANDATION SPRINT
+Page 44 / 53
+
+
+============================================================
+ PAGE 45
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+   Top 10 tickets à prendre dans le prochain sprint
+   Justification du choix
+4. TICKETS À ÉLIMINER
+   Tickets Q4 + low RICE → suggérer un retrait du backlog
+5. ALERTES
+   - Sur-représentation d'un demandeur
+   - Tickets très anciens à archiver
+   - Manque de tickets sur l'objectif trimestriel
+Page 45 / 53
+
+
+============================================================
+ PAGE 46
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Prompt 2 — Équilibrage de la charge d'équipe
+Affecter intelligemment les tickets aux membres de l'équipe pour équilibrer la charge et respecter leurs 
+spécialités.
+PROMPT À COPIER — Équilibrage Charge Équipe
+Tu es un scrum master senior expérimenté.
+Affecte les tickets aux membres en équilibrant charge et compétences.
+ 
+ÉQUIPE :
+Pour chaque membre :
+- Nom / pseudo : [NOM]
+- Capacité du sprint (jours / story points) : [CAPACITE]
+- Compétences principales : [SKILLS]
+- Préférences / aversions connues : [PREFERENCES]
+- Charge actuelle (sprint en cours) : [CHARGE]
+ 
+MEMBRE 1 : ...
+MEMBRE 2 : ...
+[etc.]
+ 
+TICKETS À AFFECTER (issus du prompt 1) :
+[COLLER_TOP_10_TICKETS_PRIORISES]
+ 
+GÉNÈRE :
+1. PROPOSITION D'AFFECTATION
+   Pour chaque ticket :
+   - Membre recommandé
+   - Justification (skill match + charge)
+   - Membre backup en cas d'absence
+2. RÉPARTITION DE CHARGE FINALE
+   Tableau par membre :
+   - Capacité : X jours
+   - Allocation : Y jours
+   - Taux de charge : Z %
+3. ÉQUILIBRAGE
+   - Écart max entre membres
+   - Identifier les surcharges (>110 %)
+   - Identifier les sous-charges (<70 %)
+4. RECOMMANDATIONS
+   - Tickets à déplacer pour rééquilibrer
+   - Membres à coacher / pairer
+   - Risques de burn-out à surveiller
+5. SCRIPT DE COMMUNICATION ÉQUIPE
+   Brouillon de message Slack pour annoncer le sprint
+Page 46 / 53
+
+
+============================================================
+ PAGE 47
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Page 47 / 53
+
+
+============================================================
+ PAGE 48
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Prompt 3 — Rétrospective IA-augmentée
+Animer une rétrospective fin de sprint structurée en 30 minutes au lieu de 1h, avec analyse data-driven 
+des facteurs de succès et points d'amélioration.
+PROMPT À COPIER — Rétrospective IA-Augmentée
+Tu es un agile coach senior, expert en facilitation de rétrospectives.
+Anime une rétrospective complète et actionable.
+ 
+DONNÉES DU SPRINT TERMINÉ :
+- Numéro / nom : [SPRINT_X]
+- Durée : [JOURS]
+- Tickets prévus : [N_PREVUS]
+- Tickets livrés : [N_LIVRES]
+- Sprint completion rate : [%]
+- Bugs introduits en prod : [N_BUGS]
+- Tickets reportés : [N_REPORTES]
+- Charge réelle vs estimée : [ECART]
+ 
+DONNÉES QUALITATIVES :
+- Verbatim membres équipe : [COLLER_FEEDBACK]
+- Incidents / blocages : [LISTE]
+- Demandes de scope changes : [LISTE]
+ 
+GÉNÈRE LA RÉTROSPECTIVE EN 5 SECTIONS :
+1. SYNTHÈSE QUANTITATIVE
+   - Performance vs sprint précédent
+   - Tendance sur 3 derniers sprints
+2. CE QUI A BIEN FONCTIONNÉ (3 à 5 points)
+   Avec preuves chiffrées ou citations
+3. POINTS D'AMÉLIORATION (3 à 5 points)
+   Causes racines (pas symptômes)
+4. ACTIONS CONCRÈTES POUR LE PROCHAIN SPRINT
+   Pour chaque action :
+   - Quoi exactement
+   - Owner
+   - Critère de succès mesurable
+5. SIGNAUX FAIBLES À NE PAS MANQUER
+   - Tendances négatives émergentes
+   - Membres en risque burn-out
+   - Pratiques à pérenniser
+6. SCRIPT D'ANIMATION 30 MIN
+   Comment dérouler la séance avec l'équipe
+Page 48 / 53
+
+
+============================================================
+ PAGE 49
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+4.4.2 Workflows — 2 workflows opérationnels
+Workflow 1 — Sprint planning éclair en 30 min (no-code)
+Pour conduire un sprint planning structuré et productif en 30-45 minutes au lieu de 2-3 heures.
+#
+Étape
+Outil
+1
+La veille : exporter le backlog actuel + objectifs trimestriels
+Jira / ClickUp / Notion
+2
+Appliquer le prompt 1 (priorisation Eisenhower + RICE) sur le 
+backlog
+ChatGPT
+3
+Appliquer le prompt 2 (équilibrage charge) avec la capacité 
+de l'équipe
+ChatGPT
+4
+Sprint planning (30 min) : valider la proposition, ajuster, 
+engager
+Réunion équipe
+5
+Importer les affectations dans Jira / ClickUp
+Jira / ClickUp
+6
+Annoncer le sprint sur Slack avec le script généré
+Slack
+Workflow 2 — Dashboard performance hebdo + rétrospective auto (low-code)
+Pour disposer d'une vue performance fraîche chaque semaine et automatiser la préparation de la 
+rétrospective.
+#
+Étape
+Outil
+1
+Sync continue : Jira / ClickUp API → base centralisée
+Make / n8n
+2
+Calcul automatique : completion rate, charge par membre, 
+blocages
+BigQuery / Sheets
+3
+Génération hebdo : dashboard performance partagé à 
+l'équipe
+Notion / Looker Studio
+4
+Fin de sprint : extraction des données + verbatims équipe
+Make / Slack
+5
+Action : appel ChatGPT API + prompt 3 → rétro pré-rédigée
+OpenAI API
+6
+PM facilite la rétro 30 min avec la base IA-augmentée
+Réunion équipe
+Page 49 / 53
+
+
+============================================================
+ PAGE 50
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+4.4.3 Tools — Les outils du module
+Outil
+Pricing
+Usage dans le module
+ChatGPT / Claude
+Free / 20 USD/mois
+Priorisation backlog + équilibrage charge + 
+rétrospective
+Jira + Atlassian 
+Intelligence
+Free / 7-14 
+USD/user/mois
+Suivi des tickets et sprints, IA intégrée
+ClickUp + ClickUp AI
+Free / 7-12 
+USD/user/mois
+Alternative tout-en-un avec IA native
+Notion AI
+Free / 10 
+USD/utilisateur/mois
+Documentation rétrospectives et apprentissages
+Slack
+Free / 7-12 
+USD/user/mois
+Communication sprint + canal de notifications 
+dashboard
+Looker Studio / Notion
+Free / variable
+Construction du dashboard performance 
+hebdomadaire
+Make / n8n
+Free / 20 USD/mois
+Automatisation des syncs et workflows 
+performance
+4.4.4 Tutorials
+Tutoriel 1 — Priorise 100 tickets en 10 minutes (15 min)
+•
+Préparation de l'export backlog au bon format
+•
+Application du prompt 1 (Eisenhower + RICE)
+•
+Lecture critique des recommandations IA
+•
+Sélection finale des tickets pour le sprint à venir
+Tutoriel 2 — Anime une rétrospective IA-augmentée (20 min)
+•
+Préparation des données quantitatives + qualitatives du sprint
+•
+Application du prompt 3 et lecture critique
+•
+Animation de la séance équipe avec le script généré
+•
+Capitalisation des actions dans Notion
+Page 50 / 53
+
+
+============================================================
+ PAGE 51
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+ NOUVEAU v1.1 — 
+★
+4.4.5 Références externes (sources d'inspiration officielles)
+Cette section regroupe les ressources externes officielles qui complètent le contenu pédagogique du 
+module Team Productivity Optimization.
+Références officielles intégrées
+Atlassian Jira guides
+•
+Atlassian Agile Coach (atlassian.com/agile) — guides officiels Scrum, Kanban, sprint planning, 
+retrospectives.
+•
+Jira Software Documentation (support.atlassian.com/jira-software-cloud) — configuration 
+sprints, custom fields, automation rules.
+•
+Atlassian Intelligence (AI) documentation — features IA natives : smart links, auto-summary 
+tickets, AI-suggested workflows.
+•
+Atlassian Community — forum d'experts pour cas d'usage avancés et templates partagés.
+ 
+ClickUp productivity workflows
+•
+ClickUp University (university.clickup.com) — formations gratuites sur la productivité d'équipe et 
+l'usage avancé de ClickUp.
+•
+ClickUp Templates Library — templates de workflows productivité (sprint planning, OKR tracking, 
+team workload).
+•
+ClickUp Brain (AI features) documentation — automation, AI assist sur les tâches, summaries 
+automatiques.
+•
+ClickUp Productivity Blog — études de cas concrètes d'équipes qui ont augmenté leur 
+productivité avec l'outil.
+Usage pédagogique : Jira reste l'outil de référence pour les équipes tech matures, ClickUp pour les 
+équipes pluridisciplinaires (tech + marketing + ops). Les apprenants choisissent leur stack et 
+approfondissent via la doc officielle correspondante.
+Page 51 / 53
+
+
+============================================================
+ PAGE 52
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+4.5 Execution Task
+Mission : Conduis un sprint planning IA-augmenté + une rétrospective
+Durée : 180 minutes (étalées sur le sprint)
+Outils : ChatGPT + Jira ou ClickUp + Notion
+ 
+Étapes :
+•
+Choisis 1 sprint à venir (idéalement avec un backlog d'au moins 30 tickets).
+•
+Applique le prompt 1 et obtiens la priorisation Eisenhower + RICE.
+•
+Applique le prompt 2 pour équilibrer la charge sur l'équipe.
+•
+Anime le sprint planning en 30-45 min avec la proposition IA.
+•
+À la fin du sprint : applique le prompt 3 pour préparer la rétrospective.
+•
+Anime la rétrospective et documente les actions retenues.
+ 
+Critère de réussite : sprint completion rate de l'équipe en hausse d'au moins 10 % par rapport au sprint 
+précédent ET satisfaction de l'équipe sur le format ≥ 4/5.
+4.6 KPI Measurement
+Indicateurs trackés
+•
+Sprint completion rate (avant vs après)
+•
+Durée moyenne du sprint planning
+•
+Écart de charge entre membres (% min/max)
+•
+Satisfaction équipe sur la productivité ressentie (note 1-5)
+Méthode de collecte
+Données extraites depuis Jira / ClickUp (completion rate). Chronométrage des réunions de sprint 
+planning. Sondage équipe en fin de sprint. Période d'observation : 2 sprints minimum (4 semaines).
+4.7 Progress Update
+Synthèse de progression — Module 3 — À la fin du module, l'apprenant reçoit :
+•
+Comparatif productivité d'équipe avant / après
+•
+Bibliothèque personnelle de prompts et templates de sprint
+•
+Mise à jour du score skill 3 (Execution & Productivity)
+•
+Vue consolidée des 3 modules : parcours complet AI Project Manager
+Page 52 / 53
+
+
+============================================================
+ PAGE 53
+============================================================
+EUKLYDIA ACADEMY — Parcours AI Project Manager (v1.1)
+Bridge système : présentation de l'AI Execution Optimization System d'Euklydia → industrialisation full-
+cycle (priorisation continue, équilibrage automatique de la charge, dashboard performance temps réel, 
+alertes burn-out, rétrospectives data-driven).
+Page 53 / 53

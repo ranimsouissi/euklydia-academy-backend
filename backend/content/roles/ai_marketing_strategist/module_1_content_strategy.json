@@ -268,6 +268,48 @@
         {"name": "Meta Business Resources", "usage": "Best practices content social (Facebook, Instagram)"},
         {"name": "Buffer & Hootsuite blogs", "usage": "Études de cas multi-canal et data engagement Maghreb/MENA"}
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "HubSpot — Guide de stratégie de contenu B2B",
+    "type": "article",
+    "url": "https://blog.hubspot.com/marketing/content-marketing-strategy",
+    "description": "Guide complet HubSpot sur la construction d'une stratégie éditoriale B2B — frameworks, calendrier, mesure d'engagement.",
+    "tags": ["stratégie", "contenu", "B2B", "calendrier"]
+  },
+  {
+    "id": "r2",
+    "title": "Notion AI — Templates calendrier éditorial",
+    "type": "tool",
+    "url": "https://www.notion.so/templates/category/marketing",
+    "description": "Bibliothèque de templates Notion pour calendrier éditorial et bibliothèque de prompts. Free tier disponible.",
+    "tags": ["calendrier", "templates", "Notion", "organisation"]
+  },
+  {
+    "id": "r3",
+    "title": "Canva AI — Création de visuels pour le contenu",
+    "type": "tool",
+    "url": "https://www.canva.com",
+    "description": "Outil de création de visuels avec IA intégrée. Free tier généreux — accepte les cartes bancaires locales TN/MA/DZ.",
+    "tags": ["visuels", "design", "free", "Maghreb"]
+  },
+  {
+    "id": "r4",
+    "title": "Buffer — Programmation multi-canal gratuite",
+    "type": "tool",
+    "url": "https://buffer.com",
+    "description": "Outil de programmation de publications multi-canal. Free tier : 3 canaux gratuits — idéal pour démarrer au Maghreb.",
+    "tags": ["programmation", "multi-canal", "free", "réseaux sociaux"]
+  },
+  {
+    "id": "r5",
+    "title": "LinkedIn Marketing Solutions — Bonnes pratiques contenu",
+    "type": "article",
+    "url": "https://business.linkedin.com/marketing-solutions/blog",
+    "description": "Blog officiel LinkedIn avec les meilleures pratiques de contenu B2B : formats, timing, engagement — benchmarks MENA inclus.",
+    "tags": ["LinkedIn", "B2B", "engagement", "MENA"]
+  }
+]
   }
 }

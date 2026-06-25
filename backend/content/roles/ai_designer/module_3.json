@@ -496,6 +496,48 @@
           "what": "Consolidation finale — ROI du design system automatisé"
         }
       ]
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Figma — Best Practices pour Design Systems",
+    "type": "article",
+    "url": "https://www.figma.com/best-practices/components-styles-and-shared-libraries",
+    "description": "Guide officiel Figma sur la structuration d'un design system : variants, auto-layout, bibliothèques partagées — référence directe du module.",
+    "tags": ["Figma", "design system", "composants", "officiel"]
+  },
+  {
+    "id": "r2",
+    "title": "Tokens Studio — Documentation officielle",
+    "type": "tool",
+    "url": "https://tokens.studio/docs",
+    "description": "Documentation officielle du plugin Figma pour centraliser les design tokens et synchroniser Figma ↔ code (CSS, Tailwind, iOS, Android). Free tier suffisant.",
+    "tags": ["tokens", "Figma", "sync code", "free"]
+  },
+  {
+    "id": "r3",
+    "title": "Figma Community — Design Systems industriels de référence",
+    "type": "article",
+    "url": "https://www.figma.com/community/design-systems",
+    "description": "Bibliothèque de design systems industriels (Material Design, Polaris Shopify, Atlassian) — références utilisées comme benchmark dans le module.",
+    "tags": ["benchmark", "Material Design", "Shopify", "référence"]
+  },
+  {
+    "id": "r4",
+    "title": "Adobe Firefly — Génération de composants visuels",
+    "type": "tool",
+    "url": "https://firefly.adobe.com",
+    "description": "Modèle génératif Adobe pour créer des composants, textures et illustrations alignés à une charte graphique — complément à Figma pour les équipes hybrides.",
+    "tags": ["Adobe", "génératif", "composants", "brand"]
+  },
+  {
+    "id": "r5",
+    "title": "Style Dictionary — Sync tokens vers code (open source)",
+    "type": "tool",
+    "url": "https://amzn.github.io/style-dictionary",
+    "description": "Outil open source pour transformer les tokens Figma en variables CSS, Tailwind, iOS et Android. Gratuit — cité dans comparison_tables.",
+    "tags": ["tokens", "CSS", "Tailwind", "open source"]
+  }
+]
   }
 }

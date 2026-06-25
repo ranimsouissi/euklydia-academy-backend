@@ -298,6 +298,48 @@
         }
       ],
       "pedagogical_usage": "Ces références sont citées dans les tutoriels et utilisées comme matériel d'approfondissement pour les apprenants souhaitant aller au-delà du contenu Euklydia. Notion et Asana étant les deux outils principaux du module, leur documentation officielle est citée comme référence d'autorité."
-    }
+    },
+    "resources": [
+  {
+    "id": "r1",
+    "title": "Notion AI — Documentation officielle planning",
+    "type": "article",
+    "url": "https://www.notion.so/help/notion-ai",
+    "description": "Documentation officielle Notion AI — best practices Q&A, autofill, génération de tâches dans une base. Complément direct au tutorial t1.",
+    "tags": ["Notion", "IA", "planification", "officiel"]
+  },
+  {
+    "id": "r2",
+    "title": "Notion Templates — Project Tracker et Sprint Planner",
+    "type": "tool",
+    "url": "https://www.notion.so/templates/category/project-management",
+    "description": "Templates certifiés Notion pour la gestion de projet (Project Tracker, Sprint Planner, OKR Dashboard) — bases de personnalisation pour les Execution Timeline Models.",
+    "tags": ["Notion", "templates", "sprint", "OKR"]
+  },
+  {
+    "id": "r3",
+    "title": "Asana Templates — Bibliothèque par type de projet",
+    "type": "tool",
+    "url": "https://asana.com/templates",
+    "description": "Bibliothèque officielle de templates Asana par type de projet (product launch, marketing campaign, IT project) — directement liée aux 4 Execution Timeline Models.",
+    "tags": ["Asana", "templates", "projet", "planification"]
+  },
+  {
+    "id": "r4",
+    "title": "Asana Academy — Formations gratuites gestion de projet",
+    "type": "article",
+    "url": "https://academy.asana.com",
+    "description": "Formations gratuites sur la gestion de projet structurée : cadence, dependencies, milestones, portfolios — complémentaire au Prompt 1 (roadmap).",
+    "tags": ["Asana", "formation", "gratuit", "dépendances"]
+  },
+  {
+    "id": "r5",
+    "title": "ClickUp — Alternative gratuite Asana/Notion (PME Maghreb)",
+    "type": "tool",
+    "url": "https://clickup.com",
+    "description": "Outil de gestion de projet tout-en-un avec IA intégrée. Free tier très généreux — recommandé pour les PME Maghreb comme alternative à Asana Pro.",
+    "tags": ["ClickUp", "PME", "Maghreb", "free", "IA"]
+  }
+]
   }
 }

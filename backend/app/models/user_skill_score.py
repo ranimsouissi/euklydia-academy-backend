@@ -11,7 +11,7 @@ class UserSkillScore(Base):
     __tablename__ = "user_skill_scores"
 
     __table_args__ = (
-        UniqueConstraint("assessment_session_id", "skill_id", name="uq_session_skill"),
+        UniqueConstraint("diagnostic_session_id", "skill_id", name="uq_diagnostic_skill"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -19,8 +19,8 @@ class UserSkillScore(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     skill_id: Mapped[int] = mapped_column(ForeignKey("skills.id"), nullable=False)
 
-    assessment_session_id: Mapped[int] = mapped_column(
-        ForeignKey("assessment_sessions.id", ondelete="CASCADE"),
+    diagnostic_session_id: Mapped[int] = mapped_column(
+        ForeignKey("diagnostic_sessions.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )
@@ -28,4 +28,4 @@ class UserSkillScore(Base):
     score: Mapped[int] = mapped_column(Integer, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
 
-    assessment_session = relationship("AssessmentSession", back_populates="skill_scores")
+    diagnostic_session = relationship("DiagnosticSession", back_populates="skill_scores")

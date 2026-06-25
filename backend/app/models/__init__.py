@@ -1,15 +1,13 @@
-from .user import User
+﻿from .user import User
 from .role import Role
 from .career_path import CareerPath
 from .skill import Skill
 from .question import Question
-from .user_response import UserResponse
 from .oauth_account import OAuthAccount
 from .user_profile import UserProfile
-from .report import Report
 from .module import Module
 from .module_skill import ModuleSkill
-from .assessment_session import AssessmentSession
+from .diagnostic_session import DiagnosticSession
 from .user_skill_score import UserSkillScore
 from .password_reset_token import PasswordResetToken
 from .oauth_state import OAuthState
@@ -22,6 +20,7 @@ from .activity import Activity
 from .learner_activity_log import LearnerActivityLog
 from .learner_skill_mastery import LearnerSkillMastery
 from .learner_path_log import LearnerPathLog
+from .user_response import UserResponse
 
 __all__ = [
     "User",
@@ -29,22 +28,20 @@ __all__ = [
     "CareerPath",
     "Skill",
     "Question",
-    "UserResponse",
     "OAuthAccount",
     "UserProfile",
-    "Report",
     "Module",
     "ModuleSkill",
-    "AssessmentSession",
+    "DiagnosticSession",
     "UserSkillScore",
     "PasswordResetToken",
     "OAuthState",
     "UserModuleProgress",
-    # Adaptive Learning Engine
     "Unit",
     "Lesson",
     "Activity",
     "LearnerActivityLog",
     "LearnerSkillMastery",
     "LearnerPathLog",
+    "UserResponse",
 ]
