@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_URL;
 
-// Mapping score → profil IA (mêmes seuils que assessment_rules.py)
+// Mapping score → profil IA (mêmes seuils que diagnostic_rules.py)
 function getAIProfile(globalScore) {
   if (globalScore === null || globalScore === undefined) return "—";
   if (globalScore <= 49) return "Novice IA";
@@ -20,7 +20,7 @@ export default function ProfilePage() {
     role: "",
     company: "Euklydia Academy",
   });
-  const [assessmentData, setAssessmentData] = useState({
+  const [diagnosticData, setdiagnosticData] = useState({
     status: "—",
     globalScore: null,
     aiProfile: "—",
@@ -30,7 +30,7 @@ export default function ProfilePage() {
   const [editedName, setEditedName] = useState("");
   const [saving, setSaving] = useState(false);
 
-  // Charger profil + assessment status
+  // Charger profil + diagnostic status
   useEffect(() => {
     const loadAll = async () => {
       const token = localStorage.getItem("token");
@@ -54,14 +54,14 @@ export default function ProfilePage() {
         });
         localStorage.setItem("auth_user", JSON.stringify(me));
 
-        // 2. Assessment status (pour le vrai niveau)
-        const statusRes = await fetch(`${API}/api/v1/assessment/status`, {
+        // 2. diagnostic status (pour le vrai niveau)
+        const statusRes = await fetch(`${API}/api/v1/diagnostic/status`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (statusRes.ok) {
           const st = await statusRes.json();
           const score = st.global_score_percent;
-          setAssessmentData({
+          setdiagnosticData({
             status: st.has_scores ? "Completed" : "Not started",
             globalScore: score,
             aiProfile: getAIProfile(score),
@@ -131,7 +131,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-page">
         {/* Header */}
         <section className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
@@ -146,10 +146,10 @@ export default function ProfilePage() {
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <button
-                onClick={() => navigate("/assessment")}
+                onClick={() => navigate("/diagnostic")}
                 className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-euk-dark transition hover:bg-slate-50"
               >
-                Retake Assessment
+                Retake diagnostic
               </button>
             </div>
           </div>
@@ -164,25 +164,25 @@ export default function ProfilePage() {
           </div>
 
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <div className="text-sm font-medium text-slate-500">Assessment Status</div>
-            <div className="mt-3 text-xl font-bold tracking-tight text-euk-dark">{assessmentData.status}</div>
-            <div className="mt-3 text-sm text-slate-500">Latest assessment state used to generate your insights.</div>
+            <div className="text-sm font-medium text-slate-500">diagnostic Status</div>
+            <div className="mt-3 text-xl font-bold tracking-tight text-euk-dark">{diagnosticData.status}</div>
+            <div className="mt-3 text-sm text-slate-500">Latest diagnostic state used to generate your insights.</div>
           </div>
 
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="text-sm font-medium text-slate-500">AI Profile</div>
-            <div className="mt-3 text-xl font-bold tracking-tight text-euk-dark">{assessmentData.aiProfile}</div>
+            <div className="mt-3 text-xl font-bold tracking-tight text-euk-dark">{diagnosticData.aiProfile}</div>
             <div className="mt-3 text-sm text-slate-500">
-              {assessmentData.globalScore !== null
-                ? `Based on your global score of ${assessmentData.globalScore}%.`
-                : "Complete your assessment to define your AI profile."}
+              {diagnosticData.globalScore !== null
+                ? `Based on your global score of ${diagnosticData.globalScore}%.`
+                : "Complete your diagnostic to define your AI profile."}
             </div>
           </div>
 
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="text-sm font-medium text-slate-500">Roadmap Cycle</div>
             <div className="mt-3 text-xl font-bold tracking-tight text-euk-dark">90 days</div>
-            <div className="mt-3 text-sm text-slate-500">Recommended duration before reassessment.</div>
+            <div className="mt-3 text-sm text-slate-500">Recommended duration before rediagnostic.</div>
           </div>
         </section>
 

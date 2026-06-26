@@ -2,40 +2,64 @@ import Container from "./ui/Container";
 import avatarSara from "../assets/images/avatar-sara.jpeg";
 import avatarKarim from "../assets/images/avatar-karim.jpeg";
 import avatarMehdi from "../assets/images/avatar-mehdi.jpeg";
+import avatarYasmine from "../assets/images/avatar-yasmine.jpeg"; // ← à ajouter
 
-const testimonials = [
+const scenarios = [
+  {
+    avatar: avatarMehdi,
+    name: "Mehdi Benali",
+    role: "Sales Manager",
+    company: "B2B SaaS · Tunis",
+    roleTag: "AI Sales Specialist",
+    roleColor: { bg: "rgba(0,179,160,0.10)", color: "#006355" },
+    borderColor: "#006355",
+    rating: 5,
+    useCase: "Lead Qualification Automation",
+    quote:
+      "I was sending the same generic outreach to every lead, with conversion stuck at 12%. After the diagnostic, Euklydia mapped exactly which use cases I needed to master. With the AI Lead Scoring Blueprint, I now qualify 35% more leads in half the time — and my outreach reply rate doubled.",
+    highlight: "+35% qualified leads · 2x reply rate",
+  },
   {
     avatar: avatarSara,
     name: "Sara Cherni",
-    role: "Directrice Marketing",
-    company: "Startup Fintech — Tunis",
-    borderColor: "#006355",
+    role: "Marketing Manager",
+    company: "Fintech · Tunis",
+    roleTag: "AI Marketing Strategist",
+    roleColor: { bg: "rgba(212,83,126,0.10)", color: "#993556" },
+    borderColor: "#993556",
     rating: 5,
+    useCase: "Content Strategy Optimization",
     quote:
-      "J'utilisais ChatGPT au hasard sans vraiment savoir ce que je faisais. Le test de niveau m'a montré exactement où j'en étais skill par skill. En 3 semaines, j'ai automatisé tout mon calendrier de contenu et mes campagnes email. Le fait que tout soit adapté à mon rôle de Marketing Manager change tout.",
-    highlight: "Calendrier contenu automatisé en 3 semaines",
+      "I was using ChatGPT randomly without a real strategy. The Euklydia diagnostic showed me exactly where I had gaps across 3 marketing use cases. With the AI Content Engine blueprint, I rebuilt our editorial calendar — engagement on our LinkedIn campaigns jumped by 40% in 3 weeks.",
+    highlight: "+40% engagement in 3 weeks",
+  },
+  {
+    avatar: avatarYasmine,
+    name: "Yasmine Khelifi",
+    role: "UX Designer",
+    company: "Digital agency · Casablanca",
+    roleTag: "AI Designer",
+    roleColor: { bg: "rgba(127,119,221,0.10)", color: "#534AB7" },
+    borderColor: "#534AB7",
+    rating: 5,
+    useCase: "Rapid Concept Generation",
+    quote:
+      "As a creative, I was skeptical AI could fit my workflow. The diagnostic broke my assumptions — it pinpointed exactly where AI accelerates ideation without replacing creativity. With the AI Design Ideation System, I now generate 10 concept variations in the time it took me to make 2.",
+    highlight: "5x faster concept generation",
   },
   {
     avatar: avatarKarim,
     name: "Karim Aït Yahia",
-    role: "Chef de Projet Digital",
-    company: "Agence conseil — Alger",
-    borderColor: "#00B3A0",
+    role: "Project Manager",
+    company: "Consulting firm · Alger",
+    roleTag: "AI Project Manager",
+    roleColor: { bg: "rgba(56,130,221,0.10)", color: "#1a5fa8" },
+    borderColor: "#1a5fa8",
     rating: 5,
+    useCase: "Project Planning Automation",
     quote:
-      "Les formations disponibles sur le marché étaient soit trop techniques, soit en anglais, soit trop chères. Euklydia est la première plateforme où j'ai senti que le contenu était fait pour moi — pour mon contexte, mes clients, mes outils. Le test par skill est brillant : je n'ai pas perdu de temps sur ce que je savais déjà.",
-    highlight: "Parcours 100% adapté à son niveau réel",
-  },
-  {
-    avatar: avatarMehdi,
-    name: "Mehdi Benali",
-    role: "Responsable Commercial",
-    company: "PME Distribution — Casablanca",
-    borderColor: "#004E4C",
-    rating: 5,
-    quote:
-      "En tant que commercial, je pensais que l'AI c'était pour les développeurs. Euklydia m'a prouvé le contraire. J'ai appris à utiliser HubSpot AI et Apollo.io pour prospecter, et j'ai réduit mon temps de prospection de 60%. Le module sur l'éthique AI m'a aussi aidé à rassurer mes clients.",
-    highlight: "60% de réduction du temps de prospection",
+      "I used to spend 2 days building project roadmaps. The diagnostic revealed planning was my biggest gap across 3 PM use cases. With the AI Planning Engine blueprint, I now produce complete roadmaps in 4 hours — and my delivery delays dropped by 30%.",
+    highlight: "60% time saved · -30% delays",
   },
 ];
 
@@ -45,7 +69,7 @@ export default function Testimonials() {
       <Container>
 
         {/* Header */}
-        <div style={{ maxWidth: 640, marginBottom: 48 }}>
+        <div style={{ maxWidth: 720, marginBottom: 48 }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 10,
             padding: "8px 14px", borderRadius: 999,
@@ -53,32 +77,32 @@ export default function Testimonials() {
             background: "rgba(0,179,160,0.10)",
             color: "#006355", fontWeight: 900, fontSize: 13, marginBottom: 12,
           }}>
-            ⭐ Testimonials
+            🎯 Use Case Scenarios
           </div>
 
           <h2 style={{
             fontSize: 38, margin: "0 0 12px", lineHeight: 1.1,
             letterSpacing: -0.5, fontWeight: 900, color: "#0B3C3B",
           }}>
-            What our learners say about Euklydia Academy
+            How professionals across North Africa use Euklydia Academy
           </h2>
 
           <p style={{ margin: 0, color: "#64748b", lineHeight: 1.7, fontSize: 16 }}>
-            Professionals across the region who transformed their AI skills — role by role, skill by skill.
+            Projected scenarios based on real business KPIs — see how each role applies use cases to unlock measurable impact.
           </p>
         </div>
 
-        {/* Testimonials grid */}
+        {/* Scenarios grid — 4 cards in 2×2 */}
         <div
           className="testimonialsGrid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            gridTemplateColumns: "repeat(2, 1fr)",
             gap: 20,
             marginBottom: 40,
           }}
         >
-          {testimonials.map((t) => (
+          {scenarios.map((t) => (
             <div
               key={t.name}
               style={{
@@ -88,7 +112,7 @@ export default function Testimonials() {
                 padding: 28,
                 display: "flex",
                 flexDirection: "column",
-                gap: 20,
+                gap: 18,
                 boxShadow: "0 4px 24px rgba(2,6,23,0.06)",
                 position: "relative",
                 overflow: "hidden",
@@ -106,11 +130,27 @@ export default function Testimonials() {
                 "
               </div>
 
-              {/* Stars */}
-              <div style={{ display: "flex", gap: 3 }}>
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <span key={i} style={{ color: "#F59E0B", fontSize: 14 }}>★</span>
-                ))}
+              {/* Top row: Role tag + Use case */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+                <div style={{
+                  display: "inline-flex", padding: "5px 12px", borderRadius: 999,
+                  background: t.roleColor.bg,
+                  color: t.roleColor.color,
+                  fontWeight: 800, fontSize: 11,
+                }}>
+                  {t.roleTag}
+                </div>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  padding: "5px 10px", borderRadius: 999,
+                  background: "#F8FAFC",
+                  border: "1px solid #E5E7EB",
+                  color: "#64748b",
+                  fontWeight: 700, fontSize: 11,
+                }}>
+                  <span style={{ color: "#00B3A0" }}>📦</span>
+                  Use case: {t.useCase}
+                </div>
               </div>
 
               {/* Citation */}
@@ -122,16 +162,16 @@ export default function Testimonials() {
                 "{t.quote}"
               </p>
 
-              {/* Highlight */}
+              {/* KPI Highlight */}
               <div style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "6px 12px", borderRadius: 99,
-                background: "rgba(0,179,160,0.08)",
-                border: "1px solid rgba(0,179,160,0.15)",
+                padding: "8px 14px", borderRadius: 99,
+                background: "rgba(0,179,160,0.10)",
+                border: "1px solid rgba(0,179,160,0.20)",
                 width: "fit-content",
               }}>
-                <span style={{ color: "#00B3A0", fontSize: 12 }}>✓</span>
-                <span style={{ fontSize: 11, fontWeight: 800, color: "#006355" }}>
+                <span style={{ color: "#00B3A0", fontSize: 13 }}>📊</span>
+                <span style={{ fontSize: 12, fontWeight: 900, color: "#006355" }}>
                   {t.highlight}
                 </span>
               </div>
@@ -139,7 +179,7 @@ export default function Testimonials() {
               {/* Profil avec vraie photo */}
               <div style={{
                 display: "flex", alignItems: "center", gap: 12,
-                borderTop: "1px solid #F1F5F9", paddingTop: 16,
+                borderTop: "1px solid #F1F5F9", paddingTop: 16, marginTop: "auto",
               }}>
                 <img
                   src={t.avatar}
@@ -169,6 +209,17 @@ export default function Testimonials() {
           ))}
         </div>
 
+        {/* Disclaimer note */}
+        <div style={{
+          textAlign: "center",
+          fontSize: 12,
+          color: "#94a3b8",
+          fontStyle: "italic",
+          marginBottom: 24,
+        }}>
+          Scenarios based on use case KPIs from the Euklydia Academy methodology · Pilot phase
+        </div>
+
         {/* CTA final */}
         <div style={{
           background: "#006355",
@@ -185,7 +236,7 @@ export default function Testimonials() {
               Ready to build your AI roadmap?
             </div>
             <div style={{ color: "rgba(255,255,255,0.75)", fontSize: 14 }}>
-              Start with a free 10-minute skills test. Get your personalized learning path instantly.
+              Start with a free 10-minute diagnostic. Get your personalized learning pathway instantly.
             </div>
           </div>
           <a
@@ -201,7 +252,7 @@ export default function Testimonials() {
             onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
             onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
           >
-            Start free assessment →
+            Start free diagnostic →
           </a>
         </div>
 

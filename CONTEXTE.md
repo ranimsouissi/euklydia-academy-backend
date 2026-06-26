@@ -5,7 +5,7 @@
 - Auth : JWT + Google OAuth
 ## Structure backend
 - app/api/v1/endpoints/ → auth.py, diagnostic.py, modules.py
-- app/services/ → learning_path_service.py, assessment_rules.py
+- app/services/ → learning_path_service.py, diagnostic_rules.py
 - app/models/ → User, Module, Skill, Question, UserModuleProgress...
 - app/schemas/ → learning_path.py, auth.py, diagnostic_*.py
 - app/core/ → config.py, security.py, limiter.py

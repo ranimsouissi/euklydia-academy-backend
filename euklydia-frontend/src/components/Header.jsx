@@ -1,5 +1,7 @@
+// src/components/Header.jsx
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/images/logo-full.png";
+import PageContainer from "./PageContainer";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -8,8 +10,8 @@ export default function Header() {
   const navItems = [
     { label: "Platform", href: "#platform" },
     { label: "How it works", href: "#how" },
-    { label: "Learning Paths", href: "#paths" },
-    { label: "AI Assessment", action: goToAuth },
+    { label: "Roles", href: "#paths" },
+    { label: "AI Diagnostic", action: goToAuth },
   ];
 
   const handleNavClick = (e, item) => {
@@ -18,65 +20,55 @@ export default function Header() {
       item.action();
       return;
     }
-
     const id = item.href?.replace("#", "");
-    const isHome = window.location.pathname === "/";
-
-    if (isHome) {
-      // On est déjà sur la landing — scroll smooth vers la section
-      const el = id ? document.getElementById(id) : null;
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    } else {
-      // On est sur une autre page — naviguer vers / puis scroller
+    const el = id ? document.getElementById(id) : null;
+    if (el) {
       e.preventDefault();
-      navigate("/");
-      // Petit délai pour laisser la page se charger avant de scroller
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-slate-200">
-      <div className="mx-auto max-w-6xl px-8 py-4 flex items-center justify-between gap-8">
-        <button
-          type="button"
-          onClick={() => navigate("/")}
-          className="flex items-center shrink-0"
-        >
-          <img
-            src={Logo}
-            alt="Euklydia Academy"
-            className="h-28 w-auto object-contain"
-          />
-        </button>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
+      <PageContainer>
+        <div className="flex items-center justify-between gap-8 py-5">
+          {/* Logo — décalé à gauche pour compenser le padding transparent du PNG */}
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="flex items-center shrink-0 transition hover:opacity-90 -ml-4 lg:-ml-6"
+          >
+            <img
+              src={Logo}
+              alt="Euklydia Academy"
+              className="h-20 lg:h-24 w-auto object-contain"
+            />
+          </button>
 
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href || "#"}
-              onClick={(e) => handleNavClick(e, item)}
-              className="font-extrabold text-euk-dark hover:text-euk-primary transition"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+          {/* Nav items */}
+          <nav className="hidden md:flex items-center gap-10">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href || "#"}
+                onClick={(e) => handleNavClick(e, item)}
+                className="text-base lg:text-lg font-bold text-euk-dark hover:text-euk-primary transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
-        <button
-          type="button"
-          onClick={goToAuth}
-          className="shrink-0 rounded-xl bg-euk-primary px-5 py-3 font-extrabold text-white hover:bg-euk-deep transition"
-        >
-          Get Started
-        </button>
-      </div>
+          {/* CTA */}
+          <button
+            type="button"
+            onClick={goToAuth}
+            className="shrink-0 rounded-2xl bg-euk-primary px-7 py-3.5 text-base lg:text-lg font-bold text-white shadow-card transition hover:bg-euk-deep hover:shadow-elevated"
+          >
+            Get Started
+          </button>
+        </div>
+      </PageContainer>
     </header>
   );
 }

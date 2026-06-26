@@ -1,7 +1,7 @@
 import { apiFetch } from "../utils/api";
 
 export async function getCareerPaths() {
-  const res = await apiFetch("/api/v1/career-paths");
+  const res = await apiFetch("/api/v1/career-paths/");
   if (!res) return [];
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));

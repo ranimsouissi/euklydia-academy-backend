@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Container from "../components/ui/Container";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -88,7 +87,7 @@ export default function AuthPage() {
         return;
       }
 
-      const stRes = await fetch(`${API}/api/v1/assessment/status`, {
+      const stRes = await fetch(`${API}/api/v1/diagnostic/status`, {
         headers: { Authorization: `Bearer ${data.access_token}` },
       });
 
@@ -98,10 +97,10 @@ export default function AuthPage() {
       }
 
       const st = await stRes.json();
-      localStorage.setItem("assessment_status", JSON.stringify(st));
+      localStorage.setItem("diagnostic_status", JSON.stringify(st));
 
       if (st.required) {
-        navigate("/assessment", { replace: true });
+        navigate("/diagnostic", { replace: true });
         return;
       }
 
@@ -116,120 +115,326 @@ export default function AuthPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg-soft) 100%)",
+    <div className="authPage" style={{
+      minHeight: "100vh",
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      background: "#fff",
+    }}>
+
+      {/* ═══ PANNEAU GAUCHE : TEAL BRAND ════════════════════════════ */}
+      <div className="authLeftPanel" style={{
+        background: "linear-gradient(135deg, #0B3C3B 0%, #064C45 50%, #0B3C3B 100%)",
+        color: "#fff",
+        padding: "32px 48px",
         display: "flex",
-        alignItems: "center",
-        padding: "40px 0",
-      }}
-    >
-      <Container>
-        <div style={{ maxWidth: 560, margin: "0 auto" }}>
-          <div style={{ padding: "24px 20px" }}>
-            <div style={{ marginBottom: 28 }}>
-              <div style={{ fontSize: 16, fontWeight: 800, color: "var(--primary)", marginBottom: 12 }}>
-                Euklydia Academy
-              </div>
-              <div style={{ fontSize: 38, fontWeight: 900, color: "var(--text)", lineHeight: 1.05 }}>
-                {mode === "login" ? "Welcome back" : "Create your account"}
-              </div>
-              <div style={{ color: "var(--muted)", marginTop: 10, fontSize: 15, lineHeight: 1.6 }}>
-                {mode === "login"
-                  ? "Sign in to continue your AI learning journey."
-                  : "Join Euklydia Academy and start building your AI maturity."}
-              </div>
-            </div>
+        flexDirection: "column",
+        justifyContent: "center",
+        gap: 48,
+        position: "relative",
+        overflow: "hidden",
+        minHeight: "100vh",
+      }}>
 
-            {mode === "register" && (
-              <>
-                <label style={labelStyle}>Full name</label>
-                <input
-                  style={inputStyle}
-                  type="text"
-                  placeholder="Enter your full name"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                />
-              </>
-            )}
+        {/* Pattern de points subtil */}
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          opacity: 0.5,
+          pointerEvents: "none",
+        }} />
 
-            <label style={labelStyle}>Work email</label>
-            <input
-              style={inputStyle}
-              type="email"
-              placeholder="name@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+        {/* Vague organique décorative en bas-droite */}
+        <svg
+          width="500"
+          height="500"
+          viewBox="0 0 500 500"
+          style={{
+            position: "absolute",
+            bottom: -150,
+            right: -150,
+            opacity: 0.15,
+            pointerEvents: "none",
+          }}
+        >
+          <path
+            fill="#00B3A0"
+            d="M421.5,323Q387,396,304,420.5Q221,445,148.5,402Q76,359,72,279.5Q68,200,128,151.5Q188,103,266,89Q344,75,397.5,137.5Q451,200,448,275Q445,350,421.5,323Z"
+          />
+          <path
+            fill="#00B3A0"
+            opacity="0.6"
+            d="M395,310Q360,370,295,400Q230,430,170,395Q110,360,90,290Q70,220,125,165Q180,110,255,95Q330,80,375,140Q420,200,415,260Q410,320,395,310Z"
+          />
+        </svg>
 
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <label style={labelStyle}>Password</label>
-              {mode === "login" && (
-                <button type="button" style={linkBtnStyle} onClick={() => navigate("/forgot-password")}>
-                  Forgot password?
-                </button>
-              )}
-            </div>
+        {/* ─── CENTRE : Tagline impactant ──────────────────────────── */}
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 460 }}>
+          <div style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "5px 12px",
+            background: "rgba(0,179,160,0.18)",
+            border: "1px solid rgba(0,179,160,0.35)",
+            borderRadius: 99,
+            fontSize: 11,
+            fontWeight: 700,
+            marginBottom: 18,
+          }}>
+            <span style={{ color: "#00B3A0" }}>●</span>
+            Use case-driven AI learning
+          </div>
 
-            <PasswordField
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={mode === "login" ? "Enter your password" : "Create your password"}
-              visible={showPassword}
-              onToggle={() => setShowPassword((v) => !v)}
-            />
-            <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 6 }}>
-              Password must contain at least 8 characters.
-            </div>
+          <h2 style={{
+            fontSize: 38,
+            fontWeight: 900,
+            lineHeight: 1.1,
+            margin: "0 0 16px",
+            letterSpacing: "-1px",
+          }}>
+            Master AI through real <span style={{ color: "#00B3A0" }}>business use cases</span>.
+          </h2>
 
-            {mode === "register" && (
-              <>
-                <label style={labelStyle}>Confirm password</label>
-                <PasswordField
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm your password"
-                  visible={showConfirmPassword}
-                  onToggle={() => setShowConfirmPassword((v) => !v)}
-                />
-              </>
-            )}
+          <p style={{
+            fontSize: 14,
+            lineHeight: 1.65,
+            opacity: 0.85,
+            margin: 0,
+          }}>
+            Diagnose your gaps, follow a personalized pathway by role, and unlock measurable KPI improvements.
+          </p>
+        </div>
 
-            <div style={{ marginTop: 24 }}>
-              <button onClick={submit} style={primaryBtnStyle}>
-                {mode === "login" ? "Log in" : "Create account"}
-              </button>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "28px 0 20px" }}>
-              <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
-              <div style={{ color: "var(--muted)", fontSize: 12, fontWeight: 800 }}>OR</div>
-              <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
-            </div>
-
-            <OauthBtn onClick={googleLogin}>
-              <GoogleIcon />
-              <span>{mode === "login" ? "Continue with Google" : "Sign up with Google"}</span>
-            </OauthBtn>
-
-            <div style={{ marginTop: 24, textAlign: "center", color: "var(--muted)", fontSize: 14 }}>
-              {mode === "login" ? (
-                <>
-                  Don't have an account?{" "}
-                  <button type="button" style={linkBtnStyle} onClick={() => resetForm("register")}>Sign up</button>
-                </>
-              ) : (
-                <>
-                  Already have an account?{" "}
-                  <button type="button" style={linkBtnStyle} onClick={() => resetForm("login")}>Log in</button>
-                </>
-              )}
-            </div>
+        {/* ─── BOTTOM : Section "What you'll get" + 4 stats ───────── */}
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <div style={{
+            fontSize: 12,
+            fontWeight: 800,
+            opacity: 0.85,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            marginBottom: 12,
+          }}>
+            What you'll get
+          </div>
+          <div style={{
+            paddingTop: 12,
+            borderTop: "1px solid rgba(255,255,255,0.18)",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: 12,
+          }}>
+            <Stat value="4" label="Professional roles" />
+            <Stat value="3" label="Use cases per role" />
+            <Stat value="9" label="Diagnostic questions" />
+            <Stat value="10 min" label="To your roadmap" />
           </div>
         </div>
-      </Container>
+      </div>
+
+      {/* ═══ PANNEAU DROIT : FORMULAIRE ═════════════════════════════ */}
+      <div className="authRightPanel" style={{
+        background: "#fff",
+        padding: "32px 48px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+        minHeight: "100vh",
+      }}>
+
+        {/* Back to home — top right */}
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          style={{
+            position: "absolute",
+            top: 24,
+            right: 48,
+            background: "none",
+            border: "none",
+            color: "#64748b",
+            fontWeight: 700,
+            fontSize: 13,
+            cursor: "pointer",
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+          }}
+        >
+          ← Back to home
+        </button>
+
+        <div style={{ maxWidth: 420, width: "100%" }}>
+
+          {/* ─── Header du form ──────────────────────────────────── */}
+          <div style={{ marginBottom: 16 }}>
+            <h1 style={{
+              fontSize: 26,
+              fontWeight: 900,
+              color: "#0B3C3B",
+              margin: "0 0 6px",
+              lineHeight: 1.2,
+              letterSpacing: "-0.5px",
+            }}>
+              {mode === "login" ? (
+                <>Welcome back to <span style={{ color: "#006355" }}>Euklydia Academy</span></>
+              ) : (
+                <>Create your <span style={{ color: "#006355" }}>account</span></>
+              )}
+            </h1>
+            <p style={{ color: "#64748b", fontSize: 13, lineHeight: 1.5, margin: 0 }}>
+              {mode === "login"
+                ? "Sign in to continue your AI learning journey."
+                : "Join Euklydia Academy and start mastering AI use cases."}
+            </p>
+          </div>
+
+          {/* ─── Google OAuth EN PREMIER ─────────────────────────── */}
+          <button type="button" onClick={googleLogin} style={googleBtnStyle}>
+            <GoogleIcon />
+            <span>{mode === "login" ? "Continue with Google" : "Sign up with Google"}</span>
+          </button>
+
+          {/* ─── Séparateur ──────────────────────────────────────── */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "14px 0" }}>
+            <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
+            <div style={{ color: "#94a3b8", fontSize: 11, fontWeight: 700 }}>
+              Or continue with email
+            </div>
+            <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
+          </div>
+
+          {/* ─── Full name (register only) ───────────────────────── */}
+          {mode === "register" && (
+            <>
+              <label style={labelStyle}>Full name</label>
+              <input
+                style={inputStyle}
+                type="text"
+                placeholder="Enter your full name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </>
+          )}
+
+          {/* ─── Email ───────────────────────────────────────────── */}
+          <label style={labelStyle}>Work email</label>
+          <input
+            style={inputStyle}
+            type="email"
+            placeholder="name@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          {/* ─── Password ────────────────────────────────────────── */}
+          <label style={labelStyle}>Password</label>
+          <PasswordField
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={mode === "login" ? "Enter your password" : "Min 8 characters"}
+            visible={showPassword}
+            onToggle={() => setShowPassword((v) => !v)}
+          />
+
+          {/* Forgot password (login only) — alignée droite */}
+          {mode === "login" && (
+            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 6 }}>
+              <button type="button" style={linkBtnStyle} onClick={() => navigate("/forgot-password")}>
+                Forgot password?
+              </button>
+            </div>
+          )}
+
+          {/* ─── Confirm password (register only) ────────────────── */}
+          {mode === "register" && (
+            <>
+              <label style={labelStyle}>Confirm password</label>
+              <PasswordField
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm your password"
+                visible={showConfirmPassword}
+                onToggle={() => setShowConfirmPassword((v) => !v)}
+              />
+            </>
+          )}
+
+          {/* ─── Submit button ───────────────────────────────────── */}
+          <div style={{ marginTop: 18 }}>
+            <button onClick={submit} style={primaryBtnStyle}>
+              {mode === "login" ? "Log in" : "Create account"}
+            </button>
+          </div>
+
+          {/* ─── Toggle Login / Sign up ──────────────────────────── */}
+          <div style={{ marginTop: 16, textAlign: "center", color: "#64748b", fontSize: 13 }}>
+            {mode === "login" ? (
+              <>
+                Don't have an account?{" "}
+                <button type="button" style={linkBtnStyle} onClick={() => resetForm("register")}>Sign up</button>
+              </>
+            ) : (
+              <>
+                Already have an account?{" "}
+                <button type="button" style={linkBtnStyle} onClick={() => resetForm("login")}>Log in</button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ─── Responsive ──────────────────────────────────────────── */}
+      <style>{`
+        @media (max-width: 980px) {
+          .authPage {
+            grid-template-columns: 1fr !important;
+          }
+          .authLeftPanel {
+            padding: 32px 24px !important;
+            min-height: auto !important;
+          }
+          .authLeftPanel h2 {
+            font-size: 26px !important;
+          }
+          .authRightPanel {
+            padding: 32px 24px !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ═══ Composants internes ════════════════════════════════════════
+
+function Stat({ value, label }) {
+  return (
+    <div>
+      <div style={{
+        fontSize: 22,
+        fontWeight: 900,
+        color: "#00B3A0",
+        lineHeight: 1,
+        marginBottom: 4,
+      }}>
+        {value}
+      </div>
+      <div style={{
+        fontSize: 10,
+        opacity: 0.75,
+        fontWeight: 600,
+        lineHeight: 1.3,
+      }}>
+        {label}
+      </div>
     </div>
   );
 }
@@ -238,29 +443,21 @@ function PasswordField({ value, onChange, placeholder, visible, onToggle }) {
   return (
     <div style={{ position: "relative" }}>
       <input
-        style={{ ...inputStyle, paddingRight: 56, marginBottom: 0 }}
+        style={{ ...inputStyle, paddingRight: 50, marginBottom: 0 }}
         type={visible ? "text" : "password"}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
       />
-      <button type="button" onClick={onToggle} style={eyeBtnStyle} aria-label={visible ? "Hide password" : "Show password"}>
+      <button
+        type="button"
+        onClick={onToggle}
+        style={eyeBtnStyle}
+        aria-label={visible ? "Hide password" : "Show password"}
+      >
         {visible ? <EyeOffIcon /> : <EyeIcon />}
       </button>
     </div>
-  );
-}
-
-function OauthBtn({ children, onClick }) {
-  return (
-    <button type="button" onClick={onClick} style={{
-      width: "100%", padding: "15px 18px", borderRadius: "var(--radius-md)",
-      border: "1px solid var(--border)", background: "#F3F4F6", fontWeight: 800,
-      cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-      gap: 12, color: "var(--text)",
-    }}>
-      {children}
-    </button>
   );
 }
 
@@ -295,8 +492,80 @@ function EyeOffIcon() {
   );
 }
 
-const labelStyle = { display: "block", fontWeight: 800, marginBottom: 8, marginTop: 14, color: "var(--text)", fontSize: 15 };
-const inputStyle = { width: "100%", padding: "16px 18px", borderRadius: "20px", border: "1px solid var(--border)", outline: "none", fontSize: 16, background: "rgba(255,255,255,0.75)", boxSizing: "border-box" };
-const primaryBtnStyle = { width: "100%", padding: "16px 18px", borderRadius: "20px", border: "none", background: "var(--primary)", color: "#fff", fontWeight: 900, fontSize: 16, cursor: "pointer" };
-const linkBtnStyle = { background: "none", border: "none", color: "var(--primary)", fontWeight: 900, cursor: "pointer", padding: 0 };
-const eyeBtnStyle = { position: "absolute", right: 16, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--muted)", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", justifyContent: "center" };
+// ═══ Styles ══════════════════════════════════════════════════════
+
+const labelStyle = {
+  display: "block",
+  fontWeight: 800,
+  marginBottom: 6,
+  marginTop: 12,
+  color: "#0B3C3B",
+  fontSize: 12,
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "11px 14px",
+  borderRadius: 10,
+  border: "1px solid #E5E7EB",
+  outline: "none",
+  fontSize: 14,
+  background: "#F8FAFC",
+  boxSizing: "border-box",
+  transition: "border-color 0.2s, background 0.2s",
+};
+
+const primaryBtnStyle = {
+  width: "100%",
+  padding: "12px 18px",
+  borderRadius: 10,
+  border: "none",
+  background: "#0B3C3B",
+  color: "#fff",
+  fontWeight: 900,
+  fontSize: 14,
+  cursor: "pointer",
+  transition: "background 0.2s",
+};
+
+const googleBtnStyle = {
+  width: "100%",
+  padding: "11px 18px",
+  borderRadius: 10,
+  border: "1px solid #E5E7EB",
+  background: "#fff",
+  fontWeight: 800,
+  fontSize: 13,
+  cursor: "pointer",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 12,
+  color: "#0B3C3B",
+  transition: "background 0.2s, border-color 0.2s",
+};
+
+const linkBtnStyle = {
+  background: "none",
+  border: "none",
+  color: "#006355",
+  fontWeight: 800,
+  cursor: "pointer",
+  padding: 0,
+  fontSize: 12,
+};
+
+const eyeBtnStyle = {
+  position: "absolute",
+  right: 12,
+  top: "50%",
+  transform: "translateY(-50%)",
+  background: "none",
+  border: "none",
+  color: "#94a3b8",
+  cursor: "pointer",
+  padding: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 
 import {
@@ -7,7 +7,7 @@ import {
   submitExecutionTask,
   completeModule,
 } from "../services/modules";
-import { getNextRecommendation } from "../services/sequencing";
+import { getFullRecommendation } from "../services/sequencing";
 import {
   createSession,
   sendChatMessage,
@@ -16,6 +16,7 @@ import {
 
 // ─────────────────────────────────────────────────────────────────────────
 // TutorChat — Coaching Agent flottant (Agent 1)
+// Utilise module_id + section_type (plus de lesson_id)
 // ─────────────────────────────────────────────────────────────────────────
 function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,7 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
   const [sessionLoading, setSessionLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
+  // Section active du tuteur — par défaut execution_content
   const sectionType = "execution_content";
 
   const l = lang === "en" ? {
@@ -47,7 +49,12 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
     if (sessionId) return;
     try {
       setSessionLoading(true);
-      const data = await createSession({ userId, moduleId, sectionType, kpiBaseline });
+      const data = await createSession({
+        userId,
+        moduleId,
+        sectionType,
+        kpiBaseline,
+      });
       if (data?.session_id) {
         setSessionId(data.session_id);
         setMessages([{ role: "assistant", content: l.welcome }]);
@@ -63,9 +70,18 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
     setMessages(prev => [...prev, { role: "user", content: userMsg }]);
     setLoading(true);
     try {
-      const data = await sendChatMessage(sessionId, { userId, moduleId, sectionType, message: userMsg });
+      const data = await sendChatMessage(sessionId, {
+        userId,
+        moduleId,
+        sectionType,
+        message: userMsg,
+      });
       if (data?.answer) {
-        setMessages(prev => [...prev, { role: "assistant", content: data.answer, citations: data.citations }]);
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          content: data.answer,
+          citations: data.citations,
+        }]);
       } else {
         setMessages(prev => [...prev, { role: "assistant", content: l.error }]);
       }
@@ -85,13 +101,13 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
   return (
     <>
       <button onClick={handleOpen}
-        className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-2xl bg-euk-primary px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-euk-deep active:scale-95 ${open ? "hidden" : ""}`}
+  className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-2xl bg-euk-primary px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-euk-deep active:scale-95 ${open ? "hidden" : ""}`}
         style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.15)" }}>
         <span className="text-base">💬</span>{l.btn}
       </button>
       {open && (
         <div className="fixed bottom-6 right-6 z-50 flex w-72 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl md:w-80"
-          style={{ height: "420px", maxHeight: "60vh", boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}>
+  style={{ height: "420px", maxHeight: "60vh", boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}>
           <div className="flex items-center justify-between border-b border-slate-100 bg-euk-primary px-4 py-3">
             <div>
               <div className="text-sm font-bold text-white">{l.title}</div>
@@ -290,7 +306,12 @@ export default function ModulePage() {
   const [missionSteps, setMissionSteps] = useState({});
   const [progressDone, setProgressDone] = useState(false);
 
-  const [taskForm, setTaskForm] = useState({ url: "", kpi_after: "", difficulty: "" });
+  // ── Execution Task submission (nouvelle structure) ──────────────────────
+  const [taskForm, setTaskForm] = useState({
+    url: "",
+    kpi_after: "",
+    difficulty: "",
+  });
   const [taskSubmitting, setTaskSubmitting] = useState(false);
   const [taskFeedback, setTaskFeedback] = useState(null);
   const [taskError, setTaskError] = useState("");
@@ -337,8 +358,7 @@ export default function ModulePage() {
       workflowsTitle: "Workflows",
       workflowsSubtitle: "Choisissez le workflow adapté à votre niveau.",
       tutorialsTitle: "Tutoriels",
-      tutorialsSubtitle: "Guides pas-à-pas pour appliquer les outils du module.",
-      tutorialSteps: "Étapes",
+      tutorialsSubtitle: "Vidéos guidées pour démarrer rapidement.",
       tutorialWatch: "Voir le tutoriel",
       tutorialTemplate: "Template à dupliquer",
       missionLabel: "Mission terrain",
@@ -378,6 +398,13 @@ export default function ModulePage() {
       masteryCompleted: "Mis à jour après complétion du module",
       recommendedModule: "Module recommandé",
       goToModule: "Aller au module →",
+      resourcesTitle: "Ressources complémentaires",
+      resourcesSubtitle: "Outils, articles et vidéos pour aller plus loin.",
+      resourceTypeVideo: "Vidéo",
+      resourceTypeArticle: "Article",
+      resourceTypeTool: "Outil",
+      resourceTypeTemplate: "Template",
+      resourceOpen: "Accéder →",
     },
     en: {
       loading: "Loading module...",
@@ -408,8 +435,7 @@ export default function ModulePage() {
       workflowsTitle: "Workflows",
       workflowsSubtitle: "Choose the workflow that matches your level.",
       tutorialsTitle: "Tutorials",
-      tutorialsSubtitle: "Step-by-step guides to apply the module's tools.",
-      tutorialSteps: "Steps",
+      tutorialsSubtitle: "Guided videos to get started quickly.",
       tutorialWatch: "Watch tutorial",
       tutorialTemplate: "Duplicate template",
       missionLabel: "Field mission",
@@ -449,9 +475,17 @@ export default function ModulePage() {
       masteryCompleted: "Updated after module completion",
       recommendedModule: "Recommended module",
       goToModule: "Go to module →",
+      resourcesTitle: "Additional resources",
+      resourcesSubtitle: "Tools, articles and videos to go further.",
+      resourceTypeVideo: "Video",
+      resourceTypeArticle: "Article",
+      resourceTypeTool: "Tool",
+      resourceTypeTemplate: "Template",
+      resourceOpen: "Open →",
     },
   };
 
+  // ── Chargement du module ────────────────────────────────────────────────
   useEffect(() => {
     (async () => {
       try {
@@ -460,8 +494,12 @@ export default function ModulePage() {
         if (!data) return;
         setModuleData(data);
         if (data.module_status === "completed") setProgressDone(true);
+
+        // Auto-start si module not_started
         if (data.module_status === "not_started") {
-          try { await startModule(moduleId); } catch { /* non-bloquant */ }
+          try {
+            await startModule(moduleId);
+          } catch { /* non-bloquant */ }
         }
       } catch {
         setError(t[lang].notFoundDesc);
@@ -497,12 +535,13 @@ export default function ModulePage() {
     if (loadingRec || nextRecommendation) return;
     setLoadingRec(true);
     try {
-      const data = await getNextRecommendation(moduleId);
+      const data = await getFullRecommendation(moduleId);
       if (data) setNextRecommendation(data);
     } catch { /* non-blocking */ }
     finally { setLoadingRec(false); }
   };
 
+  // ── Soumettre l'Execution Task ──────────────────────────────────────────
   const submitTask = async () => {
     if (!taskForm.url || !taskForm.kpi_after) {
       setTaskError(lang === "fr"
@@ -513,11 +552,14 @@ export default function ModulePage() {
     setTaskSubmitting(true);
     setTaskError("");
     try {
+      // 1. Soumettre l'Execution Task → met à jour mastery
       await submitExecutionTask(moduleId, {
         url: taskForm.url,
         kpiAfter: taskForm.kpi_after,
         difficulty: taskForm.difficulty || null,
       });
+
+      // 2. Récupérer le feedback du coach
       const kpiBefore = pick(moduleData?.kpi_before_fr, moduleData?.kpi_before_en);
       const feedback = await getExecutionTaskFeedback({
         moduleId: parseInt(moduleId, 10),
@@ -528,8 +570,12 @@ export default function ModulePage() {
         sectionType: "execution_task",
       });
       setTaskFeedback(feedback);
+
+      // 3. Recharger le module pour mettre à jour la mastery
       const fresh = await getModule(moduleId);
       if (fresh) setModuleData(fresh);
+
+      // 4. Déclencher la recommandation
       fetchRecommendation();
     } catch {
       setTaskError(lang === "fr" ? "Erreur lors de la soumission." : "Submission failed.");
@@ -552,19 +598,23 @@ export default function ModulePage() {
   const moduleStatus = moduleData?.module_status || "not_started";
   const kpiBaseline = pick(moduleData?.kpi_before_fr, moduleData?.kpi_before_en);
 
-  const promptExamples   = pick(moduleData?.prompt_examples_fr, moduleData?.prompt_examples_en) || [];
-  const comparisonTables = pick(moduleData?.comparison_tables_fr, moduleData?.comparison_tables_en) || {};
-  const sectionContent   = pick(moduleData?.section_content_fr, moduleData?.section_content_en) || {};
-  const useCaseDetail    = sectionContent?.use_case_detail || null;
-  const kpiPattern       = sectionContent?.kpi_pattern || null;
-  const kpiMeasurement   = sectionContent?.kpi_measurement_method || null;
-  const kpiTargets       = comparisonTables?.kpi_targets || null;
-  const toolsTable       = comparisonTables?.tools || null;
-  const workflowsTable   = comparisonTables?.workflows || null;
-  const tutorials        = moduleData?.tutorials_fr || (sectionContent?.tutorials || []);
+  // ── Données JSON du module ──
+  const promptExamples    = pick(moduleData?.prompt_examples_fr, moduleData?.prompt_examples_en) || [];
+  const comparisonTables  = pick(moduleData?.comparison_tables_fr, moduleData?.comparison_tables_en) || {};
+  const sectionContent    = pick(moduleData?.section_content_fr, moduleData?.section_content_en) || {};
+  const useCaseDetail     = sectionContent?.use_case_detail || null;
+  const kpiPattern        = sectionContent?.kpi_pattern || null;
+  const kpiMeasurement    = sectionContent?.kpi_measurement_method || null;
+  const kpiTargets        = comparisonTables?.kpi_targets || null;
+  const toolsTable        = comparisonTables?.tools || null;
+  const workflowsTable    = comparisonTables?.workflows || null;
+  const tutorials = sectionContent?.tutorials?.length > 0 
+  ? sectionContent.tutorials 
+  : (moduleData?.tutorials_fr || []);
+  const resources  = sectionContent?.resources || [];
   const practicalExercise = pick(moduleData?.practical_exercise_fr, moduleData?.practical_exercise_en);
-  const progressUpdate   = moduleData?.progress_update_fr || null;
-  const roleBasedExample = pick(moduleData?.role_based_example_fr, moduleData?.role_based_example_en);
+  const progressUpdate    = moduleData?.progress_update_fr || null;
+  const roleBasedExample  = pick(moduleData?.role_based_example_fr, moduleData?.role_based_example_en);
 
   const hasProgramContent = !!(
     moduleData?.learning_objective_fr || moduleData?.learning_objective_en ||
@@ -651,72 +701,85 @@ export default function ModulePage() {
               <div className="mt-0.5 text-xs text-slate-500">{t[lang].min}</div>
             </div>
           </div>
+          
 
-          {/* ── Progression ── */}
-          <div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50 p-4 space-y-4">
-            <div className="text-xs font-bold uppercase tracking-wide text-slate-400">
-              {lang === "fr" ? "Votre progression" : "Your progress"}
-            </div>
-            <div>
-              <div className="flex items-center justify-between text-sm mb-1.5">
-                <div>
-                  <span className="font-semibold text-euk-dark">
-                    📚 {lang === "fr" ? "Contenu parcouru" : "Content progress"}
-                  </span>
-                  <span className="block text-xs text-slate-400 mt-0.5">
-                    {lang === "fr" ? "Sections du module complétées" : "Module sections completed"}
-                  </span>
-                </div>
-                <span className={`font-bold text-sm ${progressPercent === 100 ? "text-emerald-600" : "text-euk-primary"}`}>
-                  {progressPercent === 100 ? (lang === "fr" ? "✓ Terminé" : "✓ Done") : `${progressPercent}%`}
-                </span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-slate-200">
-                <div
-                  className={`h-2 rounded-full transition-all duration-500 ${progressPercent === 100 ? "bg-emerald-500" : "bg-euk-primary"}`}
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-            </div>
-            {moduleData?.skill_mastery && (
-              <div>
-                <div className="flex items-center justify-between text-sm mb-1.5">
-                  <div>
-                    <span className="font-semibold text-euk-dark">🎯 {moduleData.skill_mastery.skill_name}</span>
-                    <span className="block text-xs text-slate-400 mt-0.5">
-                      {lang === "fr" ? "Compétence acquise sur vos données réelles" : "Skill acquired on your real data"}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="font-bold text-sm text-euk-primary">
-                      {Math.round((moduleData.skill_mastery.mastery_score || 0) * 100)}%
-                    </span>
-                    <span className="rounded-full border border-euk-primary/20 bg-white px-2 py-0.5 text-xs font-semibold text-euk-dark capitalize">
-                      {moduleData.skill_mastery.mastery_level || "novice"}
-                    </span>
-                  </div>
-                </div>
-                <div className="h-2 w-full rounded-full bg-slate-200">
-                  <div
-                    className="h-2 rounded-full bg-euk-primary transition-all duration-500"
-                    style={{ width: `${Math.round((moduleData.skill_mastery.mastery_score || 0) * 100)}%` }}
-                  />
-                </div>
-                {moduleData.skill_mastery.last_update_reason && (
-                  <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-400">
-                    <span>↳</span>
-                    <span>{
-                      moduleData.skill_mastery.last_update_reason.includes("execution_task")
-                        ? t[lang].masteryUpdated
-                        : moduleData.skill_mastery.last_update_reason.includes("completed")
-                        ? t[lang].masteryCompleted
-                        : moduleData.skill_mastery.last_update_reason
-                    }</span>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          {/* ── Votre progression — deux indicateurs clairs ── */}
+<div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50 p-4 space-y-4">
+  <div className="text-xs font-bold uppercase tracking-wide text-slate-400">
+    {lang === "fr" ? "Votre progression" : "Your progress"}
+  </div>
+
+  {/* Ligne 1 — Contenu parcouru */}
+  <div>
+    <div className="flex items-center justify-between text-sm mb-1.5">
+      <div>
+        <span className="font-semibold text-euk-dark">
+          📚 {lang === "fr" ? "Contenu parcouru" : "Content progress"}
+        </span>
+        <span className="block text-xs text-slate-400 mt-0.5">
+          {lang === "fr"
+            ? "Sections du module complétées"
+            : "Module sections completed"}
+        </span>
+      </div>
+      <span className={`font-bold text-sm ${progressPercent === 100 ? "text-emerald-600" : "text-euk-primary"}`}>
+        {progressPercent === 100
+          ? (lang === "fr" ? "✓ Terminé" : "✓ Done")
+          : `${progressPercent}%`}
+      </span>
+    </div>
+    <div className="h-2 w-full rounded-full bg-slate-200">
+      <div
+        className={`h-2 rounded-full transition-all duration-500 ${progressPercent === 100 ? "bg-emerald-500" : "bg-euk-primary"}`}
+        style={{ width: `${progressPercent}%` }}
+      />
+    </div>
+  </div>
+
+  {/* Ligne 2 — Mastery du skill */}
+  {moduleData?.skill_mastery && (
+    <div>
+      <div className="flex items-center justify-between text-sm mb-1.5">
+        <div>
+          <span className="font-semibold text-euk-dark">
+            🎯 {moduleData.skill_mastery.skill_name}
+          </span>
+          <span className="block text-xs text-slate-400 mt-0.5">
+            {lang === "fr"
+              ? "Compétence acquise sur vos données réelles"
+              : "Skill acquired on your real data"}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="font-bold text-sm text-euk-primary">
+            {Math.round((moduleData.skill_mastery.mastery_score || 0) * 100)}%
+          </span>
+          <span className="rounded-full border border-euk-primary/20 bg-white px-2 py-0.5 text-xs font-semibold text-euk-dark capitalize">
+            {moduleData.skill_mastery.mastery_level || "novice"}
+          </span>
+        </div>
+      </div>
+      <div className="h-2 w-full rounded-full bg-slate-200">
+        <div
+          className="h-2 rounded-full bg-euk-primary transition-all duration-500"
+          style={{ width: `${Math.round((moduleData.skill_mastery.mastery_score || 0) * 100)}%` }}
+        />
+      </div>
+      {moduleData.skill_mastery.last_update_reason && (
+        <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-400">
+          <span>↳</span>
+          <span>{
+            moduleData.skill_mastery.last_update_reason.includes("execution_task")
+              ? t[lang].masteryUpdated
+              : moduleData.skill_mastery.last_update_reason.includes("completed")
+              ? t[lang].masteryCompleted
+              : moduleData.skill_mastery.last_update_reason
+          }</span>
+        </div>
+      )}
+    </div>
+  )}
+</div>
         </section>
 
         {/* ══ 2. SCÉNARIO ══ */}
@@ -851,81 +914,133 @@ export default function ModulePage() {
         )}
 
         {/* ══ 10. TUTORIALS ══ */}
-        {tutorials.length > 0 && (
-          <section className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-            <SectionHeader title={t[lang].tutorialsTitle} subtitle={t[lang].tutorialsSubtitle} />
-            <div className="space-y-4">
-              {tutorials.map((tuto, idx) => (
-                <div key={idx} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-
-                  {/* Header du tutoriel */}
-                  <div className="flex items-start gap-4 border-b border-slate-100 bg-slate-50/50 p-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-euk-primary/10 text-lg">
-                      📋
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-euk-dark text-sm">{tuto.title}</div>
-                      <div className="mt-1 flex flex-wrap items-center gap-2">
-                        {tuto.duration_min && (
-                          <span className="text-xs text-slate-500">⏱ {tuto.duration_min} min</span>
-                        )}
-                        {tuto.tool && (
-                          <span className="rounded-full border border-sky-200 bg-sky-50 px-2 py-0.5 text-xs font-semibold text-sky-700">
-                            {tuto.tool}
-                          </span>
-                        )}
-                        {tuto.format && (
-                          <span className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs font-medium text-slate-600">
-                            {tuto.format}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Étapes pas-à-pas */}
-                  {tuto.steps?.length > 0 && (
-                    <div className="p-4">
-                      <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">
-                        {t[lang].tutorialSteps}
-                      </div>
-                      <div className="space-y-2">
-                        {tuto.steps.map((step, sIdx) => (
-                          <div key={sIdx} className="flex items-start gap-3">
-                            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-euk-primary/10 text-xs font-bold text-euk-primary">
-                              {sIdx + 1}
-                            </div>
-                            <p className="text-sm text-slate-700 leading-6">{step}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Liens optionnels (URL vidéo ou template) */}
-                  {(tuto.url || tuto.template_url) && (
-                    <div className="border-t border-slate-100 p-4 flex flex-wrap gap-2">
-                      {tuto.url && (
-                        <a href={tuto.url} target="_blank" rel="noreferrer"
-                          className="rounded-xl bg-euk-primary px-3 py-1.5 text-xs font-bold text-white hover:bg-euk-deep transition">
-                          ▶ {t[lang].tutorialWatch}
-                        </a>
-                      )}
-                      {tuto.template_url && (
-                        <a href={tuto.template_url} target="_blank" rel="noreferrer"
-                          className="rounded-xl border border-euk-primary/30 bg-euk-primary/5 px-3 py-1.5 text-xs font-bold text-euk-primary hover:bg-euk-primary/10 transition">
-                          📋 {t[lang].tutorialTemplate}
-                        </a>
-                      )}
-                    </div>
-                  )}
-
-                </div>
-              ))}
+{tutorials.length > 0 && (
+  <section className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+    <SectionHeader title={t[lang].tutorialsTitle} subtitle={t[lang].tutorialsSubtitle} />
+    <div className="space-y-4">
+      {tutorials.map((tuto, idx) => (
+        <div key={idx} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+          <div className="flex items-start gap-4 border-b border-slate-100 bg-slate-50/50 p-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-euk-primary/10 text-lg">
+              📋
             </div>
-          </section>
-        )}
-
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold text-euk-dark text-sm">{tuto.title}</div>
+              <div className="mt-1 flex flex-wrap items-center gap-2">
+                {tuto.duration_min && (
+                  <span className="text-xs text-slate-500">⏱ {tuto.duration_min} min</span>
+                )}
+                {tuto.tool && (
+                  <span className="rounded-full border border-sky-200 bg-sky-50 px-2 py-0.5 text-xs font-semibold text-sky-700">
+                    {tuto.tool}
+                  </span>
+                )}
+                {tuto.format && (
+                  <span className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs font-medium text-slate-600">
+                    {tuto.format}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          {tuto.steps?.length > 0 && (
+            <div className="p-4">
+              <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">
+                {lang === "fr" ? "Étapes" : "Steps"}
+              </div>
+              <div className="space-y-2">
+                {tuto.steps.map((step, sIdx) => (
+                  <div key={sIdx} className="flex items-start gap-3">
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-euk-primary/10 text-xs font-bold text-euk-primary">
+                      {sIdx + 1}
+                    </div>
+                    <p className="text-sm text-slate-700 leading-6">{step}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {(tuto.url || tuto.template_url) && (
+            <div className="border-t border-slate-100 p-4 flex flex-wrap gap-2">
+              {tuto.url && (
+                <a href={tuto.url} target="_blank" rel="noreferrer"
+                  className="rounded-xl bg-euk-primary px-3 py-1.5 text-xs font-bold text-white hover:bg-euk-deep transition">
+                  ▶ {t[lang].tutorialWatch}
+                </a>
+              )}
+              {tuto.template_url && (
+                <a href={tuto.template_url} target="_blank" rel="noreferrer"
+                  className="rounded-xl border border-euk-primary/30 bg-euk-primary/5 px-3 py-1.5 text-xs font-bold text-euk-primary hover:bg-euk-primary/10 transition">
+                  📋 {t[lang].tutorialTemplate}
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+        {/* ══ 10b. RESOURCES ══ */}
+{resources.length > 0 && (
+  <section className="mt-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+    <SectionHeader title={t[lang].resourcesTitle} subtitle={t[lang].resourcesSubtitle} />
+    <div className="grid gap-3 md:grid-cols-2">
+      {resources.map((resource, idx) => {
+        const typeColors = {
+          video:    "border-violet-200 bg-violet-50 text-violet-700",
+          article:  "border-sky-200 bg-sky-50 text-sky-700",
+          tool:     "border-emerald-200 bg-emerald-50 text-emerald-700",
+          template: "border-amber-200 bg-amber-50 text-amber-700",
+        };
+        const typeIcons = {
+          video: "▶", article: "📄", tool: "🔧", template: "📋",
+        };
+        const typeLabels = {
+          video:    t[lang].resourceTypeVideo,
+          article:  t[lang].resourceTypeArticle,
+          tool:     t[lang].resourceTypeTool,
+          template: t[lang].resourceTypeTemplate,
+        };
+        const colorClass = typeColors[resource.type] || "border-slate-200 bg-slate-50 text-slate-700";
+        return (
+          <a key={idx} href={resource.url} target="_blank" rel="noreferrer"
+            className="group flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-euk-primary/30 hover:shadow-sm">
+            <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-sm font-bold ${colorClass}`}>
+              {typeIcons[resource.type] || "🔗"}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between gap-2">
+                <div className="text-sm font-semibold text-euk-dark group-hover:text-euk-primary transition line-clamp-2">
+                  {resource.title}
+                </div>
+                <span className="shrink-0 text-xs font-bold text-euk-primary opacity-0 group-hover:opacity-100 transition">
+                  {t[lang].resourceOpen}
+                </span>
+              </div>
+              {resource.description && (
+                <p className="mt-1 text-xs leading-5 text-slate-500 line-clamp-2">{resource.description}</p>
+              )}
+              <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${colorClass}`}>
+                  {typeLabels[resource.type] || resource.type}
+                </span>
+                {resource.duration && (
+                  <span className="text-xs text-slate-400">⏱ {resource.duration}</span>
+                )}
+                {resource.tags?.slice(0, 2).map((tag, i) => (
+                  <span key={i} className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-xs text-slate-500">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+)}
         {/* ══ SÉPARATEUR EXECUTION TASK ══ */}
         {practicalExercise && (
           <div className="mt-8 mb-2 flex items-center gap-3">
@@ -969,6 +1084,7 @@ export default function ModulePage() {
               )}
             </div>
 
+            {/* Étapes cochables (visuel local) */}
             {practicalExercise.steps?.length > 0 && (
               <div className="mt-5">
                 <div className="mb-3 flex items-center justify-between">
@@ -1019,7 +1135,7 @@ export default function ModulePage() {
               </div>
             )}
 
-            {/* ── Formulaire soumission ── */}
+            {/* ── Formulaire soumission Execution Task ── */}
             <div className="mt-8 border-t border-slate-200 pt-6">
               <h3 className="text-base font-bold text-euk-dark mb-1">🚀 {t[lang].submitTitle}</h3>
               <p className="text-sm text-slate-500 mb-5">{t[lang].submitSubtitle}</p>
@@ -1038,11 +1154,13 @@ export default function ModulePage() {
                     <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 mb-1">{t[lang].feedbackTitle}</div>
                     <p className="text-sm leading-6 text-slate-700">{taskFeedback.feedback}</p>
                   </div>
+
                   {taskFeedback.suggestion && (
                     <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
                       <p className="text-sm text-amber-900">💡 {taskFeedback.suggestion}</p>
                     </div>
                   )}
+
                   {taskFeedback.next_step && (
                     <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4">
                       <span className="text-xs font-bold text-sky-700 uppercase tracking-wide">{t[lang].nextStep}</span>
@@ -1052,20 +1170,31 @@ export default function ModulePage() {
                 </div>
               ) : (
                 <div className="space-y-4">
+                  {/* Lien du livrable */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">{t[lang].taskUrl}</label>
-                    <input type="url" value={taskForm.url}
+                    <input
+                      type="url"
+                      value={taskForm.url}
                       onChange={e => setTaskForm(f => ({ ...f, url: e.target.value }))}
                       placeholder={t[lang].taskUrlPlaceholder}
-                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary" />
+                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary"
+                    />
                   </div>
+
+                  {/* KPI après */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">{t[lang].taskKpiAfter}</label>
-                    <input type="text" value={taskForm.kpi_after}
+                    <input
+                      type="text"
+                      value={taskForm.kpi_after}
                       onChange={e => setTaskForm(f => ({ ...f, kpi_after: e.target.value }))}
                       placeholder={t[lang].taskKpiAfterPlaceholder}
-                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary" />
+                      className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary"
+                    />
                   </div>
+
+                  {/* Difficulté */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">{t[lang].taskDifficulty}</label>
                     <div className="flex gap-2">
@@ -1074,22 +1203,29 @@ export default function ModulePage() {
                         { key: "moyenne", label: t[lang].diffMedium },
                         { key: "élevée", label: t[lang].diffHard },
                       ].map(opt => (
-                        <button key={opt.key} type="button"
+                        <button
+                          key={opt.key}
+                          type="button"
                           onClick={() => setTaskForm(f => ({ ...f, difficulty: opt.key }))}
                           className={`flex-1 rounded-2xl border px-4 py-2.5 text-sm font-semibold transition ${
                             taskForm.difficulty === opt.key
                               ? "border-euk-primary bg-euk-primary/10 text-euk-primary"
                               : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
-                          }`}>
+                          }`}
+                        >
                           {opt.label}
                         </button>
                       ))}
                     </div>
                   </div>
+
                   {taskError && <p className="text-sm text-red-600 font-medium">{taskError}</p>}
-                  <button onClick={submitTask}
+
+                  <button
+                    onClick={submitTask}
                     disabled={taskSubmitting || !taskForm.url || !taskForm.kpi_after}
-                    className="w-full rounded-2xl bg-euk-primary px-6 py-3.5 text-sm font-bold text-white transition hover:bg-euk-deep disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="w-full rounded-2xl bg-euk-primary px-6 py-3.5 text-sm font-bold text-white transition hover:bg-euk-deep disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     {taskSubmitting ? t[lang].submitting : t[lang].submitBtn}
                   </button>
                 </div>
@@ -1160,7 +1296,9 @@ export default function ModulePage() {
             </div>
           </div>
           <div className="mt-5 flex flex-col items-center gap-3">
-            <button onClick={handleMarkComplete} disabled={progressDone}
+            <button
+              onClick={handleMarkComplete}
+              disabled={progressDone}
               className={`rounded-2xl px-6 py-3 text-sm font-bold transition ${progressDone ? "bg-emerald-500 text-white cursor-default" : "bg-euk-primary text-white hover:bg-euk-deep"}`}>
               {progressDone ? t[lang].progressDoneLabel : t[lang].progressMarkDone}
             </button>
@@ -1170,24 +1308,88 @@ export default function ModulePage() {
                 {lang === "fr" ? "Analyse de votre parcours..." : "Analyzing your path..."}
               </div>
             )}
-            {nextRecommendation?.module_title && (
+
+            {/* STAGNATION ALERT */}
+            {nextRecommendation?.stagnation?.is_stagnating && (
+              <div className="w-full rounded-2xl border border-amber-300 bg-amber-50 p-4 text-left">
+                <div className="text-xs font-bold uppercase tracking-wide text-amber-700 mb-1">
+                  ⚠️ {lang === "fr" ? "Signal de stagnation" : "Stagnation detected"}
+                </div>
+                <p className="text-xs text-amber-800 leading-5">
+                  {nextRecommendation.stagnation.reset_message}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {nextRecommendation.stagnation.signals.map((s, i) => (
+                    <span key={i} className="rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-700">
+                      {s.message}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SECTION A REVOIR */}
+            {nextRecommendation?.section_review?.section && (
+              <div className="w-full rounded-2xl border border-sky-200 bg-sky-50 p-4 text-left">
+                <div className="text-xs font-bold uppercase tracking-wide text-sky-700 mb-1">
+                  📌 {lang === "fr" ? "Section a revoir" : "Section to review"}
+                </div>
+                <div className="text-sm font-semibold text-sky-900">
+                  {nextRecommendation.section_review.section_label}
+                </div>
+                <p className="mt-1 text-xs text-sky-800 leading-5">
+                  {nextRecommendation.section_review.reason}
+                </p>
+                {nextRecommendation.section_review.expected_result && (
+                  <p className="mt-1 text-xs text-sky-600 italic">
+                    {lang === "fr" ? "Resultat attendu : " : "Expected: "}
+                    {nextRecommendation.section_review.expected_result}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* MODULE SUIVANT */}
+            {nextRecommendation?.next_module?.module_title && (
               <div className="w-full rounded-2xl border border-euk-primary/20 bg-euk-primary/5 p-4 text-left">
                 <div className="text-xs font-bold uppercase tracking-wide text-euk-primary mb-1">
                   💡 {t[lang].recommendedModule}
                 </div>
-                <div className="text-sm font-semibold text-euk-dark">{nextRecommendation.module_title}</div>
-                {nextRecommendation.reason && <p className="mt-1 text-xs text-slate-600">{nextRecommendation.reason}</p>}
+                <div className="text-sm font-semibold text-euk-dark">
+                  {nextRecommendation.next_module.module_title}
+                </div>
+                {nextRecommendation.next_module.reason && (
+                  <p className="mt-1 text-xs text-slate-600">{nextRecommendation.next_module.reason}</p>
+                )}
                 <div className="mt-2 flex items-center gap-2">
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${nextRecommendation.source === "llm" ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-600"}`}>
-                    {nextRecommendation.source === "llm" ? "🤖 IA" : "📋 Règle"}
+                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${nextRecommendation.next_module.source === "llm" ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-600"}`}>
+                    {nextRecommendation.next_module.source === "llm" ? "🤖 IA" : "📋 Regle"}
                   </span>
-                  {nextRecommendation.module_id && nextRecommendation.module_id !== parseInt(moduleId) && (
-                    <button onClick={() => navigate(`/learning/module/${nextRecommendation.module_id}/units`)}
+                  {nextRecommendation.next_module.module_id && nextRecommendation.next_module.module_id !== parseInt(moduleId) && (
+                    <button onClick={() => navigate(`/learning/module/${nextRecommendation.next_module.module_id}/units`)}
                       className="rounded-xl bg-euk-primary px-3 py-1 text-xs font-bold text-white hover:bg-euk-deep transition">
                       {t[lang].goToModule}
                     </button>
                   )}
                 </div>
+              </div>
+            )}
+
+            {/* PLAN MICRO-SESSIONS */}
+            {nextRecommendation?.session_plan && (
+              <div className="w-full rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-left">
+                <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 mb-1">
+                  🗓️ {lang === "fr" ? "Plan de la semaine" : "Weekly plan"}
+                </div>
+                <p className="text-xs text-emerald-800 leading-5">
+                  {nextRecommendation.session_plan.plan_description}
+                </p>
+                {nextRecommendation.session_plan.cta === "update_profile" && (
+                  <button onClick={() => navigate("/account")}
+                    className="mt-2 rounded-xl bg-emerald-600 px-3 py-1 text-xs font-bold text-white hover:bg-emerald-700 transition">
+                    {lang === "fr" ? "Renseigner mon profil" : "Update my profile"}
+                  </button>
+                )}
               </div>
             )}
           </div>

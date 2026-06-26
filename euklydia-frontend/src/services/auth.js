@@ -62,6 +62,6 @@ export async function setMyCareerPath(careerPathId) {
 export function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("auth_user");
-  localStorage.removeItem("assessment_results");
-  localStorage.removeItem("assessment_status");
+  localStorage.removeItem("diagnostic_results");
+  localStorage.removeItem("diagnostic_status");
 }

@@ -36,7 +36,7 @@ export default function AuthCallback() {
         return;
       }
 
-      const stRes = await fetch(`${API}/api/v1/assessment/status`, {
+      const stRes = await fetch(`${API}/api/v1/diagnostic/status`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -46,10 +46,10 @@ export default function AuthCallback() {
       }
 
       const st = await stRes.json();
-      localStorage.setItem("assessment_status", JSON.stringify(st));
+      localStorage.setItem("diagnostic_status", JSON.stringify(st));
 
       if (st.required) {
-        navigate("/assessment", { replace: true });
+        navigate("/diagnostic", { replace: true });
         return;
       }
 

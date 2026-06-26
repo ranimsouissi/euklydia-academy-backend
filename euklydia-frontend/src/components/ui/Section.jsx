@@ -1,3 +1,4 @@
+// src/components/ui/Section.jsx
 import Container from "./Container";
 
 export default function Section({ id, children, bg = "#F2FBF9" }) {

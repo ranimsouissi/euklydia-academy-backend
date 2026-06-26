@@ -322,15 +322,18 @@ def google_start(db: Session = Depends(get_db)):
     auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" + urlencode(params)
 
     resp = RedirectResponse(auth_url, status_code=302)
+
+    is_production = settings.FRONTEND_URL.startswith("https")
+
     resp.set_cookie(
-        key="oauth_state",
-        value=state,
-        httponly=True,
-        max_age=OAUTH_STATE_TTL_SECONDS,
-        samesite="lax",
-        secure=False,
-        path="/",
-    )
+    key="oauth_state",
+    value=state,
+    httponly=True,
+    max_age=OAUTH_STATE_TTL_SECONDS,
+    samesite="lax" if not is_production else "none",
+    secure=is_production,
+    path="/",
+)
     return resp
 
 

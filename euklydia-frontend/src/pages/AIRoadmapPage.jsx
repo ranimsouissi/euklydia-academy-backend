@@ -1,411 +1,400 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
+import ConfirmModal from "../components/ConfirmModal";
+import { apiFetch } from "../utils/api";
+import RetakeDiagnosticBtn from "../components/RetakeDiagnosticBtn";
 
 export default function AIRoadmapPage() {
   const navigate = useNavigate();
   const { language } = useOutletContext();
-  const lang = language || "en";
+  const lang = language || "fr";
 
   const { data: roadmapData, loading, refetch } = useApi("/api/v1/roadmap");
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [diagStatus, setDiagStatus] = useState(null);
+
   useEffect(() => {
     const handleFocus = () => refetch();
     window.addEventListener("focus", handleFocus);
     return () => window.removeEventListener("focus", handleFocus);
   }, [refetch]);
 
-  const roadmapItems = roadmapData?.items || [];
-  const roadmapProgress = roadmapData?.roadmap_progress || 0;
+  // Charger le status diagnostic pour savoir si on peut refaire
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await apiFetch("/api/v1/diagnostic/status");
+        if (res?.ok) setDiagStatus(await res.json());
+      } catch { /* non-blocking */ }
+    })();
+  }, []);
+
+  const roadmapItems     = roadmapData?.items || [];
+  const roadmapProgress  = roadmapData?.roadmap_progress || 0;
   const modulesCompleted = roadmapData?.modules_completed || 0;
-  const modulesTotal = roadmapData?.modules_total || 0;
+  const modulesTotal     = roadmapData?.modules_total || 0;
+  const totalDurationMin = roadmapData?.total_duration_min || 0;
+
+  // Peut refaire le diagnostic si 90j écoulés OU tous modules terminés
+  const canRetake = diagStatus?.recommended === true || roadmapProgress === 100;
 
   const t = {
     en: {
-      personalizedPlan: "Personalized development plan",
-      title: "AI Roadmap",
-      subtitle: "Your personalized 90-day AI capability development plan based on your current assessment priorities.",
-      updateAssessment: "Update assessment",
-      loading: "Loading roadmap...",
-      noRoadmap: "No roadmap available",
-      noRoadmapText: "Complete the assessment to generate your personalized roadmap.",
-      startAssessment: "Start assessment",
-      roadmapProgress: "Roadmap Progress",
-      modulesCompleted: "core modules completed.",
-      highPriorityAreas: "High Priority Areas",
-      focusFirst: "Focus first",
-      noCriticalGaps: "No critical gaps",
-      allCompleted: "All modules completed!",
-      duration: "Duration",
-      durationValue: "90 days",
-      durationText: "Recommended roadmap cycle before reassessment.",
-      roadmap90: "90-Day Roadmap",
-      roadmap90Text: "A structured progression path to help you build, apply and integrate AI capabilities.",
-      focusAreas: "Focus areas",
-      expectedOutcome: "Expected outcome",
-      recommendedModules: "Recommended modules",
-      skill: "Skill",
-      startModule: "Start module",
-      completed: "Completed",
-      inProgress: "In progress",
-      notStarted: "Not started",
-      min: "min",
-      phase1Title: "Phase 1 - Foundations",
-      phase1Period: "Days 1-30",
-      phase1Goal: "Build strong AI fundamentals and address your most urgent capability gaps first.",
-      phase1Focus1: "Strengthen priority AI fundamentals",
-      phase1Focus2: "Address your highest-priority skill gaps",
-      phase1Focus3: "Build confidence with core AI use cases",
-      phase1Outcome: "A stronger baseline and clear progress on the most critical areas identified in your assessment.",
-      phase1Empty: "No High priority modules in this phase.",
-      phase2Title: "Phase 2 - Applied Practice",
-      phase2Period: "Days 31-60",
-      phase2Goal: "Develop more practical and consistent AI usage through Medium-priority capability building.",
-      phase2Focus1: "Apply AI more regularly in work tasks",
-      phase2Focus2: "Improve quality and consistency",
-      phase2Focus3: "Reinforce practical workflows",
-      phase2Outcome: "Better day-to-day AI usage with stronger execution and more relevant outputs.",
-      phase2Empty: "No Medium priority modules in this phase.",
-      phase3Title: "Phase 3 - Advanced Modules",
-      phase3Period: "Days 61-90",
-      phase3Goal: "Access the Expert module and prepare for your official Euklydia certification.",
-      phase3Focus1: "Access the Expert module and its certification",
-      phase3Focus2: "Explore advanced AI strategies and leadership skills",
-      phase3Focus3: "Prepare for the official Euklydia certification",
-      phase3Outcome: "A clear vision of your full AI learning journey and access to the Expert certification path.",
-      phase3Empty: "No advanced modules available.",
-      startHere: "Start here",
-      journeyStart: "Your journey starts here - complete your first module!",
-      roadmapCompleted: "Roadmap completed! Take a new assessment.",
+      badge:            "Personalized development plan",
+      title:            "AI Roadmap",
+      subtitle:         "Your 3 business use cases to master with AI — at your own pace.",
+      retakeDiagnostic: "Retake diagnostic",
+      confirmTitle:     "Retake diagnostic?",
+      confirmMessage:   "Your current scores will be replaced by the new results. This action cannot be undone.",
+      confirmLabel:     "Yes, retake",
+      cancelLabel:      "Cancel",
+      loading:          "Loading roadmap...",
+      noRoadmap:        "No roadmap available",
+      noRoadmapText:    "Complete the diagnostic to generate your personalized roadmap.",
+      startDiagnostic:  "Start diagnostic",
+      allCompleted:     "All use cases completed! You can retake the diagnostic.",
+      progression:      "Progress",
+      modulesLabel:     "modules completed",
+      useCases:         "Use cases",
+      of3:              "of 3",
+      duration:         "Total duration",
+      hours:            "hours",
+      over90:           "over 90 days",
+      skill:            "Skill",
+      score:            "Score",
+      min:              "min",
+      kpiBefore:        "Before",
+      kpiAfter:         "After",
+      completed:        "Completed",
+      inProgress:       "In progress",
+      notStarted:       "Not started",
+      high:             "High priority",
+      medium:           "Medium priority",
+      low:              "Optional",
+      yourUseCases:     "Your 3 use cases",
+      yourUseCasesDesc: "Each module tackles a concrete business problem with AI prompts, workflows and a real-data mission.",
+      days:             ["Days 1-30", "Days 31-60", "Days 61-90"],
+      daysTooltip:      "Recommended sequence — start with the highest priority",
     },
     fr: {
-      personalizedPlan: "Plan de developpement personnalise",
-      title: "Feuille de route IA",
-      subtitle: "Votre plan personnalise de developpement des capacites IA sur 90 jours, base sur les priorites de votre assessment actuel.",
-      updateAssessment: "Refaire l'assessment",
-      loading: "Chargement de la feuille de route...",
-      noRoadmap: "Aucune feuille de route disponible",
-      noRoadmapText: "Completez l'assessment pour generer votre feuille de route personnalisee.",
-      startAssessment: "Commencer l'assessment",
-      roadmapProgress: "Progression de la feuille de route",
-      modulesCompleted: "modules principaux termines.",
-      highPriorityAreas: "Zones a haute priorite",
-      focusFirst: "A traiter en premier",
-      noCriticalGaps: "Aucun ecart critique",
-      allCompleted: "Tous les modules termines !",
-      duration: "Duree",
-      durationValue: "90 jours",
-      durationText: "Cycle recommande de feuille de route avant une nouvelle evaluation.",
-      roadmap90: "Feuille de route sur 90 jours",
-      roadmap90Text: "Un parcours structure pour vous aider a developper, appliquer et integrer les capacites IA.",
-      focusAreas: "Axes de focus",
-      expectedOutcome: "Resultat attendu",
-      recommendedModules: "Modules recommandes",
-      skill: "Competence",
-      startModule: "Commencer le module",
-      completed: "Termine",
-      inProgress: "En cours",
-      notStarted: "Non commence",
-      min: "min",
-      phase1Title: "Phase 1 - Fondations",
-      phase1Period: "Jours 1-30",
-      phase1Goal: "Construire de solides bases en IA et traiter d'abord vos ecarts de competences les plus urgents.",
-      phase1Focus1: "Renforcer les fondamentaux IA prioritaires",
-      phase1Focus2: "Traiter vos ecarts de competences les plus prioritaires",
-      phase1Focus3: "Developper la confiance avec les cas d'usage IA essentiels",
-      phase1Outcome: "Une base plus solide et des progres clairs sur les domaines les plus critiques identifies dans votre assessment.",
-      phase1Empty: "Aucun module de haute priorite dans cette phase.",
-      phase2Title: "Phase 2 - Pratique appliquee",
-      phase2Period: "Jours 31-60",
-      phase2Goal: "Developper un usage plus pratique et plus regulier de l'IA grace au renforcement des capacites de priorite moyenne.",
-      phase2Focus1: "Utiliser l'IA plus regulierement dans les taches de travail",
-      phase2Focus2: "Ameliorer la qualite et la coherence",
-      phase2Focus3: "Renforcer les workflows pratiques",
-      phase2Outcome: "Un meilleur usage quotidien de l'IA, avec une execution plus solide et des resultats plus pertinents.",
-      phase2Empty: "Aucun module de priorite moyenne dans cette phase.",
-      phase3Title: "Phase 3 - Modules Avances",
-      phase3Period: "Jours 61-90",
-      phase3Goal: "Accedez au module Expert et preparez votre certification officielle Euklydia.",
-      phase3Focus1: "Acceder au module Expert et a sa certification",
-      phase3Focus2: "Explorer les strategies IA avancees et le leadership",
-      phase3Focus3: "Se preparer a la certification officielle Euklydia",
-      phase3Outcome: "Une vision claire de votre parcours IA complet et acces au chemin de certification Expert.",
-      phase3Empty: "Aucun module avance disponible.",
-      startHere: "Commencer ici",
-      journeyStart: "Votre parcours commence ici - completez votre premier module !",
-      roadmapCompleted: "Roadmap terminee ! Faites un nouvel assessment.",
+      badge:            "Plan de développement personnalisé",
+      title:            "Feuille de route IA",
+      subtitle:         "Vos 3 use cases business à maîtriser avec l'IA — à votre rythme.",
+      retakeDiagnostic: "Refaire le diagnostic",
+      confirmTitle:     "Refaire le diagnostic ?",
+      confirmMessage:   "Vos scores actuels seront remplacés par les nouveaux résultats. Cette action est irréversible.",
+      confirmLabel:     "Oui, refaire",
+      cancelLabel:      "Annuler",
+      loading:          "Chargement de la feuille de route...",
+      noRoadmap:        "Aucune feuille de route disponible",
+      noRoadmapText:    "Complétez le diagnostic pour générer votre feuille de route personnalisée.",
+      startDiagnostic:  "Commencer le diagnostic",
+      allCompleted:     "Tous les use cases sont maîtrisés ! Vous pouvez refaire le diagnostic.",
+      progression:      "Progression",
+      modulesLabel:     "modules terminés",
+      useCases:         "Use cases",
+      of3:              "sur 3",
+      duration:         "Durée totale",
+      hours:            "heures",
+      over90:           "sur 90 jours",
+      skill:            "Compétence",
+      score:            "Score",
+      min:              "min",
+      kpiBefore:        "Avant",
+      kpiAfter:         "Après",
+      completed:        "Terminé",
+      inProgress:       "En cours",
+      notStarted:       "Non commencé",
+      high:             "Priorité haute",
+      medium:           "Priorité moyenne",
+      low:              "Optionnel",
+      yourUseCases:     "Vos 3 use cases",
+      yourUseCasesDesc: "Chaque module traite un problème business concret avec des prompts IA, des workflows et une mission sur vos vraies données.",
+      days:             ["Jours 1-30", "Jours 31-60", "Jours 61-90"],
+      daysTooltip:      "Séquence recommandée — commencez par la priorité la plus haute",
     },
   };
+  const tx = t[lang];
 
-  const highPriorityAreas = useMemo(() => {
-    return roadmapItems.filter(
-      (item) => String(item.priority).toUpperCase() === "HIGH"
-    ).length;
+  const statusLabel = s => {
+    const v = String(s || "").toLowerCase();
+    if (v.includes("complete")) return tx.completed;
+    if (v.includes("progress")) return tx.inProgress;
+    return tx.notStarted;
+  };
+  const statusColor = s => {
+    const v = String(s || "").toLowerCase();
+    if (v.includes("complete")) return "border-emerald-200 bg-emerald-50 text-emerald-700";
+    if (v.includes("progress")) return "border-sky-200 bg-sky-50 text-sky-700";
+    return "border-slate-200 bg-slate-50 text-slate-600";
+  };
+  const statusDot = s => {
+    const v = String(s || "").toLowerCase();
+    if (v.includes("complete")) return "bg-emerald-500";
+    if (v.includes("progress")) return "bg-sky-500 animate-pulse";
+    return "bg-slate-300";
+  };
+  const priorityLabel = p => {
+    const v = String(p).toUpperCase();
+    if (v === "HIGH")   return tx.high;
+    if (v === "MEDIUM") return tx.medium;
+    return tx.low;
+  };
+  const priorityColor = p => {
+    const v = String(p).toUpperCase();
+    if (v === "HIGH")   return "border-red-200 bg-red-50 text-red-700";
+    if (v === "MEDIUM") return "border-amber-200 bg-amber-50 text-amber-700";
+    return "border-slate-200 bg-slate-50 text-slate-500";
+  };
+  const moduleTitle = m => lang === "fr"
+    ? m.module_title_fr || m.module_title
+    : m.module_title;
+
+  const useCasesMastered = useMemo(
+    () => roadmapItems.filter(m => String(m.status).toLowerCase().includes("complete")).length,
+    [roadmapItems]
+  );
+  const totalHours = useMemo(
+    () => Math.round((totalDurationMin / 60) * 10) / 10,
+    [totalDurationMin]
+  );
+
+  // Trier HIGH → MEDIUM → LOW puis use_case_display_order
+  const sortedItems = useMemo(() => {
+    const rank = p => { const v = String(p).toUpperCase(); if (v === "HIGH") return 0; if (v === "MEDIUM") return 1; return 2; };
+    return [...roadmapItems].sort((a, b) => {
+      const pr = rank(a.priority) - rank(b.priority);
+      if (pr !== 0) return pr;
+      return (a.use_case_display_order || 0) - (b.use_case_display_order || 0);
+    });
   }, [roadmapItems]);
-
-  const allHighCompleted = useMemo(() => {
-    const highItems = roadmapItems.filter(
-      (item) => String(item.priority).toUpperCase() === "HIGH"
-    );
-    return highItems.length > 0 && highItems.every(
-      (item) => item.status === "completed"
-    );
-  }, [roadmapItems]);
-
-  const phases = useMemo(() => {
-    const highItems = roadmapItems.filter((item) => String(item.priority).toUpperCase() === "HIGH");
-    const mediumItems = roadmapItems.filter((item) => String(item.priority).toUpperCase() === "MEDIUM");
-    const lowItems = roadmapItems.filter((item) => String(item.priority).toUpperCase() === "LOW");
-
-    return [
-      {
-        title: t[lang].phase1Title, period: t[lang].phase1Period, goal: t[lang].phase1Goal,
-        focus: [t[lang].phase1Focus1, t[lang].phase1Focus2, t[lang].phase1Focus3],
-        outcome: t[lang].phase1Outcome, items: highItems, emptyMessage: t[lang].phase1Empty,
-        accentClass: "border-red-200 bg-red-50 text-red-700", id: "high",
-      },
-      {
-        title: t[lang].phase2Title, period: t[lang].phase2Period, goal: t[lang].phase2Goal,
-        focus: [t[lang].phase2Focus1, t[lang].phase2Focus2, t[lang].phase2Focus3],
-        outcome: t[lang].phase2Outcome, items: mediumItems, emptyMessage: t[lang].phase2Empty,
-        accentClass: "border-amber-200 bg-amber-50 text-amber-700", id: "medium",
-      },
-      {
-        title: t[lang].phase3Title, period: t[lang].phase3Period, goal: t[lang].phase3Goal,
-        focus: [t[lang].phase3Focus1, t[lang].phase3Focus2, t[lang].phase3Focus3],
-        outcome: t[lang].phase3Outcome, items: lowItems, emptyMessage: t[lang].phase3Empty,
-        accentClass: "border-emerald-200 bg-emerald-50 text-emerald-700", id: "low",
-      },
-    ];
-  }, [roadmapItems, lang]);
-
-  const statusBadgeClass = (status) => {
-    const value = String(status).toLowerCase();
-    if (value.includes("complete")) return "border-emerald-200 bg-emerald-50 text-emerald-700";
-    if (value.includes("progress")) return "border-sky-200 bg-sky-50 text-sky-700";
-    return "border-slate-200 bg-slate-50 text-slate-700";
-  };
-
-  const statusLabel = (status) => {
-    const value = String(status).toLowerCase();
-    if (value.includes("complete")) return t[lang].completed;
-    if (value.includes("progress")) return t[lang].inProgress;
-    return t[lang].notStarted;
-  };
-
-  const levelBadgeClass = (level) => {
-    const value = String(level || "").toLowerCase();
-    if (value.includes("begin")) return "border-emerald-200 bg-emerald-50 text-emerald-700";
-    if (value.includes("inter")) return "border-sky-200 bg-sky-50 text-sky-700";
-    return "border-violet-200 bg-violet-50 text-violet-700";
-  };
-
-  const goToModule = (moduleId) => {
-    if (!moduleId) return;
-    navigate(`/learning/module/${moduleId}/units`);
-  };
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-page">
 
+        {/* ─── HERO ─── */}
         <section className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <div className="mb-3 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                {t[lang].personalizedPlan}
+                {tx.badge}
               </div>
-              <h1 className="text-2xl font-bold tracking-tight text-euk-dark md:text-3xl">
-                {t[lang].title}
-              </h1>
-              <p className="mt-2 text-sm leading-6 text-slate-600 md:text-base">
-                {t[lang].subtitle}
-              </p>
+              <h1 className="text-2xl font-bold tracking-tight text-euk-dark md:text-3xl">{tx.title}</h1>
+              <p className="mt-2 text-sm leading-6 text-slate-600 md:text-base">{tx.subtitle}</p>
             </div>
-            <button
-              onClick={() => navigate("/assessment")}
-              className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-euk-dark transition hover:bg-slate-50"
-            >
-              {t[lang].updateAssessment}
-            </button>
+            <RetakeDiagnosticBtn
+              canRetake={canRetake}
+              nextAllowedAt={diagStatus?.next_allowed_at}
+              onClick={() => setShowConfirm(true)}
+              tx={tx}
+              lang={lang}
+            />
           </div>
         </section>
 
+        {/* ─── LOADING ─── */}
         {loading && (
-          <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="text-sm text-slate-500">{t[lang].loading}</div>
+          <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+            <div className="flex items-center justify-center gap-3">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-euk-primary border-t-transparent" />
+              <span className="text-sm text-slate-500">{tx.loading}</span>
+            </div>
           </section>
         )}
 
+        {/* ─── EMPTY STATE ─── */}
         {!loading && !roadmapItems.length && (
           <section className="mt-6 rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-center shadow-sm">
-            <div className="text-base font-semibold text-euk-dark">{t[lang].noRoadmap}</div>
-            <div className="mt-2 text-sm text-slate-500">{t[lang].noRoadmapText}</div>
+            <div className="text-base font-semibold text-euk-dark">{tx.noRoadmap}</div>
+            <div className="mt-2 text-sm text-slate-500">{tx.noRoadmapText}</div>
             <button
-              onClick={() => navigate("/assessment")}
+              onClick={() => navigate("/diagnostic")}
               className="mt-5 rounded-2xl bg-euk-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-euk-deep"
             >
-              {t[lang].startAssessment}
+              {tx.startDiagnostic}
             </button>
           </section>
         )}
 
         {!loading && !!roadmapItems.length && (
           <>
+            {/* ─── Bandeau tous terminés ─── */}
             {roadmapProgress === 100 && (
               <section className="mt-6 rounded-3xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                  <div className="text-sm font-semibold text-emerald-900">{t[lang].allCompleted}</div>
+                  <span className="text-sm font-semibold text-emerald-900">{tx.allCompleted}</span>
                   <button
-                    onClick={() => navigate("/assessment")}
+                    onClick={() => setShowConfirm(true)}
                     className="rounded-2xl bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
                   >
-                    {t[lang].updateAssessment}
+                    {tx.retakeDiagnostic}
                   </button>
                 </div>
               </section>
             )}
 
-            <section className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {/* ─── KPI CARDS ─── */}
+            <section className="mt-6 grid gap-4 md:grid-cols-3">
               <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="text-sm font-medium text-slate-500">{t[lang].roadmapProgress}</div>
+                <div className="text-sm font-medium text-slate-500">{tx.progression}</div>
                 <div className="mt-3 text-3xl font-bold tracking-tight text-euk-primary">{roadmapProgress}%</div>
                 <div className="mt-4 h-2.5 w-full rounded-full bg-slate-100">
                   <div className="h-2.5 rounded-full bg-euk-primary transition-all" style={{ width: `${roadmapProgress}%` }} />
                 </div>
-                <div className="mt-3 text-sm text-slate-500">
-                  {modulesCompleted} / {modulesTotal} {t[lang].modulesCompleted}
-                </div>
-                {roadmapProgress === 0 && (
-                  <div className="mt-2 text-xs text-euk-primary font-medium">{t[lang].journeyStart}</div>
-                )}
+                <div className="mt-3 text-sm text-slate-500">{modulesCompleted} / {modulesTotal} {tx.modulesLabel}</div>
               </div>
-
               <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="text-sm font-medium text-slate-500">{t[lang].highPriorityAreas}</div>
-                <div className="mt-3 text-3xl font-bold tracking-tight text-euk-dark">{highPriorityAreas}</div>
-                <div className={["mt-3 inline-flex rounded-full border px-3 py-1 text-xs font-semibold",
-                  allHighCompleted || highPriorityAreas === 0
-                    ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                    : "border-red-200 bg-red-50 text-red-700"
-                ].join(" ")}>
-                  {allHighCompleted || highPriorityAreas === 0 ? t[lang].noCriticalGaps : t[lang].focusFirst}
+                <div className="text-sm font-medium text-slate-500">{tx.useCases}</div>
+                <div className="mt-3 text-3xl font-bold tracking-tight text-euk-dark">{useCasesMastered} / 3</div>
+                <div className="mt-3 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  {tx.of3} use cases
                 </div>
               </div>
-
               <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="text-sm font-medium text-slate-500">{t[lang].duration}</div>
-                <div className="mt-3 text-3xl font-bold tracking-tight text-euk-dark">{t[lang].durationValue}</div>
-                <div className="mt-3 text-sm text-slate-500">{t[lang].durationText}</div>
+                <div className="text-sm font-medium text-slate-500">{tx.duration}</div>
+                <div className="mt-3 text-3xl font-bold tracking-tight text-euk-dark">~{totalHours} {tx.hours}</div>
+                <div className="mt-3 text-sm text-slate-500">{tx.over90}</div>
               </div>
             </section>
 
-            <section className="mt-8">
-              <div className="mb-4">
-                <h2 className="text-lg font-bold text-euk-dark">{t[lang].roadmap90}</h2>
-                <p className="mt-1 text-sm text-slate-500">{t[lang].roadmap90Text}</p>
+            {/* ─── USE CASES ─── */}
+            <section className="mt-10 mb-10">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold text-euk-dark md:text-2xl">{tx.yourUseCases}</h2>
+                <p className="mt-1 text-sm text-slate-500 max-w-3xl">{tx.yourUseCasesDesc}</p>
               </div>
-
-              <div className="mb-6 flex gap-3">
-                {phases.map((phase) => (
-                  <a key={phase.id} href={`#${phase.id}`}
-                    className={["rounded-full border px-4 py-1.5 text-xs font-semibold transition hover:opacity-80", phase.accentClass].join(" ")}>
-                    {phase.title}
-                  </a>
-                ))}
-              </div>
-
-              <div className="grid gap-6 lg:grid-cols-3">
-                {phases.map((phase) => (
-                  <div key={phase.title} id={phase.id} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <div className={["mb-3 inline-flex rounded-full border px-3 py-1 text-xs font-semibold", phase.accentClass].join(" ")}>
-                      {phase.period}
-                    </div>
-                    <h3 className="text-lg font-bold text-euk-dark">{phase.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-slate-500">{phase.goal}</p>
-
-                    <div className="mt-5">
-                      <div className="text-sm font-semibold text-euk-dark">{t[lang].focusAreas}</div>
-                      <ul className="mt-3 space-y-2 text-sm text-slate-500">
-                        {phase.focus.map((item) => (
-                          <li key={item} className="flex items-start gap-2">
-                            <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-euk-primary" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">{t[lang].expectedOutcome}</div>
-                      <div className="mt-2 text-sm leading-6 text-slate-600">{phase.outcome}</div>
-                    </div>
-
-                    <div className="mt-5">
-                      <div className="text-sm font-semibold text-euk-dark">{t[lang].recommendedModules}</div>
-                      {phase.items.length > 0 ? (
-                        <div className="mt-3 space-y-3">
-                          {phase.items.map((item, index) => (
-                            <div key={`${phase.id}-${item.module_id}-${index}`}
-                              className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                              <div className="flex items-start justify-between gap-3">
-                                <div>
-                                  <div className="text-sm font-semibold text-euk-dark">
-                                    {index + 1}. {lang === "fr" ? item.module_title_fr || item.module_title : item.module_title}
-                                  </div>
-                                  <div className="mt-1 flex flex-wrap gap-1">
-                                    {(item.covered_skills?.length > 0
-                                      ? item.covered_skills
-                                      : [{ skill_name: item.skill_name }]
-                                    ).map((s, si) => (
-                                      <span key={si} className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-500">
-                                        {s.skill_name}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
-                                {index === 0 && phase.id === "high" && !allHighCompleted && (
-                                  <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
-                                    {t[lang].startHere}
-                                  </span>
-                                )}
-                              </div>
-
-                              <div className="mt-3 flex flex-wrap items-center gap-2">
-                                <span className={["rounded-full border px-3 py-1 text-xs font-semibold", levelBadgeClass(item.level)].join(" ")}>
-                                  {item.level}
-                                </span>
-                                <span className={["rounded-full border px-3 py-1 text-xs font-semibold", statusBadgeClass(item.status)].join(" ")}>
-                                  {statusLabel(item.status)}
-                                </span>
-                                {item.estimated_duration_min && (
-                                  <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
-                                    {item.estimated_duration_min} {t[lang].min}
-                                  </span>
-                                )}
-                              </div>
-
-                              <button
-                                onClick={() => goToModule(item.module_id)}
-                                className="mt-4 w-fit rounded-2xl bg-euk-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-euk-deep"
-                              >
-                                {t[lang].startModule}
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="mt-3 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500">
-                          {phase.emptyMessage}
-                        </div>
-                      )}
-                    </div>
-                  </div>
+              <div className="grid gap-5 md:grid-cols-3">
+                {sortedItems.map((m, idx) => (
+                  <UseCaseCard
+                    key={m.module_id}
+                    item={m}
+                    index={idx}
+                    tx={tx}
+                    lang={lang}
+                    moduleTitle={moduleTitle}
+                    statusLabel={statusLabel}
+                    statusColor={statusColor}
+                    statusDot={statusDot}
+                    priorityLabel={priorityLabel}
+                    priorityColor={priorityColor}
+                  />
                 ))}
               </div>
             </section>
           </>
         )}
       </div>
+
+      {showConfirm && (
+        <ConfirmModal
+          title={tx.confirmTitle}
+          message={tx.confirmMessage}
+          confirmLabel={tx.confirmLabel}
+          cancelLabel={tx.cancelLabel}
+          confirmClass="bg-rose-500 hover:bg-rose-600"
+          onConfirm={() => { setShowConfirm(false); navigate("/diagnostic"); }}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
+  );
+}
+
+function UseCaseCard({ item, index, tx, lang, moduleTitle, statusLabel, statusColor, statusDot, priorityLabel, priorityColor }) {
+  const accents = [
+    { border: "border-emerald-200", bg: "bg-emerald-50", text: "text-emerald-700", num: "bg-emerald-500", dayBorder: "border-emerald-200", dayBg: "bg-emerald-50", dayText: "text-emerald-700" },
+    { border: "border-sky-200",     bg: "bg-sky-50",     text: "text-sky-700",     num: "bg-sky-500",     dayBorder: "border-sky-200",     dayBg: "bg-sky-50",     dayText: "text-sky-700"     },
+    { border: "border-violet-200",  bg: "bg-violet-50",  text: "text-violet-700",  num: "bg-violet-500",  dayBorder: "border-violet-200",  dayBg: "bg-violet-50",  dayText: "text-violet-700"  },
+  ];
+  const accent = accents[index % 3];
+  const stageParts = (item.journey_stage || "").split(" — ");
+  const stageCycle = stageParts[0] || "";
+  const stageFocus = stageParts[1] || "";
+  const dayLabel   = tx.days[index] || "";
+
+  return (
+    <article className="flex flex-col rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+
+      {/* Header : numéro + jours + journey_stage */}
+      <div className="flex items-start gap-3 mb-4">
+        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${accent.num}`}>
+          {index + 1}
+        </div>
+        <div className="flex flex-col gap-1">
+          {/* Badge jours */}
+          {dayLabel && (
+            <span className={`inline-flex rounded-full border px-2.5 py-0.5 text-xs font-semibold ${accent.dayBorder} ${accent.dayBg} ${accent.dayText}`}>
+              {dayLabel}
+            </span>
+          )}
+          {/* Cycle */}
+          {stageCycle && (
+            <span className="text-xs font-semibold text-slate-500">{stageCycle}</span>
+          )}
+          {/* Focus */}
+          {stageFocus && (
+            <span className="text-xs text-slate-400">{stageFocus}</span>
+          )}
+        </div>
+      </div>
+
+      {/* Titre module */}
+      <h3 className="text-base font-bold leading-snug text-euk-dark mb-3">
+        {moduleTitle(item)}
+      </h3>
+
+      {/* Status + Priority */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        <span className={`flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${statusColor(item.status)}`}>
+          <span className={`h-1.5 w-1.5 rounded-full ${statusDot(item.status)}`} />
+          {statusLabel(item.status)}
+        </span>
+        <span className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${priorityColor(item.priority)}`}>
+          {priorityLabel(item.priority)}
+        </span>
+      </div>
+
+      {/* Skill + Score */}
+      <div className="mb-4">
+        {item.skill_name && (
+          <div className="text-xs text-slate-500 mb-2">
+            {tx.skill} : <span className="font-medium text-slate-700">{item.skill_name}</span>
+          </div>
+        )}
+        <div className="flex items-center gap-2">
+          <div className="h-2 flex-1 rounded-full bg-slate-100">
+            <div className="h-2 rounded-full bg-euk-primary transition-all" style={{ width: `${item.score || 0}%` }} />
+          </div>
+          <span className="text-xs font-semibold text-euk-primary">{item.score}%</span>
+        </div>
+      </div>
+
+      {/* KPI before / after */}
+      {(item.kpi_before || item.kpi_after) && (
+        <div className="mt-auto rounded-2xl border border-slate-100 bg-slate-50 p-3 space-y-1.5">
+          {item.kpi_before && (
+            <div className="flex gap-2 text-xs">
+              <span className="font-semibold text-slate-400 shrink-0">{tx.kpiBefore} :</span>
+              <span className="text-slate-600">{item.kpi_before}</span>
+            </div>
+          )}
+          {item.kpi_after && (
+            <div className="flex gap-2 text-xs">
+              <span className="font-semibold text-emerald-600 shrink-0">{tx.kpiAfter} :</span>
+              <span className="text-emerald-700 font-medium">{item.kpi_after}</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Durée */}
+      {item.estimated_duration_min && (
+        <div className="mt-3 text-xs text-slate-400 text-right">
+          {item.estimated_duration_min} {tx.min}
+        </div>
+      )}
+    </article>
   );
 }

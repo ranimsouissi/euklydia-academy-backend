@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
 const OPTION_KEYS = ["A", "B", "C", "D"];
@@ -34,8 +34,37 @@ const ROLE_MAP = {
   },
 };
 
-export default function AssessmentPage() {
+// ─── Formatage de date lisible ───────────────────────────────────────────────
+// Transforme "2026-08-08T12:23:51.661745" → "8 août 2026 à 12:23"
+const formatCooldownDate = (isoString, lang) => {
+  if (!isoString) return "—";
+  try {
+    const date = new Date(isoString);
+    if (isNaN(date.getTime())) return isoString;
+
+    const locale = lang === "fr" ? "fr-FR" : "en-US";
+    const dateStr = date.toLocaleDateString(locale, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    const timeStr = date.toLocaleTimeString(locale, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: lang !== "fr",
+    });
+    const connector = lang === "fr" ? " à " : " at ";
+    return `${dateStr}${connector}${timeStr}`;
+  } catch {
+    return isoString;
+  }
+};
+
+export default function DiagnosticPage() {
   const navigate = useNavigate();
+  const { language } = useOutletContext() || {};
+  const lang = language || "en";
+
   const [status, setStatus] = useState(null);
   const [questionnaire, setQuestionnaire] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -43,16 +72,86 @@ export default function AssessmentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
+  // ═══════════════════════════════════════════════════════════════════
+  // Traductions UI
+  // ═══════════════════════════════════════════════════════════════════
+  const t = {
+    en: {
+      // Cooldown screen
+      cooldownTitle: "Diagnostic not available",
+      cooldownMessage: "You can retake the diagnostic from",
+      backToRoadmap: "← Back to roadmap",
+      // Header
+      diagnosticBadge: "AI Diagnostic",
+      diagnosticTitle: "Assess your AI skills",
+      diagnosticSubtitle: "For each question, choose the best answer among the 4 options.",
+      // Role banner
+      yourSelectedRole: "Your selected role",
+      changeRole: "Change role →",
+      // Recommended banner
+      updateRecommended: "Update recommended — your last diagnostic was more than 90 days ago.",
+      // Progress
+      progress: "Progress",
+      // Empty state
+      noQuestionnaire: "No questionnaire loaded.",
+      // Footer
+      questionsAnswered: "questions answered",
+      diagnosticComplete: "✓ Diagnostic complete — ready to submit",
+      answerAllQuestions: "Answer all questions to generate your path.",
+      generateBtn: "Generate my personalized path →",
+      generating: "Generating...",
+      // Errors
+      errStatusLoad: "Unable to load status",
+      errQuestionnaireLoad: "Unable to load questionnaire",
+      errQuestionnaireNotLoaded: "Questionnaire not loaded.",
+      errAnswerAll: (a, t) => `Please answer all questions (${a}/${t}).`,
+      errSubmit: "Submission failed",
+      errGeneric: "Error",
+    },
+    fr: {
+      // Cooldown screen
+      cooldownTitle: "Diagnostic non disponible",
+      cooldownMessage: "Vous pourrez refaire le diagnostic à partir du",
+      backToRoadmap: "← Retour à la feuille de route",
+      // Header
+      diagnosticBadge: "Diagnostic IA",
+      diagnosticTitle: "Évaluez vos compétences IA",
+      diagnosticSubtitle: "Pour chaque question, choisissez la meilleure réponse parmi les 4 options.",
+      // Role banner
+      yourSelectedRole: "Votre rôle sélectionné",
+      changeRole: "Changer de rôle →",
+      // Recommended banner
+      updateRecommended: "Mise à jour recommandée — votre dernier diagnostic date de plus de 90 jours.",
+      // Progress
+      progress: "Progression",
+      // Empty state
+      noQuestionnaire: "Aucun questionnaire chargé.",
+      // Footer
+      questionsAnswered: "questions répondues",
+      diagnosticComplete: "✓ Diagnostic complet — prêt à soumettre",
+      answerAllQuestions: "Répondez à toutes les questions pour générer votre parcours.",
+      generateBtn: "Générer mon parcours personnalisé →",
+      generating: "Génération en cours...",
+      // Errors
+      errStatusLoad: "Impossible de charger le statut",
+      errQuestionnaireLoad: "Impossible de charger le questionnaire",
+      errQuestionnaireNotLoaded: "Questionnaire non chargé.",
+      errAnswerAll: (a, t) => `Veuillez répondre à toutes les questions (${a}/${t}).`,
+      errSubmit: "Échec de la soumission",
+      errGeneric: "Erreur",
+    },
+  };
+
   useEffect(() => {
     (async () => {
       try {
         setError("");
         setLoading(true);
 
-        const sRes = await apiFetch(`/api/v1/assessment/status`);
+        const sRes = await apiFetch(`/api/v1/diagnostic/status`);
         if (!sRes) return;
         const sData = await sRes.json().catch(() => ({}));
-        if (!sRes.ok) throw new Error(sData?.detail || "Impossible de charger le statut");
+        if (!sRes.ok) throw new Error(sData?.detail || t[lang].errStatusLoad);
         setStatus(sData);
 
         if (sData.has_scores && !sData.eligible) {
@@ -60,26 +159,27 @@ export default function AssessmentPage() {
           return;
         }
 
-        const qRes = await apiFetch(`/api/v1/assessment/questionnaire`);
+        const qRes = await apiFetch(`/api/v1/diagnostic/questionnaire`);
         if (!qRes) return;
         const qData = await qRes.json().catch(() => ({}));
         if (!qRes.ok) {
           const msg =
             typeof qData?.detail === "string"
               ? qData.detail
-              : qData?.detail?.message || qData?.detail || "Impossible de charger le questionnaire";
+              : qData?.detail?.message || qData?.detail || t[lang].errQuestionnaireLoad;
           throw new Error(msg);
         }
 
         setQuestionnaire(qData);
         setAnswers({});
       } catch (e) {
-        setError(e.message || "Erreur");
+        setError(e.message || t[lang].errGeneric);
       } finally {
         setLoading(false);
       }
     })();
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const totalQuestions = useMemo(
     () => questionnaire?.skills?.reduce((acc, s) => acc + (s?.questions?.length || 0), 0) || 0,
@@ -98,8 +198,8 @@ export default function AssessmentPage() {
   const submit = async () => {
     try {
       setError("");
-      if (!questionnaire) { setError("Questionnaire non chargé."); return; }
-      if (!isComplete) { setError(`Please answer all questions (${answeredCount}/${totalQuestions}).`); return; }
+      if (!questionnaire) { setError(t[lang].errQuestionnaireNotLoaded); return; }
+      if (!isComplete) { setError(t[lang].errAnswerAll(answeredCount, totalQuestions)); return; }
       setSubmitting(true);
 
       const payload = {
@@ -109,19 +209,19 @@ export default function AssessmentPage() {
         })),
       };
 
-      const res = await apiFetch(`/api/v1/assessment/submit`, {
+      const res = await apiFetch(`/api/v1/diagnostic/submit`, {
         method: "POST",
         body: JSON.stringify(payload),
       });
       if (!res) return;
 
       const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data?.detail?.message || data?.detail || "Échec de la soumission");
+      if (!res.ok) throw new Error(data?.detail?.message || data?.detail || t[lang].errSubmit);
 
-      localStorage.setItem("assessment_results", JSON.stringify(data));
+      localStorage.setItem("diagnostic_results", JSON.stringify(data));
       navigate("/dashboard");
     } catch (e) {
-      setError(e.message || "Erreur");
+      setError(e.message || t[lang].errGeneric);
     } finally {
       setSubmitting(false);
     }
@@ -153,16 +253,20 @@ export default function AssessmentPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6l4 2m-4-8a9 9 0 110 18A9 9 0 0112 3z" />
               </svg>
             </div>
-            <div className="text-lg font-semibold text-slate-900 mb-2">Assessment not available</div>
+            <div className="text-lg font-semibold text-slate-900 mb-2">
+              {t[lang].cooldownTitle}
+            </div>
             <div className="text-slate-500 text-sm mb-6">
-              You can retake the assessment from{" "}
-              <span className="font-semibold text-slate-900">{status.next_allowed_at || "—"}</span>.
+              {t[lang].cooldownMessage}{" "}
+              <span className="font-semibold text-slate-900">
+                {formatCooldownDate(status.next_allowed_at, lang)}
+              </span>.
             </div>
             <button
               onClick={() => navigate("/roadmap")}
               className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white font-semibold text-slate-700 hover:bg-slate-50 transition text-sm"
             >
-              ← Back to roadmap
+              {t[lang].backToRoadmap}
             </button>
           </div>
         </div>
@@ -178,13 +282,13 @@ export default function AssessmentPage() {
         <div className="mb-6">
           <div className="inline-flex items-center gap-2 text-xs font-semibold text-teal-700 bg-teal-50 px-3 py-1.5 rounded-full mb-4 border border-teal-100">
             <span className="w-1.5 h-1.5 rounded-full bg-teal-500 inline-block" />
-            AI Assessment
+            {t[lang].diagnosticBadge}
           </div>
           <h1 className="text-2xl font-bold text-slate-900 mb-2">
-            Assess your AI skills
+            {t[lang].diagnosticTitle}
           </h1>
           <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
-            For each question, choose the best answer among the 4 options.
+            {t[lang].diagnosticSubtitle}
           </p>
         </div>
 
@@ -199,7 +303,7 @@ export default function AssessmentPage() {
               </div>
               <div>
                 <div className="text-xs text-slate-400 font-medium mb-0.5">
-                  Your selected role
+                  {t[lang].yourSelectedRole}
                 </div>
                 <div className="flex items-center gap-2">
                   <span
@@ -222,7 +326,7 @@ export default function AssessmentPage() {
               onClick={() => navigate("/onboarding")}
               className="text-xs text-slate-400 hover:text-slate-600 font-medium transition whitespace-nowrap"
             >
-              Change role →
+              {t[lang].changeRole}
             </button>
           </div>
         )}
@@ -233,14 +337,14 @@ export default function AssessmentPage() {
             <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z" />
             </svg>
-            Update recommended — your last assessment was more than 90 days ago.
+            {t[lang].updateRecommended}
           </div>
         )}
 
         {/* Barre de progression globale */}
         <div className="bg-white p-4 rounded-2xl border border-slate-200 mb-6">
           <div className="flex justify-between text-sm mb-2">
-            <span className="text-slate-500">Progress</span>
+            <span className="text-slate-500">{t[lang].progress}</span>
             <span className="font-bold text-slate-900">{answeredCount} / {totalQuestions}</span>
           </div>
           <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
@@ -263,7 +367,7 @@ export default function AssessmentPage() {
 
         {!questionnaire ? (
           <div className="bg-white p-6 rounded-2xl border border-slate-200 text-slate-500 text-sm">
-            No questionnaire loaded.
+            {t[lang].noQuestionnaire}
           </div>
         ) : (
           <div className="space-y-6">
@@ -349,11 +453,11 @@ export default function AssessmentPage() {
               <div>
                 <div className="text-sm text-slate-600">
                   <span className="font-bold text-slate-900">{answeredCount}</span>
-                  <span className="text-slate-400"> / {totalQuestions} questions answered</span>
+                  <span className="text-slate-400"> / {totalQuestions} {t[lang].questionsAnswered}</span>
                 </div>
                 {isComplete
-                  ? <div className="text-xs text-teal-600 font-semibold mt-0.5">✓ Assessment complete — ready to submit</div>
-                  : <div className="text-xs text-slate-400 mt-0.5">Answer all questions to generate your path.</div>
+                  ? <div className="text-xs text-teal-600 font-semibold mt-0.5">{t[lang].diagnosticComplete}</div>
+                  : <div className="text-xs text-slate-400 mt-0.5">{t[lang].answerAllQuestions}</div>
                 }
               </div>
               <button
@@ -372,10 +476,10 @@ export default function AssessmentPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                     </svg>
-                    Generating...
+                    {t[lang].generating}
                   </span>
                 ) : (
-                  "Generate my personalized path →"
+                  t[lang].generateBtn
                 )}
               </button>
             </div>

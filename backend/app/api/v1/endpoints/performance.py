@@ -23,17 +23,19 @@ def analyze_performance(
     user_id = current_user.id
 
     engagement = performance_service.get_engagement_data(db, user_id)
-    kpi_data   = performance_service.get_kpi_data(db, user_id)      # nouveau
+    kpi_data   = performance_service.get_kpi_data(db, user_id)
     mastery    = performance_service.get_mastery_data(db, user_id)
     dropoffs   = performance_service.get_dropoff_data(db, user_id)
     tutorials  = performance_service.get_tutorials_data(db, user_id)
+    resources  = performance_service.get_resources_data(db, user_id)  # 🆕 V2
 
     insights = performance_service.generate_insights(
         engagement=engagement,
         mastery=mastery,
         dropoffs=dropoffs,
-        kpi_data=kpi_data, 
-        tutorials=tutorials,    # nouveau
+        kpi_data=kpi_data,
+        tutorials=tutorials,
+        resources=resources,   # 🆕 V2
         scope=req.scope
     )
 
@@ -51,7 +53,6 @@ def analyze_performance(
         scope=req.scope,
         summary=insights.get("summary", ""),
         engagement_rate=insights.get("engagement_rate", 0.0),
-        # ── Nouveaux champs ──────────────────────────────────
         kpi_before_avg=insights.get("kpi_before_avg"),
         kpi_after_avg=insights.get("kpi_after_avg"),
         execution_task_completion_rate=insights.get(
@@ -87,17 +88,17 @@ def analyze_cohort(
         )
 
     return {
-        "module_id":                     module_id,
-        "summary":                       insights.get("summary", ""),
-        "completion_rate":               insights.get("completion_rate", 0.0),
+        "module_id":                      module_id,
+        "summary":                        insights.get("summary", ""),
+        "completion_rate":                insights.get("completion_rate", 0.0),
         "execution_task_completion_rate": insights.get(
             "execution_task_completion_rate", 0.0
         ),
-        "main_drop_off_section":         insights.get("main_drop_off_section"),
-        "top_blockers":                  insights.get("top_blockers", []),
-        "interventions":                 insights.get("interventions", []),
-        "trend":                         insights.get("trend", "stagnant"),
-        "scope":                         "cohort"
+        "main_drop_off_section":          insights.get("main_drop_off_section"),
+        "top_blockers":                   insights.get("top_blockers", []),
+        "interventions":                  insights.get("interventions", []),
+        "trend":                          insights.get("trend", "stagnant"),
+        "scope":                          "cohort"
     }
 
 
@@ -143,8 +144,8 @@ def get_interventions(
         SELECT
             i.id,
             i.type,
-            i.section_type,       -- nouveau
-            i.target_content,     -- nouveau
+            i.section_type,
+            i.target_content,
             i.reason,
             i.status,
             i.created_at,

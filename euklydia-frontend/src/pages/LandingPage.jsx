@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
-import WhyEuklydia from "../components/WhyEuklydia";
+import WhyEuklydiaAcademy from "../components/WhyEuklydiaAcademy";
 import HowItWorks from "../components/HowItWorks";
-import LearningPaths from "../components/LearningPaths";
+import ProfessionalRoles from "../components/ProfessionalRoles";
 import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 
@@ -9,9 +9,9 @@ export default function LandingPage() {
   return (
     <>
       <Hero />
-      <WhyEuklydia />
+      <WhyEuklydiaAcademy />
       <HowItWorks />
-      <LearningPaths />
+      <ProfessionalRoles />
       <Testimonials />
       <Footer />
     </>

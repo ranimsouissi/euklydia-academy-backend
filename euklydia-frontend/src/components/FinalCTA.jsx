@@ -33,11 +33,11 @@ export default function FinalCTA() {
               </h2>
 
               <p style={{ color: "rgba(255,255,255,0.75)", margin: 0, lineHeight: 1.7, fontSize: 16 }}>
-                Run the assessment, generate the right learning path, and track progress with a clear maturity dashboard.
+                Run the diagnostic, generate the right learning path, and track progress with a clear maturity dashboard.
               </p>
 
               <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
-                <Button>Start AI Assessment</Button>
+                <Button>Start AI diagnostic</Button>
                 <Button variant="outline">Request a demo</Button>
               </div>
 

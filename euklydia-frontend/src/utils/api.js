@@ -19,7 +19,6 @@ export async function apiFetch(endpoint, options = {}) {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   };
-
   try {
     const res = await fetch(`${API}${endpoint}`, {
       ...options,
@@ -30,8 +29,8 @@ export async function apiFetch(endpoint, options = {}) {
     if (res.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("auth_user");
-      localStorage.removeItem("assessment_status");
-      localStorage.removeItem("assessment_results");
+      localStorage.removeItem("diagnostic_status");
+      localStorage.removeItem("diagnostic_results");
       window.location.replace("/auth");
       return null;
     }

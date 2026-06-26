@@ -33,7 +33,9 @@ class InterventionItem(BaseModel):
     type:           Literal[
                       "review_section",
                       "watch_tutorial",
+                      "read_resource",   # 🆕 V2
                       "coach_session"
+
                     ]                         # type d'intervention
     reason:         str
     priority:       Literal["high", "medium", "low"]

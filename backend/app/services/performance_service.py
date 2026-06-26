@@ -5,6 +5,14 @@ Performance Analysis Agent — Service
 Analyse les données d'engagement, mastery et drop-off d'un apprenant
 et génère des insights actionnables avec top 3 blockers + interventions.
 
+V2 — Améliorations suite à l'intégration tutorials + resources :
+  - get_tutorials_data lit depuis section_content_fr.tutorials (priorité)
+    puis tutorials_fr (fallback)
+  - get_resources_data : nouvelle fonction pour les resources externes
+  - generate_insights injecte tutorials ET resources dans le prompt LLM
+  - Nouveau type d'intervention : read_resource
+  - target_content retourne un titre concret au lieu de null
+
 V1 — Sources de données :
   - user_module_progress  → progression + section_progress + kpi_after
   - learner_skill_mastery → mastery par skill
@@ -213,27 +221,79 @@ def get_dropoff_data(db: Session, user_id: int) -> list[dict]:
 
 # ----------------------------------------------------------------
 # STEP 4b — Tutoriels disponibles pour les modules de l'apprenant
+# FIX V2 : priorité à section_content_fr.tutorials, fallback tutorials_fr
 # ----------------------------------------------------------------
 
 def get_tutorials_data(db: Session, user_id: int) -> list[dict]:
-    """Récupère les tutoriels des modules démarrés par l'apprenant."""
+    """
+    Récupère les tutoriels des modules démarrés par l'apprenant.
+    Priorité : section_content_fr.tutorials (nouvelle source avec steps)
+    Fallback  : tutorials_fr (ancienne colonne)
+    """
     rows = db.execute(text("""
-        SELECT m.id AS module_id, m.title_fr AS module_title, m.tutorials_fr
+        SELECT
+            m.id              AS module_id,
+            m.title_fr        AS module_title,
+            m.tutorials_fr,
+            m.section_content_fr
         FROM user_module_progress ump
         JOIN modules m ON m.id = ump.module_id
         WHERE ump.user_id = :user_id
-          AND m.tutorials_fr IS NOT NULL
     """), {"user_id": user_id}).fetchall()
 
     result = []
     for r in rows:
-        for tuto in (r.tutorials_fr or []):
+        # Priorité à section_content_fr.tutorials
+        tutorials = []
+        if r.section_content_fr:
+            tutorials = r.section_content_fr.get("tutorials", [])
+        # Fallback sur tutorials_fr si section_content vide
+        if not tutorials and r.tutorials_fr:
+            tutorials = r.tutorials_fr
+
+        for tuto in tutorials:
             result.append({
                 "module_id":    r.module_id,
                 "module_title": r.module_title,
                 "tutorial_id":  tuto.get("id"),
                 "title":        tuto.get("title"),
                 "tool":         tuto.get("tool"),
+            })
+    return result
+
+
+# ----------------------------------------------------------------
+# STEP 4c — Resources disponibles pour les modules de l'apprenant
+# NOUVEAU V2 : resources externes (articles, outils, vidéos)
+# ----------------------------------------------------------------
+
+def get_resources_data(db: Session, user_id: int) -> list[dict]:
+    """
+    Récupère les resources externes des modules démarrés par l'apprenant.
+    Source : section_content_fr.resources
+    """
+    rows = db.execute(text("""
+        SELECT
+            m.id              AS module_id,
+            m.title_fr        AS module_title,
+            m.section_content_fr
+        FROM user_module_progress ump
+        JOIN modules m ON m.id = ump.module_id
+        WHERE ump.user_id = :user_id
+          AND m.section_content_fr IS NOT NULL
+    """), {"user_id": user_id}).fetchall()
+
+    result = []
+    for r in rows:
+        resources = (r.section_content_fr or {}).get("resources", [])
+        for res in resources:
+            result.append({
+                "module_id":    r.module_id,
+                "module_title": r.module_title,
+                "resource_id":  res.get("id"),
+                "title":        res.get("title"),
+                "type":         res.get("type"),
+                "url":          res.get("url"),
             })
     return result
 
@@ -248,10 +308,12 @@ def generate_insights(
     dropoffs:  list[dict],
     kpi_data:  list[dict],
     tutorials: list[dict] = [],
+    resources: list[dict] = [],
     scope:     str = "learner"
 ) -> dict:
     """
     Appelle GPT pour générer des insights actionnables.
+    V2 : injecte tutorials ET resources dans le prompt.
     """
     prompt = f"""Tu es un analyste pédagogique expert pour la plateforme Euklydia.
 Analyse ces données d'apprentissage et génère des insights actionnables.
@@ -270,6 +332,9 @@ Analyse ces données d'apprentissage et génère des insights actionnables.
 
 --- TUTORIELS DISPONIBLES ---
 {json.dumps(tutorials, ensure_ascii=False, default=str)}
+
+--- RESOURCES DISPONIBLES ---
+{json.dumps(resources, ensure_ascii=False, default=str)}
 
 Génère EXACTEMENT ce JSON (sans texte autour) :
 {{
@@ -295,8 +360,8 @@ Génère EXACTEMENT ce JSON (sans texte autour) :
     {{
       "skill": "nom du skill",
       "section_type": "section concernée",
-      "target_content": "OBLIGATOIRE si type=watch_tutorial : utilise EXACTEMENT le titre d'un tutoriel de la liste TUTORIELS DISPONIBLES ci-dessus, sinon null",
-      "type": "review_section|watch_tutorial|coach_session",
+      "target_content": "OBLIGATOIRE si type=watch_tutorial ou read_resource : utilise EXACTEMENT le titre d'un tutoriel ou d'une resource des listes ci-dessus, sinon null",
+      "type": "review_section|watch_tutorial|read_resource|coach_session",
       "reason": "pourquoi cette intervention",
       "priority": "high|medium|low"
     }}
@@ -307,9 +372,11 @@ Génère EXACTEMENT ce JSON (sans texte autour) :
 Règles :
 - top_blockers : 3 items MAX, jamais le même skill
 - interventions : 1 par blocker
-- type : review_section | watch_tutorial | coach_session
-- Si type=watch_tutorial, target_content DOIT contenir le titre exact d'un tutoriel de la liste TUTORIELS DISPONIBLES — jamais null
-- Si aucun tutoriel disponible et type=watch_tutorial, utilise review_section à la place
+- types disponibles : review_section | watch_tutorial | read_resource | coach_session
+- Si type=watch_tutorial → target_content DOIT être le titre exact d'un tutoriel de TUTORIELS DISPONIBLES
+- Si type=read_resource → target_content DOIT être le titre exact d'une resource de RESOURCES DISPONIBLES
+- Si aucun tutoriel/resource disponible et type=watch_tutorial ou read_resource → utilise review_section
+- target_content ne doit JAMAIS être null si type=watch_tutorial ou read_resource
 - Réponds UNIQUEMENT avec le JSON valide"""
 
     client = _get_client()

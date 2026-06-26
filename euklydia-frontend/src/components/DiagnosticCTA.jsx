@@ -1,10 +1,10 @@
 import Container from "./ui/Container";
 import Button from "./ui/Button";
 
-export default function AssessmentCTA() {
+export default function DiagnosticCTA() {
   return (
     <section
-      id="assessment"
+      id="diagnostic"
       style={{
         padding: "72px 0",
         background:
@@ -28,7 +28,7 @@ export default function AssessmentCTA() {
           {/* Left */}
           <div>
             <div style={{ color: "var(--primary)", fontWeight: 900, marginBottom: 10 }}>
-              AI Assessment
+              AI Diagnostic
             </div>
 
             <h2 style={{ fontSize: 34, margin: "0 0 10px", lineHeight: 1.1 }}>
@@ -41,7 +41,7 @@ export default function AssessmentCTA() {
             </p>
 
             <div style={{ display: "flex", gap: 12, marginTop: 18, flexWrap: "wrap" }}>
-              <Button>Take the AI Assessment</Button>
+              <Button>Take the AI Diagnostic</Button>
               <Button variant="outline">See sample report</Button>
             </div>
 
@@ -119,7 +119,7 @@ export default function AssessmentCTA() {
         {/* responsive */}
         <style>{`
           @media (max-width: 900px) {
-            section#assessment > div > div {
+            section#diagnostic > div > div {
               grid-template-columns: 1fr !important;
             }
           }
