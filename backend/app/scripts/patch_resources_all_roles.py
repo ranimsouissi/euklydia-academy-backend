@@ -1,4 +1,4 @@
-"""
+﻿"""
 patch_resources_all_roles.py
 =============================
 Patch ciblé : met à jour uniquement la colonne section_content_fr
@@ -63,16 +63,19 @@ def patch_role(session, role_slug: str, role_name: str):
 
         nb_resources = len(section_content["resources"])
 
+        resources = section_content.get("resources", [])
         result = session.execute(text("""
             UPDATE modules
             SET
                 section_content_fr = CAST(:section_content AS jsonb),
-                section_content_en = CAST(:section_content AS jsonb)
+                section_content_en = CAST(:section_content AS jsonb),
+                references_fr      = CAST(:references AS jsonb)
             WHERE
                 role = :role
                 AND title_fr = :title
         """), {
             "section_content": json.dumps(section_content, ensure_ascii=False),
+            "references":      json.dumps(resources, ensure_ascii=False),
             "role": role_name,
             "title": title,
         })

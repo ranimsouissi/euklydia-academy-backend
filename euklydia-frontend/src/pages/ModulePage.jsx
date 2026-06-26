@@ -608,10 +608,10 @@ export default function ModulePage() {
   const kpiTargets        = comparisonTables?.kpi_targets || null;
   const toolsTable        = comparisonTables?.tools || null;
   const workflowsTable    = comparisonTables?.workflows || null;
-  const tutorials = sectionContent?.tutorials?.length > 0 
-  ? sectionContent.tutorials 
-  : (moduleData?.tutorials_fr || []);
-  const resources  = sectionContent?.resources || [];
+  const tutorials = moduleData?.tutorials_fr?.length > 0
+  ? moduleData.tutorials_fr
+  : [];
+  const resources = moduleData?.references_fr || [];
   const practicalExercise = pick(moduleData?.practical_exercise_fr, moduleData?.practical_exercise_en);
   const progressUpdate    = moduleData?.progress_update_fr || null;
   const roleBasedExample  = pick(moduleData?.role_based_example_fr, moduleData?.role_based_example_en);

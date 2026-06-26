@@ -1,4 +1,4 @@
-# app/schemas/module.py
+﻿# app/schemas/module.py
 from __future__ import annotations
 
 from datetime import datetime
@@ -94,6 +94,7 @@ class ModuleRead(BaseModel):
     # tutorials : dette technique — à ajouter avant V2
     # tutorials_en: Optional[list] = None
     # tutorials_fr: Optional[list] = None
+    references_fr:         Optional[list] = None
 
     # ── Execution Task ───────────────────────────────────────
     execution_task_en: Optional[dict] = None   # description de la tâche
