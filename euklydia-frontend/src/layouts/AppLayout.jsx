@@ -67,6 +67,16 @@ export default function AppLayout() {
       return "U";
     }
   })();
+  const isAdmin = (() => {
+  try {
+    const raw = localStorage.getItem("auth_user");
+    if (!raw) return false;
+    const user = JSON.parse(raw);
+    return user?.role_id === 2 || user?.role === "admin";
+  } catch {
+    return false;
+  }
+})();
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -135,14 +145,26 @@ export default function AppLayout() {
               {menuOpen && (
                 <div className="absolute right-0 mt-3 w-48 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
                   <button
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate("/profile");
-                    }}
-                    className="block w-full px-4 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-50"
-                  >
-                    {t[language].profile}
-                  </button>
+  onClick={() => {
+    setMenuOpen(false);
+    navigate("/profile");
+  }}
+  className="block w-full px-4 py-3 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+>
+  {t[language].profile}
+</button>
+
+{isAdmin && (
+  <button
+    onClick={() => {
+      setMenuOpen(false);
+      navigate("/admin");
+    }}
+    className="block w-full px-4 py-3 text-left text-sm font-medium text-violet-700 transition hover:bg-violet-50"
+  >
+    {language === "fr" ? "Dashboard Admin" : "Admin Dashboard"}
+  </button>
+)}
 
                   <button
                     onClick={() => {
