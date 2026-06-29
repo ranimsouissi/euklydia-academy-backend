@@ -223,17 +223,25 @@ def update_section_progress(
             detail="Module non démarré — appelez /start d'abord"
         )
 
-    # ── Nouveau dict pour forcer la détection SQLAlchemy ─────
+    # ── Mettre à jour section_progress ───────────────────────
     current_sections = dict(progress.section_progress or {})
     current_sections[section_type] = status
     progress.section_progress = current_sections
     flag_modified(progress, "section_progress")
 
+    # ── Enregistrer le timestamp d'ouverture de la section ───
+    now = datetime.utcnow()
+    current_opened = dict(progress.section_opened_at or {})
+    if section_type not in current_opened:
+        current_opened[section_type] = now.isoformat()
+        progress.section_opened_at = current_opened
+        flag_modified(progress, "section_opened_at")
+
     # ── Recalculer progress_percent ──────────────────────────
     total     = len(VALID_SECTIONS)
     completed = sum(1 for s in current_sections.values() if s == "completed")
     progress.progress_percent = round((completed / total) * 100)
-    progress.updated_at = datetime.utcnow()
+    progress.updated_at = now
 
     db.commit()
     db.refresh(progress)
@@ -244,8 +252,8 @@ def update_section_progress(
         "status":           status,
         "section_progress": progress.section_progress,
         "progress_percent": progress.progress_percent,
+        "section_opened_at": progress.section_opened_at,
     }
-
 
 # ----------------------------------------------------------------
 # POST /modules/{module_id}/execution-task/submit

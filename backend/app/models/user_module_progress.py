@@ -51,6 +51,9 @@ class UserModuleProgress(Base):
     section_progress: Mapped[dict | None] = mapped_column(
         JSON, nullable=True
     )
+    section_opened_at: Mapped[dict | None] = mapped_column(
+    JSON, nullable=True
+)
 
     # ── Execution Task soumission ────────────────────────────
     execution_task_submitted: Mapped[bool | None] = mapped_column(
