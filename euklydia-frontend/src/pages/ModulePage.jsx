@@ -6,6 +6,7 @@ import {
   startModule,
   submitExecutionTask,
   completeModule,
+  updateSection,
 } from "../services/modules";
 import { getFullRecommendation } from "../services/sequencing";
 import {
@@ -305,6 +306,9 @@ export default function ModulePage() {
   const [copiedPromptId, setCopiedPromptId] = useState(null);
   const [missionSteps, setMissionSteps] = useState({});
   const [progressDone, setProgressDone] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+
+
 
   // ── Execution Task submission (nouvelle structure) ──────────────────────
   const [taskForm, setTaskForm] = useState({
@@ -327,6 +331,27 @@ export default function ModulePage() {
   })();
 
   const lang = language || "fr";
+
+// ── Stepper — navigation par étapes ────────────────────────────────────
+const STEPS = [
+  { key: "use_case",          label: lang === "fr" ? "Use Case"      : "Use Case" },
+  { key: "kpi",               label: lang === "fr" ? "KPI"           : "KPI" },
+  { key: "execution_content", label: lang === "fr" ? "Contenu"       : "Content" },
+  { key: "execution_task",    label: lang === "fr" ? "Mission"       : "Mission" },
+  { key: "kpi_measurement",   label: lang === "fr" ? "Mesure KPI"    : "KPI Measure" },
+  { key: "progress_update",   label: lang === "fr" ? "Bilan"         : "Summary" },
+];
+
+const goToStep = async (nextStep) => {
+  if (nextStep < 0 || nextStep >= STEPS.length) return;
+  const currentKey = STEPS[currentStep].key;
+  try {
+    await updateSection(moduleId, currentKey, "completed");
+  } catch { /* non-blocking */ }
+  setCurrentStep(nextStep);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 
   const t = {
     fr: {
@@ -672,6 +697,34 @@ export default function ModulePage() {
           ← {t[lang].back}
         </button>
 
+        {/* ══ STEPPER NAVIGATION ══ */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            {STEPS.map((step, idx) => (
+              <div key={step.key} className="flex items-center flex-1">
+                <div className="flex flex-col items-center">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all
+                    ${idx < currentStep ? "bg-emerald-500 border-emerald-500 text-white" :
+                      idx === currentStep ? "bg-euk-primary border-euk-primary text-white" :
+                      "bg-white border-slate-300 text-slate-400"}`}>
+                    {idx < currentStep ? "✓" : idx + 1}
+                  </div>
+                  <span className={`text-xs mt-1 hidden md:block font-medium
+                    ${idx === currentStep ? "text-euk-primary" : "text-slate-400"}`}>
+                    {step.label}
+                  </span>
+                </div>
+                {idx < STEPS.length - 1 && (
+                  <div className={`flex-1 h-0.5 mx-2 transition-all
+                    ${idx < currentStep ? "bg-emerald-500" : "bg-slate-200"}`} />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ══ ÉTAPE 0 : USE CASE ══ */}
+        {currentStep === 0 && (<>
         {/* ══ 1. HEADER ══ */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
           <div className="flex flex-wrap items-center gap-2">
@@ -822,7 +875,10 @@ export default function ModulePage() {
             )}
           </section>
         )}
+        </>)}
 
+        {/* ══ ÉTAPE 1 : KPI ══ */}
+        {currentStep === 1 && (<>
         {/* ══ 4. KPI BEFORE/AFTER ══ */}
         {kpiTargets && (
           <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
@@ -830,7 +886,10 @@ export default function ModulePage() {
             <ComparisonTableCard table={kpiTargets} />
           </section>
         )}
+        </>)}
 
+        {/* ══ ÉTAPE 2 : EXECUTION CONTENT ══ */}
+        {currentStep === 2 && (<>
         {/* ══ 5. AU PROGRAMME ══ */}
         {hasProgramContent && (
           <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
@@ -1041,6 +1100,10 @@ export default function ModulePage() {
     </div>
   </section>
 )}
+        </>)}
+
+        {/* ══ ÉTAPE 3 : EXECUTION TASK ══ */}
+        {currentStep === 3 && (<>
         {/* ══ SÉPARATEUR EXECUTION TASK ══ */}
         {practicalExercise && (
           <div className="mt-8 mb-2 flex items-center gap-3">
@@ -1233,7 +1296,10 @@ export default function ModulePage() {
             </div>
           </section>
         )}
+        </>)}
 
+        {/* ══ ÉTAPE 4 : KPI MEASUREMENT ══ */}
+        {currentStep === 4 && (<>
         {/* ══ 12. KPI MEASUREMENT ══ */}
         {(kpiMeasurement || kpiPattern) && (
           <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
@@ -1277,7 +1343,10 @@ export default function ModulePage() {
             )}
           </section>
         )}
+        </>)}
 
+        {/* ══ ÉTAPE 5 : PROGRESS UPDATE ══ */}
+        {currentStep === 5 && (<>
         {/* ══ 13. PROGRESS UPDATE ══ */}
         <section className="mt-6 mb-6 rounded-3xl border border-euk-primary/20 bg-gradient-to-br from-euk-primary/5 to-white p-6 shadow-sm md:p-8">
           <SectionHeader title={t[lang].progressTitle} subtitle={t[lang].progressSubtitle} />
@@ -1394,9 +1463,36 @@ export default function ModulePage() {
             )}
           </div>
         </section>
+        </>)}
+
+        {/* ══ NAVIGATION BUTTONS ══ */}
+        <div className="flex justify-between mt-8 mb-4">
+          <button
+            onClick={() => goToStep(currentStep - 1)}
+            disabled={currentStep === 0}
+            className="px-6 py-3 rounded-2xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition"
+          >
+            ← {lang === "fr" ? "Retour" : "Back"}
+          </button>
+          {currentStep < STEPS.length - 1 ? (
+            <button
+              onClick={() => goToStep(currentStep + 1)}
+              className="px-6 py-3 rounded-2xl bg-euk-primary text-sm font-bold text-white hover:bg-euk-deep transition"
+            >
+              {lang === "fr" ? "Suivant" : "Next"} →
+            </button>
+          ) : (
+            <button
+              onClick={handleMarkComplete}
+              disabled={progressDone}
+              className="px-6 py-3 rounded-2xl bg-emerald-500 text-sm font-bold text-white hover:bg-emerald-600 disabled:opacity-50 transition"
+            >
+              {progressDone ? "✓ Terminé" : lang === "fr" ? "Terminer le module" : "Complete module"}
+            </button>
+          )}
+        </div>
 
       </div>
-
       <TutorChat
         moduleId={parseInt(moduleId, 10)}
         userId={USER_ID}
