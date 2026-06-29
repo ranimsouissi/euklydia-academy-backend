@@ -1,4 +1,4 @@
-# app/api/v1/router.py
+﻿# app/api/v1/router.py
 from fastapi import APIRouter
 from app.api.v1.endpoints import health, auth, diagnostic
 from app.api.v1.endpoints import career_paths
@@ -11,6 +11,7 @@ from app.api.v1.endpoints import performance
 from app.api.v1.endpoints import sequencing
 from app.api.v1.endpoints import admin
 from app.api.v1.endpoints import recommendation
+from app.api.v1.endpoints import analytics
 
 api_router = APIRouter()
 api_router.include_router(health.router,            tags=["health"])
@@ -26,3 +27,4 @@ api_router.include_router(performance.router,       prefix="/performance",  tags
 api_router.include_router(sequencing.router,        prefix="/sequencing",   tags=["sequencing"])
 api_router.include_router(admin.router,             prefix="/admin",        tags=["admin"])
 api_router.include_router(recommendation.router,  prefix="/recommendation", tags=["recommendation"])
+api_router.include_router(analytics.router,        prefix="/analytics",      tags=["analytics"])
