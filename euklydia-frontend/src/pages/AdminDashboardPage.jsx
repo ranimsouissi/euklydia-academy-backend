@@ -19,6 +19,10 @@ export default function AdminDashboardPage() {
   const [selectedRole, setSelectedRole] = useState("AI Sales Specialist");
   const [roleData, setRoleData] = useState(null);
   const [roleLoading, setRoleLoading] = useState(false);
+  // ── Content Effectiveness state ──
+const [effectivenessModuleId, setEffectivenessModuleId] = useState(403);
+const [effectivenessData, setEffectivenessData] = useState(null);
+const [effectivenessLoading, setEffectivenessLoading] = useState(false);
 
   const ROLES = [
     "AI Sales Specialist",
@@ -141,6 +145,14 @@ export default function AdminDashboardPage() {
     } catch { /* non-blocking */ }
     finally { setRoleLoading(false); }
   };
+  const analyzeEffectiveness = async () => {
+  setEffectivenessLoading(true);
+  try {
+    const res = await apiFetch(`/api/v1/analytics/module/${effectivenessModuleId}`);
+    if (res?.ok) setEffectivenessData(await res.json());
+  } catch { /* non-blocking */ }
+  finally { setEffectivenessLoading(false); }
+};
 
   const trendColor = trend => {
     if (trend === "improving") return "border-emerald-200 bg-emerald-50 text-emerald-700";
@@ -424,6 +436,188 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
                   )}
+                </div>
+              )}
+            </div>
+          )}
+        </section>
+
+      {/* ─── 4. CONTENT EFFECTIVENESS SCORING ─── */}
+        <section className="mt-8 mb-8">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-lg font-bold text-euk-dark">
+              {lang === "fr" ? "Content Effectiveness Scoring" : "Content Effectiveness Scoring"}
+            </h2>
+            <div className="flex items-center gap-3">
+              <input
+                type="number"
+                value={effectivenessModuleId}
+                onChange={e => setEffectivenessModuleId(parseInt(e.target.value))}
+                className="w-28 rounded-xl border border-slate-200 px-3 py-2 text-sm text-euk-dark outline-none focus:border-euk-primary"
+                placeholder="Module ID"
+              />
+              <button
+                onClick={analyzeEffectiveness}
+                disabled={effectivenessLoading}
+                className="rounded-2xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700 disabled:opacity-50">
+                {effectivenessLoading
+                  ? (lang === "fr" ? "Analyse..." : "Analyzing...")
+                  : (lang === "fr" ? "Analyser l'efficacité" : "Analyze effectiveness")}
+              </button>
+            </div>
+          </div>
+
+          {effectivenessLoading && <Spinner color="border-emerald-600" />}
+
+          {effectivenessData && !effectivenessLoading && (
+            <div className="space-y-4">
+
+              {/* Score global */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <div className="text-base font-bold text-euk-dark mb-1">
+                      {effectivenessData.analysis?.module_id && `Module ${effectivenessData.analysis.module_id}`}
+                    </div>
+                    <p className="text-sm leading-6 text-slate-600">{effectivenessData.analysis?.summary}</p>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    {/* Score cercle */}
+                    <div className="flex flex-col items-center">
+                      <div className={`flex h-16 w-16 items-center justify-center rounded-full border-4 text-xl font-bold
+                        ${effectivenessData.analysis?.effectiveness_score >= 70
+                          ? "border-emerald-400 text-emerald-600"
+                          : effectivenessData.analysis?.effectiveness_score >= 40
+                          ? "border-amber-400 text-amber-600"
+                          : "border-red-400 text-red-600"}`}>
+                        {effectivenessData.analysis?.effectiveness_score ?? "—"}
+                      </div>
+                      <span className="mt-1 text-xs text-slate-500">Score</span>
+                    </div>
+                    {/* Flag */}
+                    <span className={`rounded-full border px-3 py-1 text-xs font-bold
+                      ${effectivenessData.analysis?.performance_flag === "good"
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                        : effectivenessData.analysis?.performance_flag === "needs_improvement"
+                        ? "border-amber-200 bg-amber-50 text-amber-700"
+                        : "border-red-200 bg-red-50 text-red-700"}`}>
+                      {effectivenessData.analysis?.performance_flag === "good" ? "🟢 Good"
+                        : effectivenessData.analysis?.performance_flag === "needs_improvement" ? "🟡 Needs improvement"
+                        : "🔴 Critical"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 métriques */}
+              <div className="grid gap-4 md:grid-cols-3">
+                {/* KPI */}
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">KPI Analysis</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{lang === "fr" ? "Complétion tâche" : "Task completion"}</span>
+                      <span className="font-bold text-euk-primary">
+                        {Math.round((effectivenessData.analysis?.kpi_analysis?.completion_rate || 0) * 100)}%
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{lang === "fr" ? "Mesure KPI" : "KPI measurement"}</span>
+                      <span className="font-bold text-euk-primary">
+                        {Math.round((effectivenessData.analysis?.kpi_analysis?.kpi_measurement_rate || 0) * 100)}%
+                      </span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 leading-5">
+                      {effectivenessData.analysis?.kpi_analysis?.evidence}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Time to mastery */}
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Time to Mastery</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{lang === "fr" ? "Temps moyen" : "Avg time"}</span>
+                      <span className="font-bold text-euk-primary">
+                        {effectivenessData.analysis?.time_to_mastery_analysis?.avg_minutes
+                          ? `${effectivenessData.analysis.time_to_mastery_analysis.avg_minutes} min`
+                          : "—"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Assessment</span>
+                      <span className="font-semibold text-slate-700">
+                        {effectivenessData.analysis?.time_to_mastery_analysis?.assessment ?? "—"}
+                      </span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 leading-5">
+                      {effectivenessData.analysis?.time_to_mastery_analysis?.evidence}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Drop-off */}
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">Drop-off Analysis</div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{lang === "fr" ? "Section critique" : "Critical section"}</span>
+                      <span className="font-bold text-red-600">
+                        {effectivenessData.analysis?.drop_off_analysis?.main_drop_off_section ?? "—"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{lang === "fr" ? "Taux abandon" : "Drop rate"}</span>
+                      <span className="font-bold text-red-600">
+                        {Math.round((effectivenessData.analysis?.drop_off_analysis?.drop_off_rate || 0) * 100)}%
+                      </span>
+                    </div>
+                    <div className="mt-2 text-xs text-slate-500 leading-5">
+                      {effectivenessData.analysis?.drop_off_analysis?.evidence}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommandations */}
+              {effectivenessData.analysis?.recommendations?.length > 0 && (
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-bold text-euk-dark mb-4">
+                    {lang === "fr" ? "Recommandations d'amélioration" : "Improvement recommendations"}
+                  </h3>
+                  <div className="grid gap-3 md:grid-cols-3">
+                    {effectivenessData.analysis.recommendations.map((r, i) => (
+                      <div key={i} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">💡</span>
+                          <span className="text-xs font-bold text-euk-dark">{r.type}</span>
+                          <span className={`ml-auto rounded-full border px-2 py-0.5 text-xs font-semibold ${priorityColor(r.priority)}`}>
+                            {priorityLabel(r.priority)}
+                          </span>
+                        </div>
+                        <div className="text-xs font-semibold text-slate-600 mb-1">{r.section}</div>
+                        <div className="text-xs text-slate-500 leading-5">{r.action}</div>
+                        <div className="mt-2 text-xs text-slate-400 italic">{r.evidence}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Flags */}
+              {effectivenessData.analysis?.flags?.length > 0 && (
+                <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                  <div className="text-xs font-bold uppercase tracking-wide text-amber-700 mb-2">
+                    ⚠️ {lang === "fr" ? "Alertes" : "Flags"}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {effectivenessData.analysis.flags.map((f, i) => (
+                      <span key={i} className="rounded-full border border-amber-300 bg-white px-3 py-1 text-xs font-semibold text-amber-700">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
