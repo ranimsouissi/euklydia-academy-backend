@@ -18,6 +18,7 @@ import AppLayout from "./layouts/AppLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import ModulePage from "./pages/ModulePage";
+import AdminRoute from "./components/AdminRoute";
 
 export default function App() {
   return (
@@ -45,7 +46,7 @@ export default function App() {
             <Route path="/learning/module/:moduleId/units" element={<ModulePage />} />
             <Route path="/diagnostic" element={<DiagnosticPage />} />
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/admin" element={<AdminDashboardPage />} /> {/* ← NEW */}
+            <Route path="/admin" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
           </Route>
         </Route>
 
