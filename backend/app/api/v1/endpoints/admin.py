@@ -34,18 +34,12 @@ router = APIRouter()
 def require_admin(current_user: User = Depends(get_current_user)) -> User:
     """
     Vérifie que l'utilisateur connecté est admin.
-    Adapte cette logique selon ton modèle User (champ is_admin, role, etc.)
     """
-    # Option A : si ton modèle User a un champ is_admin (booléen)
-    if hasattr(current_user, "is_admin") and not current_user.is_admin:
+    if not current_user.role or current_user.role.name != "admin":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Accès réservé aux administrateurs."
         )
-    # Option B : si tu utilises un champ role
-    if hasattr(current_user, "role") and current_user.role not in ("admin", "superadmin"):
-        # Si ni is_admin ni role → on laisse passer pour le dev (à sécuriser en prod)
-        pass
     return current_user
 
 

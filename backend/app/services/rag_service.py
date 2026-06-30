@@ -56,14 +56,19 @@ def get_module_chunk_ids(
 def search_chunks(
     db:           Session,
     module_id:    int,
-    section_type: str,        # gardé pour compatibilité de signature
+    section_type: str,
     embedding:    list[float],
     top_k:        int = 4
 ) -> list[dict]:
     """
-    Recherche les chunks RAG les plus pertinents pour un module.
-    Structure réelle : source_type='module' + source_id=module_id
+    Recherche les chunks RAG les plus pertinents pour un module,
+    filtrés par section du stepper.
+    Execution Task applique le contenu d'Execution Content — même pool RAG.
     """
+    effective_section_type = (
+        "execution_content" if section_type == "execution_task" else section_type
+    )
+
     vector_str = "[" + ",".join(map(str, embedding)) + "]"
 
     result = db.execute(
@@ -73,18 +78,54 @@ def search_chunks(
             "FROM content_chunks "
             "WHERE source_type = 'module' "
             "AND source_id = :module_id "
+            "AND metadata->>'section_type' = :section_type "
             "ORDER BY distance ASC LIMIT :top_k"
         ),
         {
-            "vec":       vector_str,
-            "module_id": module_id,
-            "top_k":     top_k
+            "vec":          vector_str,
+            "module_id":    module_id,
+            "section_type": effective_section_type,
+            "top_k":        top_k
         }
     )
     rows = [dict(row._mapping) for row in result]
 
-    relevant_rows = [r for r in rows if float(r.get("distance", 1.0)) < 0.7]
+    relevant_rows = [r for r in rows if float(r.get("distance", 1.0)) < 0.45]
     return relevant_rows if relevant_rows else []
+def find_best_module_match(
+    db:                Session,
+    embedding:         list[float],
+    exclude_module_id: int,
+    top_k:             int = 1
+) -> Optional[str]:
+    """
+    Recherche le module le plus pertinent sur tout le corpus,
+    en excluant le module actuel — utilisé pour le scope guard (Task 5).
+    Retourne le titre du module, ou None si rien de suffisamment pertinent.
+    """
+    vector_str = "[" + ",".join(map(str, embedding)) + "]"
+
+    result = db.execute(
+        text(
+            "SELECT metadata->>'module_title' AS module_title, "
+            "embedding <=> CAST(:vec AS vector) AS distance "
+            "FROM content_chunks "
+            "WHERE source_type = 'module' "
+            "AND source_id != :exclude_module_id "
+            "AND metadata->>'module_title' IS NOT NULL "
+            "ORDER BY distance ASC LIMIT :top_k"
+        ),
+        {
+            "vec":                vector_str,
+            "exclude_module_id":  exclude_module_id,
+            "top_k":              top_k
+        }
+    )
+    rows = [dict(row._mapping) for row in result]
+
+    if rows and float(rows[0].get("distance", 1.0)) < 0.7:
+        return rows[0]["module_title"]
+    return None
 
 
 def get_session_history(db: Session, session_id: int) -> list[dict]:
@@ -286,15 +327,22 @@ MODULES_CATALOGUE = "\n".join([
 
 
 def call_llm(
-    message:         str,
-    chunks:          list[dict],
-    history:         list[dict],
-    learner_profile: dict = None,
-    section_type:    str  = None,   # nouveau — Context Awareness
-    kpi_baseline:    str  = None,   # nouveau — Context Awareness
+    message:               str,
+    chunks:                list[dict],
+    history:               list[dict],
+    learner_profile:       dict = None,
+    section_type:          str  = None,
+    kpi_baseline:          str  = None,
+    redirect_module_title: str  = None,   # nouveau — Task 5
 ) -> str:
     # ── Garde : aucun chunk pertinent → question hors contexte ──
     if not chunks:
+        if redirect_module_title:
+            return (
+                "❌ Cette question semble hors du contexte de ce module.\n\n"
+                f"Elle correspond plutôt au module **{redirect_module_title}**.\n"
+                "Je vous invite à vous y rendre pour obtenir une réponse précise et ancrée dans son contenu."
+            )
         return (
             "❌ Cette question semble hors du contexte de ce module.\n\n"
             "Le contenu RAG de ce module ne couvre pas ce sujet.\n"
@@ -413,8 +461,8 @@ def detect_pain_point(
     db:           Session,
     session_id:   int,
     user_id:      int,
-    module_id:    int,        # remplace lesson_id
-    section_type: str,        # nouveau
+    module_id:    int,
+    section_type: str,
     user_message: str
 ):
     prompt = (
@@ -449,24 +497,21 @@ def detect_pain_point(
         db.execute(
             text(
                 "INSERT INTO pain_points "
-                "(user_id, session_id, module_id, section_type, "
+                "(module_id, section_type, "
                 "summary, category, severity, "
-                "confidence_score, raw_message, source, captured_at) "
+                "confidence_score, source, captured_at) "
                 "VALUES "
-                "(:user_id, :session_id, :module_id, :section_type, "
+                "(:module_id, :section_type, "
                 ":summary, :category, :severity, "
-                ":confidence_score, :raw_message, 'coaching_agent', NOW())"
+                ":confidence_score, 'coaching_agent', NOW())"
             ),
             {
-                "user_id":          user_id,
-                "session_id":       session_id,
                 "module_id":        module_id,
                 "section_type":     section_type,
                 "summary":          data["summary"],
                 "category":         data["category"],
                 "severity":         data["severity"],
                 "confidence_score": data.get("confidence_score", 0.8),
-                "raw_message":      user_message[:500]
             }
         )
         event = Event(

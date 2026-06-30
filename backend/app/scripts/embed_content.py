@@ -52,33 +52,36 @@ def get_embeddings_batch(texts: list[str]) -> list[list[float]]:
     return [item.embedding for item in response.data]
 
 
-def upsert_chunk(session, source_type, source_id, lang, chunk_text, metadata, embedding):
+def upsert_chunk(session, source_type, source_id, lang, chunk_text, metadata, embedding, citation_ref=None):
     """
     FIX : on utilise CAST(%(param)s AS jsonb) et CAST(%(param)s AS vector)
-    au lieu de :param::jsonb pour Ã©viter le conflit de syntaxe psycopg2/SQLAlchemy.
+    au lieu de :param::jsonb pour éviter le conflit de syntaxe psycopg2/SQLAlchemy.
     """
     embedding_str = "[" + ",".join(str(x) for x in embedding) + "]"
     metadata_str  = json.dumps(metadata, ensure_ascii=False)
 
     session.execute(text("""
         INSERT INTO content_chunks
-            (source_type, source_id, lang, chunk_text, metadata, embedding)
+            (source_type, source_id, lang, chunk_text, metadata, embedding, citation_ref)
         VALUES
             (:source_type, :source_id, :lang, :chunk_text,
              CAST(:metadata AS jsonb),
-             CAST(:embedding AS vector))
+             CAST(:embedding AS vector),
+             :citation_ref)
         ON CONFLICT (source_type, source_id, lang, md5(chunk_text))
         DO UPDATE SET
-            embedding  = EXCLUDED.embedding,
-            metadata   = EXCLUDED.metadata,
-            created_at = NOW()
+            embedding    = EXCLUDED.embedding,
+            metadata     = EXCLUDED.metadata,
+            citation_ref = EXCLUDED.citation_ref,
+            created_at   = NOW()
     """), {
-        "source_type": source_type,
-        "source_id":   source_id,
-        "lang":        lang,
-        "chunk_text":  chunk_text,
-        "metadata":    metadata_str,
-        "embedding":   embedding_str,
+        "source_type":  source_type,
+        "source_id":    source_id,
+        "lang":         lang,
+        "chunk_text":   chunk_text,
+        "metadata":     metadata_str,
+        "embedding":    embedding_str,
+        "citation_ref": citation_ref,
     })
 
 
@@ -111,7 +114,8 @@ def build_module_chunks(session):
             "source_id":   row.id,
             "lang":        LANG,
             "chunk_text":  "\n".join(parts),
-            "metadata":    {"module_title": row.title_fr, "level": row.level, "role": row.role},
+            "metadata":    {"module_title": row.title_fr, "level": row.level, "role": row.role, "section_type": "use_case"},
+            "citation_ref": f"{row.id}.module",
         })
 
     print(f"  â†’ {len(chunks)} chunks modules construits")
@@ -203,14 +207,102 @@ def build_tutorial_chunks(session):
                 "lang":        LANG,
                 "chunk_text":  "\n".join(parts),
                 "metadata":    {
-                    "module_title": row.title_fr,
-                    "role": row.role,
-                    "section": "tutorials",
-                    "tutorial_id": tuto.get("id", ""),
-                },
+    "module_title": row.title_fr,
+    "role": row.role,
+    "section_type": "execution_content",
+    "chunk_subtype": "tutorial",
+    "tutorial_id": tuto.get("id", ""),
+},
+"citation_ref": f"{row.id}.tutorial.{tuto.get('id', '')}",
             })
 
     print(f"  → {len(chunks)} chunks tutoriels construits")
+    return chunks
+def build_prompt_chunks(session):
+    rows = session.execute(text("""
+        SELECT id, title_fr, role, prompt_examples_fr
+        FROM modules
+        WHERE is_active = true
+          AND prompt_examples_fr IS NOT NULL
+    """)).fetchall()
+
+    chunks = []
+    for row in rows:
+        prompts = row.prompt_examples_fr
+        if not prompts:
+            continue
+        for prompt in prompts:
+            parts = [f"Template : {prompt.get('title', '')}"]
+            if prompt.get("use_case"):
+                parts.append(f"Cas d'usage : {prompt['use_case']}")
+            if prompt.get("content"):
+                parts.append(f"Contenu du prompt :\n{prompt['content']}")
+            if prompt.get("expected_output"):
+                parts.append(f"Résultat attendu : {prompt['expected_output']}")
+            if prompt.get("tools"):
+                parts.append(f"Outils : {', '.join(prompt['tools'])}")
+            if not parts:
+                continue
+            chunks.append({
+                "source_type": "module",
+                "source_id":   row.id,
+                "lang":        LANG,
+                "chunk_text":  "\n".join(parts),
+                "metadata":    {
+                    "module_title": row.title_fr,
+                    "role": row.role,
+                    "section_type": "execution_content",
+                    "chunk_subtype": "template",
+                    "prompt_id": prompt.get("id", ""),
+                },
+                "citation_ref": f"{row.id}.template.{prompt.get('id', '')}",
+            })
+
+    print(f"  → {len(chunks)} chunks templates construits")
+    return chunks
+def build_tools_workflows_chunks(session):
+    rows = session.execute(text("""
+        SELECT id, title_fr, role, comparison_tables_fr
+        FROM modules
+        WHERE is_active = true
+          AND comparison_tables_fr IS NOT NULL
+    """)).fetchall()
+
+    chunks = []
+    for row in rows:
+        tables = row.comparison_tables_fr
+        if not tables:
+            continue
+
+        for table_key in ["tools", "workflows"]:
+            table = tables.get(table_key)
+            if not table or not table.get("rows"):
+                continue
+
+            headers = table.get("headers", [])
+            for i, table_row in enumerate(table["rows"]):
+                line_parts = [
+                    f"{headers[j]} : {table_row[j]}"
+                    for j in range(min(len(headers), len(table_row)))
+                ]
+                chunk_text = f"{table.get('title', table_key)}\n" + "\n".join(line_parts)
+
+                chunks.append({
+                    "source_type": "module",
+                    "source_id":   row.id,
+                    "lang":        LANG,
+                    "chunk_text":  chunk_text,
+                    "metadata":    {
+                        "module_title": row.title_fr,
+                        "role": row.role,
+                        "section_type": "execution_content",
+                        "chunk_subtype": table_key,
+                        "row_index": i,
+                    },
+                    "citation_ref": f"{row.id}.{table_key}.{i}",
+                })
+
+    print(f"  → {len(chunks)} chunks tools/workflows construits")
     return chunks
 def build_resource_chunks(session):
     rows = session.execute(text("""
@@ -250,15 +342,167 @@ def build_resource_chunks(session):
                 "lang":        LANG,
                 "chunk_text":  "\n".join(parts),
                 "metadata":    {
-                    "module_title": row.title_fr,
-                    "role": row.role,
-                    "section": "resources",
-                    "resource_id": resource.get("id", ""),
-                    "resource_url": resource.get("url", ""),
-                },
+    "module_title": row.title_fr,
+    "role": row.role,
+    "section_type": "execution_content",
+    "chunk_subtype": "resource",
+    "resource_id": resource.get("id", ""),
+    "resource_url": resource.get("url", ""),
+},
+"citation_ref": f"{row.id}.resource.{resource.get('id', '')}",
             })
 
     print(f"  → {len(chunks)} chunks resources construits")
+    return chunks
+def build_use_case_chunks(session):
+    rows = session.execute(text("""
+        SELECT id, title_fr, role, section_content_fr
+        FROM modules
+        WHERE is_active = true
+          AND section_content_fr IS NOT NULL
+    """)).fetchall()
+
+    chunks = []
+    for row in rows:
+        section_content = row.section_content_fr
+        if not section_content:
+            continue
+
+        use_case = section_content.get("use_case_detail")
+        if not use_case:
+            continue
+
+        parts = []
+        if use_case.get("title"):
+            parts.append(f"Use Case : {use_case['title']}")
+        if use_case.get("narrative"):
+            parts.append(f"Problème business : {use_case['narrative']}")
+        if use_case.get("pain_points"):
+            pain_points_text = "\n".join(
+                f"- {p}" for p in use_case["pain_points"]
+            )
+            parts.append(f"Points de friction rencontrés :\n{pain_points_text}")
+
+        if not parts:
+            continue
+
+        chunks.append({
+            "source_type": "module",
+            "source_id":   row.id,
+            "lang":        LANG,
+            "chunk_text":  "\n".join(parts),
+            "metadata":    {
+                "module_title": row.title_fr,
+                "role": row.role,
+                "section_type": "use_case",
+            },
+            "citation_ref": f"{row.id}.use_case",
+        })
+
+    print(f"  → {len(chunks)} chunks use_case construits")
+    return chunks
+def build_kpi_chunks(session):
+    rows = session.execute(text("""
+        SELECT id, title_fr, role, section_content_fr, comparison_tables_fr
+        FROM modules
+        WHERE is_active = true
+    """)).fetchall()
+
+    chunks = []
+    for row in rows:
+        section_content = row.section_content_fr or {}
+        tables = row.comparison_tables_fr or {}
+
+        parts = []
+
+        kpi_pattern = section_content.get("kpi_pattern")
+        if kpi_pattern:
+            if kpi_pattern.get("description"):
+                parts.append(f"Méthode KPI : {kpi_pattern['description']}")
+            for level in kpi_pattern.get("levels", []):
+                parts.append(
+                    f"{level.get('level', '')} ({level.get('horizon', '')}) — "
+                    f"{level.get('type', '')} : {level.get('examples', '')}"
+                )
+
+        kpi_targets = tables.get("kpi_targets")
+        if kpi_targets and kpi_targets.get("rows"):
+            headers = kpi_targets.get("headers", [])
+            for kpi_row in kpi_targets["rows"]:
+                line = ", ".join(
+                    f"{headers[j]} : {kpi_row[j]}"
+                    for j in range(min(len(headers), len(kpi_row)))
+                )
+                parts.append(f"Objectif KPI — {line}")
+
+        # ── Milestone J0 (déclaration baseline) — appartient à la section KPI ──
+        method = section_content.get("kpi_measurement_method")
+        if method:
+            for milestone in method.get("milestones", []):
+                if milestone.get("when") == "J0":
+                    parts.append(f"J0 : {milestone.get('what', '')}")
+
+        if not parts:
+            continue
+
+        chunks.append({
+            "source_type": "module",
+            "source_id":   row.id,
+            "lang":        LANG,
+            "chunk_text":  "\n".join(parts),
+            "metadata":    {
+                "module_title": row.title_fr,
+                "role": row.role,
+                "section_type": "kpi",
+            },
+            "citation_ref": f"{row.id}.kpi",
+        })
+
+    print(f"  → {len(chunks)} chunks kpi construits")
+    return chunks
+def build_kpi_measurement_chunks(session):
+    rows = session.execute(text("""
+        SELECT id, title_fr, role, section_content_fr
+        FROM modules
+        WHERE is_active = true
+          AND section_content_fr IS NOT NULL
+    """)).fetchall()
+
+    chunks = []
+    for row in rows:
+        section_content = row.section_content_fr
+        if not section_content:
+            continue
+
+        method = section_content.get("kpi_measurement_method")
+        if not method:
+            continue
+
+        parts = []
+        if method.get("title"):
+            parts.append(f"Méthode de mesure : {method['title']}")
+        for milestone in method.get("milestones", []):
+            if milestone.get("when") == "J0":
+                continue  # J0 appartient à la section KPI, pas KPI Measurement
+            parts.append(f"{milestone.get('when', '')} : {milestone.get('what', '')}")
+
+        if not parts:
+            continue
+
+        chunks.append({
+            "source_type": "module",
+            "source_id":   row.id,
+            "lang":        LANG,
+            "chunk_text":  "\n".join(parts),
+            "metadata":    {
+                "module_title": row.title_fr,
+                "role": row.role,
+                "section_type": "kpi_measurement",
+            },
+            "citation_ref": f"{row.id}.kpi_measurement",
+        })
+
+    print(f"  → {len(chunks)} chunks kpi_measurement construits")
     return chunks
 
 # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -278,7 +522,12 @@ def run():
         all_chunks.extend(build_skill_chunks(session))
         all_chunks.extend(build_question_chunks(session))
         all_chunks.extend(build_tutorial_chunks(session))
+        all_chunks.extend(build_prompt_chunks(session)) 
+        all_chunks.extend(build_tools_workflows_chunks(session))
         all_chunks.extend(build_resource_chunks(session))
+        all_chunks.extend(build_use_case_chunks(session))
+        all_chunks.extend(build_kpi_chunks(session))
+        all_chunks.extend(build_kpi_measurement_chunks(session))
 
         total = len(all_chunks)
         print(f"\nâœ… Total : {total} chunks Ã  embedder")
@@ -307,6 +556,7 @@ def run():
                         chunk_text  = chunk["chunk_text"],
                         metadata    = chunk["metadata"],
                         embedding   = embedding,
+                        citation_ref = chunk.get("citation_ref"),
                     )
                     embedded += 1
 

@@ -73,6 +73,15 @@ def chat(
         embedding=embedding
     )
 
+    # ── Task 5 — Scope guard : trouver le module concerné si hors-scope ──
+    redirect_module_title = None
+    if not chunks:
+        redirect_module_title = rag_service.find_best_module_match(
+            db,
+            embedding=embedding,
+            exclude_module_id=req.module_id
+        )
+
     history         = rag_service.get_session_history(db, session_id)
     learner_profile = rag_service.get_learner_profile(db, req.user_id)
 
@@ -82,7 +91,8 @@ def chat(
         history=history,
         learner_profile=learner_profile,
         section_type=req.section_type,
-        kpi_baseline=session.kpi_baseline
+        kpi_baseline=session.kpi_baseline,
+        redirect_module_title=redirect_module_title
     )
 
     rag_service.save_chat(
@@ -119,7 +129,7 @@ def chat(
         citations=citations,
         pain_point_detected=False,
         off_topic=off_topic,
-        redirect_module=None
+        redirect_module=redirect_module_title
     )
 
 
