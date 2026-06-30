@@ -177,6 +177,43 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
     if (p === "medium") return tx.priorityMedium;
     return tx.priorityLow;
   };
+  const exportCSV = () => {
+  if (!overviewData && !roleData && !effectivenessData) {
+    alert(lang === "fr"
+  ? "Chargez au moins une section (Vue globale, Rôle, Module ou Effectiveness) avant d'exporter."
+  : "Load at least one section (Overview, Role, Module or Effectiveness) before exporting.");
+    return;
+  }
+  const rows = [];
+  rows.push(["Type", "Métrique", "Valeur"]);
+  if (overviewData?.global) {
+    rows.push(["Vue globale", "Apprenants total", overviewData.global.total_learners]);
+    rows.push(["Vue globale", "Mastery moyenne", `${overviewData.global.global_avg_mastery}%`]);
+    rows.push(["Vue globale", "Complétions", overviewData.global.learners_with_completion]);
+  }
+  if (roleData?.modules) {
+    roleData.modules.forEach(m => {
+      rows.push(["Module", m.title, `${m.completion_rate}% complétion`]);
+      rows.push(["Module", m.title, `${m.avg_mastery}% mastery`]);
+    });
+  }
+  if (effectivenessData?.analysis) {
+    const a = effectivenessData.analysis;
+    rows.push(["Effectiveness", `Module ${a.module_id}`, `Score: ${a.effectiveness_score}`]);
+    rows.push(["Effectiveness", "Flag", a.performance_flag]);
+    rows.push(["Effectiveness", "Drop-off section", a.drop_off_analysis?.main_drop_off_section || "—"]);
+  }
+  const csv = rows.map(r => r.map(c => `"${c}"`).join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `euklydia_analytics_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+const exportPDF = () => window.print();
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -189,7 +226,20 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-euk-dark md:text-3xl">{tx.title}</h1>
           <p className="mt-2 text-sm leading-6 text-slate-600">{tx.subtitle}</p>
-        </section>
+
+<div className="mt-4 flex gap-3">
+  <button
+    onClick={exportCSV}
+    className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+    ⬇ Export CSV
+  </button>
+  <button
+    onClick={exportPDF}
+    className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+    🖨 Export PDF
+  </button>
+</div>
+</section>
 
         {/* ─── 1. VUE GLOBALE ─── */}
         <section className="mt-6">
@@ -264,6 +314,7 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
               )}
             </div>
           )}
+          
         </section>
 
         {/* ─── 2. ANALYSE PAR RÔLE ─── */}
@@ -428,6 +479,7 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
                               <span className={`ml-auto rounded-full border px-2 py-0.5 text-xs font-semibold ${priorityColor(item.priority)}`}>
                                 {priorityLabel(item.priority)}
                               </span>
+                              
                             </div>
                             <div className="text-xs font-semibold text-slate-600 mb-1">{item.section}</div>
                             <div className="text-xs text-slate-500 leading-5">{item.reason}</div>
