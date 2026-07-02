@@ -530,46 +530,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "PMI — Practice Standard for Project Risk Management",
-    "type": "article",
-    "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
-    "description": "Référentiel officiel PMI de gestion des risques — base méthodologique des 6 catégories utilisées dans le Prompt 1 (risk discovery). Référence d'autorité mondiale.",
-    "tags": ["PMI", "PMBOK", "risques", "référence"]
+      {
+        "id": "r1",
+        "title": "PMI — Practice Standard for Project Risk Management",
+        "type": "article",
+        "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+        "description": "Référentiel officiel PMI de gestion des risques — base méthodologique des 6 catégories utilisées dans le Prompt 1 (risk discovery). Référence d'autorité mondiale.",
+        "tags": [
+          "PMI",
+          "PMBOK",
+          "risques",
+          "référence"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "PMI — Pulse of the Profession (études annuelles)",
+        "type": "article",
+        "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+        "description": "Études annuelles PMI sur les facteurs de succès et d'échec des projets — sources statistiques pour calibrer les Predictive Risk Models.",
+        "tags": [
+          "PMI",
+          "statistiques",
+          "projets",
+          "benchmark"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Monday.com — Templates Risk Register configurables",
+        "type": "tool",
+        "url": "https://monday.com/templates/project-management",
+        "description": "Templates de registre des risques avec champs custom (probabilité, impact, owner, statut) — alternative à Notion/Asana pour le suivi opérationnel des risques.",
+        "tags": [
+          "risk register",
+          "templates",
+          "suivi",
+          "Monday.com"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Monday.com — Automations pour notification des risques",
+        "type": "article",
+        "url": "https://monday.com/automations",
+        "description": "Recettes d'automation pour notifier les owners de risques quand un seuil est franchi — complément direct au Workflow 2 (veille continue).",
+        "tags": [
+          "automation",
+          "notification",
+          "owner",
+          "risques"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "PMI-RMP — Certification Risk Management Professional",
+        "type": "article",
+        "url": "https://www.pmi.org/certifications/risk-management-rmp",
+        "description": "Domaines de compétence officiels du risk manager PMI-RMP — référence pour les apprenants souhaitant approfondir ou se certifier en gestion des risques.",
+        "tags": [
+          "PMI-RMP",
+          "certification",
+          "risk manager",
+          "compétences"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "PMI — Pulse of the Profession (études annuelles)",
-    "type": "article",
-    "url": "https://www.pmi.org/learning/thought-leadership/pulse",
-    "description": "Études annuelles PMI sur les facteurs de succès et d'échec des projets — sources statistiques pour calibrer les Predictive Risk Models.",
-    "tags": ["PMI", "statistiques", "projets", "benchmark"]
-  },
-  {
-    "id": "r3",
-    "title": "Monday.com — Templates Risk Register configurables",
-    "type": "tool",
-    "url": "https://monday.com/templates/project-management",
-    "description": "Templates de registre des risques avec champs custom (probabilité, impact, owner, statut) — alternative à Notion/Asana pour le suivi opérationnel des risques.",
-    "tags": ["risk register", "templates", "suivi", "Monday.com"]
-  },
-  {
-    "id": "r4",
-    "title": "Monday.com — Automations pour notification des risques",
-    "type": "article",
-    "url": "https://monday.com/automations",
-    "description": "Recettes d'automation pour notifier les owners de risques quand un seuil est franchi — complément direct au Workflow 2 (veille continue).",
-    "tags": ["automation", "notification", "owner", "risques"]
-  },
-  {
-    "id": "r5",
-    "title": "PMI-RMP — Certification Risk Management Professional",
-    "type": "article",
-    "url": "https://www.pmi.org/certifications/risk-management-rmp",
-    "description": "Domaines de compétence officiels du risk manager PMI-RMP — référence pour les apprenants souhaitant approfondir ou se certifier en gestion des risques.",
-    "tags": ["PMI-RMP", "certification", "risk manager", "compétences"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT + Notion",
+      "steps": [
+        "Prépare le brief projet enrichi : objectif, équipe, budget, délai, dépendances externes, contexte Maghreb",
+        "Colle le Prompt 1 (Risk Discovery) dans ChatGPT avec ton brief et génère la liste de 15 à 25 risques",
+        "Croise les risques générés avec les Predictive Risk Models pour calibrer les probabilités et impacts",
+        "Ajoute manuellement les risques contextuels Maghreb pertinents : Ramadan, coupures électricité, bus factor",
+        "Anime un atelier de 30 minutes avec ton équipe : chacun ajoute, priorise, et s'attribue un risque",
+        "Construis le risk register dans Notion : colonnes Risque, Probabilité, Impact, Responsable, Plan de mitigation"
+      ],
+      "title": "Conduis ton premier atelier risk discovery",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    },
+    {
+      "id": "t2",
+      "tool": "ChatGPT + Slack / Asana",
+      "steps": [
+        "Chaque lundi, exporte les messages Slack du canal projet et les tâches Asana de la semaine écoulée",
+        "Colle l'export dans ChatGPT avec le Prompt 2 (Détection Signaux Faibles)",
+        "Lis les signaux identifiés : retards cachés, tensions d'équipe, dépendances à risque",
+        "Pour chaque signal, décide d'une action : conversation à avoir, tâche à lancer, ou surveillance renforcée",
+        "Mets à jour le risk register avec les nouveaux signaux détectés et leur statut",
+        "Répète chaque semaine — en 4 semaines tu auras un historique de signaux précieux pour tes prochains projets"
+      ],
+      "title": "Détecte les signaux faibles en 15 minutes par semaine",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok",
+      "tags": [
+        "PMI",
+        "PMBOK",
+        "risques",
+        "référence"
+      ],
+      "type": "article",
+      "title": "PMI — Practice Standard for Project Risk Management",
+      "description": "Référentiel officiel PMI de gestion des risques — base méthodologique des 6 catégories utilisées dans le Prompt 1 (risk discovery). Référence d'autorité mondiale."
+    },
+    {
+      "id": "r2",
+      "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+      "tags": [
+        "PMI",
+        "statistiques",
+        "projets",
+        "benchmark"
+      ],
+      "type": "article",
+      "title": "PMI — Pulse of the Profession (études annuelles)",
+      "description": "Études annuelles PMI sur les facteurs de succès et d'échec des projets — sources statistiques pour calibrer les Predictive Risk Models."
+    },
+    {
+      "id": "r3",
+      "url": "https://monday.com/templates/project-management",
+      "tags": [
+        "risk register",
+        "templates",
+        "suivi",
+        "Monday.com"
+      ],
+      "type": "tool",
+      "title": "Monday.com — Templates Risk Register configurables",
+      "description": "Templates de registre des risques avec champs custom (probabilité, impact, owner, statut) — alternative à Notion/Asana pour le suivi opérationnel des risques."
+    },
+    {
+      "id": "r4",
+      "url": "https://monday.com/automations",
+      "tags": [
+        "automation",
+        "notification",
+        "owner",
+        "risques"
+      ],
+      "type": "article",
+      "title": "Monday.com — Automations pour notification des risques",
+      "description": "Recettes d'automation pour notifier les owners de risques quand un seuil est franchi — complément direct au Workflow 2 (veille continue)."
+    },
+    {
+      "id": "r5",
+      "url": "https://www.pmi.org/certifications/risk-management-rmp",
+      "tags": [
+        "PMI-RMP",
+        "certification",
+        "risk manager",
+        "compétences"
+      ],
+      "type": "article",
+      "title": "PMI-RMP — Certification Risk Management Professional",
+      "description": "Domaines de compétence officiels du risk manager PMI-RMP — référence pour les apprenants souhaitant approfondir ou se certifier en gestion des risques."
+    }
+  ]
 }

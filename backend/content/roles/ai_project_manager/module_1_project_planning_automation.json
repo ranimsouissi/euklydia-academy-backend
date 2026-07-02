@@ -9,7 +9,6 @@
     "Mini-roadmap visuelle migration cloud (exemple Tutoriel 1) — section_content.tutorial_1_visual_example",
     "Références externes (Notion AI guides + Asana project templates) — section_content.external_references"
   ],
-
   "display_order": 1,
   "title": "Project Planning Automation",
   "skill_name": "AI Project Planning",
@@ -19,25 +18,15 @@
   "journey_stage": "Cycle de pilotage — Planification",
   "is_active": true,
   "next_recommended_module": "Risk Identification",
-
   "description": "Apprends à construire un plan projet IA-augmenté en moins de 1 heure : décomposition automatique en phases et tâches, estimations appuyées par des projets similaires, mapping des dépendances, intégration directe dans Notion, Asana ou ClickUp. Tu libères 50 à 70 % de ton temps de planification pour des activités à plus forte valeur ajoutée.",
-
   "learning_objective": "À l'issue de ce module, l'apprenant sait (1) construire un plan projet complet en moins de 1h avec ChatGPT et un brief structuré, (2) recalibrer ses estimations à partir de l'historique de projets similaires, et (3) maintenir le plan à jour en continu via une boucle de revue.",
-
   "expected_outcome": "Réduction de 50 à 70 % du temps de création d'un plan projet (30-60 min vs 2-3 jours), précision des estimations améliorée (écart < 10 % vs 20-30 %), dépendances mappées dès le J0 (vs découvertes en cours de route).",
-
   "why_this_module": "Beaucoup de project managers au Maghreb passent plusieurs jours à structurer un nouveau plan projet : décomposition en phases, estimation des tâches, mapping des dépendances, allocation aux équipes. C'est un travail nécessaire mais répétitif qui prend du temps au détriment des activités à plus forte valeur ajoutée (coaching d'équipe, gestion des stakeholders, anticipation stratégique).",
-
   "recommended_when": "Quand tu démarres 2+ projets par mois, que ton temps moyen de création d'un plan dépasse 1 jour, ou que tes estimations ont régulièrement un écart de plus de 20 % avec le réel.",
-
   "role_based_example": "Karim, project manager dans une PME tech à Tunis, gère 3 équipes en parallèle. Quand un nouveau projet démarre, il passe 2 jours entiers à construire le planning sur Notion : il liste les tâches dans sa tête, les estime au feeling, mappe les dépendances en mode brainstorming. Le résultat est souvent incomplet, des tâches sont oubliées, les dépendances mal identifiées. Pendant ce temps, ses équipes attendent et il n'a pas le temps d'animer les sprint reviews. Avec ce module, Karim livre un plan complet en 1h et récupère du temps pour le coaching et les stakeholders.",
-
   "takeaway": "L'IA ne remplace pas la réflexion stratégique du PM, mais industrialise la partie répétitive de la planification (décomposition, estimation, dépendances). Le PM se recentre sur ce qu'il fait de mieux : le pilotage humain, la gestion des stakeholders, l'anticipation.",
-
   "action_point": "Cette semaine : choisis un projet à venir, prépare le brief structuré (objectif, livrables, équipe, contraintes), applique le Prompt 1 (roadmap) et le Prompt 2 (estimations recalibrées), et présente le plan à ton équipe en moins de 90 minutes.",
-
   "practical_application": "Application directe sur tes propres projets : pas de cas fictif. Tu utilises les prompts sur tes vrais briefs, tu mesures le temps économisé, et tu construis ta bibliothèque personnelle de plans templates par type de projet.",
-
   "key_concepts": [
     "Structure d'un plan projet professionnel (phases, jalons, livrables, dépendances)",
     "Construction d'un brief structuré pour génération IA",
@@ -47,53 +36,123 @@
     "Bibliothèque de plans templates par type de projet (dev, marketing, ops, transformation)",
     "Boucle de revue + ajustement automatique du plan en continu"
   ],
-
   "prompt_examples": [
     {
       "id": "prompt_1_roadmap",
       "title": "Prompt 1 — Génération de roadmap projet complète",
       "use_case": "Transformer un brief projet vague en roadmap structurée en moins de 1h",
-      "tags": ["roadmap", "planification", "PMP"],
+      "tags": [
+        "roadmap",
+        "planification",
+        "PMP"
+      ],
       "content": "Tu es un project manager senior certifié PMP avec 15 ans d'expérience.\nConstruis une roadmap projet complète et structurée.\n\nBRIEF PROJET :\n- Nom : [NOM_PROJET]\n- Objectif business : [OBJECTIF]\n- Livrables attendus : [LIVRABLES_PRINCIPAUX]\n- Deadline : [DATE_LIMITE]\n- Budget : [BUDGET]\n- Équipe disponible : [PROFILS_ET_NOMBRE]\n- Type de projet : [DEV / MARKETING / OPS / TRANSFORMATION]\n- Contraintes connues : [CONTRAINTES]\n\nGÉNÈRE UNE ROADMAP EN 6 SECTIONS :\n1. PHASES PROJET (4 à 6 phases macro)\n   Pour chaque phase : objectif, durée, livrables clés\n\n2. DÉCOMPOSITION EN TÂCHES (par phase)\n   Liste détaillée avec :\n   - Nom de la tâche\n   - Estimation (jours-homme)\n   - Profil requis\n   - Tâches prérequises\n\n3. JALONS CLÉS (3 à 5 milestones)\n   Date estimée + critère de validation\n\n4. DÉPENDANCES CRITIQUES\n   Identifier le chemin critique du projet\n\n5. RISQUES INITIAUX (top 5)\n   Probabilité × Impact + suggestion de mitigation\n\n6. RECOMMANDATIONS DE SUIVI\n   Cadence des points, KPI à tracker, format de reporting\n\nFORMAT DE SORTIE : tableau Markdown exploitable dans Notion",
-      "variables": ["NOM_PROJET", "OBJECTIF", "LIVRABLES_PRINCIPAUX", "DATE_LIMITE", "BUDGET", "PROFILS_ET_NOMBRE", "CONTRAINTES"],
+      "variables": [
+        "NOM_PROJET",
+        "OBJECTIF",
+        "LIVRABLES_PRINCIPAUX",
+        "DATE_LIMITE",
+        "BUDGET",
+        "PROFILS_ET_NOMBRE",
+        "CONTRAINTES"
+      ],
       "expected_output": "Roadmap 6 sections : phases, tâches, jalons, dépendances, risques, suivi",
-      "tools": ["ChatGPT (gratuit ou Plus)", "Notion / Asana / ClickUp"]
+      "tools": [
+        "ChatGPT (gratuit ou Plus)",
+        "Notion / Asana / ClickUp"
+      ]
     },
     {
       "id": "prompt_2_estimation",
       "title": "Prompt 2 — Estimation comparative basée sur projets similaires",
       "use_case": "Affiner les estimations d'un nouveau projet à partir de l'historique",
-      "tags": ["estimation", "historique", "recalibrage"],
+      "tags": [
+        "estimation",
+        "historique",
+        "recalibrage"
+      ],
       "content": "Tu es un project manager senior expert en estimation.\nAffine les estimations de mon nouveau projet à partir de l'historique.\n\nNOUVEAU PROJET :\n- Type : [TYPE_PROJET]\n- Scope : [DESCRIPTION_DETAILLEE]\n- Complexité ressentie : [FAIBLE / MOYENNE / ÉLEVÉE]\n\nPROJETS SIMILAIRES TERMINÉS (historique) :\nPour chacun, fournis :\n- Nom : [PROJET_X]\n- Type : [TYPE]\n- Estimé initial : [JOURS-HOMME]\n- Réel final : [JOURS-HOMME]\n- Écart : [%]\n- Cause principale d'écart : [CAUSE]\n\nPROJET 1 : ...\nPROJET 2 : ...\nPROJET 3 : ...\n\nGÉNÈRE :\n1. ESTIMATION RÉCALIBRÉE\n   - Estimation optimiste : [J/H]\n   - Estimation réaliste : [J/H]\n   - Estimation pessimiste : [J/H]\n   - Recommandation officielle (avec marge de sécurité) : [J/H]\n\n2. ZONES À RISQUE\n   Tâches/phases historiquement sous-estimées\n\n3. APPRENTISSAGES À APPLIQUER\n   Top 3 leçons des projets précédents à intégrer\n\n4. CONFIANCE GLOBALE\n   Note de 1 à 10 sur la fiabilité de l'estimation",
-      "variables": ["TYPE_PROJET", "DESCRIPTION_DETAILLEE", "PROJET_X", "TYPE"],
+      "variables": [
+        "TYPE_PROJET",
+        "DESCRIPTION_DETAILLEE",
+        "PROJET_X",
+        "TYPE"
+      ],
       "expected_output": "Estimation recalibrée (3 fourchettes) + zones à risque + apprentissages + confiance",
-      "tools": ["ChatGPT", "Historique des projets terminés"]
+      "tools": [
+        "ChatGPT",
+        "Historique des projets terminés"
+      ]
     },
     {
       "id": "prompt_3_mise_a_jour",
       "title": "Prompt 3 — Mise à jour automatique du plan projet",
       "use_case": "Mettre à jour le plan projet à chaque sprint review sans tout refaire",
-      "tags": ["mise à jour", "agile", "pilotage"],
+      "tags": [
+        "mise à jour",
+        "agile",
+        "pilotage"
+      ],
       "content": "Tu es un project manager senior, expert en pilotage agile.\nMets à jour mon plan projet en intégrant les nouveaux éléments.\n\nPLAN ACTUEL :\n[COLLER_LE_PLAN_PROJET_ACTUEL]\n\nÉVÉNEMENTS DEPUIS LE DERNIER POINT :\n- Tâches terminées : [LISTE]\n- Tâches en cours : [LISTE_AVEC_AVANCEMENT]\n- Blocages identifiés : [DESCRIPTION]\n- Changements de scope : [AJOUTS_OU_RETRAITS]\n- Ressources modifiées : [DÉPARTS / ARRIVÉES]\n\nMA QUESTION :\n[POSE_TA_QUESTION_SPÉCIFIQUE]\n(ex : « la deadline du 30 juin est-elle encore tenable ? »)\n\nGÉNÈRE LA MISE À JOUR :\n1. STATUT GLOBAL (Vert / Jaune / Rouge)\n   Avec justification chiffrée\n\n2. IMPACT DES ÉVÉNEMENTS\n   Sur quoi chaque événement modifie le plan\n\n3. PLAN RÉVISÉ\n   Phases / jalons / dates mis à jour\n\n4. RECOMMANDATIONS D'ACTIONS\n   - Quick wins (cette semaine)\n   - Décisions à arbitrer (avec sponsor)\n   - Risques à monitorer de près\n\n5. COMMUNICATION SUGGÉRÉE\n   Brouillon de message Slack à l'équipe + email aux stakeholders",
-      "variables": ["COLLER_LE_PLAN_PROJET_ACTUEL", "LISTE", "LISTE_AVEC_AVANCEMENT", "DESCRIPTION", "AJOUTS_OU_RETRAITS", "POSE_TA_QUESTION_SPÉCIFIQUE"],
+      "variables": [
+        "COLLER_LE_PLAN_PROJET_ACTUEL",
+        "LISTE",
+        "LISTE_AVEC_AVANCEMENT",
+        "DESCRIPTION",
+        "AJOUTS_OU_RETRAITS",
+        "POSE_TA_QUESTION_SPÉCIFIQUE"
+      ],
       "expected_output": "Mise à jour 5 sections : statut, impacts, plan révisé, actions, communication",
-      "tools": ["ChatGPT", "Notion / Asana / ClickUp"]
+      "tools": [
+        "ChatGPT",
+        "Notion / Asana / ClickUp"
+      ]
     }
   ],
-
   "practical_exercise": {
     "title": "Mission : Génère un plan projet complet en 1h sur un projet réel",
     "duration_minutes": 90,
-    "tools_required": ["ChatGPT (gratuit)", "Notion ou Asana"],
+    "tools_required": [
+      "ChatGPT (gratuit)",
+      "Notion ou Asana"
+    ],
     "objective": "Construire un plan projet IA-augmenté sur un projet réel en moins de 90 minutes, l'importer dans Notion/Asana, et obtenir la validation de ton équipe ou sponsor.",
     "steps": [
-      {"n": 1, "title": "Choix du projet", "description": "Choisis un projet à venir (idéalement à démarrer dans les 2 semaines)."},
-      {"n": 2, "title": "Sélection de l'Execution Timeline Model", "description": "Sélectionne le modèle adapté (Dev / Marketing / Ops / Strategic) dans la bibliothèque Euklydia pour partir d'une base structurée."},
-      {"n": 3, "title": "Brief structuré", "description": "Prépare le brief structuré (objectif, livrables, équipe, contraintes)."},
-      {"n": 4, "title": "Roadmap complète", "description": "Applique le Prompt 1 et obtiens la roadmap complète en 6 sections."},
-      {"n": 5, "title": "Recalibrage des estimations", "description": "Applique le Prompt 2 pour recalibrer les 5 estimations principales (en utilisant 3+ projets similaires terminés)."},
-      {"n": 6, "title": "Import dans l'outil", "description": "Importe le plan dans Notion ou Asana avec les dépendances identifiées."},
-      {"n": 7, "title": "Présentation et validation", "description": "Présente le plan à ton équipe (ou sponsor) et collecte le feedback."}
+      {
+        "n": 1,
+        "title": "Choix du projet",
+        "description": "Choisis un projet à venir (idéalement à démarrer dans les 2 semaines)."
+      },
+      {
+        "n": 2,
+        "title": "Sélection de l'Execution Timeline Model",
+        "description": "Sélectionne le modèle adapté (Dev / Marketing / Ops / Strategic) dans la bibliothèque Euklydia pour partir d'une base structurée."
+      },
+      {
+        "n": 3,
+        "title": "Brief structuré",
+        "description": "Prépare le brief structuré (objectif, livrables, équipe, contraintes)."
+      },
+      {
+        "n": 4,
+        "title": "Roadmap complète",
+        "description": "Applique le Prompt 1 et obtiens la roadmap complète en 6 sections."
+      },
+      {
+        "n": 5,
+        "title": "Recalibrage des estimations",
+        "description": "Applique le Prompt 2 pour recalibrer les 5 estimations principales (en utilisant 3+ projets similaires terminés)."
+      },
+      {
+        "n": 6,
+        "title": "Import dans l'outil",
+        "description": "Importe le plan dans Notion ou Asana avec les dépendances identifiées."
+      },
+      {
+        "n": 7,
+        "title": "Présentation et validation",
+        "description": "Présente le plan à ton équipe (ou sponsor) et collecte le feedback."
+      }
     ],
     "success_criteria": [
       "Plan projet complet livré en moins de 90 minutes (vs 2-3 jours en manuel)",
@@ -102,40 +161,117 @@
     ],
     "maghreb_note": "Pour les équipes hybrides Tunis-Casablanca-Alger, intègre dans le brief les contraintes de calendrier régional (Ramadan, fêtes nationales différentes selon les pays, weekends Vendredi-Samedi vs Samedi-Dimanche). ChatGPT les intègre bien si tu les mentionnes explicitement. Pour les PME avec budgets serrés, demande au prompt de proposer une version « MVP » et une version « complète » de la roadmap."
   },
-
   "comparison_tables": {
     "tools": {
       "title": "Outils — Comparatif Maghreb",
-      "headers": ["Outil", "Pricing", "Usage", "Note Maghreb"],
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
       "rows": [
-        ["ChatGPT / Claude", "Free / 20 USD/mois", "Génération de roadmap, estimations, mises à jour plan", "Free tier suffisant pour démarrer"],
-        ["Notion + Notion AI", "Free / 10 USD/utilisateur/mois", "Plan projet, base de tâches, timeline, documentation", "Free tier convient à un PM solo"],
-        ["Asana", "Free (jusqu'à 15 users) / 11-25 USD/user", "Gestion de projets et sprints avec IA intégrée", "Carte internationale requise pour Premium"],
-        ["ClickUp", "Free / 7-12 USD/user/mois", "Alternative complète : tâches + docs + objectifs + IA", "Free tier généreux, bon pour PME"],
-        ["Make / n8n", "Free / 20 USD/mois", "Automatisation des syncs et mises à jour automatiques", "n8n self-hosted ~5 USD/VPS = quasi-gratuit"],
-        ["Loom (optionnel)", "Free / 12 USD/mois", "Vidéos de communication aux stakeholders", "Free tier 5 vidéos/mois suffit"]
+        [
+          "ChatGPT / Claude",
+          "Free / 20 USD/mois",
+          "Génération de roadmap, estimations, mises à jour plan",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Notion + Notion AI",
+          "Free / 10 USD/utilisateur/mois",
+          "Plan projet, base de tâches, timeline, documentation",
+          "Free tier convient à un PM solo"
+        ],
+        [
+          "Asana",
+          "Free (jusqu'à 15 users) / 11-25 USD/user",
+          "Gestion de projets et sprints avec IA intégrée",
+          "Carte internationale requise pour Premium"
+        ],
+        [
+          "ClickUp",
+          "Free / 7-12 USD/user/mois",
+          "Alternative complète : tâches + docs + objectifs + IA",
+          "Free tier généreux, bon pour PME"
+        ],
+        [
+          "Make / n8n",
+          "Free / 20 USD/mois",
+          "Automatisation des syncs et mises à jour automatiques",
+          "n8n self-hosted ~5 USD/VPS = quasi-gratuit"
+        ],
+        [
+          "Loom (optionnel)",
+          "Free / 12 USD/mois",
+          "Vidéos de communication aux stakeholders",
+          "Free tier 5 vidéos/mois suffit"
+        ]
       ]
     },
     "workflows": {
       "title": "Workflows — 2 niveaux de sophistication",
-      "headers": ["Workflow", "Outils", "Setup", "Coût/mois", "Niveau"],
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
       "rows": [
-        ["W1 : Bootstrap d'un plan projet en 1h (no-code)", "ChatGPT + Notion ou Asana", "20-30 min première fois", "0 à 30 USD selon outils", "Débutant"],
-        ["W2 : Mise à jour continue du plan (low-code)", "Asana/Jira API + Make/n8n + ChatGPT API + Slack + Notion", "3-5h première fois", "~30-50 USD/mois", "Intermédiaire"],
-        ["W2 low-cost Maghreb", "Asana free + n8n self-hosted + ChatGPT manuel + Slack", "4-6h première fois", "~5 USD/mois (VPS n8n)", "Intermédiaire"]
+        [
+          "W1 : Bootstrap d'un plan projet en 1h (no-code)",
+          "ChatGPT + Notion ou Asana",
+          "20-30 min première fois",
+          "0 à 30 USD selon outils",
+          "Débutant"
+        ],
+        [
+          "W2 : Mise à jour continue du plan (low-code)",
+          "Asana/Jira API + Make/n8n + ChatGPT API + Slack + Notion",
+          "3-5h première fois",
+          "~30-50 USD/mois",
+          "Intermédiaire"
+        ],
+        [
+          "W2 low-cost Maghreb",
+          "Asana free + n8n self-hosted + ChatGPT manuel + Slack",
+          "4-6h première fois",
+          "~5 USD/mois (VPS n8n)",
+          "Intermédiaire"
+        ]
       ]
     },
     "kpi_targets": {
       "title": "KPIs cibles — Baseline personnalisée → Cible",
-      "headers": ["Indicateur", "Niveau temporel", "Baseline (J0)", "Cible"],
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
       "rows": [
-        ["Temps de création d'un plan projet complet", "Court terme (J+14)", "À renseigner par l'apprenant", "30 à 60 min (vs 2-3 jours → -70 %)"],
-        ["Précision des estimations (vs réel)", "Moyen terme (J+30)", "Écart 20 à 30 %", "Écart < 10 %"],
-        ["Identification des dépendances", "Court terme (J+14)", "Découvertes en cours de route", "Mappées dès le J0"]
+        [
+          "Temps de création d'un plan projet complet",
+          "Court terme (J+14)",
+          "À renseigner par l'apprenant",
+          "30 à 60 min (vs 2-3 jours → -70 %)"
+        ],
+        [
+          "Précision des estimations (vs réel)",
+          "Moyen terme (J+30)",
+          "Écart 20 à 30 %",
+          "Écart < 10 %"
+        ],
+        [
+          "Identification des dépendances",
+          "Court terme (J+14)",
+          "Découvertes en cours de route",
+          "Mappées dès le J0"
+        ]
       ]
     }
   },
-
   "section_content": {
     "use_case_detail": {
       "title": "Le problème business",
@@ -153,18 +289,45 @@
       "title": "Pattern temporel des KPIs (3 niveaux)",
       "description": "Chaque module mesure ses KPIs sur trois niveaux temporels distincts, rendant le parcours défendable académiquement et crédible commercialement.",
       "levels": [
-        {"level": "Court terme", "type": "Productivité (temps gagné)", "horizon": "Mesurable J+14", "examples": "Temps de création du plan, dépendances identifiées au J0"},
-        {"level": "Moyen terme", "type": "Qualité (précision estimations)", "horizon": "Mesurable J+30", "examples": "Écart estimé/réel, satisfaction équipe sur le plan"},
-        {"level": "Long terme", "type": "Impact business (livraisons à temps)", "horizon": "Observatoire J+60", "examples": "% projets livrés à la deadline, dérive moyenne"}
+        {
+          "level": "Court terme",
+          "type": "Productivité (temps gagné)",
+          "horizon": "Mesurable J+14",
+          "examples": "Temps de création du plan, dépendances identifiées au J0"
+        },
+        {
+          "level": "Moyen terme",
+          "type": "Qualité (précision estimations)",
+          "horizon": "Mesurable J+30",
+          "examples": "Écart estimé/réel, satisfaction équipe sur le plan"
+        },
+        {
+          "level": "Long terme",
+          "type": "Impact business (livraisons à temps)",
+          "horizon": "Observatoire J+60",
+          "examples": "% projets livrés à la deadline, dérive moyenne"
+        }
       ]
     },
     "kpi_measurement_method": {
       "title": "Méthode de collecte des KPIs",
       "milestones": [
-        {"when": "J0", "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"},
-        {"when": "J+7", "what": "Rappel par email + notification in-app"},
-        {"when": "J+14", "what": "Formulaire de mesure d'impact auto-affiché + rappel"},
-        {"when": "J+30", "what": "Rappel pour KPIs moyen terme (précision estimations)"}
+        {
+          "when": "J0",
+          "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Formulaire de mesure d'impact auto-affiché + rappel"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel pour KPIs moyen terme (précision estimations)"
+        }
       ]
     },
     "tutorials": [
@@ -212,7 +375,13 @@
           "target_projects": "projets tech / logiciels",
           "duration_typical": "2 à 6 mois",
           "phases_count": 5,
-          "phases": ["Discovery", "Design", "Build", "Test", "Release"],
+          "phases": [
+            "Discovery",
+            "Design",
+            "Build",
+            "Test",
+            "Release"
+          ],
           "milestones": "Jalons hebdomadaires, sprints de 2 semaines, démos bi-hebdo",
           "ideal_for": "Projets logiciels 2-6 mois"
         },
@@ -222,7 +391,13 @@
           "target_projects": "projets marketing",
           "duration_typical": "4 à 12 semaines",
           "phases_count": 5,
-          "phases": ["Brief", "Concept", "Production", "Launch", "Measure"],
+          "phases": [
+            "Brief",
+            "Concept",
+            "Production",
+            "Launch",
+            "Measure"
+          ],
           "milestones": "Validation créa, go/no-go production, lancement, J+7 / J+14 / J+30 mesure",
           "ideal_for": "Campagnes 4-12 semaines"
         },
@@ -232,7 +407,14 @@
           "target_projects": "projets opérationnels",
           "duration_typical": "3 à 12 mois",
           "phases_count": 6,
-          "phases": ["Audit", "Design cible", "Pilot", "Rollout équipe 1", "Rollout équipes 2-N", "Stabilisation"],
+          "phases": [
+            "Audit",
+            "Design cible",
+            "Pilot",
+            "Rollout équipe 1",
+            "Rollout équipes 2-N",
+            "Stabilisation"
+          ],
           "milestones": "Validation pilote, go rollout, taux d'adoption 80 %",
           "ideal_for": "Transformations 3-12 mois"
         },
@@ -242,7 +424,12 @@
           "target_projects": "projets transformation",
           "duration_typical": "6 à 18 mois",
           "phases_count": 4,
-          "phases": ["Cadrage", "Plan détaillé", "Exécution multi-workstreams", "Hand-over"],
+          "phases": [
+            "Cadrage",
+            "Plan détaillé",
+            "Exécution multi-workstreams",
+            "Hand-over"
+          ],
           "milestones": "Jalons trimestriels, comités de pilotage mensuels, points sponsor bimensuels",
           "ideal_for": "Transformations 6-18 mois"
         }
@@ -256,24 +443,64 @@
       "pedagogical_usage": "L'apprenant choisit le modèle qui correspond le mieux à son projet réel pendant l'execution task, puis personnalise les phases et estimations avec les Prompts 1 et 2. Ces modèles incarnent le savoir-faire accumulé Euklydia et accélèrent significativement la production d'un plan complet.",
       "commercial_value": "Actif différenciant Euklydia : ces modèles préconçus représentent des heures de savoir-faire métier capitalisé, transformés en livrables exploitables immédiatement par l'apprenant."
     },
-
     "tutorial_1_visual_example": {
       "_v1_1_addition": true,
       "title": "Exemple visuel : mini-roadmap générée par le prompt 1",
       "source": "PDF v1.1 §2.4.3 (Tutoriel 1 enrichi)",
       "context": "Projet de migration cloud (PME tech, 4 mois, 5 personnes) — exemple concret de roadmap obtenue après application du Prompt 1.",
-      "table_headers": ["Phase", "Durée", "Livrable clé", "Tâches principales", "Profil requis", "Jalon de validation"],
+      "table_headers": [
+        "Phase",
+        "Durée",
+        "Livrable clé",
+        "Tâches principales",
+        "Profil requis",
+        "Jalon de validation"
+      ],
       "table_rows": [
-        {"phase": "1. Discovery", "duration": "2 sem.", "deliverable": "Audit état actuel", "main_tasks": "Inventaire infra, interviews équipes, doc as-is", "required_profile": "Lead PM + Tech lead", "validation_milestone": "Doc as-is signée sponsor"},
-        {"phase": "2. Design", "duration": "3 sem.", "deliverable": "Architecture cible", "main_tasks": "Schéma cible, choix providers, sécurité, FinOps", "required_profile": "Architecte + Tech lead", "validation_milestone": "Validation comité tech"},
-        {"phase": "3. Pilot", "duration": "4 sem.", "deliverable": "1 service migré", "main_tasks": "Migration service non-critique, tests, ajustements", "required_profile": "Dev senior + DevOps", "validation_milestone": "Pilote stable 7j"},
-        {"phase": "4. Rollout", "duration": "5 sem.", "deliverable": "Tous services migrés", "main_tasks": "Migration par lots, tests régression, formation", "required_profile": "Équipe complète", "validation_milestone": "100% services migrés"},
-        {"phase": "5. Stabilisation", "duration": "2 sem.", "deliverable": "Run optimisé", "main_tasks": "Monitoring, FinOps, doc finale, handover ops", "required_profile": "Tech lead + Ops", "validation_milestone": "KPI prod stables 14j"}
+        {
+          "phase": "1. Discovery",
+          "duration": "2 sem.",
+          "deliverable": "Audit état actuel",
+          "main_tasks": "Inventaire infra, interviews équipes, doc as-is",
+          "required_profile": "Lead PM + Tech lead",
+          "validation_milestone": "Doc as-is signée sponsor"
+        },
+        {
+          "phase": "2. Design",
+          "duration": "3 sem.",
+          "deliverable": "Architecture cible",
+          "main_tasks": "Schéma cible, choix providers, sécurité, FinOps",
+          "required_profile": "Architecte + Tech lead",
+          "validation_milestone": "Validation comité tech"
+        },
+        {
+          "phase": "3. Pilot",
+          "duration": "4 sem.",
+          "deliverable": "1 service migré",
+          "main_tasks": "Migration service non-critique, tests, ajustements",
+          "required_profile": "Dev senior + DevOps",
+          "validation_milestone": "Pilote stable 7j"
+        },
+        {
+          "phase": "4. Rollout",
+          "duration": "5 sem.",
+          "deliverable": "Tous services migrés",
+          "main_tasks": "Migration par lots, tests régression, formation",
+          "required_profile": "Équipe complète",
+          "validation_milestone": "100% services migrés"
+        },
+        {
+          "phase": "5. Stabilisation",
+          "duration": "2 sem.",
+          "deliverable": "Run optimisé",
+          "main_tasks": "Monitoring, FinOps, doc finale, handover ops",
+          "required_profile": "Tech lead + Ops",
+          "validation_milestone": "KPI prod stables 14j"
+        }
       ],
       "delivery_time": "Moins de 15 minutes via le Prompt 1",
       "next_step": "L'apprenant la personnalise ensuite (dates précises, noms d'équipiers, estimations affinées avec le Prompt 2) avant import dans Notion / Asana."
     },
-
     "external_references": {
       "_v1_1_addition": true,
       "title": "Références externes — Sources d'inspiration officielles",
@@ -283,63 +510,213 @@
         {
           "category": "Notion AI planning guides",
           "references": [
-            {"name": "Notion AI Help Center", "url_hint": "notion.so/help/notion-ai", "description": "Documentation officielle Notion AI — best practices Q&A, autofill, génération de tâches dans une base."},
-            {"name": "Notion Templates Gallery", "url_hint": "notion.so/templates", "description": "Templates de project management certifiés (Project Tracker, Sprint Planner, OKR Dashboard) utilisés comme bases de personnalisation."},
-            {"name": "Notion AI for Project Management — Blog Series", "url_hint": "notion.so/blog", "description": "Études de cas concrets d'usage de l'IA en planification."}
+            {
+              "name": "Notion AI Help Center",
+              "url_hint": "notion.so/help/notion-ai",
+              "description": "Documentation officielle Notion AI — best practices Q&A, autofill, génération de tâches dans une base."
+            },
+            {
+              "name": "Notion Templates Gallery",
+              "url_hint": "notion.so/templates",
+              "description": "Templates de project management certifiés (Project Tracker, Sprint Planner, OKR Dashboard) utilisés comme bases de personnalisation."
+            },
+            {
+              "name": "Notion AI for Project Management — Blog Series",
+              "url_hint": "notion.so/blog",
+              "description": "Études de cas concrets d'usage de l'IA en planification."
+            }
           ]
         },
         {
           "category": "Asana project templates",
           "references": [
-            {"name": "Asana Templates officiels", "url_hint": "asana.com/templates", "description": "Bibliothèque de templates par type de projet (product launch, marketing campaign, IT project)."},
-            {"name": "Asana Academy", "url_hint": "academy.asana.com", "description": "Formations gratuites sur la gestion de projet structurée (cadence, dependencies, milestones, portfolios)."},
-            {"name": "Asana Intelligence (AI features) documentation", "url_hint": "asana.com/product/ai", "description": "Smart summaries, smart fields, smart status pour automation native."}
+            {
+              "name": "Asana Templates officiels",
+              "url_hint": "asana.com/templates",
+              "description": "Bibliothèque de templates par type de projet (product launch, marketing campaign, IT project)."
+            },
+            {
+              "name": "Asana Academy",
+              "url_hint": "academy.asana.com",
+              "description": "Formations gratuites sur la gestion de projet structurée (cadence, dependencies, milestones, portfolios)."
+            },
+            {
+              "name": "Asana Intelligence (AI features) documentation",
+              "url_hint": "asana.com/product/ai",
+              "description": "Smart summaries, smart fields, smart status pour automation native."
+            }
           ]
         }
       ],
       "pedagogical_usage": "Ces références sont citées dans les tutoriels et utilisées comme matériel d'approfondissement pour les apprenants souhaitant aller au-delà du contenu Euklydia. Notion et Asana étant les deux outils principaux du module, leur documentation officielle est citée comme référence d'autorité."
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Notion AI — Documentation officielle planning",
-    "type": "article",
-    "url": "https://www.notion.so/help/notion-ai",
-    "description": "Documentation officielle Notion AI — best practices Q&A, autofill, génération de tâches dans une base. Complément direct au tutorial t1.",
-    "tags": ["Notion", "IA", "planification", "officiel"]
+      {
+        "id": "r1",
+        "title": "Notion AI — Documentation officielle planning",
+        "type": "article",
+        "url": "https://www.notion.so/help/notion-ai",
+        "description": "Documentation officielle Notion AI — best practices Q&A, autofill, génération de tâches dans une base. Complément direct au tutorial t1.",
+        "tags": [
+          "Notion",
+          "IA",
+          "planification",
+          "officiel"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Notion Templates — Project Tracker et Sprint Planner",
+        "type": "tool",
+        "url": "https://www.notion.so/templates/category/project-management",
+        "description": "Templates certifiés Notion pour la gestion de projet (Project Tracker, Sprint Planner, OKR Dashboard) — bases de personnalisation pour les Execution Timeline Models.",
+        "tags": [
+          "Notion",
+          "templates",
+          "sprint",
+          "OKR"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Asana Templates — Bibliothèque par type de projet",
+        "type": "tool",
+        "url": "https://asana.com/templates",
+        "description": "Bibliothèque officielle de templates Asana par type de projet (product launch, marketing campaign, IT project) — directement liée aux 4 Execution Timeline Models.",
+        "tags": [
+          "Asana",
+          "templates",
+          "projet",
+          "planification"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Asana Academy — Formations gratuites gestion de projet",
+        "type": "article",
+        "url": "https://academy.asana.com",
+        "description": "Formations gratuites sur la gestion de projet structurée : cadence, dependencies, milestones, portfolios — complémentaire au Prompt 1 (roadmap).",
+        "tags": [
+          "Asana",
+          "formation",
+          "gratuit",
+          "dépendances"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "ClickUp — Alternative gratuite Asana/Notion (PME Maghreb)",
+        "type": "tool",
+        "url": "https://clickup.com",
+        "description": "Outil de gestion de projet tout-en-un avec IA intégrée. Free tier très généreux — recommandé pour les PME Maghreb comme alternative à Asana Pro.",
+        "tags": [
+          "ClickUp",
+          "PME",
+          "Maghreb",
+          "free",
+          "IA"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Notion Templates — Project Tracker et Sprint Planner",
-    "type": "tool",
-    "url": "https://www.notion.so/templates/category/project-management",
-    "description": "Templates certifiés Notion pour la gestion de projet (Project Tracker, Sprint Planner, OKR Dashboard) — bases de personnalisation pour les Execution Timeline Models.",
-    "tags": ["Notion", "templates", "sprint", "OKR"]
-  },
-  {
-    "id": "r3",
-    "title": "Asana Templates — Bibliothèque par type de projet",
-    "type": "tool",
-    "url": "https://asana.com/templates",
-    "description": "Bibliothèque officielle de templates Asana par type de projet (product launch, marketing campaign, IT project) — directement liée aux 4 Execution Timeline Models.",
-    "tags": ["Asana", "templates", "projet", "planification"]
-  },
-  {
-    "id": "r4",
-    "title": "Asana Academy — Formations gratuites gestion de projet",
-    "type": "article",
-    "url": "https://academy.asana.com",
-    "description": "Formations gratuites sur la gestion de projet structurée : cadence, dependencies, milestones, portfolios — complémentaire au Prompt 1 (roadmap).",
-    "tags": ["Asana", "formation", "gratuit", "dépendances"]
-  },
-  {
-    "id": "r5",
-    "title": "ClickUp — Alternative gratuite Asana/Notion (PME Maghreb)",
-    "type": "tool",
-    "url": "https://clickup.com",
-    "description": "Outil de gestion de projet tout-en-un avec IA intégrée. Free tier très généreux — recommandé pour les PME Maghreb comme alternative à Asana Pro.",
-    "tags": ["ClickUp", "PME", "Maghreb", "free", "IA"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT + Notion",
+      "steps": [
+        "Remplis le brief structuré : nom du projet, objectif, livrable final, contraintes budget/délai, parties prenantes",
+        "Identifie le type de projet et sélectionne le bon Execution Timeline Model (Dev, Marketing, Ops, ou Strategic)",
+        "Colle le Prompt 1 (Plan Projet) dans ChatGPT avec ton brief complet et génère la roadmap",
+        "Lis la roadmap générée de manière critique : vérifie les dépendances, ajuste les durées selon ton contexte réel",
+        "Copie la roadmap dans Notion ou Asana en créant une tâche par jalon avec une date de livraison",
+        "Partage le plan avec ton équipe et note les ajustements demandés pour calibrer tes prochains prompts"
+      ],
+      "title": "Génère ton premier plan projet en 1h",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    },
+    {
+      "id": "t2",
+      "tool": "ChatGPT + Notion",
+      "steps": [
+        "Rassemble les données de 3 à 5 projets terminés : durée estimée, durée réelle, type de tâches, écarts",
+        "Structure ces données dans un tableau Notion : Projet, Type, Estimation initiale, Réel, Écart %",
+        "Colle le Prompt 2 (Recalibrage Estimations) dans ChatGPT avec ton tableau historique",
+        "Analyse les patterns d'écart identifiés : quels types de tâches sont systématiquement sous-estimés",
+        "Définis tes marges de sécurité personnalisées par type de tâche (ex: développement +30%, design +20%)",
+        "Applique ces marges sur ton prochain plan projet et compare avec ton estimation initiale sans historique"
+      ],
+      "title": "Recalibre tes estimations avec l'historique",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.notion.so/help/notion-ai",
+      "tags": [
+        "Notion",
+        "IA",
+        "planification",
+        "officiel"
+      ],
+      "type": "article",
+      "title": "Notion AI — Documentation officielle planning",
+      "description": "Documentation officielle Notion AI — best practices Q&A, autofill, génération de tâches dans une base. Complément direct au tutorial t1."
+    },
+    {
+      "id": "r2",
+      "url": "https://www.notion.so/templates/category/project-management",
+      "tags": [
+        "Notion",
+        "templates",
+        "sprint",
+        "OKR"
+      ],
+      "type": "tool",
+      "title": "Notion Templates — Project Tracker et Sprint Planner",
+      "description": "Templates certifiés Notion pour la gestion de projet (Project Tracker, Sprint Planner, OKR Dashboard) — bases de personnalisation pour les Execution Timeline Models."
+    },
+    {
+      "id": "r3",
+      "url": "https://asana.com/templates",
+      "tags": [
+        "Asana",
+        "templates",
+        "projet",
+        "planification"
+      ],
+      "type": "tool",
+      "title": "Asana Templates — Bibliothèque par type de projet",
+      "description": "Bibliothèque officielle de templates Asana par type de projet (product launch, marketing campaign, IT project) — directement liée aux 4 Execution Timeline Models."
+    },
+    {
+      "id": "r4",
+      "url": "https://academy.asana.com",
+      "tags": [
+        "Asana",
+        "formation",
+        "gratuit",
+        "dépendances"
+      ],
+      "type": "article",
+      "title": "Asana Academy — Formations gratuites gestion de projet",
+      "description": "Formations gratuites sur la gestion de projet structurée : cadence, dependencies, milestones, portfolios — complémentaire au Prompt 1 (roadmap)."
+    },
+    {
+      "id": "r5",
+      "url": "https://clickup.com",
+      "tags": [
+        "ClickUp",
+        "PME",
+        "Maghreb",
+        "free",
+        "IA"
+      ],
+      "type": "tool",
+      "title": "ClickUp — Alternative gratuite Asana/Notion (PME Maghreb)",
+      "description": "Outil de gestion de projet tout-en-un avec IA intégrée. Free tier très généreux — recommandé pour les PME Maghreb comme alternative à Asana Pro."
+    }
+  ]
 }

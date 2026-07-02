@@ -469,46 +469,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Brevo — Outil d'emailing gratuit (cartes locales acceptées)",
-    "type": "tool",
-    "url": "https://www.brevo.com",
-    "description": "Plateforme d'envoi d'emails et séquences multi-touch. Free tier jusqu'à 300 emails/jour — accepte les cartes bancaires locales TN/MA. Alternative recommandée à Lemlist pour le Maghreb.",
-    "tags": ["email", "séquence", "free", "Maghreb"]
+      {
+        "id": "r1",
+        "title": "Brevo — Outil d'emailing gratuit (cartes locales acceptées)",
+        "type": "tool",
+        "url": "https://www.brevo.com",
+        "description": "Plateforme d'envoi d'emails et séquences multi-touch. Free tier jusqu'à 300 emails/jour — accepte les cartes bancaires locales TN/MA. Alternative recommandée à Lemlist pour le Maghreb.",
+        "tags": [
+          "email",
+          "séquence",
+          "free",
+          "Maghreb"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Apollo.io — Identification et enrichissement de prospects",
+        "type": "tool",
+        "url": "https://www.apollo.io",
+        "description": "Outil de prospection B2B pour identifier et enrichir des prospects. Free tier : ~50 enrichissements/mois — suffisant pour démarrer.",
+        "tags": [
+          "prospection",
+          "enrichissement",
+          "free",
+          "B2B"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "WhatsApp Business — Guide de démarrage officiel",
+        "type": "article",
+        "url": "https://business.whatsapp.com/blog/how-to-get-started-with-whatsapp-business",
+        "description": "Guide officiel pour configurer WhatsApp Business — profil, catalogue, messages automatiques. Indispensable pour l'outreach au Maghreb.",
+        "tags": [
+          "WhatsApp",
+          "Maghreb",
+          "canal",
+          "setup"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Guide A/B testing cold email — Brevo",
+        "type": "article",
+        "url": "https://www.brevo.com/blog/ab-testing-email",
+        "description": "Comment tester plusieurs variantes d'objet et de contenu pour maximiser le reply rate sur vos séquences cold email.",
+        "tags": [
+          "A/B test",
+          "cold email",
+          "reply rate",
+          "optimisation"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Lemlist — Bibliothèque de templates cold email",
+        "type": "article",
+        "url": "https://lemlist.com/templates",
+        "description": "Bibliothèque de templates cold email B2B par secteur et persona — utile pour s'inspirer avant de personnaliser avec ChatGPT.",
+        "tags": [
+          "templates",
+          "cold email",
+          "persona",
+          "inspiration"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Apollo.io — Identification et enrichissement de prospects",
-    "type": "tool",
-    "url": "https://www.apollo.io",
-    "description": "Outil de prospection B2B pour identifier et enrichir des prospects. Free tier : ~50 enrichissements/mois — suffisant pour démarrer.",
-    "tags": ["prospection", "enrichissement", "free", "B2B"]
-  },
-  {
-    "id": "r3",
-    "title": "WhatsApp Business — Guide de démarrage officiel",
-    "type": "article",
-    "url": "https://business.whatsapp.com/blog/how-to-get-started-with-whatsapp-business",
-    "description": "Guide officiel pour configurer WhatsApp Business — profil, catalogue, messages automatiques. Indispensable pour l'outreach au Maghreb.",
-    "tags": ["WhatsApp", "Maghreb", "canal", "setup"]
-  },
-  {
-    "id": "r4",
-    "title": "Guide A/B testing cold email — Brevo",
-    "type": "article",
-    "url": "https://www.brevo.com/blog/ab-testing-email",
-    "description": "Comment tester plusieurs variantes d'objet et de contenu pour maximiser le reply rate sur vos séquences cold email.",
-    "tags": ["A/B test", "cold email", "reply rate", "optimisation"]
-  },
-  {
-    "id": "r5",
-    "title": "Lemlist — Bibliothèque de templates cold email",
-    "type": "article",
-    "url": "https://lemlist.com/templates",
-    "description": "Bibliothèque de templates cold email B2B par secteur et persona — utile pour s'inspirer avant de personnaliser avec ChatGPT.",
-    "tags": ["templates", "cold email", "persona", "inspiration"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT",
+      "steps": [
+        "Ouvre ChatGPT et colle le Prompt 1 (Cold Email Personnalisé) depuis la section Prompts ci-dessus",
+        "Remplace [NOM_PROSPECT], [ENTREPRISE], [SECTEUR] avec les infos de ton prospect réel",
+        "Remplace [PAIN_POINT] avec le problème spécifique identifié lors de ta recherche LinkedIn",
+        "Génère l'email et lis-le à voix haute — s'il sonne robotique, demande à ChatGPT de le reformuler plus naturellement",
+        "Copie l'email final dans ton outil d'envoi (Gmail, Brevo, ou Lemlist)",
+        "Mesure le temps total — tu devrais être sous les 5 minutes pour un email entièrement personnalisé"
+      ],
+      "title": "Génère ton premier cold email IA en 5 minutes",
+      "format": "guide pas-à-pas",
+      "duration_min": 10
+    },
+    {
+      "id": "t2",
+      "tool": "Lemlist",
+      "steps": [
+        "Connecte-toi à Lemlist (ou Brevo si tu utilises l'alternative Maghreb) et crée une nouvelle campagne",
+        "Nomme ta séquence : 'Outreach [Secteur cible] — [Mois]'",
+        "Ajoute l'étape 1 : Email J0 — colle ton cold email IA généré avec le Prompt 1",
+        "Ajoute l'étape 2 : Relance J+3 — email court de 3 lignes maximum avec une question ouverte",
+        "Ajoute l'étape 3 : Relance J+7 — email de breakup ('Je ne veux pas vous déranger...')",
+        "Importe ta liste de prospects (CSV) et lance la séquence sur 5 prospects test avant de scaler"
+      ],
+      "title": "Configure ta première séquence Lemlist multi-touch (+ alt. Brevo/Apollo)",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.brevo.com",
+      "tags": [
+        "email",
+        "séquence",
+        "free",
+        "Maghreb"
+      ],
+      "type": "tool",
+      "title": "Brevo — Outil d'emailing gratuit (cartes locales acceptées)",
+      "description": "Plateforme d'envoi d'emails et séquences multi-touch. Free tier jusqu'à 300 emails/jour — accepte les cartes bancaires locales TN/MA. Alternative recommandée à Lemlist pour le Maghreb."
+    },
+    {
+      "id": "r2",
+      "url": "https://www.apollo.io",
+      "tags": [
+        "prospection",
+        "enrichissement",
+        "free",
+        "B2B"
+      ],
+      "type": "tool",
+      "title": "Apollo.io — Identification et enrichissement de prospects",
+      "description": "Outil de prospection B2B pour identifier et enrichir des prospects. Free tier : ~50 enrichissements/mois — suffisant pour démarrer."
+    },
+    {
+      "id": "r3",
+      "url": "https://business.whatsapp.com/blog/how-to-get-started-with-whatsapp-business",
+      "tags": [
+        "WhatsApp",
+        "Maghreb",
+        "canal",
+        "setup"
+      ],
+      "type": "article",
+      "title": "WhatsApp Business — Guide de démarrage officiel",
+      "description": "Guide officiel pour configurer WhatsApp Business — profil, catalogue, messages automatiques. Indispensable pour l'outreach au Maghreb."
+    },
+    {
+      "id": "r4",
+      "url": "https://www.brevo.com/blog/ab-testing-email",
+      "tags": [
+        "A/B test",
+        "cold email",
+        "reply rate",
+        "optimisation"
+      ],
+      "type": "article",
+      "title": "Guide A/B testing cold email — Brevo",
+      "description": "Comment tester plusieurs variantes d'objet et de contenu pour maximiser le reply rate sur vos séquences cold email."
+    },
+    {
+      "id": "r5",
+      "url": "https://lemlist.com/templates",
+      "tags": [
+        "templates",
+        "cold email",
+        "persona",
+        "inspiration"
+      ],
+      "type": "article",
+      "title": "Lemlist — Bibliothèque de templates cold email",
+      "description": "Bibliothèque de templates cold email B2B par secteur et persona — utile pour s'inspirer avant de personnaliser avec ChatGPT."
+    }
+  ]
 }

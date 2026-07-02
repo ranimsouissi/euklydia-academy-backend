@@ -485,46 +485,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Atlassian Agile Coach — Guides Scrum et Sprint Planning",
-    "type": "article",
-    "url": "https://www.atlassian.com/agile",
-    "description": "Guides officiels Atlassian sur Scrum, Kanban, sprint planning et rétrospectives — référence méthodologique directe des 3 prompts du module.",
-    "tags": ["Scrum", "Kanban", "sprint", "rétrospective"]
+      {
+        "id": "r1",
+        "title": "Atlassian Agile Coach — Guides Scrum et Sprint Planning",
+        "type": "article",
+        "url": "https://www.atlassian.com/agile",
+        "description": "Guides officiels Atlassian sur Scrum, Kanban, sprint planning et rétrospectives — référence méthodologique directe des 3 prompts du module.",
+        "tags": [
+          "Scrum",
+          "Kanban",
+          "sprint",
+          "rétrospective"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Jira Software — Documentation officielle",
+        "type": "article",
+        "url": "https://support.atlassian.com/jira-software-cloud",
+        "description": "Documentation officielle Jira pour la configuration des sprints, custom fields et automation rules — complémentaire aux tutorials t1 et t2.",
+        "tags": [
+          "Jira",
+          "sprints",
+          "automation",
+          "configuration"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "ClickUp University — Formations gratuites productivité",
+        "type": "article",
+        "url": "https://university.clickup.com",
+        "description": "Formations gratuites sur la productivité d'équipe et l'usage avancé de ClickUp — alternative à Jira recommandée pour les équipes pluridisciplinaires.",
+        "tags": [
+          "ClickUp",
+          "formation",
+          "gratuit",
+          "productivité"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "ClickUp Templates — Sprint Planning et Team Workload",
+        "type": "tool",
+        "url": "https://clickup.com/templates",
+        "description": "Templates de workflows productivité (sprint planning, OKR tracking, team workload) — directement exploitables avec les Prompts 1 et 2.",
+        "tags": [
+          "ClickUp",
+          "templates",
+          "workload",
+          "OKR"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Looker Studio — Dashboard performance gratuit",
+        "type": "tool",
+        "url": "https://lookerstudio.google.com",
+        "description": "Outil gratuit Google pour construire un dashboard performance hebdomadaire d'équipe — cité dans comparison_tables comme solution gratuite.",
+        "tags": [
+          "dashboard",
+          "performance",
+          "gratuit",
+          "Google"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Jira Software — Documentation officielle",
-    "type": "article",
-    "url": "https://support.atlassian.com/jira-software-cloud",
-    "description": "Documentation officielle Jira pour la configuration des sprints, custom fields et automation rules — complémentaire aux tutorials t1 et t2.",
-    "tags": ["Jira", "sprints", "automation", "configuration"]
-  },
-  {
-    "id": "r3",
-    "title": "ClickUp University — Formations gratuites productivité",
-    "type": "article",
-    "url": "https://university.clickup.com",
-    "description": "Formations gratuites sur la productivité d'équipe et l'usage avancé de ClickUp — alternative à Jira recommandée pour les équipes pluridisciplinaires.",
-    "tags": ["ClickUp", "formation", "gratuit", "productivité"]
-  },
-  {
-    "id": "r4",
-    "title": "ClickUp Templates — Sprint Planning et Team Workload",
-    "type": "tool",
-    "url": "https://clickup.com/templates",
-    "description": "Templates de workflows productivité (sprint planning, OKR tracking, team workload) — directement exploitables avec les Prompts 1 et 2.",
-    "tags": ["ClickUp", "templates", "workload", "OKR"]
-  },
-  {
-    "id": "r5",
-    "title": "Looker Studio — Dashboard performance gratuit",
-    "type": "tool",
-    "url": "https://lookerstudio.google.com",
-    "description": "Outil gratuit Google pour construire un dashboard performance hebdomadaire d'équipe — cité dans comparison_tables comme solution gratuite.",
-    "tags": ["dashboard", "performance", "gratuit", "Google"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT + Jira / Asana",
+      "steps": [
+        "Exporte ton backlog depuis Jira ou Asana en CSV : colonnes Ticket, Description, Estimation, Valeur business",
+        "Copie les 20 à 50 tickets les plus récents dans un fichier texte structuré",
+        "Colle le Prompt 1 (Priorisation Eisenhower + RICE) dans ChatGPT avec ton backlog",
+        "Lis les recommandations générées : tickets à faire maintenant, à planifier, à déléguer, à supprimer",
+        "Vérifie les 5 premiers tickets recommandés — ajuste si le contexte métier n'est pas capturé par l'IA",
+        "Importe l'ordre de priorité final dans Jira ou Asana et partage avec ton équipe avant le sprint planning"
+      ],
+      "title": "Priorise 100 tickets en 10 minutes",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    },
+    {
+      "id": "t2",
+      "tool": "ChatGPT + Notion",
+      "steps": [
+        "Rassemble les données du sprint : velocity, taux de complétion, tickets non livrés, feedbacks équipe",
+        "Collecte les verbatims qualitatifs : ce qui a bien marché, ce qui a bloqué, ce que l'équipe veut changer",
+        "Colle le Prompt 3 (Rétrospective IA) dans ChatGPT avec les données quantitatives et qualitatives",
+        "Récupère le script de rétrospective généré : questions d'ouverture, points de discussion, actions suggérées",
+        "Anime la séance avec ton équipe en suivant le script — note les actions décidées collectivement",
+        "Capitalise les actions dans Notion avec un responsable et une date limite pour chaque action"
+      ],
+      "title": "Anime une rétrospective IA-augmentée",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.atlassian.com/agile",
+      "tags": [
+        "Scrum",
+        "Kanban",
+        "sprint",
+        "rétrospective"
+      ],
+      "type": "article",
+      "title": "Atlassian Agile Coach — Guides Scrum et Sprint Planning",
+      "description": "Guides officiels Atlassian sur Scrum, Kanban, sprint planning et rétrospectives — référence méthodologique directe des 3 prompts du module."
+    },
+    {
+      "id": "r2",
+      "url": "https://support.atlassian.com/jira-software-cloud",
+      "tags": [
+        "Jira",
+        "sprints",
+        "automation",
+        "configuration"
+      ],
+      "type": "article",
+      "title": "Jira Software — Documentation officielle",
+      "description": "Documentation officielle Jira pour la configuration des sprints, custom fields et automation rules — complémentaire aux tutorials t1 et t2."
+    },
+    {
+      "id": "r3",
+      "url": "https://university.clickup.com",
+      "tags": [
+        "ClickUp",
+        "formation",
+        "gratuit",
+        "productivité"
+      ],
+      "type": "article",
+      "title": "ClickUp University — Formations gratuites productivité",
+      "description": "Formations gratuites sur la productivité d'équipe et l'usage avancé de ClickUp — alternative à Jira recommandée pour les équipes pluridisciplinaires."
+    },
+    {
+      "id": "r4",
+      "url": "https://clickup.com/templates",
+      "tags": [
+        "ClickUp",
+        "templates",
+        "workload",
+        "OKR"
+      ],
+      "type": "tool",
+      "title": "ClickUp Templates — Sprint Planning et Team Workload",
+      "description": "Templates de workflows productivité (sprint planning, OKR tracking, team workload) — directement exploitables avec les Prompts 1 et 2."
+    },
+    {
+      "id": "r5",
+      "url": "https://lookerstudio.google.com",
+      "tags": [
+        "dashboard",
+        "performance",
+        "gratuit",
+        "Google"
+      ],
+      "type": "tool",
+      "title": "Looker Studio — Dashboard performance gratuit",
+      "description": "Outil gratuit Google pour construire un dashboard performance hebdomadaire d'équipe — cité dans comparison_tables comme solution gratuite."
+    }
+  ]
 }

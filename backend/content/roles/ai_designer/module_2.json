@@ -452,46 +452,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Nielsen Norman Group — 10 heuristiques d'utilisabilité",
-    "type": "article",
-    "url": "https://www.nngroup.com/articles/ten-usability-heuristics",
-    "description": "Référence officielle des 10 heuristiques de Nielsen — base méthodologique du Prompt 1 (audit heuristique). Source de vérité incontournable en UX.",
-    "tags": ["Nielsen", "heuristiques", "audit UX", "référence"]
+      {
+        "id": "r1",
+        "title": "Nielsen Norman Group — 10 heuristiques d'utilisabilité",
+        "type": "article",
+        "url": "https://www.nngroup.com/articles/ten-usability-heuristics",
+        "description": "Référence officielle des 10 heuristiques de Nielsen — base méthodologique du Prompt 1 (audit heuristique). Source de vérité incontournable en UX.",
+        "tags": [
+          "Nielsen",
+          "heuristiques",
+          "audit UX",
+          "référence"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Nielsen Norman Group — Matrice de priorisation des frictions",
+        "type": "article",
+        "url": "https://www.nngroup.com/articles/prioritization-matrices",
+        "description": "Framework Impact × Effort pour prioriser les frictions UX par ROI — intégré au mapping Insight → Action d'Euklydia.",
+        "tags": [
+          "priorisation",
+          "ROI",
+          "Impact × Effort",
+          "frictions"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Microsoft Clarity — Alternative gratuite à Hotjar",
+        "type": "tool",
+        "url": "https://clarity.microsoft.com",
+        "description": "Outil de heatmaps et session recordings 100 % gratuit — alternative recommandée à Hotjar pour le Maghreb. Aucune limite de sessions.",
+        "tags": [
+          "heatmaps",
+          "recordings",
+          "free",
+          "Maghreb"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Hotjar Learning Hub — Best practices UX",
+        "type": "article",
+        "url": "https://www.hotjar.com/learn",
+        "description": "Guide officiel Hotjar sur les heatmaps, session recordings et surveys — complément direct au tutorial t1 du module.",
+        "tags": [
+          "Hotjar",
+          "heatmaps",
+          "UX",
+          "best practices"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "NN/g — Discount Usability Engineering (tests n=5)",
+        "type": "article",
+        "url": "https://www.nngroup.com/articles/discount-usability",
+        "description": "Approche pragmatique de tests utilisateurs avec budget limité (5 utilisateurs suffisent) — idéal pour les équipes Maghreb sans budget test en labo.",
+        "tags": [
+          "tests utilisateurs",
+          "budget limité",
+          "n=5",
+          "pragmatique"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Nielsen Norman Group — Matrice de priorisation des frictions",
-    "type": "article",
-    "url": "https://www.nngroup.com/articles/prioritization-matrices",
-    "description": "Framework Impact × Effort pour prioriser les frictions UX par ROI — intégré au mapping Insight → Action d'Euklydia.",
-    "tags": ["priorisation", "ROI", "Impact × Effort", "frictions"]
-  },
-  {
-    "id": "r3",
-    "title": "Microsoft Clarity — Alternative gratuite à Hotjar",
-    "type": "tool",
-    "url": "https://clarity.microsoft.com",
-    "description": "Outil de heatmaps et session recordings 100 % gratuit — alternative recommandée à Hotjar pour le Maghreb. Aucune limite de sessions.",
-    "tags": ["heatmaps", "recordings", "free", "Maghreb"]
-  },
-  {
-    "id": "r4",
-    "title": "Hotjar Learning Hub — Best practices UX",
-    "type": "article",
-    "url": "https://www.hotjar.com/learn",
-    "description": "Guide officiel Hotjar sur les heatmaps, session recordings et surveys — complément direct au tutorial t1 du module.",
-    "tags": ["Hotjar", "heatmaps", "UX", "best practices"]
-  },
-  {
-    "id": "r5",
-    "title": "NN/g — Discount Usability Engineering (tests n=5)",
-    "type": "article",
-    "url": "https://www.nngroup.com/articles/discount-usability",
-    "description": "Approche pragmatique de tests utilisateurs avec budget limité (5 utilisateurs suffisent) — idéal pour les équipes Maghreb sans budget test en labo.",
-    "tags": ["tests utilisateurs", "budget limité", "n=5", "pragmatique"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "Hotjar",
+      "steps": [
+        "Crée un compte Hotjar (free tier : 35 sessions/jour) et copie le code de tracking généré",
+        "Colle le code dans le <head> de ton site ou demande à ton développeur de l'intégrer",
+        "Va dans Hotjar > Heatmaps > Créer une heatmap sur ta page la plus importante (accueil ou page produit)",
+        "Active l'enregistrement de sessions : Recordings > Créer un enregistrement sur la même page",
+        "Attends 48h minimum pour accumuler assez de données (au moins 20 sessions)",
+        "Analyse les zones rouges (clics fréquents) et les zones froides (ignorées) — note les 3 problèmes UX prioritaires"
+      ],
+      "title": "Configure Hotjar et lance ton premier audit en 30 min",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    },
+    {
+      "id": "t2",
+      "tool": "ChatGPT",
+      "steps": [
+        "Rassemble tes verbatims clients : avis Google, commentaires réseaux sociaux, emails support, réponses NPS",
+        "Copie 20 à 100 verbatims dans un fichier texte — un verbatim par ligne",
+        "Ouvre ChatGPT et colle le Prompt 2 (Analyse de verbatims) depuis la section Prompts ci-dessus",
+        "Colle tes verbatims dans le prompt et demande une analyse par thème : frustrations, compliments, suggestions",
+        "Récupère le tableau de synthèse généré : thème, fréquence, verbatim représentatif, recommandation UX",
+        "Priorise les 3 thèmes les plus fréquents et intègre-les dans ton prochain cycle de design"
+      ],
+      "title": "Analyse 100 verbatims clients en 20 minutes",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.nngroup.com/articles/ten-usability-heuristics",
+      "tags": [
+        "Nielsen",
+        "heuristiques",
+        "audit UX",
+        "référence"
+      ],
+      "type": "article",
+      "title": "Nielsen Norman Group — 10 heuristiques d'utilisabilité",
+      "description": "Référence officielle des 10 heuristiques de Nielsen — base méthodologique du Prompt 1 (audit heuristique). Source de vérité incontournable en UX."
+    },
+    {
+      "id": "r2",
+      "url": "https://www.nngroup.com/articles/prioritization-matrices",
+      "tags": [
+        "priorisation",
+        "ROI",
+        "Impact × Effort",
+        "frictions"
+      ],
+      "type": "article",
+      "title": "Nielsen Norman Group — Matrice de priorisation des frictions",
+      "description": "Framework Impact × Effort pour prioriser les frictions UX par ROI — intégré au mapping Insight → Action d'Euklydia."
+    },
+    {
+      "id": "r3",
+      "url": "https://clarity.microsoft.com",
+      "tags": [
+        "heatmaps",
+        "recordings",
+        "free",
+        "Maghreb"
+      ],
+      "type": "tool",
+      "title": "Microsoft Clarity — Alternative gratuite à Hotjar",
+      "description": "Outil de heatmaps et session recordings 100 % gratuit — alternative recommandée à Hotjar pour le Maghreb. Aucune limite de sessions."
+    },
+    {
+      "id": "r4",
+      "url": "https://www.hotjar.com/learn",
+      "tags": [
+        "Hotjar",
+        "heatmaps",
+        "UX",
+        "best practices"
+      ],
+      "type": "article",
+      "title": "Hotjar Learning Hub — Best practices UX",
+      "description": "Guide officiel Hotjar sur les heatmaps, session recordings et surveys — complément direct au tutorial t1 du module."
+    },
+    {
+      "id": "r5",
+      "url": "https://www.nngroup.com/articles/discount-usability",
+      "tags": [
+        "tests utilisateurs",
+        "budget limité",
+        "n=5",
+        "pragmatique"
+      ],
+      "type": "article",
+      "title": "NN/g — Discount Usability Engineering (tests n=5)",
+      "description": "Approche pragmatique de tests utilisateurs avec budget limité (5 utilisateurs suffisent) — idéal pour les équipes Maghreb sans budget test en labo."
+    }
+  ]
 }

@@ -2,7 +2,6 @@
   "$schema_version": "1.0",
   "role": "AI Sales Specialist",
   "source": "PDF Parcours AI Sales Specialist v1.1 — Mai 2026",
-
   "display_order": 1,
   "title": "Lead Qualification Automation",
   "skill_name": "Qualification IA des leads",
@@ -11,25 +10,15 @@
   "estimated_duration_min": 240,
   "format": "blended",
   "is_active": true,
-
   "description": "Apprends à qualifier tes leads B2B en Afrique du Nord avec l'IA, en utilisant des frameworks reconnus (BANT, fit produit, signaux d'achat) et en intégrant le scoring directement dans ton CRM. Tu passeras d'une qualification manuelle chronophage (10 min/lead) à un scoring structuré et reproductible (2-3 min/lead).",
-
   "learning_objective": "À l'issue de ce module, l'apprenant sait (1) qualifier ses leads avec des prompts IA structurés, et (2) automatiser ce scoring via un workflow intégré au CRM.",
-
   "expected_outcome": "Réduction de 70 à 85 % du temps de qualification par lead, +25 à +40 % d'amélioration relative du taux de conversion lead → opportunité (observatoire J+30/J+60), > 80 % des fiches enrichies.",
-
   "why_this_module": "Beaucoup d'équipes commerciales B2B en Afrique du Nord font face au même problème : un volume important de leads entrants et sortants, mais une qualification approximative et chronophage. Le commercial passe trop de temps sur des prospects à faible potentiel, ce qui dégrade le taux de conversion et démotive l'équipe.",
-
   "recommended_when": "Quand tu reçois 30+ leads/semaine, que tu passes plus de 5h/semaine à les qualifier manuellement, ou que ton taux de conversion lead → opportunité est inférieur à 15 %.",
-
   "role_based_example": "Karim, responsable commercial chez ABC Trading à Tunis (PME export agroalimentaire), reçoit chaque semaine entre 30 et 50 leads via son site web, des salons régionaux (Carthage Business Angels, GITEX Africa), et des recommandations bouche-à-oreille. Il passe en moyenne 10 minutes par lead à fouiller LinkedIn et son CRM, soit 5 à 8 heures par semaine perdues en qualification manuelle. Avec ce module, Karim divise son temps de qualification par 4 et structure une méthode reproductible pour son équipe.",
-
   "takeaway": "Un scoring IA bien construit (BANT + fit + signaux d'achat) transforme la qualification d'une activité subjective et chronophage en un processus rapide, reproductible et défendable auprès de l'équipe Marketing.",
-
   "action_point": "Cette semaine : sélectionne tes 10 derniers leads non qualifiés, applique le Prompt 1 (BANT) à chacun, et compare le score IA à ton intuition. Identifie au moins 3 leads où l'écart est ≥ 25 points.",
-
   "practical_application": "Application directe sur tes propres leads : pas de cas fictif. Tu utilises les prompts sur tes données CRM réelles, tu mesures le temps gagné, et tu reportes les scores dans ton CRM pour construire un historique défendable.",
-
   "key_concepts": [
     "Frameworks de qualification : BANT, fit produit, intent signals",
     "Prompts ChatGPT structurés pour évaluation de leads",
@@ -40,55 +29,137 @@
     "Mesure d'impact concret sur les KPIs commerciaux",
     "Adaptation au contexte B2B Afrique du Nord (cycles longs, références, relationnel)"
   ],
-
   "next_recommended_module": "Personalized Outreach at Scale",
-
   "prompt_examples": [
     {
       "id": "prompt_1_bant_scoring",
       "title": "Prompt 1 — BANT Scoring",
       "use_case": "Qualifier rapidement un nouveau lead selon BANT avec score sur 100",
-      "tags": ["BANT", "scoring", "qualification"],
+      "tags": [
+        "BANT",
+        "scoring",
+        "qualification"
+      ],
       "content": "Tu es un expert commercial B2B au Maghreb avec 15 ans d'expérience.\nÉvalue ce lead selon BANT et donne-moi un score sur 100 avec recommandation.\n\nLEAD :\n- Nom : [NOM_DU_CONTACT]\n- Poste : [POSTE]\n- Entreprise : [ENTREPRISE]\n- Secteur : [SECTEUR]\n- Taille : [TAILLE_EMPLOYES]\n- Pays : [PAYS]\n- Source : [SOURCE]\n- Message : [MESSAGE_DU_LEAD]\n- Budget évoqué (si connu) : [BUDGET]\n- Rôle dans la décision (si connu) : [ROLE_DECISION]\n\nMON OFFRE :\n- Nous vendons : [DESCRIPTION_OFFRE]\n- Cible idéale : [PROFIL_CLIENT_IDEAL]\n- Prix moyen avec devise (TND/MAD/DZD/EUR/USD) : [PRIX_MOYEN]\n\nCONSIGNE :\n1. BUDGET : capacité financière (0-25)\n2. AUTHORITY : pouvoir de décision (0-25)\n3. NEED : besoin réel et explicite (0-25)\n4. TIMELINE : délai d'achat (0-25)\nSi une info manque : scorer avec un signe ? et lister les manques.\n\nLOGIQUE DE DÉCISION (grille v2.0) :\n- Score ≥ 70 → Appel 24h (lead chaud)\n- Score 50-69 → Email cette semaine (lead tiède)\n- Score 30-49 → Nurturing (lead froid)\n- Score < 30 → Disqualifier (hors cible)\n\nFORMAT :\nSCORE : XX/100\nDÉTAIL : Budget XX/25 | Authority XX/25 | Need XX/25 | Timeline XX/25\nACTION : [selon grille ci-dessus]\nPOINTS DE VIGILANCE : [2-3 points]",
-      "variables": ["NOM_DU_CONTACT", "POSTE", "ENTREPRISE", "SECTEUR", "TAILLE_EMPLOYES", "PAYS", "SOURCE", "MESSAGE_DU_LEAD", "BUDGET", "ROLE_DECISION", "DESCRIPTION_OFFRE", "PROFIL_CLIENT_IDEAL", "PRIX_MOYEN"],
+      "variables": [
+        "NOM_DU_CONTACT",
+        "POSTE",
+        "ENTREPRISE",
+        "SECTEUR",
+        "TAILLE_EMPLOYES",
+        "PAYS",
+        "SOURCE",
+        "MESSAGE_DU_LEAD",
+        "BUDGET",
+        "ROLE_DECISION",
+        "DESCRIPTION_OFFRE",
+        "PROFIL_CLIENT_IDEAL",
+        "PRIX_MOYEN"
+      ],
       "expected_output": "Score sur 100 avec décomposition BANT + action recommandée + points de vigilance",
-      "tools": ["ChatGPT (gratuit ou Plus)"]
+      "tools": [
+        "ChatGPT (gratuit ou Plus)"
+      ]
     },
     {
       "id": "prompt_2_buying_signals",
       "title": "Prompt 2 — Buying Signals Detection",
       "use_case": "Détecter les signaux d'achat sur LinkedIn et le web pour prioriser un prospect",
-      "tags": ["signaux", "LinkedIn", "intent"],
+      "tags": [
+        "signaux",
+        "LinkedIn",
+        "intent"
+      ],
       "content": "Tu es un analyste commercial B2B au Maghreb spécialisé dans la détection de signaux d'achat.\n\nPROSPECT :\n- Nom : [NOM]\n- Poste : [POSTE]\n- Entreprise : [ENTREPRISE]\n- Ancienneté : [ANCIENNETE]\n- Infos LinkedIn copiées (résumé, expérience, posts récents) : [INFOS_LINKEDIN_COPIEES]\n\nENTREPRISE :\n- Activité : [DESCRIPTION]\n- Effectif : [EFFECTIF]\n- Croissance : [INDICATEUR_CROISSANCE]\n- Actualités 6 derniers mois (1-3 actualités factuelles avec date) : [ACTUALITES]\n- Postes ouverts : [RECRUTEMENTS]\n\nMON OFFRE : [DESCRIPTION_OFFRE]\n\nCONSIGNE :\n1. Identifie 3 à 5 signaux d'achat pertinents.\n2. Indique l'intensité : FORT / MOYEN / FAIBLE.\n3. Propose un angle d'approche commercial.\n   → Précise pour quel canal : email / LinkedIn / WhatsApp.\n4. Suggère 2 questions à poser au premier contact.",
-      "variables": ["NOM", "POSTE", "ENTREPRISE", "ANCIENNETE", "INFOS_LINKEDIN_COPIEES", "DESCRIPTION", "EFFECTIF", "INDICATEUR_CROISSANCE", "ACTUALITES", "RECRUTEMENTS", "DESCRIPTION_OFFRE"],
+      "variables": [
+        "NOM",
+        "POSTE",
+        "ENTREPRISE",
+        "ANCIENNETE",
+        "INFOS_LINKEDIN_COPIEES",
+        "DESCRIPTION",
+        "EFFECTIF",
+        "INDICATEUR_CROISSANCE",
+        "ACTUALITES",
+        "RECRUTEMENTS",
+        "DESCRIPTION_OFFRE"
+      ],
       "expected_output": "3-5 signaux d'achat avec intensité + angle d'approche par canal + questions",
-      "tools": ["ChatGPT", "LinkedIn Sales Navigator (optionnel)"]
+      "tools": [
+        "ChatGPT",
+        "LinkedIn Sales Navigator (optionnel)"
+      ]
     },
     {
       "id": "prompt_3_classification",
       "title": "Prompt 3 — Classification A/B/C/D",
       "use_case": "Trier rapidement un batch de 10-20 leads en 4 catégories de priorité",
-      "tags": ["classification", "priorisation", "batch"],
+      "tags": [
+        "classification",
+        "priorisation",
+        "batch"
+      ],
       "content": "Tu es un manager commercial B2B au Maghreb.\n\nCATÉGORIES (alignées sur grille BANT v2.0) :\n- A = Score ≥ 70 → Appel 24h (lead chaud)\n- B = Score 50-69 → Email cette semaine (lead tiède)\n- C = Score 30-49 → Nurturing (lead froid)\n- D = Score < 30 → Disqualifier (hors cible)\n\nMON OFFRE : [DESCRIPTION_OFFRE]\nCIBLE IDÉALE : [PROFIL_CLIENT_IDEAL]\nPAYS CIBLES : [PAYS]\n\nLISTE (max 20 leads par batch ; faire plusieurs batches si plus) :\nLead 1 :\n- Nom : [NOM] | Poste : [POSTE] | Entreprise : [ENTREPRISE]\n- Source : [SOURCE]\n- Notes (besoin exprimé + budget si évoqué + délai si mentionné) : [INFOS_BREVES]\nLead 2 : ...\n\nFORMAT : tableau Lead | Catégorie | Justification | Action\nSYNTHÈSE : Total A / B / C / D + Recommandation globale",
-      "variables": ["DESCRIPTION_OFFRE", "PROFIL_CLIENT_IDEAL", "PAYS", "NOM", "POSTE", "ENTREPRISE", "SOURCE", "INFOS_BREVES"],
+      "variables": [
+        "DESCRIPTION_OFFRE",
+        "PROFIL_CLIENT_IDEAL",
+        "PAYS",
+        "NOM",
+        "POSTE",
+        "ENTREPRISE",
+        "SOURCE",
+        "INFOS_BREVES"
+      ],
       "expected_output": "Tableau de classification + synthèse par catégorie",
-      "tools": ["ChatGPT"]
+      "tools": [
+        "ChatGPT"
+      ]
     }
   ],
-
   "practical_exercise": {
     "title": "Mission : Score tes 10 derniers leads avec BANT",
     "duration_minutes": 60,
-    "tools_required": ["ChatGPT (gratuit)", "Ton CRM ou un tableur"],
+    "tools_required": [
+      "ChatGPT (gratuit)",
+      "Ton CRM ou un tableur"
+    ],
     "objective": "Appliquer la méthode BANT IA sur tes vrais leads, mesurer objectivement le temps gagné, et construire un plan d'action concret sur 14 jours.",
     "steps": [
-      {"n": 1, "title": "Sélection des leads", "description": "Sélectionne tes 10 derniers leads non encore qualifiés."},
-      {"n": "1.5", "title": "Chronométrage baseline (anti-biais)", "description": "Chronomètre ton temps de qualification 'à l'ancienne' sur les 3 premiers leads (sans IA), puis chronomètre les 7 suivants avec le Prompt 1 BANT. → Mesure objective du temps gagné."},
-      {"n": 2, "title": "Préparation du bloc OFFRE", "description": "Prépare une fois pour toutes ton bloc « MON OFFRE » réutilisable (description + cible + prix moyen avec devise locale)."},
-      {"n": 3, "title": "Scoring avec BANT IA", "description": "Pour chaque lead : note d'abord ton intuition (X/100), puis applique le Prompt 1 BANT, et compare. L'écart révèle tes biais de jugement."},
-      {"n": 4, "title": "Reporting structuré", "description": "Reporte score, action recommandée et écart intuition vs IA dans le tableau de suivi."},
-      {"n": "4.5", "title": "Enrichissement des fiches", "description": "Pour chaque lead, note si la fiche CRM était complète avant (oui/non) et utilise le Prompt 2 (Buying Signals) pour enrichir. → Mesure objective du taux d'enrichissement."},
-      {"n": 5, "title": "Plan d'action 14 jours", "description": "Décide d'un plan d'action sur 14 jours : priorité A → appel 24h, B → email, C → nurturing, D → disqualifier."}
+      {
+        "n": 1,
+        "title": "Sélection des leads",
+        "description": "Sélectionne tes 10 derniers leads non encore qualifiés."
+      },
+      {
+        "n": "1.5",
+        "title": "Chronométrage baseline (anti-biais)",
+        "description": "Chronomètre ton temps de qualification 'à l'ancienne' sur les 3 premiers leads (sans IA), puis chronomètre les 7 suivants avec le Prompt 1 BANT. → Mesure objective du temps gagné."
+      },
+      {
+        "n": 2,
+        "title": "Préparation du bloc OFFRE",
+        "description": "Prépare une fois pour toutes ton bloc « MON OFFRE » réutilisable (description + cible + prix moyen avec devise locale)."
+      },
+      {
+        "n": 3,
+        "title": "Scoring avec BANT IA",
+        "description": "Pour chaque lead : note d'abord ton intuition (X/100), puis applique le Prompt 1 BANT, et compare. L'écart révèle tes biais de jugement."
+      },
+      {
+        "n": 4,
+        "title": "Reporting structuré",
+        "description": "Reporte score, action recommandée et écart intuition vs IA dans le tableau de suivi."
+      },
+      {
+        "n": "4.5",
+        "title": "Enrichissement des fiches",
+        "description": "Pour chaque lead, note si la fiche CRM était complète avant (oui/non) et utilise le Prompt 2 (Buying Signals) pour enrichir. → Mesure objective du taux d'enrichissement."
+      },
+      {
+        "n": 5,
+        "title": "Plan d'action 14 jours",
+        "description": "Décide d'un plan d'action sur 14 jours : priorité A → appel 24h, B → email, C → nurturing, D → disqualifier."
+      }
     ],
     "success_criteria": [
       "10 leads scorés en moins de 30 minutes total (vs 80-150 min en manuel)",
@@ -97,39 +168,111 @@
     ],
     "maghreb_note": "Si tes leads sont en arabe ou en mix arabe/français, traduis les infos clés en français avant de les coller dans le prompt — ChatGPT donne d'aussi bons résultats. Pour les leads de salons régionaux (Carthage Business Angels, GITEX Africa), ajoute la mention « rencontré en physique » dans le prompt — le scoring sera plus précis."
   },
-
   "comparison_tables": {
     "tools": {
       "title": "Outils — Comparatif et alternatives Afrique du Nord",
-      "headers": ["Outil", "Pricing", "Usage", "Note Maghreb"],
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
       "rows": [
-        ["ChatGPT", "Gratuit / Plus 20 USD/mois", "Exécution des 3 prompts BANT, signaux, classification", "Free tier suffisant pour démarrer"],
-        ["HubSpot CRM", "Free / Starter 18$ / Pro 90$", "Scoring IA + score manuel + workflows", "Carte internationale requise pour Pro"],
-        ["Zapier ou n8n", "Gratuit / 20 USD/mois Zapier ou self-hosted n8n", "Orchestration workflow scoring auto", "n8n self-hosted ~5 USD/VPS = quasi-gratuit"],
-        ["Apollo / Clearbit", "Apollo Free / 49 USD/mois", "Enrichissement données prospects", "Apollo free tier permet ~50 enrichissements/mois"],
-        ["Alternatives Maghreb", "Variable", "Salesforce Einstein, Zoho CRM Zia, Pipedrive", "Zoho CRM accepte cartes locales TN/DZ/MA"]
+        [
+          "ChatGPT",
+          "Gratuit / Plus 20 USD/mois",
+          "Exécution des 3 prompts BANT, signaux, classification",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "HubSpot CRM",
+          "Free / Starter 18$ / Pro 90$",
+          "Scoring IA + score manuel + workflows",
+          "Carte internationale requise pour Pro"
+        ],
+        [
+          "Zapier ou n8n",
+          "Gratuit / 20 USD/mois Zapier ou self-hosted n8n",
+          "Orchestration workflow scoring auto",
+          "n8n self-hosted ~5 USD/VPS = quasi-gratuit"
+        ],
+        [
+          "Apollo / Clearbit",
+          "Apollo Free / 49 USD/mois",
+          "Enrichissement données prospects",
+          "Apollo free tier permet ~50 enrichissements/mois"
+        ],
+        [
+          "Alternatives Maghreb",
+          "Variable",
+          "Salesforce Einstein, Zoho CRM Zia, Pipedrive",
+          "Zoho CRM accepte cartes locales TN/DZ/MA"
+        ]
       ]
     },
     "workflows": {
       "title": "Workflows — 2 niveaux de sophistication",
-      "headers": ["Workflow", "Outils", "Setup", "Coût/mois", "Niveau"],
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
       "rows": [
-        ["W1 : HubSpot AI Lead Scoring (no-code)", "HubSpot + ChatGPT", "15-20 min première fois", "0 à 90 USD selon plan HubSpot", "Débutant"],
-        ["W2 : Scoring auto via Zapier (low-code)", "HubSpot + Zapier + Apollo + OpenAI API + Slack", "2-4h première fois", "~180-200 USD/mois", "Intermédiaire"],
-        ["W2 low-cost Maghreb", "HubSpot + n8n + LinkedIn manuel + ChatGPT manuel + email", "3-5h première fois", "~5 USD/mois (VPS n8n)", "Intermédiaire"]
+        [
+          "W1 : HubSpot AI Lead Scoring (no-code)",
+          "HubSpot + ChatGPT",
+          "15-20 min première fois",
+          "0 à 90 USD selon plan HubSpot",
+          "Débutant"
+        ],
+        [
+          "W2 : Scoring auto via Zapier (low-code)",
+          "HubSpot + Zapier + Apollo + OpenAI API + Slack",
+          "2-4h première fois",
+          "~180-200 USD/mois",
+          "Intermédiaire"
+        ],
+        [
+          "W2 low-cost Maghreb",
+          "HubSpot + n8n + LinkedIn manuel + ChatGPT manuel + email",
+          "3-5h première fois",
+          "~5 USD/mois (VPS n8n)",
+          "Intermédiaire"
+        ]
       ]
     },
     "kpi_targets": {
       "title": "KPIs cibles — Baseline personnalisée → Cible J+14",
-      "headers": ["Indicateur", "Niveau temporel", "Baseline (J0)", "Cible"],
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
       "rows": [
-        ["Temps de qualification par lead", "Court terme (J+14)", "À renseigner par l'apprenant", "Réduction de 70 à 85 %"],
-        ["Taux d'enrichissement des fiches", "Court terme (J+14)", "À renseigner", "> 80 % des fiches enrichies"],
-        ["Taux de conversion lead → opportunité", "Observatoire (J+30/J+60)", "À renseigner", "+25 à +40 % d'amélioration relative"]
+        [
+          "Temps de qualification par lead",
+          "Court terme (J+14)",
+          "À renseigner par l'apprenant",
+          "Réduction de 70 à 85 %"
+        ],
+        [
+          "Taux d'enrichissement des fiches",
+          "Court terme (J+14)",
+          "À renseigner",
+          "> 80 % des fiches enrichies"
+        ],
+        [
+          "Taux de conversion lead → opportunité",
+          "Observatoire (J+30/J+60)",
+          "À renseigner",
+          "+25 à +40 % d'amélioration relative"
+        ]
       ]
     }
   },
-
   "section_content": {
     "use_case_detail": {
       "title": "Le problème business",
@@ -146,19 +289,49 @@
       "title": "Pattern temporel des KPIs (3 niveaux)",
       "description": "Chaque module mesure ses KPIs sur trois niveaux temporels distincts, rendant le parcours défendable académiquement et crédible commercialement.",
       "levels": [
-        {"level": "Court terme", "type": "Productivité (temps gagné)", "horizon": "Mesurable J+14", "examples": "Temps de qualification, temps de préparation"},
-        {"level": "Moyen terme", "type": "Qualité (data, fiches, notes)", "horizon": "Mesurable J+14", "examples": "Taux d'enrichissement, % appels documentés"},
-        {"level": "Long terme", "type": "Impact business (conversion, RDV, close)", "horizon": "Observatoire J+30/J+60", "examples": "Taux de conversion, close rate"}
+        {
+          "level": "Court terme",
+          "type": "Productivité (temps gagné)",
+          "horizon": "Mesurable J+14",
+          "examples": "Temps de qualification, temps de préparation"
+        },
+        {
+          "level": "Moyen terme",
+          "type": "Qualité (data, fiches, notes)",
+          "horizon": "Mesurable J+14",
+          "examples": "Taux d'enrichissement, % appels documentés"
+        },
+        {
+          "level": "Long terme",
+          "type": "Impact business (conversion, RDV, close)",
+          "horizon": "Observatoire J+30/J+60",
+          "examples": "Taux de conversion, close rate"
+        }
       ]
     },
     "kpi_measurement_method": {
       "title": "Méthode de collecte des KPIs",
       "milestones": [
-        {"when": "J0", "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"},
-        {"when": "J+7", "what": "Rappel par email + notification in-app"},
-        {"when": "J+14", "what": "Formulaire de mesure d'impact auto-affiché + rappel"},
-        {"when": "J+30", "what": "Rappel facultatif pour le KPI observatoire (taux de conversion)"},
-        {"when": "J+60", "what": "Rappel facultatif final + consolidation dashboard"}
+        {
+          "when": "J0",
+          "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Formulaire de mesure d'impact auto-affiché + rappel"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif pour le KPI observatoire (taux de conversion)"
+        },
+        {
+          "when": "J+60",
+          "what": "Rappel facultatif final + consolidation dashboard"
+        }
       ]
     },
     "tutorials": [
@@ -193,10 +366,7 @@
         ]
       }
     ],
-    
-
     "_v1_1_additions": "Les 2 sections ci-dessous (scoring_logic_templates, scoring_calibration_examples) sont les ajouts du PDF v1.1 — sections 2.4.2 et 2.4.3.",
-
     "scoring_logic_templates": {
       "title": "Scoring logic templates — 3 variantes sectorielles",
       "source": "PDF v1.1 §2.4.2",
@@ -207,11 +377,31 @@
           "name": "Template 1 — B2B Classique (PME, distribution, services)",
           "target": "Entreprises 10-200 salariés, ventes par commercial, cycles 1-3 mois",
           "criteria": [
-            {"name": "Fit secteur (ICP)", "weight": 20, "positive_signals": "Secteur cible · Taille cible · Localisation cible"},
-            {"name": "Pain explicite", "weight": 20, "positive_signals": "Problème exprimé · Frustration actuelle · Insatisfaction fournisseur"},
-            {"name": "Budget disponible", "weight": 20, "positive_signals": "Budget mentionné · Ligne CAPEX · Année fiscale favorable"},
-            {"name": "Pouvoir décisionnel", "weight": 20, "positive_signals": "Décideur direct · Influence interne · Sponsor projet"},
-            {"name": "Timeline", "weight": 20, "positive_signals": "Besoin < 3 mois · Projet déjà lancé · Deadline business"}
+            {
+              "name": "Fit secteur (ICP)",
+              "weight": 20,
+              "positive_signals": "Secteur cible · Taille cible · Localisation cible"
+            },
+            {
+              "name": "Pain explicite",
+              "weight": 20,
+              "positive_signals": "Problème exprimé · Frustration actuelle · Insatisfaction fournisseur"
+            },
+            {
+              "name": "Budget disponible",
+              "weight": 20,
+              "positive_signals": "Budget mentionné · Ligne CAPEX · Année fiscale favorable"
+            },
+            {
+              "name": "Pouvoir décisionnel",
+              "weight": 20,
+              "positive_signals": "Décideur direct · Influence interne · Sponsor projet"
+            },
+            {
+              "name": "Timeline",
+              "weight": 20,
+              "positive_signals": "Besoin < 3 mois · Projet déjà lancé · Deadline business"
+            }
           ]
         },
         {
@@ -219,11 +409,31 @@
           "name": "Template 2 — SaaS / Produit récurrent",
           "target": "Ventes par abonnement (MRR/ARR), modèles freemium ou trial, croissance product-led",
           "criteria": [
-            {"name": "Product-Market Fit", "weight": 25, "positive_signals": "Use case clair · Utilisateurs actifs prévus · Cas d'usage prouvé"},
-            {"name": "Engagement produit", "weight": 20, "positive_signals": "Trial actif · Onboarding complété · Features utilisées"},
-            {"name": "Capacité MRR", "weight": 20, "positive_signals": "Plan compatible · Croissance entreprise · Stack SaaS existante"},
-            {"name": "Champion interne", "weight": 20, "positive_signals": "Power user identifié · Promoteur interne · Demande venant du terrain"},
-            {"name": "Expansion potential", "weight": 15, "positive_signals": "Multi-équipe possible · Multi-sites · Extension features"}
+            {
+              "name": "Product-Market Fit",
+              "weight": 25,
+              "positive_signals": "Use case clair · Utilisateurs actifs prévus · Cas d'usage prouvé"
+            },
+            {
+              "name": "Engagement produit",
+              "weight": 20,
+              "positive_signals": "Trial actif · Onboarding complété · Features utilisées"
+            },
+            {
+              "name": "Capacité MRR",
+              "weight": 20,
+              "positive_signals": "Plan compatible · Croissance entreprise · Stack SaaS existante"
+            },
+            {
+              "name": "Champion interne",
+              "weight": 20,
+              "positive_signals": "Power user identifié · Promoteur interne · Demande venant du terrain"
+            },
+            {
+              "name": "Expansion potential",
+              "weight": 15,
+              "positive_signals": "Multi-équipe possible · Multi-sites · Extension features"
+            }
           ]
         },
         {
@@ -231,17 +441,40 @@
           "name": "Template 3 — Enterprise (Grands comptes, 500+ salariés)",
           "target": "Grands groupes, banques, télécoms, énergie. Cycles 6-18 mois, multi-décideurs",
           "criteria": [
-            {"name": "Strategic fit", "weight": 20, "positive_signals": "Aligné stratégie groupe · Priorité direction · Initiative transverse"},
-            {"name": "Buying committee", "weight": 20, "positive_signals": "3+ stakeholders identifiés · Champion + Sponsor + IT validés"},
-            {"name": "Procurement readiness", "weight": 20, "positive_signals": "Budget validé · RFP/AO en cours · Process achats lancé"},
-            {"name": "Compliance & Sécurité", "weight": 15, "positive_signals": "Conformité RGPD · Hébergement validé · Audit sécurité possible"},
-            {"name": "Integration complexity", "weight": 15, "positive_signals": "Stack identifié · APIs disponibles · Roadmap IT compatible"},
-            {"name": "Political risk", "weight": 10, "positive_signals": "Pas de blocker interne · Pas de concurrent en place · Direction motrice"}
+            {
+              "name": "Strategic fit",
+              "weight": 20,
+              "positive_signals": "Aligné stratégie groupe · Priorité direction · Initiative transverse"
+            },
+            {
+              "name": "Buying committee",
+              "weight": 20,
+              "positive_signals": "3+ stakeholders identifiés · Champion + Sponsor + IT validés"
+            },
+            {
+              "name": "Procurement readiness",
+              "weight": 20,
+              "positive_signals": "Budget validé · RFP/AO en cours · Process achats lancé"
+            },
+            {
+              "name": "Compliance & Sécurité",
+              "weight": 15,
+              "positive_signals": "Conformité RGPD · Hébergement validé · Audit sécurité possible"
+            },
+            {
+              "name": "Integration complexity",
+              "weight": 15,
+              "positive_signals": "Stack identifié · APIs disponibles · Roadmap IT compatible"
+            },
+            {
+              "name": "Political risk",
+              "weight": 10,
+              "positive_signals": "Pas de blocker interne · Pas de concurrent en place · Direction motrice"
+            }
           ]
         }
       ]
     },
-
     "scoring_calibration_examples": {
       "title": "« What good scoring looks like » — Exemples comparatifs",
       "source": "PDF v1.1 §2.4.3",
@@ -253,10 +486,26 @@
           "total_score": "85/100",
           "decision": "APPEL DANS LES 24H · Priorité A",
           "bant_breakdown": [
-            {"criterion": "Budget", "score": "22/25", "justification": "Mention explicite : « budget validé 50K€ pour Q2 »"},
-            {"criterion": "Authority", "score": "23/25", "justification": "Directrice Commerciale + signataire confirmée"},
-            {"criterion": "Need", "score": "22/25", "justification": "Pain point explicite : reply rate 3 % depuis 6 mois"},
-            {"criterion": "Timeline", "score": "18/25", "justification": "Lancement souhaité « avant fin trimestre »"}
+            {
+              "criterion": "Budget",
+              "score": "22/25",
+              "justification": "Mention explicite : « budget validé 50K€ pour Q2 »"
+            },
+            {
+              "criterion": "Authority",
+              "score": "23/25",
+              "justification": "Directrice Commerciale + signataire confirmée"
+            },
+            {
+              "criterion": "Need",
+              "score": "22/25",
+              "justification": "Pain point explicite : reply rate 3 % depuis 6 mois"
+            },
+            {
+              "criterion": "Timeline",
+              "score": "18/25",
+              "justification": "Lancement souhaité « avant fin trimestre »"
+            }
           ],
           "why_good": "Chaque critère est appuyé sur des preuves verbales explicites du prospect, pas sur des suppositions. Le commercial peut justifier son scoring à son manager."
         },
@@ -266,10 +515,26 @@
           "total_score": "52/100",
           "decision": "NURTURING · Newsletter + invitation webinar · Priorité B",
           "bant_breakdown": [
-            {"criterion": "Budget", "score": "10/25", "justification": "Pas mentionné · Entreprise rentable mais frugale"},
-            {"criterion": "Authority", "score": "18/25", "justification": "CMO intéressée mais doit valider avec CEO"},
-            {"criterion": "Need", "score": "15/25", "justification": "Pain identifié mais pas prioritaire actuellement"},
-            {"criterion": "Timeline", "score": "9/25", "justification": "« Peut-être au prochain trimestre, à voir »"}
+            {
+              "criterion": "Budget",
+              "score": "10/25",
+              "justification": "Pas mentionné · Entreprise rentable mais frugale"
+            },
+            {
+              "criterion": "Authority",
+              "score": "18/25",
+              "justification": "CMO intéressée mais doit valider avec CEO"
+            },
+            {
+              "criterion": "Need",
+              "score": "15/25",
+              "justification": "Pain identifié mais pas prioritaire actuellement"
+            },
+            {
+              "criterion": "Timeline",
+              "score": "9/25",
+              "justification": "« Peut-être au prochain trimestre, à voir »"
+            }
           ],
           "why_good": "On ne sur-évalue pas. Le lead a du potentiel mais n'est pas mûr — le mettre en priorité A serait une perte de temps commercial."
         }
@@ -277,55 +542,190 @@
       "anti_examples": {
         "label": "Anti-exemple — Mauvais scoring (à éviter)",
         "errors": [
-          {"error": "Donner 80/100 à un lead « qui a l'air sympa »", "consequence": "Perte de temps sur lead non qualifié"},
-          {"error": "Tout noter à 50/100 par défaut", "consequence": "Le scoring perd sa valeur informative"},
-          {"error": "Ne pas mettre à jour le score après un appel", "consequence": "Données obsolètes dans le CRM"},
-          {"error": "Noter Budget=25 parce que « grosse entreprise »", "consequence": "Confusion taille entreprise vs budget projet"},
-          {"error": "Noter Need=25 sur la base d'une supposition", "consequence": "Hallucination commerciale, biais de confirmation"}
+          {
+            "error": "Donner 80/100 à un lead « qui a l'air sympa »",
+            "consequence": "Perte de temps sur lead non qualifié"
+          },
+          {
+            "error": "Tout noter à 50/100 par défaut",
+            "consequence": "Le scoring perd sa valeur informative"
+          },
+          {
+            "error": "Ne pas mettre à jour le score après un appel",
+            "consequence": "Données obsolètes dans le CRM"
+          },
+          {
+            "error": "Noter Budget=25 parce que « grosse entreprise »",
+            "consequence": "Confusion taille entreprise vs budget projet"
+          },
+          {
+            "error": "Noter Need=25 sur la base d'une supposition",
+            "consequence": "Hallucination commerciale, biais de confirmation"
+          }
         ]
       }
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Le framework BANT expliqué — Guide complet",
-    "type": "article",
-    "url": "https://blog.hubspot.com/sales/bant",
-    "description": "Guide officiel HubSpot sur la méthode BANT avec exemples concrets pour qualifier des leads B2B.",
-    "tags": ["BANT", "qualification", "fondation"]
+      {
+        "id": "r1",
+        "title": "Le framework BANT expliqué — Guide complet",
+        "type": "article",
+        "url": "https://blog.hubspot.com/sales/bant",
+        "description": "Guide officiel HubSpot sur la méthode BANT avec exemples concrets pour qualifier des leads B2B.",
+        "tags": [
+          "BANT",
+          "qualification",
+          "fondation"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Configurer le Lead Scoring dans HubSpot",
+        "type": "article",
+        "url": "https://knowledge.hubspot.com/contacts/use-traditional-lead-scoring",
+        "description": "Documentation officielle HubSpot pour activer et configurer le scoring de leads — étapes pas-à-pas.",
+        "tags": [
+          "HubSpot",
+          "scoring",
+          "CRM",
+          "no-code"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Apollo.io — Enrichissement de prospects",
+        "type": "tool",
+        "url": "https://www.apollo.io",
+        "description": "Outil d'enrichissement de données prospects. Free tier disponible (~50 enrichissements/mois) — compatible Maghreb.",
+        "tags": [
+          "enrichissement",
+          "prospection",
+          "free"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "n8n — Automatisation low-cost (self-hosted)",
+        "type": "tool",
+        "url": "https://n8n.io",
+        "description": "Alternative à Zapier self-hostée sur VPS (~5 USD/mois). Idéal pour construire le workflow de scoring automatique sans coût élevé.",
+        "tags": [
+          "workflow",
+          "automatisation",
+          "low-cost",
+          "Maghreb"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Zoho CRM — Alternative acceptant les cartes locales",
+        "type": "tool",
+        "url": "https://www.zoho.com/crm",
+        "description": "CRM avec scoring IA intégré (Zia). Accepte les cartes bancaires locales TN/DZ/MA — recommandé comme alternative à HubSpot Pro.",
+        "tags": [
+          "CRM",
+          "Zoho",
+          "Maghreb",
+          "scoring"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Configurer le Lead Scoring dans HubSpot",
-    "type": "article",
-    "url": "https://knowledge.hubspot.com/contacts/use-traditional-lead-scoring",
-    "description": "Documentation officielle HubSpot pour activer et configurer le scoring de leads — étapes pas-à-pas.",
-    "tags": ["HubSpot", "scoring", "CRM", "no-code"]
-  },
-  {
-    "id": "r3",
-    "title": "Apollo.io — Enrichissement de prospects",
-    "type": "tool",
-    "url": "https://www.apollo.io",
-    "description": "Outil d'enrichissement de données prospects. Free tier disponible (~50 enrichissements/mois) — compatible Maghreb.",
-    "tags": ["enrichissement", "prospection", "free"]
-  },
-  {
-    "id": "r4",
-    "title": "n8n — Automatisation low-cost (self-hosted)",
-    "type": "tool",
-    "url": "https://n8n.io",
-    "description": "Alternative à Zapier self-hostée sur VPS (~5 USD/mois). Idéal pour construire le workflow de scoring automatique sans coût élevé.",
-    "tags": ["workflow", "automatisation", "low-cost", "Maghreb"]
-  },
-  {
-    "id": "r5",
-    "title": "Zoho CRM — Alternative acceptant les cartes locales",
-    "type": "tool",
-    "url": "https://www.zoho.com/crm",
-    "description": "CRM avec scoring IA intégré (Zia). Accepte les cartes bancaires locales TN/DZ/MA — recommandé comme alternative à HubSpot Pro.",
-    "tags": ["CRM", "Zoho", "Maghreb", "scoring"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "HubSpot",
+      "steps": [
+        "Connecte-toi à HubSpot CRM et va dans Contacts > Listes",
+        "Crée une nouvelle liste active et nomme-la 'Leads BANT qualifiés'",
+        "Va dans Paramètres > Propriétés et crée 4 propriétés personnalisées : Budget_score, Authority_score, Need_score, Timeline_score (valeurs 0-10)",
+        "Ouvre une fiche contact et renseigne les 4 scores selon tes échanges avec le prospect",
+        "Crée une vue filtrée affichant uniquement les contacts avec un score total ≥ 28 — ce sont tes leads prioritaires",
+        "Exporte la liste en CSV et utilise-la comme base pour tes relances cette semaine"
+      ],
+      "title": "Active HubSpot AI Lead Scoring",
+      "format": "guide pas-à-pas",
+      "duration_min": 8
+    },
+    {
+      "id": "t2",
+      "tool": "ChatGPT",
+      "steps": [
+        "Ouvre ChatGPT et colle le Prompt 2 (Scoring BANT) depuis la section Prompts ci-dessus",
+        "Remplace [NOM_PROSPECT], [SECTEUR], [TAILLE_ENTREPRISE] avec les infos de ton premier lead",
+        "Lis le score généré (0-40) et la recommandation : Priorité A (≥28), B (15-27), C (<15)",
+        "Répète l'opération pour tes 10 leads — environ 1 minute par lead",
+        "Note les scores dans Excel : colonnes Nom, Budget, Authority, Need, Timeline, Total",
+        "Trie par score décroissant — tu as ta liste de prospection priorisée pour la semaine"
+      ],
+      "title": "Score tes 10 premiers leads avec ChatGPT et BANT",
+      "format": "guide pas-à-pas",
+      "duration_min": 10
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://blog.hubspot.com/sales/bant",
+      "tags": [
+        "BANT",
+        "qualification",
+        "fondation"
+      ],
+      "type": "article",
+      "title": "Le framework BANT expliqué — Guide complet",
+      "description": "Guide officiel HubSpot sur la méthode BANT avec exemples concrets pour qualifier des leads B2B."
+    },
+    {
+      "id": "r2",
+      "url": "https://knowledge.hubspot.com/contacts/use-traditional-lead-scoring",
+      "tags": [
+        "HubSpot",
+        "scoring",
+        "CRM",
+        "no-code"
+      ],
+      "type": "article",
+      "title": "Configurer le Lead Scoring dans HubSpot",
+      "description": "Documentation officielle HubSpot pour activer et configurer le scoring de leads — étapes pas-à-pas."
+    },
+    {
+      "id": "r3",
+      "url": "https://www.apollo.io",
+      "tags": [
+        "enrichissement",
+        "prospection",
+        "free"
+      ],
+      "type": "tool",
+      "title": "Apollo.io — Enrichissement de prospects",
+      "description": "Outil d'enrichissement de données prospects. Free tier disponible (~50 enrichissements/mois) — compatible Maghreb."
+    },
+    {
+      "id": "r4",
+      "url": "https://n8n.io",
+      "tags": [
+        "workflow",
+        "automatisation",
+        "low-cost",
+        "Maghreb"
+      ],
+      "type": "tool",
+      "title": "n8n — Automatisation low-cost (self-hosted)",
+      "description": "Alternative à Zapier self-hostée sur VPS (~5 USD/mois). Idéal pour construire le workflow de scoring automatique sans coût élevé."
+    },
+    {
+      "id": "r5",
+      "url": "https://www.zoho.com/crm",
+      "tags": [
+        "CRM",
+        "Zoho",
+        "Maghreb",
+        "scoring"
+      ],
+      "type": "tool",
+      "title": "Zoho CRM — Alternative acceptant les cartes locales",
+      "description": "CRM avec scoring IA intégré (Zia). Accepte les cartes bancaires locales TN/DZ/MA — recommandé comme alternative à HubSpot Pro."
+    }
+  ]
 }

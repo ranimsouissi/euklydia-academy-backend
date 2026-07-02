@@ -346,46 +346,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Notta.ai — Transcription optimisée français",
-    "type": "tool",
-    "url": "https://www.notta.ai",
-    "description": "Outil de transcription d'appels avec meilleure performance sur le français Maghreb. Free tier : 120 min/mois — recommandé pour les appels FR/AR mixtes.",
-    "tags": ["transcription", "français", "Maghreb", "free"]
+      {
+        "id": "r1",
+        "title": "Notta.ai — Transcription optimisée français",
+        "type": "tool",
+        "url": "https://www.notta.ai",
+        "description": "Outil de transcription d'appels avec meilleure performance sur le français Maghreb. Free tier : 120 min/mois — recommandé pour les appels FR/AR mixtes.",
+        "tags": [
+          "transcription",
+          "français",
+          "Maghreb",
+          "free"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Fireflies.ai — Copilot temps réel et résumé automatique",
+        "type": "tool",
+        "url": "https://fireflies.ai",
+        "description": "Enregistrement, transcription et résumé automatique des appels. S'intègre avec Google Meet, Zoom et Teams. Free tier disponible.",
+        "tags": [
+          "transcription",
+          "copilot",
+          "CRM",
+          "automatisation"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Otter.ai — Guide de démarrage",
+        "type": "article",
+        "url": "https://otter.ai/blog/how-to-use-otter-ai",
+        "description": "Guide officiel pour configurer Otter.ai et l'intégrer à ton workflow d'appels. Free tier : 300 min/mois — optimisé anglais.",
+        "tags": [
+          "transcription",
+          "setup",
+          "appels",
+          "free"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Gérer les objections commerciales — Framework LAER",
+        "type": "article",
+        "url": "https://blog.hubspot.com/sales/handling-common-sales-objections",
+        "description": "Guide HubSpot sur les techniques de gestion d'objections (Listen, Acknowledge, Explore, Respond) — complémentaire au Prompt 2 Objection Library.",
+        "tags": [
+          "objections",
+          "LAER",
+          "technique",
+          "closing"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Whisper — Transcription multilingue open source",
+        "type": "tool",
+        "url": "https://github.com/openai/whisper",
+        "description": "Modèle open source d'OpenAI pour la transcription multilingue (FR/AR/EN). Gratuit et excellent sur le dialecte maghrébin — pour profils techniques.",
+        "tags": [
+          "transcription",
+          "multilingue",
+          "open-source",
+          "arabe"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Fireflies.ai — Copilot temps réel et résumé automatique",
-    "type": "tool",
-    "url": "https://fireflies.ai",
-    "description": "Enregistrement, transcription et résumé automatique des appels. S'intègre avec Google Meet, Zoom et Teams. Free tier disponible.",
-    "tags": ["transcription", "copilot", "CRM", "automatisation"]
-  },
-  {
-    "id": "r3",
-    "title": "Otter.ai — Guide de démarrage",
-    "type": "article",
-    "url": "https://otter.ai/blog/how-to-use-otter-ai",
-    "description": "Guide officiel pour configurer Otter.ai et l'intégrer à ton workflow d'appels. Free tier : 300 min/mois — optimisé anglais.",
-    "tags": ["transcription", "setup", "appels", "free"]
-  },
-  {
-    "id": "r4",
-    "title": "Gérer les objections commerciales — Framework LAER",
-    "type": "article",
-    "url": "https://blog.hubspot.com/sales/handling-common-sales-objections",
-    "description": "Guide HubSpot sur les techniques de gestion d'objections (Listen, Acknowledge, Explore, Respond) — complémentaire au Prompt 2 Objection Library.",
-    "tags": ["objections", "LAER", "technique", "closing"]
-  },
-  {
-    "id": "r5",
-    "title": "Whisper — Transcription multilingue open source",
-    "type": "tool",
-    "url": "https://github.com/openai/whisper",
-    "description": "Modèle open source d'OpenAI pour la transcription multilingue (FR/AR/EN). Gratuit et excellent sur le dialecte maghrébin — pour profils techniques.",
-    "tags": ["transcription", "multilingue", "open-source", "arabe"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT",
+      "steps": [
+        "Ouvre LinkedIn et note 3 infos clés sur ton prospect : poste actuel, ancienneté, post récent",
+        "Ouvre la fiche CRM du prospect et note le score BANT et les échanges précédents",
+        "Colle le Prompt 1 (Briefing Pré-Call) dans ChatGPT et remplace [NOM], [ENTREPRISE], [CONTEXTE]",
+        "Lis le briefing généré — vérifie que les pain points correspondent à ce que tu sais du prospect",
+        "Prépare 3 questions ouvertes basées sur le briefing pour structurer ton appel",
+        "Sauvegarde le briefing dans la fiche CRM avant l'appel"
+      ],
+      "title": "Génère ton premier briefing pré-call en 3 minutes",
+      "format": "guide pas-à-pas",
+      "duration_min": 10
+    },
+    {
+      "id": "t2",
+      "tool": "Fireflies",
+      "steps": [
+        "Crée un compte Fireflies.ai (free tier suffisant pour démarrer) et connecte-le à ton Google Meet ou Zoom",
+        "Active l'enregistrement automatique : Paramètres > Intégrations > activer ton outil de visio",
+        "Après ton prochain appel, ouvre Fireflies et attends la transcription (2-5 minutes)",
+        "Copie la transcription et colle-la dans ChatGPT avec le Prompt 3 (Résumé Post-Call)",
+        "Le résumé généré contient : décisions prises, objections, prochaines étapes — copie-le dans ton CRM",
+        "Alternative Maghreb : utilise Notta.ai (interface FR, free tier 120 min/mois) si Fireflies est trop lent sur ta connexion"
+      ],
+      "title": "Configure Fireflies + workflow post-appel automatique (+ alt. Notta.ai pour FR)",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.notta.ai",
+      "tags": [
+        "transcription",
+        "français",
+        "Maghreb",
+        "free"
+      ],
+      "type": "tool",
+      "title": "Notta.ai — Transcription optimisée français",
+      "description": "Outil de transcription d'appels avec meilleure performance sur le français Maghreb. Free tier : 120 min/mois — recommandé pour les appels FR/AR mixtes."
+    },
+    {
+      "id": "r2",
+      "url": "https://fireflies.ai",
+      "tags": [
+        "transcription",
+        "copilot",
+        "CRM",
+        "automatisation"
+      ],
+      "type": "tool",
+      "title": "Fireflies.ai — Copilot temps réel et résumé automatique",
+      "description": "Enregistrement, transcription et résumé automatique des appels. S'intègre avec Google Meet, Zoom et Teams. Free tier disponible."
+    },
+    {
+      "id": "r3",
+      "url": "https://otter.ai/blog/how-to-use-otter-ai",
+      "tags": [
+        "transcription",
+        "setup",
+        "appels",
+        "free"
+      ],
+      "type": "article",
+      "title": "Otter.ai — Guide de démarrage",
+      "description": "Guide officiel pour configurer Otter.ai et l'intégrer à ton workflow d'appels. Free tier : 300 min/mois — optimisé anglais."
+    },
+    {
+      "id": "r4",
+      "url": "https://blog.hubspot.com/sales/handling-common-sales-objections",
+      "tags": [
+        "objections",
+        "LAER",
+        "technique",
+        "closing"
+      ],
+      "type": "article",
+      "title": "Gérer les objections commerciales — Framework LAER",
+      "description": "Guide HubSpot sur les techniques de gestion d'objections (Listen, Acknowledge, Explore, Respond) — complémentaire au Prompt 2 Objection Library."
+    },
+    {
+      "id": "r5",
+      "url": "https://github.com/openai/whisper",
+      "tags": [
+        "transcription",
+        "multilingue",
+        "open-source",
+        "arabe"
+      ],
+      "type": "tool",
+      "title": "Whisper — Transcription multilingue open source",
+      "description": "Modèle open source d'OpenAI pour la transcription multilingue (FR/AR/EN). Gratuit et excellent sur le dialecte maghrébin — pour profils techniques."
+    }
+  ]
 }

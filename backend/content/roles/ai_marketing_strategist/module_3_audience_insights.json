@@ -555,46 +555,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Google Analytics 4 — Guide audiences et segments",
-    "type": "article",
-    "url": "https://support.google.com/analytics/answer/9267572",
-    "description": "Documentation officielle GA4 sur la création d'audiences prédictives et la segmentation comportementale — source principale de données pour le Prompt 1.",
-    "tags": ["GA4", "audiences", "segmentation", "données"]
+      {
+        "id": "r1",
+        "title": "Google Analytics 4 — Guide audiences et segments",
+        "type": "article",
+        "url": "https://support.google.com/analytics/answer/9267572",
+        "description": "Documentation officielle GA4 sur la création d'audiences prédictives et la segmentation comportementale — source principale de données pour le Prompt 1.",
+        "tags": [
+          "GA4",
+          "audiences",
+          "segmentation",
+          "données"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Meta Business Suite — Custom Audiences et Lookalike",
+        "type": "article",
+        "url": "https://www.facebook.com/business/help/744354708981227",
+        "description": "Guide officiel Meta pour créer des audiences personnalisées depuis une liste CRM et des audiences similaires (Lookalike) — directement lié au tutorial t2.",
+        "tags": [
+          "Meta",
+          "Custom Audience",
+          "Lookalike",
+          "Maghreb"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Segment — Customer Data Platform gratuit",
+        "type": "tool",
+        "url": "https://segment.com",
+        "description": "CDP pour centraliser et activer les données multi-sources (CRM, GA4, e-commerce). Free tier jusqu'à 1 000 visiteurs/mois — recommandé pour les marques 10k+ utilisateurs.",
+        "tags": [
+          "CDP",
+          "données",
+          "centralisation",
+          "segmentation"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Amplitude — Playbook RFM et analyse comportementale",
+        "type": "article",
+        "url": "https://amplitude.com/blog/rfm-analysis",
+        "description": "Guide Amplitude sur la méthode RFM (Recency, Frequency, Monetary) avec exemples concrets — complémentaire au Prompt 2 Segmentation RFM.",
+        "tags": [
+          "RFM",
+          "comportemental",
+          "e-commerce",
+          "segmentation"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Mixpanel — Analyse comportementale produit",
+        "type": "tool",
+        "url": "https://mixpanel.com",
+        "description": "Outil d'analyse comportementale avancée. Free tier disponible — utile pour les marques SaaS ou app mobile en Afrique du Nord.",
+        "tags": [
+          "comportemental",
+          "SaaS",
+          "app mobile",
+          "analytics"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Meta Business Suite — Custom Audiences et Lookalike",
-    "type": "article",
-    "url": "https://www.facebook.com/business/help/744354708981227",
-    "description": "Guide officiel Meta pour créer des audiences personnalisées depuis une liste CRM et des audiences similaires (Lookalike) — directement lié au tutorial t2.",
-    "tags": ["Meta", "Custom Audience", "Lookalike", "Maghreb"]
-  },
-  {
-    "id": "r3",
-    "title": "Segment — Customer Data Platform gratuit",
-    "type": "tool",
-    "url": "https://segment.com",
-    "description": "CDP pour centraliser et activer les données multi-sources (CRM, GA4, e-commerce). Free tier jusqu'à 1 000 visiteurs/mois — recommandé pour les marques 10k+ utilisateurs.",
-    "tags": ["CDP", "données", "centralisation", "segmentation"]
-  },
-  {
-    "id": "r4",
-    "title": "Amplitude — Playbook RFM et analyse comportementale",
-    "type": "article",
-    "url": "https://amplitude.com/blog/rfm-analysis",
-    "description": "Guide Amplitude sur la méthode RFM (Recency, Frequency, Monetary) avec exemples concrets — complémentaire au Prompt 2 Segmentation RFM.",
-    "tags": ["RFM", "comportemental", "e-commerce", "segmentation"]
-  },
-  {
-    "id": "r5",
-    "title": "Mixpanel — Analyse comportementale produit",
-    "type": "tool",
-    "url": "https://mixpanel.com",
-    "description": "Outil d'analyse comportementale avancée. Free tier disponible — utile pour les marques SaaS ou app mobile en Afrique du Nord.",
-    "tags": ["comportemental", "SaaS", "app mobile", "analytics"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT",
+      "steps": [
+        "Rassemble tes données existantes : Google Analytics, stats réseaux sociaux, historique CRM — même partielles",
+        "Ouvre ChatGPT et colle le Prompt 1 (Persona Generator) depuis la section Prompts ci-dessus",
+        "Remplace [SECTEUR], [PAYS], [DONNEES] avec tes vraies données ou tes observations terrain",
+        "Génère 4 personas distincts — vérifie que chacun a un nom, un pain point, un canal préféré, et un frein à l'achat",
+        "Pour chaque persona, demande à ChatGPT : 'Quels sont les 3 contenus qui résonnent le plus avec ce persona ?'",
+        "Sauvegarde les 4 personas dans Notion avec une fiche par persona — ils serviront de référence pour toutes tes campagnes"
+      ],
+      "title": "Génère 4 personas data-driven en 30 minutes",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    },
+    {
+      "id": "t2",
+      "tool": "Meta Ads Manager",
+      "steps": [
+        "Ouvre Meta Ads Manager et va dans Audiences > Créer une audience > Audience personnalisée",
+        "Choisis la source : liste de clients (CSV), trafic site web (Pixel), ou engagement Instagram/Facebook",
+        "Importe ta liste ou configure le Pixel selon le persona le plus prioritaire identifié à l'étape précédente",
+        "Crée ensuite une audience similaire (Lookalike) basée sur cette audience custom — commence à 1% de similarité",
+        "Configure les filtres géographiques : Tunisie, Maroc, Algérie selon tes marchés cibles Maghreb",
+        "Sauvegarde l'audience et utilise-la dans ta prochaine campagne en comparant les résultats avec ton audience large habituelle"
+      ],
+      "title": "Configure une audience custom Meta basée sur tes personas",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://support.google.com/analytics/answer/9267572",
+      "tags": [
+        "GA4",
+        "audiences",
+        "segmentation",
+        "données"
+      ],
+      "type": "article",
+      "title": "Google Analytics 4 — Guide audiences et segments",
+      "description": "Documentation officielle GA4 sur la création d'audiences prédictives et la segmentation comportementale — source principale de données pour le Prompt 1."
+    },
+    {
+      "id": "r2",
+      "url": "https://www.facebook.com/business/help/744354708981227",
+      "tags": [
+        "Meta",
+        "Custom Audience",
+        "Lookalike",
+        "Maghreb"
+      ],
+      "type": "article",
+      "title": "Meta Business Suite — Custom Audiences et Lookalike",
+      "description": "Guide officiel Meta pour créer des audiences personnalisées depuis une liste CRM et des audiences similaires (Lookalike) — directement lié au tutorial t2."
+    },
+    {
+      "id": "r3",
+      "url": "https://segment.com",
+      "tags": [
+        "CDP",
+        "données",
+        "centralisation",
+        "segmentation"
+      ],
+      "type": "tool",
+      "title": "Segment — Customer Data Platform gratuit",
+      "description": "CDP pour centraliser et activer les données multi-sources (CRM, GA4, e-commerce). Free tier jusqu'à 1 000 visiteurs/mois — recommandé pour les marques 10k+ utilisateurs."
+    },
+    {
+      "id": "r4",
+      "url": "https://amplitude.com/blog/rfm-analysis",
+      "tags": [
+        "RFM",
+        "comportemental",
+        "e-commerce",
+        "segmentation"
+      ],
+      "type": "article",
+      "title": "Amplitude — Playbook RFM et analyse comportementale",
+      "description": "Guide Amplitude sur la méthode RFM (Recency, Frequency, Monetary) avec exemples concrets — complémentaire au Prompt 2 Segmentation RFM."
+    },
+    {
+      "id": "r5",
+      "url": "https://mixpanel.com",
+      "tags": [
+        "comportemental",
+        "SaaS",
+        "app mobile",
+        "analytics"
+      ],
+      "type": "tool",
+      "title": "Mixpanel — Analyse comportementale produit",
+      "description": "Outil d'analyse comportementale avancée. Free tier disponible — utile pour les marques SaaS ou app mobile en Afrique du Nord."
+    }
+  ]
 }

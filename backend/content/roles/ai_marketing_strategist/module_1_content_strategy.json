@@ -2,7 +2,6 @@
   "$schema_version": "1.0",
   "role": "AI Marketing Strategist",
   "source": "PDF Parcours AI Marketing Strategist v1.1 — Mai 2026",
-
   "display_order": 1,
   "title": "Content Strategy Optimization",
   "skill_name": "AI Content Strategy & Creation",
@@ -11,25 +10,15 @@
   "estimated_duration_min": 240,
   "format": "blended",
   "is_active": true,
-
   "description": "Apprends à construire une stratégie de contenu IA-augmentée en Afrique du Nord : encode ta brand voice, structure un calendrier éditorial trimestriel, génère du contenu cohérent multi-canal (blog, LinkedIn, newsletter) et industrialise ton repurposing. Tu passeras d'une production réactive et chronophage (1-2h par contenu) à un pipeline structuré (15-25 min par contenu) avec un engagement mesurablement supérieur.",
-
   "learning_objective": "À l'issue de ce module, l'apprenant sait (1) encoder une brand voice dans des prompts IA réutilisables, et (2) industrialiser sa production éditoriale multi-canal avec un calendrier trimestriel auto-piloté.",
-
   "expected_outcome": "Réduction de 70 à 80 % du temps de production par contenu, +30 à +50 % d'amélioration relative du taux d'engagement (observatoire J+30/J+60), volume de publications multiplié par 3 à 5.",
-
   "why_this_module": "Beaucoup d'équipes marketing B2B/B2C en Afrique du Nord produisent du contenu sans stratégie claire : posts isolés sur les réseaux, blog mis à jour sporadiquement, newsletter irrégulière. Le contenu existe mais il n'engage pas, ne génère pas de leads et ne construit pas de marque forte. La cause principale : pas de ligne éditoriale, pas de calendrier, pas de processus reproductible.",
-
   "recommended_when": "Quand ton taux d'engagement moyen est < 2 %, que tu publies moins de 8 contenus/mois, ou que tu passes plus d'1h en moyenne à produire chaque contenu manuellement.",
-
   "role_based_example": "Sarah, content manager dans une agence digitale à Casablanca, gère le contenu de 5 clients en parallèle. Le lundi matin, elle improvise : « qu'est-ce qu'on poste cette semaine ? ». Elle ouvre LinkedIn, regarde ce que font les concurrents, sort une idée, rédige un post en 15 minutes. Parfois ça marche, souvent ça tombe à plat. Sarah ressent un burn-out créatif récurrent (« je n'ai plus d'idées ») et son engagement moyen plafonne à 1.8 %. Avec ce module, Sarah encode la brand voice de ses 5 clients, construit un calendrier trimestriel avec saisonnalités régionales (Ramadan, rentrée scolaire, fêtes nationales), et passe de 4-6 contenus/semaine à 20-25 — avec un engagement moyen de 3.2 %.",
-
   "takeaway": "Une brand voice bien encodée dans un prompt master réutilisable transforme la production de contenu d'une activité créative épisodique en un pipeline industriel cohérent. Le calendrier éditorial trimestriel n'est pas une contrainte : c'est ce qui libère la créativité en supprimant la décision quotidienne « qu'est-ce que je poste ? ».",
-
   "action_point": "Cette semaine : sélectionne 3 contenus performants de ta marque, applique le Prompt 1 (Brand Voice) pour encoder ton profil éditorial, puis applique le Prompt 2 (Calendrier) sur le mois à venir avec 1 saisonnalité régionale intégrée.",
-
   "practical_application": "Application directe sur ta propre marque ou celle d'un client : pas de cas fictif. Tu construis ta bibliothèque de prompts personnelle, tu mesures le temps gagné, et tu publies au moins 2 contenus IA-augmentés sur tes vrais canaux dans la semaine.",
-
   "key_concepts": [
     "Définition et encodage d'une brand voice (ton, vocabulaire, style, do/don't)",
     "Prompts ChatGPT structurés par persona et thème éditorial",
@@ -40,56 +29,130 @@
     "Pipeline de production semi-automatisé (Notion AI / Make / ChatGPT)",
     "Adaptation bilingue (FR/AR) et culturelle Afrique du Nord"
   ],
-
   "next_recommended_module": "Campaign Performance Optimization",
-
   "prompt_examples": [
     {
       "id": "prompt_1_brand_voice_encoding",
       "title": "Prompt 1 — Brand Voice Encoding",
       "use_case": "Encoder la voix de marque dans un prompt master réutilisable pour toute génération IA",
-      "tags": ["brand voice", "encoding", "prompt master"],
+      "tags": [
+        "brand voice",
+        "encoding",
+        "prompt master"
+      ],
       "content": "Tu es un content strategist senior B2B/B2C au Maghreb.\nAide-moi à encoder la voix de ma marque pour un usage IA récurrent.\n\nMA MARQUE :\n- Nom : [NOM_MARQUE]\n- Secteur : [SECTEUR]\n- Cible principale : [PERSONA_PRINCIPAL]\n- Promesse de marque : [PROMESSE]\n- 3 valeurs : [VALEURS]\n- Concurrents : [CONCURRENTS]\n- Pays cibles : [PAYS_MAGHREB]\n- Langue dominante : [FR / AR / FR+AR mix]\n\nÉCHANTILLON ÉDITORIAL :\n- 3 contenus performants : [COLLER_3_POSTS_OU_ARTICLES]\n- Niveau d'engagement de référence : [LIKES / COMMENTS / SHARES]\n\nCONSIGNE :\nGÉNÈRE :\n1. PROFIL ÉDITORIAL (3 paragraphes)\n   Ton, style, vocabulaire, longueur, structure\n2. 5 RÈGLES À RESPECTER (do)\n3. 5 RÈGLES À ÉVITER (don't)\n4. PROMPT MASTER RÉUTILISABLE\n   À utiliser comme préambule pour toute génération future\n5. TEST DE COHÉRENCE\n   Génère 3 phrases d'exemple selon ce profil",
-      "variables": ["NOM_MARQUE", "SECTEUR", "PERSONA_PRINCIPAL", "PROMESSE", "VALEURS", "CONCURRENTS", "PAYS_MAGHREB", "COLLER_3_POSTS_OU_ARTICLES"],
+      "variables": [
+        "NOM_MARQUE",
+        "SECTEUR",
+        "PERSONA_PRINCIPAL",
+        "PROMESSE",
+        "VALEURS",
+        "CONCURRENTS",
+        "PAYS_MAGHREB",
+        "COLLER_3_POSTS_OU_ARTICLES"
+      ],
       "expected_output": "Profil éditorial + do/don't + prompt master réutilisable + test de cohérence",
-      "tools": ["ChatGPT (gratuit ou Plus)", "Claude"]
+      "tools": [
+        "ChatGPT (gratuit ou Plus)",
+        "Claude"
+      ]
     },
     {
       "id": "prompt_2_editorial_calendar",
       "title": "Prompt 2 — Calendrier éditorial trimestriel",
       "use_case": "Construire un calendrier éditorial 3 mois multi-canal aligné sur les saisonnalités Maghreb",
-      "tags": ["calendrier", "éditorial", "saisonnalités"],
+      "tags": [
+        "calendrier",
+        "éditorial",
+        "saisonnalités"
+      ],
       "content": "Tu es un content strategist B2B/B2C au Maghreb.\nConstruis un calendrier éditorial sur 3 mois aligné sur :\n\n- Brand voice : [COLLER_PROFIL_EDITORIAL]\n- Persona principal : [PERSONA]\n- Objectif business : [OBJECTIF]\n  (ex : générer 50 leads / mois, +20% trafic blog, +500 abonnés newsletter)\n- Canaux : [LINKEDIN / BLOG / NEWSLETTER / INSTAGRAM / TIKTOK]\n- Saisonnalité Maghreb à intégrer (Pending validation Achref/Oumeima) :\n  [Ramadan / Aïd / rentrée scolaire / fêtes nationales / soldes]\n\nCONTRAINTES :\n- 3 piliers thématiques maximum\n- Mix 70 % éducatif / 20 % inspirationnel / 10 % commercial\n- Cohérence entre canaux (un sujet décliné sur plusieurs formats)\n\nFORMAT DE SORTIE :\nTableau Semaine | Pilier | Sujet | Canal | Format | Persona | CTA\n12 lignes pour les 12 semaines.\n\nEN BAS, AJOUTE :\n- Synthèse des 3 piliers\n- 5 idées de campagnes spéciales saisonnières\n- Recommandation de fréquence par canal",
-      "variables": ["COLLER_PROFIL_EDITORIAL", "PERSONA", "OBJECTIF", "LINKEDIN_BLOG_NEWSLETTER", "SAISONNALITES"],
+      "variables": [
+        "COLLER_PROFIL_EDITORIAL",
+        "PERSONA",
+        "OBJECTIF",
+        "LINKEDIN_BLOG_NEWSLETTER",
+        "SAISONNALITES"
+      ],
       "expected_output": "Calendrier 12 semaines + synthèse piliers + campagnes saisonnières + fréquence par canal",
-      "tools": ["ChatGPT", "Notion / Airtable (pour stockage)"]
+      "tools": [
+        "ChatGPT",
+        "Notion / Airtable (pour stockage)"
+      ]
     },
     {
       "id": "prompt_3_repurposing",
       "title": "Prompt 3 — Repurposing multi-canal",
       "use_case": "Transformer 1 contenu source en 5 formats adaptés à chaque canal pour démultiplier la portée",
-      "tags": ["repurposing", "multi-canal", "adaptation"],
+      "tags": [
+        "repurposing",
+        "multi-canal",
+        "adaptation"
+      ],
       "content": "Tu es un content strategist multi-canal au Maghreb.\nTransforme ce contenu source en 5 formats adaptés.\n\nCONTENU SOURCE :\n- Format : [ARTICLE / VIDÉO / PODCAST / WEBINAR]\n- Texte : [COLLER_LE_CONTENU_INTEGRAL]\n- Public cible : [PERSONA]\n- Brand voice : [COLLER_PROFIL_EDITORIAL]\n- Langue préférée : [FR / AR / FR+AR mix]\n\nGÉNÈRE 5 ADAPTATIONS :\n1. POST LINKEDIN (200-300 mots, hook + insight + CTA)\n2. CARROUSEL LINKEDIN (8 slides, titres courts + body 30 mots)\n3. THREAD TWITTER/X (8-10 tweets de 250 caractères max)\n4. NEWSLETTER (objet + intro + 3 sections + CTA, 400 mots)\n5. SCRIPT REEL/TIKTOK (60 secondes, hook 3s + 5 plans + CTA)\n\nPOUR CHAQUE ADAPTATION :\n- Garde le message clé\n- Adapte le ton au canal\n- Propose un visuel/B-roll\n- Si la langue préférée est FR+AR mix, intègre 1-2 expressions arabes naturelles si pertinent (ex : 'Bissaha', 'Inchallah')",
-      "variables": ["FORMAT_SOURCE", "COLLER_LE_CONTENU_INTEGRAL", "PERSONA", "COLLER_PROFIL_EDITORIAL", "LANGUE"],
+      "variables": [
+        "FORMAT_SOURCE",
+        "COLLER_LE_CONTENU_INTEGRAL",
+        "PERSONA",
+        "COLLER_PROFIL_EDITORIAL",
+        "LANGUE"
+      ],
       "expected_output": "5 adaptations multi-canal avec visuels suggérés",
-      "tools": ["ChatGPT", "Canva AI / Midjourney (pour les visuels)"]
+      "tools": [
+        "ChatGPT",
+        "Canva AI / Midjourney (pour les visuels)"
+      ]
     }
   ],
-
   "practical_exercise": {
     "title": "Mission : Bâtis ton brand voice + calendrier éditorial du mois",
     "duration_minutes": 90,
-    "tools_required": ["ChatGPT (gratuit)", "Notion ou Airtable"],
+    "tools_required": [
+      "ChatGPT (gratuit)",
+      "Notion ou Airtable"
+    ],
     "objective": "Encoder ta brand voice dans un prompt master, construire un calendrier éditorial du mois avec saisonnalités régionales, et publier au moins 2 contenus IA-augmentés sur tes vrais canaux.",
     "steps": [
-      {"n": 1, "title": "Sélection des contenus de référence", "description": "Sélectionne 3 contenus performants de ta marque (ceux avec le plus de likes, commentaires ou conversions). Note leur engagement de référence."},
-      {"n": "1.5", "title": "Chronométrage baseline (anti-biais)", "description": "Avant d'utiliser l'IA, chronomètre ton temps de production habituel sur 1 contenu (sans IA). Tu compareras ce temps à ta production IA-augmentée à l'étape 5."},
-      {"n": 2, "title": "Encodage de la brand voice", "description": "Applique le Prompt 1 (Brand Voice) et sauvegarde le profil éditorial + le prompt master dans Notion. Garde-les réutilisables pour toutes tes futures générations."},
-      {"n": 3, "title": "Construction du calendrier", "description": "Applique le Prompt 2 (Calendrier) sur le mois à venir avec au moins 1 saisonnalité Maghreb intégrée (Ramadan, rentrée, fête nationale, soldes)."},
-      {"n": 4, "title": "Repurposing multi-canal", "description": "Génère 3 contenus avec le Prompt 3 (Repurposing) sur 1 sujet source unique. Décline-les sur 3 canaux différents (ex : LinkedIn + newsletter + Reel)."},
-      {"n": "4.5", "title": "Application du Playbook v1.1", "description": "Avant publication, applique 3 leviers du Engagement Optimization Playbook (Hook, Format, Timing ou Interaction) sur tes contenus IA-augmentés."},
-      {"n": 5, "title": "Publication réelle", "description": "Publie au moins 2 contenus IA-augmentés sur tes vrais canaux dans la semaine. Mesure le temps de production et compare à ta baseline étape 1.5."},
-      {"n": 6, "title": "Mesure d'engagement à J+7", "description": "Note l'engagement de tes 2+ contenus IA-augmentés (likes, comments, shares) et compare à ta moyenne habituelle."}
+      {
+        "n": 1,
+        "title": "Sélection des contenus de référence",
+        "description": "Sélectionne 3 contenus performants de ta marque (ceux avec le plus de likes, commentaires ou conversions). Note leur engagement de référence."
+      },
+      {
+        "n": "1.5",
+        "title": "Chronométrage baseline (anti-biais)",
+        "description": "Avant d'utiliser l'IA, chronomètre ton temps de production habituel sur 1 contenu (sans IA). Tu compareras ce temps à ta production IA-augmentée à l'étape 5."
+      },
+      {
+        "n": 2,
+        "title": "Encodage de la brand voice",
+        "description": "Applique le Prompt 1 (Brand Voice) et sauvegarde le profil éditorial + le prompt master dans Notion. Garde-les réutilisables pour toutes tes futures générations."
+      },
+      {
+        "n": 3,
+        "title": "Construction du calendrier",
+        "description": "Applique le Prompt 2 (Calendrier) sur le mois à venir avec au moins 1 saisonnalité Maghreb intégrée (Ramadan, rentrée, fête nationale, soldes)."
+      },
+      {
+        "n": 4,
+        "title": "Repurposing multi-canal",
+        "description": "Génère 3 contenus avec le Prompt 3 (Repurposing) sur 1 sujet source unique. Décline-les sur 3 canaux différents (ex : LinkedIn + newsletter + Reel)."
+      },
+      {
+        "n": "4.5",
+        "title": "Application du Playbook v1.1",
+        "description": "Avant publication, applique 3 leviers du Engagement Optimization Playbook (Hook, Format, Timing ou Interaction) sur tes contenus IA-augmentés."
+      },
+      {
+        "n": 5,
+        "title": "Publication réelle",
+        "description": "Publie au moins 2 contenus IA-augmentés sur tes vrais canaux dans la semaine. Mesure le temps de production et compare à ta baseline étape 1.5."
+      },
+      {
+        "n": 6,
+        "title": "Mesure d'engagement à J+7",
+        "description": "Note l'engagement de tes 2+ contenus IA-augmentés (likes, comments, shares) et compare à ta moyenne habituelle."
+      }
     ],
     "success_criteria": [
       "Brand voice encodée dans un prompt master réutilisable",
@@ -98,41 +161,123 @@
     ],
     "maghreb_note": "Pour les marques B2C ciblant un public arabophone, génère le contenu en français puis demande à ChatGPT de proposer une version arabe ou darija — l'output est de qualité acceptable pour les marques mainstream. Pour les marques de luxe ou très formelles, fais retravailler par un copywriter natif. Les saisonnalités Ramadan et Aïd sont les plus puissantes en termes d'engagement : prépare ton calendrier 4 semaines avant."
   },
-
   "comparison_tables": {
     "tools": {
       "title": "Outils — Comparatif et alternatives Afrique du Nord",
-      "headers": ["Outil", "Pricing", "Usage", "Note Maghreb"],
+      "headers": [
+        "Outil",
+        "Pricing",
+        "Usage",
+        "Note Maghreb"
+      ],
       "rows": [
-        ["ChatGPT / Claude", "Gratuit / Plus 20 USD/mois", "Génération des 3 prompts (brand voice, calendrier, repurposing)", "Free tier suffisant pour démarrer"],
-        ["Notion AI", "10 USD/utilisateur/mois", "Calendrier éditorial + bibliothèque de prompts", "Carte internationale requise"],
-        ["Canva AI", "Free / Pro 12 USD/mois", "Visuels accompagnant chaque contenu", "Free tier généreux, accepte cartes locales"],
-        ["Midjourney", "10-30 USD/mois", "Visuels à fort impact pour campagnes premium", "Carte internationale requise"],
-        ["Buffer / Hootsuite", "Free / 15-99 USD/mois", "Programmation multi-canal des publications", "Buffer free tier = 3 canaux gratuits"],
-        ["Make / Zapier", "Free / 20 USD/mois", "Automatisation du pipeline content engine", "n8n self-hosted ~5 USD/VPS = quasi-gratuit"],
-        ["Alternatives Maghreb", "Variable", "Airtable + ChatGPT manuel + Canva (stack low-cost)", "Airtable free tier = 1200 records/base"]
+        [
+          "ChatGPT / Claude",
+          "Gratuit / Plus 20 USD/mois",
+          "Génération des 3 prompts (brand voice, calendrier, repurposing)",
+          "Free tier suffisant pour démarrer"
+        ],
+        [
+          "Notion AI",
+          "10 USD/utilisateur/mois",
+          "Calendrier éditorial + bibliothèque de prompts",
+          "Carte internationale requise"
+        ],
+        [
+          "Canva AI",
+          "Free / Pro 12 USD/mois",
+          "Visuels accompagnant chaque contenu",
+          "Free tier généreux, accepte cartes locales"
+        ],
+        [
+          "Midjourney",
+          "10-30 USD/mois",
+          "Visuels à fort impact pour campagnes premium",
+          "Carte internationale requise"
+        ],
+        [
+          "Buffer / Hootsuite",
+          "Free / 15-99 USD/mois",
+          "Programmation multi-canal des publications",
+          "Buffer free tier = 3 canaux gratuits"
+        ],
+        [
+          "Make / Zapier",
+          "Free / 20 USD/mois",
+          "Automatisation du pipeline content engine",
+          "n8n self-hosted ~5 USD/VPS = quasi-gratuit"
+        ],
+        [
+          "Alternatives Maghreb",
+          "Variable",
+          "Airtable + ChatGPT manuel + Canva (stack low-cost)",
+          "Airtable free tier = 1200 records/base"
+        ]
       ]
     },
     "workflows": {
       "title": "Workflows — 2 niveaux de sophistication",
-      "headers": ["Workflow", "Outils", "Setup", "Coût/mois", "Niveau"],
+      "headers": [
+        "Workflow",
+        "Outils",
+        "Setup",
+        "Coût/mois",
+        "Niveau"
+      ],
       "rows": [
-        ["W1 : Production hebdo assistée IA (no-code)", "Notion/Airtable + ChatGPT + Canva AI + Buffer", "30-45 min première fois", "0 USD (free tiers) à 22 USD/mois", "Débutant"],
-        ["W2 : Pipeline content engine automatisé (low-code)", "Airtable + OpenAI API + Canva API + Slack + Make", "3-5h première fois", "~50-80 USD/mois (selon volume OpenAI)", "Intermédiaire"],
-        ["W2 low-cost Maghreb", "Airtable + n8n self-hosted + ChatGPT manuel + Canva", "4-6h première fois", "~5 USD/mois (VPS n8n)", "Intermédiaire"]
+        [
+          "W1 : Production hebdo assistée IA (no-code)",
+          "Notion/Airtable + ChatGPT + Canva AI + Buffer",
+          "30-45 min première fois",
+          "0 USD (free tiers) à 22 USD/mois",
+          "Débutant"
+        ],
+        [
+          "W2 : Pipeline content engine automatisé (low-code)",
+          "Airtable + OpenAI API + Canva API + Slack + Make",
+          "3-5h première fois",
+          "~50-80 USD/mois (selon volume OpenAI)",
+          "Intermédiaire"
+        ],
+        [
+          "W2 low-cost Maghreb",
+          "Airtable + n8n self-hosted + ChatGPT manuel + Canva",
+          "4-6h première fois",
+          "~5 USD/mois (VPS n8n)",
+          "Intermédiaire"
+        ]
       ]
     },
     "kpi_targets": {
       "title": "KPIs cibles — Baseline personnalisée → Cible J+14",
-      "headers": ["Indicateur", "Niveau temporel", "Baseline (J0)", "Cible"],
+      "headers": [
+        "Indicateur",
+        "Niveau temporel",
+        "Baseline (J0)",
+        "Cible"
+      ],
       "rows": [
-        ["Temps de production par contenu", "Court terme (J+14)", "À renseigner par l'apprenant", "Réduction de 70 à 80 %"],
-        ["Volume de publications par mois", "Court terme (J+14)", "À renseigner", "Multiplié par 3 à 5"],
-        ["Taux d'engagement moyen", "Observatoire (J+30/J+60)", "À renseigner", "+30 à +50 % d'amélioration relative"]
+        [
+          "Temps de production par contenu",
+          "Court terme (J+14)",
+          "À renseigner par l'apprenant",
+          "Réduction de 70 à 80 %"
+        ],
+        [
+          "Volume de publications par mois",
+          "Court terme (J+14)",
+          "À renseigner",
+          "Multiplié par 3 à 5"
+        ],
+        [
+          "Taux d'engagement moyen",
+          "Observatoire (J+30/J+60)",
+          "À renseigner",
+          "+30 à +50 % d'amélioration relative"
+        ]
       ]
     }
   },
-
   "section_content": {
     "use_case_detail": {
       "title": "Le problème business",
@@ -150,19 +295,49 @@
       "title": "Pattern temporel des KPIs (3 niveaux)",
       "description": "Chaque module mesure ses KPIs sur trois niveaux temporels distincts, rendant le parcours défendable académiquement et crédible commercialement.",
       "levels": [
-        {"level": "Court terme", "type": "Productivité (temps gagné)", "horizon": "Mesurable J+14", "examples": "Temps de production par contenu, volume publié"},
-        {"level": "Moyen terme", "type": "Qualité (cohérence, brand voice)", "horizon": "Mesurable J+14", "examples": "Cohérence éditoriale entre canaux, % contenus alignés brand voice"},
-        {"level": "Long terme", "type": "Impact business (engagement, leads)", "horizon": "Observatoire J+30/J+60", "examples": "Taux d'engagement moyen, leads générés via contenu"}
+        {
+          "level": "Court terme",
+          "type": "Productivité (temps gagné)",
+          "horizon": "Mesurable J+14",
+          "examples": "Temps de production par contenu, volume publié"
+        },
+        {
+          "level": "Moyen terme",
+          "type": "Qualité (cohérence, brand voice)",
+          "horizon": "Mesurable J+14",
+          "examples": "Cohérence éditoriale entre canaux, % contenus alignés brand voice"
+        },
+        {
+          "level": "Long terme",
+          "type": "Impact business (engagement, leads)",
+          "horizon": "Observatoire J+30/J+60",
+          "examples": "Taux d'engagement moyen, leads générés via contenu"
+        }
       ]
     },
     "kpi_measurement_method": {
       "title": "Méthode de collecte des KPIs",
       "milestones": [
-        {"when": "J0", "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"},
-        {"when": "J+7", "what": "Rappel par email + notification in-app"},
-        {"when": "J+14", "what": "Formulaire de mesure d'impact auto-affiché + rappel"},
-        {"when": "J+30", "what": "Rappel facultatif pour le KPI observatoire (taux d'engagement)"},
-        {"when": "J+60", "what": "Rappel facultatif final + consolidation dashboard"}
+        {
+          "when": "J0",
+          "what": "Formulaire de baseline auto-affiché en début de module (obligatoire pour valider le module)"
+        },
+        {
+          "when": "J+7",
+          "what": "Rappel par email + notification in-app"
+        },
+        {
+          "when": "J+14",
+          "what": "Formulaire de mesure d'impact auto-affiché + rappel"
+        },
+        {
+          "when": "J+30",
+          "what": "Rappel facultatif pour le KPI observatoire (taux d'engagement)"
+        },
+        {
+          "when": "J+60",
+          "what": "Rappel facultatif final + consolidation dashboard"
+        }
       ]
     },
     "tutorials": [
@@ -197,9 +372,7 @@
         ]
       }
     ],
-
     "_v1_1_additions": "Les 2 sections ci-dessous (engagement_optimization_playbook, references) sont les ajouts du PDF v1.1 — sections 2.4.2 et 2.4.5.",
-
     "engagement_optimization_playbook": {
       "title": "Engagement Optimization Playbook — 4 leviers, 15+ techniques",
       "source": "PDF v1.1 §2.4.2",
@@ -210,11 +383,26 @@
           "name": "Levier 1 — Hook (les 3 premières secondes)",
           "description": "Les 3 premières secondes décident si le contenu sera lu ou scrollé. 5 techniques de hook éprouvées.",
           "techniques": [
-            {"technique": "Question provocante", "example": "« Tu fais encore du marketing au feeling ? »"},
-            {"technique": "Statistique choc", "example": "« 73 % des marques au Maghreb ne mesurent pas leur engagement. »"},
-            {"technique": "Contradiction", "example": "« Le contenu IA performe MIEUX que le contenu humain. Voici pourquoi. »"},
-            {"technique": "Promesse précise", "example": "« 3 prompts pour doubler ton reach LinkedIn en 30 jours. »"},
-            {"technique": "Story personnelle", "example": "« J'ai posté 100 contenus IA en 30 jours. Voici les résultats. »"}
+            {
+              "technique": "Question provocante",
+              "example": "« Tu fais encore du marketing au feeling ? »"
+            },
+            {
+              "technique": "Statistique choc",
+              "example": "« 73 % des marques au Maghreb ne mesurent pas leur engagement. »"
+            },
+            {
+              "technique": "Contradiction",
+              "example": "« Le contenu IA performe MIEUX que le contenu humain. Voici pourquoi. »"
+            },
+            {
+              "technique": "Promesse précise",
+              "example": "« 3 prompts pour doubler ton reach LinkedIn en 30 jours. »"
+            },
+            {
+              "technique": "Story personnelle",
+              "example": "« J'ai posté 100 contenus IA en 30 jours. Voici les résultats. »"
+            }
           ]
         },
         {
@@ -222,11 +410,26 @@
           "name": "Levier 2 — Format & structure",
           "description": "Le bon format multiplie le reach et l'engagement. 5 formats avec impact mesuré.",
           "techniques": [
-            {"technique": "Carrousel LinkedIn (8-10 slides)", "impact": "+150 % vs post texte simple"},
-            {"technique": "Reels Instagram 15-30 sec", "impact": "+200 % de reach vs post statique"},
-            {"technique": "Articles 1500-2500 mots (long form)", "impact": "+3× shares vs articles courts"},
-            {"technique": "Sondages / Polls LinkedIn", "impact": "+400 % d'interactions vs post classique"},
-            {"technique": "Listes & numérotation (« 7 erreurs à éviter »)", "impact": "+80 % de clics"}
+            {
+              "technique": "Carrousel LinkedIn (8-10 slides)",
+              "impact": "+150 % vs post texte simple"
+            },
+            {
+              "technique": "Reels Instagram 15-30 sec",
+              "impact": "+200 % de reach vs post statique"
+            },
+            {
+              "technique": "Articles 1500-2500 mots (long form)",
+              "impact": "+3× shares vs articles courts"
+            },
+            {
+              "technique": "Sondages / Polls LinkedIn",
+              "impact": "+400 % d'interactions vs post classique"
+            },
+            {
+              "technique": "Listes & numérotation (« 7 erreurs à éviter »)",
+              "impact": "+80 % de clics"
+            }
           ]
         },
         {
@@ -234,11 +437,26 @@
           "name": "Levier 3 — Timing & fréquence (Maghreb)",
           "description": "Les créneaux Maghreb diffèrent des benchmarks US/EU. 5 plateformes avec leurs meilleurs créneaux.",
           "techniques": [
-            {"plateforme": "LinkedIn B2B", "creneau": "Mardi-jeudi 9h-11h ou 17h-19h (heure locale)"},
-            {"plateforme": "Instagram", "creneau": "Tous les jours 13h-15h (pause déj) ou 21h-23h"},
-            {"plateforme": "Facebook", "creneau": "Soir 20h-22h, weekend 11h-14h"},
-            {"plateforme": "TikTok", "creneau": "19h-23h tous les jours (forte audience Maghreb 18-35)"},
-            {"plateforme": "Newsletter B2B", "creneau": "Mardi ou jeudi 8h-9h"}
+            {
+              "plateforme": "LinkedIn B2B",
+              "creneau": "Mardi-jeudi 9h-11h ou 17h-19h (heure locale)"
+            },
+            {
+              "plateforme": "Instagram",
+              "creneau": "Tous les jours 13h-15h (pause déj) ou 21h-23h"
+            },
+            {
+              "plateforme": "Facebook",
+              "creneau": "Soir 20h-22h, weekend 11h-14h"
+            },
+            {
+              "plateforme": "TikTok",
+              "creneau": "19h-23h tous les jours (forte audience Maghreb 18-35)"
+            },
+            {
+              "plateforme": "Newsletter B2B",
+              "creneau": "Mardi ou jeudi 8h-9h"
+            }
           ]
         },
         {
@@ -246,70 +464,218 @@
           "name": "Levier 4 — Stimuler l'interaction",
           "description": "L'algorithme privilégie les contenus qui génèrent de l'interaction rapide. 5 techniques actionnables.",
           "techniques": [
-            {"technique": "Terminer chaque post par une question ouverte (et y répondre dans les 30 min après publication)"},
-            {"technique": "Tagger 1-2 personnes pertinentes (pas plus, sinon spam)"},
-            {"technique": "Répondre à TOUS les commentaires dans les 2h suivant la publication (boost algorithmique)"},
-            {"technique": "Encourager les partages : « Si ça t'a aidé, partage à ton équipe »"},
-            {"technique": "Utiliser les CTA visuels (« ↓ Réponds en commentaire ») plutôt que textuels seulement"}
+            {
+              "technique": "Terminer chaque post par une question ouverte (et y répondre dans les 30 min après publication)"
+            },
+            {
+              "technique": "Tagger 1-2 personnes pertinentes (pas plus, sinon spam)"
+            },
+            {
+              "technique": "Répondre à TOUS les commentaires dans les 2h suivant la publication (boost algorithmique)"
+            },
+            {
+              "technique": "Encourager les partages : « Si ça t'a aidé, partage à ton équipe »"
+            },
+            {
+              "technique": "Utiliser les CTA visuels (« ↓ Réponds en commentaire ») plutôt que textuels seulement"
+            }
           ]
         }
       ],
       "golden_rule": "Mesure l'engagement de chaque post pendant 30 jours, identifie le top 20% et analyse leurs caractéristiques communes (hook, format, sujet, timing). Refais 3× le top 20%."
     },
-
     "references": {
       "title": "References & sources de veille",
       "source": "PDF v1.1 §2.4.5",
       "description": "Sources externes de référence utilisées comme inspiration et benchmark pour la production de contenu.",
       "sources": [
-        {"name": "HubSpot Content Strategy Blog", "usage": "Frameworks de stratégie éditoriale B2B, benchmarks engagement"},
-        {"name": "Notion AI Content Templates", "usage": "Templates de calendrier éditorial et structures d'articles"},
-        {"name": "LinkedIn Marketing Solutions Blog", "usage": "Bonnes pratiques natives LinkedIn (formats, timing)"},
-        {"name": "Meta Business Resources", "usage": "Best practices content social (Facebook, Instagram)"},
-        {"name": "Buffer & Hootsuite blogs", "usage": "Études de cas multi-canal et data engagement Maghreb/MENA"}
+        {
+          "name": "HubSpot Content Strategy Blog",
+          "usage": "Frameworks de stratégie éditoriale B2B, benchmarks engagement"
+        },
+        {
+          "name": "Notion AI Content Templates",
+          "usage": "Templates de calendrier éditorial et structures d'articles"
+        },
+        {
+          "name": "LinkedIn Marketing Solutions Blog",
+          "usage": "Bonnes pratiques natives LinkedIn (formats, timing)"
+        },
+        {
+          "name": "Meta Business Resources",
+          "usage": "Best practices content social (Facebook, Instagram)"
+        },
+        {
+          "name": "Buffer & Hootsuite blogs",
+          "usage": "Études de cas multi-canal et data engagement Maghreb/MENA"
+        }
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "HubSpot — Guide de stratégie de contenu B2B",
-    "type": "article",
-    "url": "https://blog.hubspot.com/marketing/content-marketing-strategy",
-    "description": "Guide complet HubSpot sur la construction d'une stratégie éditoriale B2B — frameworks, calendrier, mesure d'engagement.",
-    "tags": ["stratégie", "contenu", "B2B", "calendrier"]
+      {
+        "id": "r1",
+        "title": "HubSpot — Guide de stratégie de contenu B2B",
+        "type": "article",
+        "url": "https://blog.hubspot.com/marketing/content-marketing-strategy",
+        "description": "Guide complet HubSpot sur la construction d'une stratégie éditoriale B2B — frameworks, calendrier, mesure d'engagement.",
+        "tags": [
+          "stratégie",
+          "contenu",
+          "B2B",
+          "calendrier"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Notion AI — Templates calendrier éditorial",
+        "type": "tool",
+        "url": "https://www.notion.so/templates/category/marketing",
+        "description": "Bibliothèque de templates Notion pour calendrier éditorial et bibliothèque de prompts. Free tier disponible.",
+        "tags": [
+          "calendrier",
+          "templates",
+          "Notion",
+          "organisation"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Canva AI — Création de visuels pour le contenu",
+        "type": "tool",
+        "url": "https://www.canva.com",
+        "description": "Outil de création de visuels avec IA intégrée. Free tier généreux — accepte les cartes bancaires locales TN/MA/DZ.",
+        "tags": [
+          "visuels",
+          "design",
+          "free",
+          "Maghreb"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Buffer — Programmation multi-canal gratuite",
+        "type": "tool",
+        "url": "https://buffer.com",
+        "description": "Outil de programmation de publications multi-canal. Free tier : 3 canaux gratuits — idéal pour démarrer au Maghreb.",
+        "tags": [
+          "programmation",
+          "multi-canal",
+          "free",
+          "réseaux sociaux"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "LinkedIn Marketing Solutions — Bonnes pratiques contenu",
+        "type": "article",
+        "url": "https://business.linkedin.com/marketing-solutions/blog",
+        "description": "Blog officiel LinkedIn avec les meilleures pratiques de contenu B2B : formats, timing, engagement — benchmarks MENA inclus.",
+        "tags": [
+          "LinkedIn",
+          "B2B",
+          "engagement",
+          "MENA"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Notion AI — Templates calendrier éditorial",
-    "type": "tool",
-    "url": "https://www.notion.so/templates/category/marketing",
-    "description": "Bibliothèque de templates Notion pour calendrier éditorial et bibliothèque de prompts. Free tier disponible.",
-    "tags": ["calendrier", "templates", "Notion", "organisation"]
-  },
-  {
-    "id": "r3",
-    "title": "Canva AI — Création de visuels pour le contenu",
-    "type": "tool",
-    "url": "https://www.canva.com",
-    "description": "Outil de création de visuels avec IA intégrée. Free tier généreux — accepte les cartes bancaires locales TN/MA/DZ.",
-    "tags": ["visuels", "design", "free", "Maghreb"]
-  },
-  {
-    "id": "r4",
-    "title": "Buffer — Programmation multi-canal gratuite",
-    "type": "tool",
-    "url": "https://buffer.com",
-    "description": "Outil de programmation de publications multi-canal. Free tier : 3 canaux gratuits — idéal pour démarrer au Maghreb.",
-    "tags": ["programmation", "multi-canal", "free", "réseaux sociaux"]
-  },
-  {
-    "id": "r5",
-    "title": "LinkedIn Marketing Solutions — Bonnes pratiques contenu",
-    "type": "article",
-    "url": "https://business.linkedin.com/marketing-solutions/blog",
-    "description": "Blog officiel LinkedIn avec les meilleures pratiques de contenu B2B : formats, timing, engagement — benchmarks MENA inclus.",
-    "tags": ["LinkedIn", "B2B", "engagement", "MENA"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "ChatGPT",
+      "steps": [
+        "Sélectionne 3 contenus performants de ta marque (posts LinkedIn, articles, emails) avec le plus d'engagement",
+        "Ouvre ChatGPT et colle le Prompt 1 (Brand Voice Encoding) depuis la section Prompts ci-dessus",
+        "Remplace [NOM_MARQUE], [SECTEUR], [PERSONA_PRINCIPAL] et colle tes 3 contenus de référence",
+        "Lis le profil éditorial généré — vérifie que le ton et le style correspondent à ta marque réelle",
+        "Copie le prompt master généré et sauvegarde-le dans Notion sous 'Brand Voice — [NOM_MARQUE]'",
+        "Teste la cohérence : génère 1 post LinkedIn avec ton prompt master et compare au style de tes contenus originaux"
+      ],
+      "title": "Encode ta brand voice en 30 minutes",
+      "format": "guide pas-à-pas",
+      "duration_min": 15
+    },
+    {
+      "id": "t2",
+      "tool": "ChatGPT + Airtable",
+      "steps": [
+        "Colle ton profil éditorial (Brand Voice) généré à l'étape précédente dans ChatGPT",
+        "Applique le Prompt 2 (Calendrier Éditorial) en remplissant [PERSONA], [OBJECTIF], [CANAUX]",
+        "Intègre au moins 1 saisonnalité Maghreb : Ramadan, rentrée scolaire, fête nationale, ou soldes",
+        "Récupère le tableau 12 semaines généré et crée une base Airtable avec les colonnes : Semaine, Pilier, Sujet, Canal, Format, CTA",
+        "Copie chaque ligne du tableau dans Airtable — tu as ton calendrier éditorial prêt",
+        "Partage la vue Airtable avec ton équipe ou client pour validation avant publication"
+      ],
+      "title": "Bâtis ton calendrier éditorial trimestriel",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://blog.hubspot.com/marketing/content-marketing-strategy",
+      "tags": [
+        "stratégie",
+        "contenu",
+        "B2B",
+        "calendrier"
+      ],
+      "type": "article",
+      "title": "HubSpot — Guide de stratégie de contenu B2B",
+      "description": "Guide complet HubSpot sur la construction d'une stratégie éditoriale B2B — frameworks, calendrier, mesure d'engagement."
+    },
+    {
+      "id": "r2",
+      "url": "https://www.notion.so/templates/category/marketing",
+      "tags": [
+        "calendrier",
+        "templates",
+        "Notion",
+        "organisation"
+      ],
+      "type": "tool",
+      "title": "Notion AI — Templates calendrier éditorial",
+      "description": "Bibliothèque de templates Notion pour calendrier éditorial et bibliothèque de prompts. Free tier disponible."
+    },
+    {
+      "id": "r3",
+      "url": "https://www.canva.com",
+      "tags": [
+        "visuels",
+        "design",
+        "free",
+        "Maghreb"
+      ],
+      "type": "tool",
+      "title": "Canva AI — Création de visuels pour le contenu",
+      "description": "Outil de création de visuels avec IA intégrée. Free tier généreux — accepte les cartes bancaires locales TN/MA/DZ."
+    },
+    {
+      "id": "r4",
+      "url": "https://buffer.com",
+      "tags": [
+        "programmation",
+        "multi-canal",
+        "free",
+        "réseaux sociaux"
+      ],
+      "type": "tool",
+      "title": "Buffer — Programmation multi-canal gratuite",
+      "description": "Outil de programmation de publications multi-canal. Free tier : 3 canaux gratuits — idéal pour démarrer au Maghreb."
+    },
+    {
+      "id": "r5",
+      "url": "https://business.linkedin.com/marketing-solutions/blog",
+      "tags": [
+        "LinkedIn",
+        "B2B",
+        "engagement",
+        "MENA"
+      ],
+      "type": "article",
+      "title": "LinkedIn Marketing Solutions — Bonnes pratiques contenu",
+      "description": "Blog officiel LinkedIn avec les meilleures pratiques de contenu B2B : formats, timing, engagement — benchmarks MENA inclus."
+    }
+  ]
 }

@@ -498,46 +498,170 @@
       ]
     },
     "resources": [
-  {
-    "id": "r1",
-    "title": "Figma — Best Practices pour Design Systems",
-    "type": "article",
-    "url": "https://www.figma.com/best-practices/components-styles-and-shared-libraries",
-    "description": "Guide officiel Figma sur la structuration d'un design system : variants, auto-layout, bibliothèques partagées — référence directe du module.",
-    "tags": ["Figma", "design system", "composants", "officiel"]
+      {
+        "id": "r1",
+        "title": "Figma — Best Practices pour Design Systems",
+        "type": "article",
+        "url": "https://www.figma.com/best-practices/components-styles-and-shared-libraries",
+        "description": "Guide officiel Figma sur la structuration d'un design system : variants, auto-layout, bibliothèques partagées — référence directe du module.",
+        "tags": [
+          "Figma",
+          "design system",
+          "composants",
+          "officiel"
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "Tokens Studio — Documentation officielle",
+        "type": "tool",
+        "url": "https://tokens.studio/docs",
+        "description": "Documentation officielle du plugin Figma pour centraliser les design tokens et synchroniser Figma ↔ code (CSS, Tailwind, iOS, Android). Free tier suffisant.",
+        "tags": [
+          "tokens",
+          "Figma",
+          "sync code",
+          "free"
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "Figma Community — Design Systems industriels de référence",
+        "type": "article",
+        "url": "https://www.figma.com/community/design-systems",
+        "description": "Bibliothèque de design systems industriels (Material Design, Polaris Shopify, Atlassian) — références utilisées comme benchmark dans le module.",
+        "tags": [
+          "benchmark",
+          "Material Design",
+          "Shopify",
+          "référence"
+        ]
+      },
+      {
+        "id": "r4",
+        "title": "Adobe Firefly — Génération de composants visuels",
+        "type": "tool",
+        "url": "https://firefly.adobe.com",
+        "description": "Modèle génératif Adobe pour créer des composants, textures et illustrations alignés à une charte graphique — complément à Figma pour les équipes hybrides.",
+        "tags": [
+          "Adobe",
+          "génératif",
+          "composants",
+          "brand"
+        ]
+      },
+      {
+        "id": "r5",
+        "title": "Style Dictionary — Sync tokens vers code (open source)",
+        "type": "tool",
+        "url": "https://amzn.github.io/style-dictionary",
+        "description": "Outil open source pour transformer les tokens Figma en variables CSS, Tailwind, iOS et Android. Gratuit — cité dans comparison_tables.",
+        "tags": [
+          "tokens",
+          "CSS",
+          "Tailwind",
+          "open source"
+        ]
+      }
+    ]
   },
-  {
-    "id": "r2",
-    "title": "Tokens Studio — Documentation officielle",
-    "type": "tool",
-    "url": "https://tokens.studio/docs",
-    "description": "Documentation officielle du plugin Figma pour centraliser les design tokens et synchroniser Figma ↔ code (CSS, Tailwind, iOS, Android). Free tier suffisant.",
-    "tags": ["tokens", "Figma", "sync code", "free"]
-  },
-  {
-    "id": "r3",
-    "title": "Figma Community — Design Systems industriels de référence",
-    "type": "article",
-    "url": "https://www.figma.com/community/design-systems",
-    "description": "Bibliothèque de design systems industriels (Material Design, Polaris Shopify, Atlassian) — références utilisées comme benchmark dans le module.",
-    "tags": ["benchmark", "Material Design", "Shopify", "référence"]
-  },
-  {
-    "id": "r4",
-    "title": "Adobe Firefly — Génération de composants visuels",
-    "type": "tool",
-    "url": "https://firefly.adobe.com",
-    "description": "Modèle génératif Adobe pour créer des composants, textures et illustrations alignés à une charte graphique — complément à Figma pour les équipes hybrides.",
-    "tags": ["Adobe", "génératif", "composants", "brand"]
-  },
-  {
-    "id": "r5",
-    "title": "Style Dictionary — Sync tokens vers code (open source)",
-    "type": "tool",
-    "url": "https://amzn.github.io/style-dictionary",
-    "description": "Outil open source pour transformer les tokens Figma en variables CSS, Tailwind, iOS et Android. Gratuit — cité dans comparison_tables.",
-    "tags": ["tokens", "CSS", "Tailwind", "open source"]
-  }
-]
-  }
+  "tutorials_fr": [
+    {
+      "id": "t1",
+      "tool": "Figma + ChatGPT",
+      "steps": [
+        "Ouvre ton fichier Figma principal et identifie toutes les couleurs utilisées via Edit > Select All with Same Fill",
+        "Note toutes les valeurs hex utilisées — tu trouveras probablement 15 à 30 couleurs non standardisées",
+        "Colle la liste dans ChatGPT avec le Prompt 1 (Audit Design System) pour identifier les incohérences",
+        "Récupère les recommandations : couleurs à fusionner, tokens à créer, hiérarchie à respecter",
+        "Dans Figma, crée une page 'Design Tokens' et définis tes couleurs primaires, secondaires, neutres et sémantiques",
+        "Remplace les couleurs incohérentes dans tes composants existants par les tokens standardisés"
+      ],
+      "title": "Audit cohérence + extraction de design tokens",
+      "format": "guide pas-à-pas",
+      "duration_min": 20
+    },
+    {
+      "id": "t2",
+      "tool": "Figma",
+      "steps": [
+        "Dans Figma, crée un nouveau frame 'Composants' et dessine un rectangle 120×40px pour ton bouton de base",
+        "Applique ton token de couleur primaire comme fond et ton token de texte blanc comme label",
+        "Convertis le frame en composant : clic droit > Create Component",
+        "Ajoute des variants : Default, Hover, Disabled, Loading — utilise le panneau Variants dans les propriétés",
+        "Colle le Prompt 2 (Documentation Composant) dans ChatGPT pour générer la documentation d'usage automatiquement",
+        "Copie la documentation générée dans une page Notion liée à ton Design System — ton composant est prêt à être partagé"
+      ],
+      "title": "Génère ton premier composant Button complet",
+      "format": "guide pas-à-pas",
+      "duration_min": 25
+    }
+  ],
+  "references_fr": [
+    {
+      "id": "r1",
+      "url": "https://www.figma.com/best-practices/components-styles-and-shared-libraries",
+      "tags": [
+        "Figma",
+        "design system",
+        "composants",
+        "officiel"
+      ],
+      "type": "article",
+      "title": "Figma — Best Practices pour Design Systems",
+      "description": "Guide officiel Figma sur la structuration d'un design system : variants, auto-layout, bibliothèques partagées — référence directe du module."
+    },
+    {
+      "id": "r2",
+      "url": "https://tokens.studio/docs",
+      "tags": [
+        "tokens",
+        "Figma",
+        "sync code",
+        "free"
+      ],
+      "type": "tool",
+      "title": "Tokens Studio — Documentation officielle",
+      "description": "Documentation officielle du plugin Figma pour centraliser les design tokens et synchroniser Figma ↔ code (CSS, Tailwind, iOS, Android). Free tier suffisant."
+    },
+    {
+      "id": "r3",
+      "url": "https://www.figma.com/community/design-systems",
+      "tags": [
+        "benchmark",
+        "Material Design",
+        "Shopify",
+        "référence"
+      ],
+      "type": "article",
+      "title": "Figma Community — Design Systems industriels de référence",
+      "description": "Bibliothèque de design systems industriels (Material Design, Polaris Shopify, Atlassian) — références utilisées comme benchmark dans le module."
+    },
+    {
+      "id": "r4",
+      "url": "https://firefly.adobe.com",
+      "tags": [
+        "Adobe",
+        "génératif",
+        "composants",
+        "brand"
+      ],
+      "type": "tool",
+      "title": "Adobe Firefly — Génération de composants visuels",
+      "description": "Modèle génératif Adobe pour créer des composants, textures et illustrations alignés à une charte graphique — complément à Figma pour les équipes hybrides."
+    },
+    {
+      "id": "r5",
+      "url": "https://amzn.github.io/style-dictionary",
+      "tags": [
+        "tokens",
+        "CSS",
+        "Tailwind",
+        "open source"
+      ],
+      "type": "tool",
+      "title": "Style Dictionary — Sync tokens vers code (open source)",
+      "description": "Outil open source pour transformer les tokens Figma en variables CSS, Tailwind, iOS et Android. Gratuit — cité dans comparison_tables."
+    }
+  ]
 }
