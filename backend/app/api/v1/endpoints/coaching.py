@@ -1,15 +1,20 @@
 # app/api/v1/endpoints/coaching.py
+import re
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-
+from app.core.limiter import limiter
 from app.core.deps import get_db
+from app.core.deps import get_current_user
+from app.models.user import User
 from app.schemas.coaching import (
     SessionCreateRequest, SessionCreateResponse,
     ChatRequest, ChatResponse
 )
 from app.models.coaching_session import CoachingSession, Event
 from app.services import rag_service
+
+# Limiter basé sur l'IP (fallback) — on va le surcharger par user_id
 
 router = APIRouter()
 
@@ -48,16 +53,35 @@ def create_session(
 # ----------------------------------------------------------------
 
 @router.post("/sessions/{session_id}/chat", response_model=ChatResponse)
+@limiter.limit("20/minute")
 def chat(
-    session_id: int,
-    req:        ChatRequest,
-    db:         Session = Depends(get_db)
+    request:      Request,
+    session_id:   int,
+    req:          ChatRequest,
+    db:           Session = Depends(get_db),
+    current_user: User    = Depends(get_current_user)
 ):
     session = db.query(CoachingSession).filter(
         CoachingSession.id == session_id
     ).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session introuvable")
+    if session.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Accès refusé")
+
+    module = db.execute(text("""
+        SELECT m.id
+        FROM modules m
+        JOIN career_paths cp ON cp.name = m.role
+        WHERE m.id = :module_id
+        AND cp.id = :career_path_id
+        AND m.is_active = true
+    """), {
+        "module_id":      req.module_id,
+        "career_path_id": current_user.career_path_id
+    }).fetchone()
+    if not module:
+        raise HTTPException(status_code=403, detail="Module non accessible pour votre parcours")
 
     if session.status == "abandoned":
         raise HTTPException(
@@ -66,7 +90,7 @@ def chat(
         )
 
     embedding = rag_service.embed_text(req.message)
-    chunks    = rag_service.search_chunks(
+    chunks, confidence = rag_service.search_chunks(
         db,
         module_id=req.module_id,
         section_type=req.section_type,
@@ -85,6 +109,15 @@ def chat(
     history         = rag_service.get_session_history(db, session_id)
     learner_profile = rag_service.get_learner_profile(db, req.user_id)
 
+    # Récupère la dernière recommandation Agent 3
+    recommendation_context = rag_service.get_last_recommendation(
+        db, current_user.id, req.module_id
+    )
+    complementary_resources = rag_service.get_complementary_resources(
+        db, req.module_id
+    )
+ 
+
     answer = rag_service.call_llm(
         message=req.message,
         chunks=chunks,
@@ -92,8 +125,34 @@ def chat(
         learner_profile=learner_profile,
         section_type=req.section_type,
         kpi_baseline=session.kpi_baseline,
-        redirect_module_title=redirect_module_title
+        redirect_module_title=redirect_module_title,
+        recommendation_context=recommendation_context,
+        complementary_resources=complementary_resources,
+        confidence=confidence,
     )
+    if complementary_resources and chunks:
+        # Retirer toute section "Pour aller plus loin" générée par le modèle
+        # pour éviter le doublon avec notre section Python
+        answer = re.sub(
+            r'\n*---\n📚\s*\*\*Pour aller plus loin.*',
+            '',
+            answer,
+            flags=re.DOTALL
+        ).rstrip()
+
+        # Ajouter notre section déterministe (sans risque d'hallucination)
+    if complementary_resources and chunks:
+        answer = re.sub(
+            r'\n*---\n🔗\s*\*\*Ressources du module.*',
+            '',
+            answer,
+            flags=re.DOTALL
+        ).rstrip()
+
+        answer += (
+            "\n\n---\n🔗 **Ressources du module :**\n"
+            + complementary_resources
+        )
 
     rag_service.save_chat(
         db=db,

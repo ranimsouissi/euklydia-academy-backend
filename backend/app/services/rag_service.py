@@ -59,11 +59,16 @@ def search_chunks(
     section_type: str,
     embedding:    list[float],
     top_k:        int = 4
-) -> list[dict]:
+) -> tuple[list[dict], str]:
     """
     Recherche les chunks RAG les plus pertinents pour un module,
     filtrés par section du stepper.
     Execution Task applique le contenu d'Execution Content — même pool RAG.
+
+    Retourne un tuple (chunks, confidence) où confidence vaut :
+      - "high"  : au moins un chunk très pertinent (distance < 0.45)
+      - "low"   : chunks partiellement pertinents (0.45 <= distance < 0.60)
+      - "none"  : rien de pertinent (distance >= 0.60) → hors contexte
     """
     effective_section_type = (
         "execution_content" if section_type == "execution_task" else section_type
@@ -90,8 +95,18 @@ def search_chunks(
     )
     rows = [dict(row._mapping) for row in result]
 
-    relevant_rows = [r for r in rows if float(r.get("distance", 1.0)) < 0.45]
-    return relevant_rows if relevant_rows else []
+    # Seuils de confiance (calibrés sur les distances réelles observées)
+    HIGH_THRESHOLD = 0.52
+    LOW_THRESHOLD  = 0.68
+
+    high_conf = [r for r in rows if float(r.get("distance", 1.0)) < HIGH_THRESHOLD]
+    low_conf  = [r for r in rows if float(r.get("distance", 1.0)) < LOW_THRESHOLD]
+
+    if high_conf:
+        return high_conf, "high"
+    if low_conf:
+        return low_conf, "low"
+    return [], "none"
 def find_best_module_match(
     db:                Session,
     embedding:         list[float],
@@ -325,7 +340,73 @@ MODULES_CATALOGUE = "\n".join([
     for m in EUKLYDIA_MODULES
 ])
 
+def get_last_recommendation(db: Session, user_id: int, module_id: int) -> Optional[str]:
+    """Récupère la dernière recommandation Agent 3 pour injection dans Agent 1."""
+    row = db.execute(text("""
+        SELECT section_review, stagnation_alert, recommendation_summary
+        FROM user_recommendations
+        WHERE user_id = :user_id AND module_id = :module_id
+        ORDER BY created_at DESC LIMIT 1
+    """), {"user_id": user_id, "module_id": module_id}).fetchone()
 
+    if not row:
+        return None
+
+    parts = []
+    if row.section_review:
+        parts.append(f"Section recommandée à revoir : {row.section_review}")
+    if row.recommendation_summary:
+        parts.append(f"Raison : {row.recommendation_summary}")
+    if row.stagnation_alert:
+        parts.append("⚠️ L'apprenant est en situation de stagnation.")
+
+    return "\n".join(parts) if parts else None
+def get_complementary_resources(db: Session, module_id: int) -> Optional[str]:
+    """
+    Récupère UNIQUEMENT les métadonnées des ressources complémentaires
+    (titre, type, durée) depuis references_fr.
+    NE vectorise PAS et N'analyse PAS leur contenu — l'agent peut mentionner
+    leur existence par leur titre, rien de plus.
+    """
+    row = db.execute(
+        text("SELECT references_fr FROM modules WHERE id = :module_id"),
+        {"module_id": module_id}
+    ).fetchone()
+
+    if not row or not row.references_fr:
+        return None
+
+    resources = row.references_fr
+    # psycopg2 renvoie normalement du jsonb déjà parsé, mais on sécurise :
+    if isinstance(resources, str):
+        try:
+            resources = json.loads(resources)
+        except (json.JSONDecodeError, TypeError):
+            return None
+
+    if not isinstance(resources, list) or not resources:
+        return None
+
+    type_labels = {
+        "video":    "vidéo",
+        "article":  "article",
+        "tool":     "outil",
+        "template": "template",
+    }
+
+    lines = []
+    for r in resources:
+        if not isinstance(r, dict):
+            continue
+        title = r.get("title")
+        if not title:
+            continue
+        rtype = type_labels.get(r.get("type", ""), r.get("type") or "ressource")
+        duration = r.get("duration")
+        label = f"- {title} ({rtype}" + (f", {duration}" if duration else "") + ")"
+        lines.append(label)
+
+    return "\n".join(lines) if lines else None
 def call_llm(
     message:               str,
     chunks:                list[dict],
@@ -334,6 +415,9 @@ def call_llm(
     section_type:          str  = None,
     kpi_baseline:          str  = None,
     redirect_module_title: str  = None,   # nouveau — Task 5
+    recommendation_context: str  = None,   # ← ajouter
+    complementary_resources: str = None,
+    confidence:              str  = "high",
 ) -> str:
     # ── Garde : aucun chunk pertinent → question hors contexte ──
     if not chunks:
@@ -381,6 +465,33 @@ def call_llm(
         f"KPI BASELINE : {kpi_baseline or 'non renseigné'}\n\n"
         "PROFIL DE L'APPRENANT (résultats passés) :\n"
         f"{learner_context}\n\n"
+    )
+
+    if recommendation_context:
+        system_prompt += (
+            "RECOMMANDATION AGENT 3 (adapte ta réponse en conséquence) :\n"
+            f"{recommendation_context}\n\n"
+        )
+
+    if complementary_resources:
+        system_prompt += (
+            "NOTE INTERNE (ne pas mentionner toi-même) : ce module dispose de "
+            "ressources complémentaires externes. Elles seront ajoutées "
+            "automatiquement après ta réponse — tu n'as pas à les citer.\n\n"
+        )
+        
+    if confidence == "low":
+        system_prompt += (
+            "⚠️ CONFIANCE FAIBLE : le contenu du module ne correspond que "
+            "partiellement à la question. Réponds en t'appuyant sur ce que "
+            "tu peux, mais préviens honnêtement l'apprenant en début de "
+            "réponse que ce module ne couvre ce sujet que partiellement, "
+            "et invite-le à reformuler ou à consulter un module plus adapté "
+            "si besoin. Ne force pas une réponse si le contenu est vraiment "
+            "insuffisant.\n\n"
+        )   
+
+    system_prompt += (
         "RÔLE PRINCIPAL : Répondre aux questions de l'apprenant "
         "en te basant sur le contenu du module.\n"
         "Utilise le profil ci-dessus pour personnaliser ta réponse.\n"
@@ -406,11 +517,26 @@ def call_llm(
         "- Génère le plan UNIQUEMENT si la question révèle un vrai problème\n"
         "- Ne génère PAS de plan pour les questions théoriques\n"
         "- Adapte au contexte Maghreb\n\n"
+        "RÔLE COACH — QUESTION DE RELANCE :\n"
+        "Termine TOUJOURS ta réponse par une seule question de relance, "
+        "adaptée à la nature de la question posée :\n"
+        "- Question théorique → relance d'application : demande comment "
+        "l'apprenant appliquerait ce concept dans son contexte réel\n"
+        "- Problème business révélé → relance de diagnostic : demande une "
+        "donnée chiffrée concrète (ex: votre CAC actuel, votre taux actuel)\n"
+        "- Question sur un outil/tutoriel → relance de passage à l'action : "
+        "demande où en est l'apprenant dans l'application sur ses vraies données\n"
+        "FORMAT : place la question sur une nouvelle ligne, préfixée par "
+        "'🎯 Question pour vous :'\n"
+        "RÈGLE ABSOLUE : UNE SEULE question, courte (max 20 mots), "
+        "jamais de question si l'apprenant vient de répondre à une relance "
+        "précédente dans l'historique.\n\n"
         f"CATALOGUE DES MODULES EUKLYDIA :\n{MODULES_CATALOGUE}\n\n"
         "--- CONTENU DU MODULE ---\n"
         f"{context}\n"
         "------------------------"
     )
+
 
     messages = [{"role": "system", "content": system_prompt}]
     messages += history[-6:]
@@ -497,15 +623,16 @@ def detect_pain_point(
         db.execute(
             text(
                 "INSERT INTO pain_points "
-                "(module_id, section_type, "
+                "(user_id, module_id, section_type, "
                 "summary, category, severity, "
                 "confidence_score, source, captured_at) "
                 "VALUES "
-                "(:module_id, :section_type, "
+                "(:user_id, :module_id, :section_type, "
                 ":summary, :category, :severity, "
                 ":confidence_score, 'coaching_agent', NOW())"
             ),
             {
+                "user_id":          user_id,
                 "module_id":        module_id,
                 "section_type":     section_type,
                 "summary":          data["summary"],
