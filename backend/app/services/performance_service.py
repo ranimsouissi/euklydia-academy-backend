@@ -124,12 +124,72 @@ def get_engagement_data(db: Session, user_id: int) -> dict:
 # STEP 2 — KPI before / after depuis user_module_progress
 # ----------------------------------------------------------------
 
+# ----------------------------------------------------------------
+# STEP 2 – KPI structurés depuis user_kpi_measurements (V2)
+# ----------------------------------------------------------------
+
 def get_kpi_data(db: Session, user_id: int) -> list[dict]:
+    """
+    Lit les KPI réels depuis user_kpi_measurements.
+    Calcule le delta et évalue l'atteinte de la cible.
+    Fallback : user_module_progress.kpi_after si aucune mesure structurée.
+    """
     rows = db.execute(text("""
+        SELECT
+            ukm.module_id,
+            m.title_fr          AS module_title,
+            ukm.indicator,
+            ukm.baseline_value,
+            ukm.current_value,
+            ukm.target_label,
+            ukm.unit,
+            ukm.measured_at,
+            ump.status,
+            ump.progress_percent,
+            ump.execution_task_submitted,
+            ump.execution_task_difficulty
+        FROM user_kpi_measurements ukm
+        JOIN modules m ON m.id = ukm.module_id
+        LEFT JOIN user_module_progress ump
+            ON ump.module_id = ukm.module_id
+            AND ump.user_id  = ukm.user_id
+        WHERE ukm.user_id = :user_id
+        ORDER BY ukm.module_id, ukm.indicator
+    """), {"user_id": user_id}).fetchall()
+
+    if rows:
+        result = []
+        for r in rows:
+            baseline = float(r.baseline_value) if r.baseline_value is not None else None
+            current  = float(r.current_value)  if r.current_value  is not None else None
+
+            # Calcul du delta en %
+            delta_pct = None
+            if baseline is not None and current is not None and baseline != 0:
+                delta_pct = round((current - baseline) / abs(baseline) * 100, 1)
+
+            result.append({
+                "module_id":                  r.module_id,
+                "module_title":               r.module_title,
+                "indicator":                  r.indicator,
+                "baseline_value":             baseline,
+                "current_value":              current,
+                "delta_pct":                  delta_pct,
+                "target_label":               r.target_label,
+                "unit":                       r.unit,
+                "measured":                   current is not None,
+                "status":                     r.status,
+                "progress_percent":           r.progress_percent,
+                "execution_task_submitted":   r.execution_task_submitted,
+                "execution_task_difficulty":  r.execution_task_difficulty,
+            })
+        return result
+
+    # Fallback : ancienne saisie texte libre si pas de mesure structurée
+    fallback_rows = db.execute(text("""
         SELECT
             m.id              AS module_id,
             m.title_fr        AS module_title,
-            m.kpi_before_fr   AS kpi_before,
             ump.kpi_after,
             ump.execution_task_submitted,
             ump.execution_task_difficulty,
@@ -137,11 +197,12 @@ def get_kpi_data(db: Session, user_id: int) -> list[dict]:
             ump.progress_percent
         FROM user_module_progress ump
         JOIN modules m ON m.id = ump.module_id
-        WHERE ump.user_id = :user_id
+        WHERE ump.user_id  = :user_id
+          AND ump.kpi_after IS NOT NULL
         ORDER BY ump.updated_at DESC
     """), {"user_id": user_id}).fetchall()
 
-    return [dict(r._mapping) for r in rows] if rows else []
+    return [dict(r._mapping) for r in fallback_rows] if fallback_rows else []
 
 
 # ----------------------------------------------------------------
@@ -321,8 +382,11 @@ Analyse ces données d'apprentissage et génère des insights actionnables.
 --- ENGAGEMENT PAR MODULE ---
 {json.dumps(engagement, ensure_ascii=False, default=str)}
 
---- KPI BEFORE / AFTER + EXECUTION TASK ---
+--- KPI AVANT / APRÈS (données structurées) ---
 {json.dumps(kpi_data, ensure_ascii=False, default=str)}
+Note : chaque entrée contient indicator, baseline_value, current_value, delta_pct (variation en %), target_label (cible visée), measured (true si valeur finale saisie).
+Si delta_pct est négatif → réduction (bon pour CAC, cycle). Si positif → augmentation (bon pour volume).
+Compare delta_pct à target_label pour évaluer si la cible est atteinte.
 
 --- MASTERY PAR SKILL ---
 {json.dumps(mastery, ensure_ascii=False, default=str)}
