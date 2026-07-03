@@ -12,6 +12,7 @@ from app.api.v1.endpoints import sequencing
 from app.api.v1.endpoints import admin
 from app.api.v1.endpoints import recommendation
 from app.api.v1.endpoints import analytics
+from app.api.v1.endpoints import kpi
 
 api_router = APIRouter()
 api_router.include_router(health.router,            tags=["health"])
@@ -28,3 +29,4 @@ api_router.include_router(sequencing.router,        prefix="/sequencing",   tags
 api_router.include_router(admin.router,             prefix="/admin",        tags=["admin"])
 api_router.include_router(recommendation.router,  prefix="/recommendation", tags=["recommendation"])
 api_router.include_router(analytics.router,        prefix="/analytics",      tags=["analytics"])
+api_router.include_router(kpi.router, prefix="/kpi", tags=["kpi"])

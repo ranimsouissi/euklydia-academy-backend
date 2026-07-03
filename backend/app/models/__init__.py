@@ -21,6 +21,7 @@ from .learner_activity_log import LearnerActivityLog
 from .learner_skill_mastery import LearnerSkillMastery
 from .learner_path_log import LearnerPathLog
 from .user_response import UserResponse
+from .user_kpi_measurement import UserKpiMeasurement
 
 __all__ = [
     "User",
@@ -44,4 +45,5 @@ __all__ = [
     "LearnerSkillMastery",
     "LearnerPathLog",
     "UserResponse",
+    "UserKpiMeasurement",
 ]
