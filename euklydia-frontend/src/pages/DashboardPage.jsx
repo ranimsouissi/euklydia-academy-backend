@@ -571,16 +571,35 @@ export default function DashboardPage() {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [kpiByModule, setKpiByModule] = useState({});
 
   const load = async () => {
     setLoading(true);
     try {
       const res = await apiFetch("/api/v1/roadmap");
-if (res?.ok) {
-  const data = await res.json();
-  setModules(data.items || []);
-  setLoaded(true);
-}
+      if (res?.ok) {
+        const data = await res.json();
+        const items = data.items || [];
+        setModules(items);
+        setLoaded(true);
+
+        // Charger les KPI pour chaque module en cours ou complété
+        const kpiMap = {};
+        await Promise.all(
+          items
+            .filter(m => m.status !== "not_started")
+            .map(async (m) => {
+              try {
+                const r = await apiFetch(`/api/v1/kpi/${m.module_id}`);
+                if (r?.ok) {
+                  const kpis = await r.json();
+                  if (kpis.length > 0) kpiMap[m.module_id] = kpis;
+                }
+              } catch { /* non-blocking */ }
+            })
+        );
+        setKpiByModule(kpiMap);
+      }
     } catch { /* non-blocking */ }
     finally { setLoading(false); }
   };
@@ -711,25 +730,59 @@ const status = sectionItem?.status || "not_started";
               {lang === "fr" ? "Impact mesuré après complétion de chaque module." : "Measured impact after completing each module."}
             </p>
             <div className="space-y-3">
-              {modulesWithProgress.map((m, i) => (
-                <div key={i} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
-                  <div className="text-sm font-semibold text-euk-dark mb-2">{m.title_fr || m.title_en}</div>
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="rounded-xl border border-red-100 bg-red-50 p-3">
-                      <div className="font-bold text-red-700 mb-1">
-                        {lang === "fr" ? "KPI Avant" : "KPI Before"}
+              {modulesWithProgress.map((m, i) => {
+                const kpis = kpiByModule[m.module_id] || [];
+                return (
+                  <div key={i} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                    <div className="text-sm font-semibold text-euk-dark mb-3">{m.title_fr || m.title_en}</div>
+                    {kpis.length > 0 ? (
+                      <div className="space-y-2">
+                        {kpis.map((kpi, kIdx) => (
+                          <div key={kIdx} className="grid grid-cols-2 gap-2 text-xs">
+                            <div className="col-span-2 text-xs font-semibold text-slate-500 mb-0.5">{kpi.indicator}</div>
+                            <div className="rounded-xl border border-red-100 bg-red-50 p-2.5">
+                              <div className="font-bold text-red-700 mb-0.5">
+                                {lang === "fr" ? "KPI Avant" : "KPI Before"}
+                              </div>
+                              <div className="text-slate-700 font-semibold">
+                                {kpi.baseline_value !== null ? `${kpi.baseline_value} ${kpi.unit || ""}` : "—"}
+                              </div>
+                            </div>
+                            <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-2.5">
+                              <div className="font-bold text-emerald-700 mb-0.5">
+                                {lang === "fr" ? "KPI Après" : "KPI After"}
+                              </div>
+                              <div className="text-slate-700 font-semibold">
+                                {kpi.current_value !== null
+                                  ? `${kpi.current_value} ${kpi.unit || ""}`
+                                  : (lang === "fr" ? "Non mesuré encore" : "Not measured yet")}
+                              </div>
+                            </div>
+                            {kpi.current_value !== null && kpi.baseline_value !== null && (
+                              <div className="col-span-2 rounded-xl border border-sky-100 bg-sky-50 p-2.5">
+                                <span className="text-xs font-bold text-sky-700">
+                                  {lang === "fr" ? "Cible : " : "Target: "}{kpi.target_label}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        ))}
                       </div>
-                      <div className="text-slate-600 leading-5">{m.kpi_before || "—"}</div>
-                    </div>
-                    <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-3">
-                      <div className="font-bold text-emerald-700 mb-1">
-                        {lang === "fr" ? "KPI Après" : "KPI After"}
+                    ) : (
+                      <div className="grid grid-cols-2 gap-3 text-xs">
+                        <div className="rounded-xl border border-red-100 bg-red-50 p-3">
+                          <div className="font-bold text-red-700 mb-1">{lang === "fr" ? "KPI Avant" : "KPI Before"}</div>
+                          <div className="text-slate-500">—</div>
+                        </div>
+                        <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-3">
+                          <div className="font-bold text-emerald-700 mb-1">{lang === "fr" ? "KPI Après" : "KPI After"}</div>
+                          <div className="text-slate-500">{lang === "fr" ? "Non mesuré encore" : "Not measured yet"}</div>
+                        </div>
                       </div>
-                      <div className="text-slate-600 leading-5">{m.kpi_after || (lang === "fr" ? "Non mesuré encore" : "Not measured yet")}</div>
-                    </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
