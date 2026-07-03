@@ -19,7 +19,7 @@ import {
 // TutorChat — Coaching Agent flottant (Agent 1)
 // Utilise module_id + section_type (plus de lesson_id)
 // ─────────────────────────────────────────────────────────────────────────
-function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
+function TutorChat({ moduleId, userId, kpiBaseline, lang, currentSectionType }) {
   const [open, setOpen] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -28,8 +28,12 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang }) {
   const [sessionLoading, setSessionLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Section active du tuteur — par défaut execution_content
-  const sectionType = "execution_content";
+  const sectionType = currentSectionType || "execution_content";
+
+  useEffect(() => {
+    setSessionId(null);
+    setMessages([]);
+  }, [sectionType]);
 
   const l = lang === "en" ? {
     btn: "Ask the tutor", title: "Euklydia Tutor",
@@ -322,6 +326,14 @@ export default function ModulePage() {
   const [nextRecommendation, setNextRecommendation] = useState(null);
   const [loadingRec, setLoadingRec] = useState(false);
 
+  // ── KPI saisie ──────────────────────────────────────────────────────────
+  const [kpiBaselines, setKpiBaselines] = useState({});        // { "CAC moyen": "45", ... }
+  const [kpiBaselineSaving, setKpiBaselineSaving] = useState(false);
+  const [kpiBaselineSaved, setKpiBaselineSaved] = useState(false);
+  const [kpiMeasurements, setKpiMeasurements] = useState({});  // { "CAC moyen": "38", ... }
+  const [kpiMeasurementSaving, setKpiMeasurementSaving] = useState(false);
+  const [kpiMeasurementSaved, setKpiMeasurementSaved] = useState({});  // { "CAC moyen": true }
+
   const USER_ID = (() => {
     try {
       const raw = localStorage.getItem("auth_user");
@@ -566,6 +578,63 @@ const goToStep = async (nextStep) => {
     finally { setLoadingRec(false); }
   };
 
+  // ── KPI : sauvegarder la baseline ───────────────────────────────────────
+  const saveKpiBaseline = async () => {
+    if (!kpiTargets?.rows?.length) return;
+    const indicators = kpiTargets.rows
+      .filter(row => kpiBaselines[row[0]] !== undefined && kpiBaselines[row[0]] !== "")
+      .map(row => ({
+        indicator:      row[0],
+        baseline_value: parseFloat(kpiBaselines[row[0]]),
+        target_label:   row[3] || null,
+        unit:           null,
+      }));
+    if (!indicators.length) return;
+    setKpiBaselineSaving(true);
+    try {
+      const token = localStorage.getItem("access_token");
+      await fetch(`${process.env.REACT_APP_API_URL}/kpi/baseline`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ module_id: parseInt(moduleId, 10), indicators }),
+      });
+      setKpiBaselineSaved(true);
+    } catch {
+      console.error("Erreur sauvegarde baseline KPI");
+    } finally {
+      setKpiBaselineSaving(false);
+    }
+  };
+
+  // ── KPI : sauvegarder une valeur finale ─────────────────────────────────
+  const saveKpiMeasurement = async (indicator, value) => {
+    if (!value || isNaN(parseFloat(value))) return;
+    setKpiMeasurementSaving(true);
+    try {
+      const token = localStorage.getItem("access_token");
+      await fetch(`${process.env.REACT_APP_API_URL}/kpi/measurement`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          module_id:     parseInt(moduleId, 10),
+          indicator,
+          current_value: parseFloat(value),
+        }),
+      });
+      setKpiMeasurementSaved(prev => ({ ...prev, [indicator]: true }));
+    } catch {
+      console.error("Erreur sauvegarde mesure KPI");
+    } finally {
+      setKpiMeasurementSaving(false);
+    }
+  };
+
   // ── Soumettre l'Execution Task ──────────────────────────────────────────
   const submitTask = async () => {
     if (!taskForm.url || !taskForm.kpi_after) {
@@ -577,14 +646,11 @@ const goToStep = async (nextStep) => {
     setTaskSubmitting(true);
     setTaskError("");
     try {
-      // 1. Soumettre l'Execution Task → met à jour mastery
       await submitExecutionTask(moduleId, {
         url: taskForm.url,
         kpiAfter: taskForm.kpi_after,
         difficulty: taskForm.difficulty || null,
       });
-
-      // 2. Récupérer le feedback du coach
       const kpiBefore = pick(moduleData?.kpi_before_fr, moduleData?.kpi_before_en);
       const feedback = await getExecutionTaskFeedback({
         moduleId: parseInt(moduleId, 10),
@@ -595,12 +661,8 @@ const goToStep = async (nextStep) => {
         sectionType: "execution_task",
       });
       setTaskFeedback(feedback);
-
-      // 3. Recharger le module pour mettre à jour la mastery
       const fresh = await getModule(moduleId);
       if (fresh) setModuleData(fresh);
-
-      // 4. Déclencher la recommandation
       fetchRecommendation();
     } catch {
       setTaskError(lang === "fr" ? "Erreur lors de la soumission." : "Submission failed.");
@@ -883,7 +945,72 @@ const goToStep = async (nextStep) => {
         {kpiTargets && (
           <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
             <SectionHeader title={t[lang].kpiTitle} subtitle={t[lang].kpiSubtitle} />
-            <ComparisonTableCard table={kpiTargets} />
+
+            {/* Tableau KPI avec champs de saisie baseline */}
+            <div className="overflow-x-auto rounded-2xl border border-slate-200">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200 bg-slate-50">
+                    {kpiTargets.headers?.map((h, i) => (
+                      <th key={i} className="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {kpiTargets.rows?.map((row, rIdx) => (
+                    <tr key={rIdx} className="border-b border-slate-100 last:border-0">
+                      {row.map((cell, cIdx) => (
+                        <td key={cIdx} className="px-4 py-3 text-slate-700">
+                          {cIdx === 2 ? (
+                            /* Colonne Baseline (J0) → champ de saisie */
+                            <input
+                              type="number"
+                              placeholder="Votre valeur..."
+                              value={kpiBaselines[row[0]] ?? ""}
+                              onChange={e => setKpiBaselines(prev => ({
+                                ...prev,
+                                [row[0]]: e.target.value,
+                              }))}
+                              className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary"
+                            />
+                          ) : (
+                            <span className={cIdx === 3 ? "font-semibold text-euk-primary" : ""}>
+                              {cell}
+                            </span>
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Bouton sauvegarder baseline */}
+            <div className="mt-4 flex items-center gap-3">
+              <button
+                onClick={saveKpiBaseline}
+                disabled={kpiBaselineSaving || kpiBaselineSaved}
+                className={`rounded-2xl px-5 py-2.5 text-sm font-bold transition ${
+                  kpiBaselineSaved
+                    ? "bg-emerald-500 text-white cursor-default"
+                    : "bg-euk-primary text-white hover:bg-euk-deep disabled:opacity-50"
+                }`}
+              >
+                {kpiBaselineSaving
+                  ? "Sauvegarde..."
+                  : kpiBaselineSaved
+                  ? "✓ Baseline enregistrée"
+                  : "Enregistrer ma baseline"}
+              </button>
+              {kpiBaselineSaved && (
+                <span className="text-xs text-emerald-600 font-medium">
+                  Vos valeurs de départ sont enregistrées.
+                </span>
+              )}
+            </div>
           </section>
         )}
         </>)}
@@ -1341,6 +1468,48 @@ const goToStep = async (nextStep) => {
                 </div>
               </div>
             )}
+
+            {/* ── Saisie valeurs finales KPI ── */}
+            {kpiTargets?.rows?.length > 0 && (
+              <div className="mt-6">
+                <div className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-3">
+                  📊 {lang === "fr" ? "Saisir mes valeurs mesurées" : "Enter my measured values"}
+                </div>
+                <div className="space-y-3">
+                  {kpiTargets.rows.map((row, idx) => (
+                    <div key={idx} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-euk-dark">{row[0]}</div>
+                        <div className="text-xs text-slate-500 mt-0.5">Cible : {row[3]}</div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <input
+                          type="number"
+                          placeholder="Valeur mesurée..."
+                          value={kpiMeasurements[row[0]] ?? ""}
+                          onChange={e => setKpiMeasurements(prev => ({
+                            ...prev,
+                            [row[0]]: e.target.value,
+                          }))}
+                          className="w-36 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary"
+                        />
+                        <button
+                          onClick={() => saveKpiMeasurement(row[0], kpiMeasurements[row[0]])}
+                          disabled={kpiMeasurementSaving || kpiMeasurementSaved[row[0]]}
+                          className={`rounded-xl px-3 py-2 text-xs font-bold transition ${
+                            kpiMeasurementSaved[row[0]]
+                              ? "bg-emerald-500 text-white cursor-default"
+                              : "bg-euk-primary text-white hover:bg-euk-deep disabled:opacity-50"
+                          }`}
+                        >
+                          {kpiMeasurementSaved[row[0]] ? "✓" : lang === "fr" ? "Enregistrer" : "Save"}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
         )}
         </>)}
@@ -1487,18 +1656,19 @@ const goToStep = async (nextStep) => {
               disabled={progressDone}
               className="px-6 py-3 rounded-2xl bg-emerald-500 text-sm font-bold text-white hover:bg-emerald-600 disabled:opacity-50 transition"
             >
-              {progressDone ? "✓ Terminé" : lang === "fr" ? "Terminer le module" : "Complete module"}
+              {progressDone ? t[lang].progressDoneLabel : t[lang].progressMarkDone}
             </button>
           )}
         </div>
 
       </div>
       <TutorChat
-        moduleId={parseInt(moduleId, 10)}
-        userId={USER_ID}
-        kpiBaseline={kpiBaseline}
-        lang={lang}
-      />
+  moduleId={parseInt(moduleId, 10)}
+  userId={USER_ID}
+  kpiBaseline={kpiBaseline}
+  lang={lang}
+  currentSectionType={STEPS[currentStep].key}
+/>
     </div>
   );
 }
