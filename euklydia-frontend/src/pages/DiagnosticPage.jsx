@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
 const OPTION_KEYS = ["A", "B", "C", "D"];
@@ -42,7 +42,7 @@ const formatCooldownDate = (isoString, lang) => {
     const date = new Date(isoString);
     if (isNaN(date.getTime())) return isoString;
 
-    const locale = lang === "fr" ? "fr-FR" : "en-US";
+    const locale = "fr-FR";
     const dateStr = date.toLocaleDateString(locale, {
       day: "numeric",
       month: "long",
@@ -51,9 +51,9 @@ const formatCooldownDate = (isoString, lang) => {
     const timeStr = date.toLocaleTimeString(locale, {
       hour: "2-digit",
       minute: "2-digit",
-      hour12: lang !== "fr",
+      hour12: false,
     });
-    const connector = lang === "fr" ? " à " : " at ";
+    const connector = " à ";
     return `${dateStr}${connector}${timeStr}`;
   } catch {
     return isoString;
@@ -62,8 +62,7 @@ const formatCooldownDate = (isoString, lang) => {
 
 export default function DiagnosticPage() {
   const navigate = useNavigate();
-  const { language } = useOutletContext() || {};
-  const lang = language || "en";
+  const lang = "fr";
 
   const [status, setStatus] = useState(null);
   const [questionnaire, setQuestionnaire] = useState(null);
@@ -76,38 +75,6 @@ export default function DiagnosticPage() {
   // Traductions UI
   // ═══════════════════════════════════════════════════════════════════
   const t = {
-    en: {
-      // Cooldown screen
-      cooldownTitle: "Diagnostic not available",
-      cooldownMessage: "You can retake the diagnostic from",
-      backToRoadmap: "← Back to roadmap",
-      // Header
-      diagnosticBadge: "AI Diagnostic",
-      diagnosticTitle: "Assess your AI skills",
-      diagnosticSubtitle: "For each question, choose the best answer among the 4 options.",
-      // Role banner
-      yourSelectedRole: "Your selected role",
-      changeRole: "Change role →",
-      // Recommended banner
-      updateRecommended: "Update recommended — your last diagnostic was more than 90 days ago.",
-      // Progress
-      progress: "Progress",
-      // Empty state
-      noQuestionnaire: "No questionnaire loaded.",
-      // Footer
-      questionsAnswered: "questions answered",
-      diagnosticComplete: "✓ Diagnostic complete — ready to submit",
-      answerAllQuestions: "Answer all questions to generate your path.",
-      generateBtn: "Generate my personalized path →",
-      generating: "Generating...",
-      // Errors
-      errStatusLoad: "Unable to load status",
-      errQuestionnaireLoad: "Unable to load questionnaire",
-      errQuestionnaireNotLoaded: "Questionnaire not loaded.",
-      errAnswerAll: (a, t) => `Please answer all questions (${a}/${t}).`,
-      errSubmit: "Submission failed",
-      errGeneric: "Error",
-    },
     fr: {
       // Cooldown screen
       cooldownTitle: "Diagnostic non disponible",

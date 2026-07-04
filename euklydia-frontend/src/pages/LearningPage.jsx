@@ -1,35 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useOutletContext, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
 export default function LearningPage() {
   const navigate = useNavigate();
-  const { language } = useOutletContext();
-  const lang = language || "en";
+  const lang = "fr";
 
   const [roadmapItems, setRoadmapItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   const t = {
-    en: {
-      heroBadge: "Learning focus", title: "Learning",
-      subtitle: "Make progress on your current module at your own pace.",
-      viewRoadmap: "View AI Roadmap", loading: "Loading...",
-      noModules: "No modules available",
-      noModulesText: "Complete the diagnostic to generate your learning modules.",
-      startDiagnostic: "Start diagnostic",
-      heroCurrentFocus: "Your current focus",
-      heroResume: "Continue this module", heroReview: "Review this module", heroStart: "Start this module",
-      currentScore: "Current score", kpiBefore: "Today", kpiAfter: "After mastering", progress: "Progress",
-      ctaStart: "Start the module →", ctaContinue: "Continue the module →", ctaReview: "Review the module →",
-      otherModulesTitle: "Your other modules",
-      otherModulesSubtitle: "Switch between modules as you progress.",
-      openModule: "Open →",
-      priorityHigh: "High priority", priorityMedium: "Medium priority", priorityLow: "Optional",
-      statusCompleted: "Completed", statusInProgress: "In progress", statusNotStarted: "Not started",
-      min: "min", skillLabel: "Skill", score: "Score",
-    },
     fr: {
       heroBadge: "Focus apprentissage", title: "Apprentissage",
       subtitle: "Avancez sur votre module en cours à votre rythme.",
@@ -80,8 +61,8 @@ export default function LearningPage() {
   const statusLabel = s => { const v = String(s || "").toLowerCase(); if (v.includes("complete")) return t[lang].statusCompleted; if (v.includes("progress")) return t[lang].statusInProgress; return t[lang].statusNotStarted; };
   const statusClass = s => { const v = String(s || "").toLowerCase(); if (v.includes("complete")) return "border-emerald-200 bg-emerald-50 text-emerald-700"; if (v.includes("progress")) return "border-sky-200 bg-sky-50 text-sky-700"; return "border-slate-200 bg-slate-50 text-slate-600"; };
   const statusDot = s => { const v = String(s || "").toLowerCase(); if (v.includes("complete")) return "bg-emerald-500"; if (v.includes("progress")) return "bg-sky-500 animate-pulse"; return "bg-slate-300"; };
-  const moduleTitle = m => lang === "fr" ? m.module_title_fr || m.module_title : m.module_title;
-  const moduleDescription = m => lang === "fr" ? m.module_description_fr || m.module_description : m.module_description;
+  const moduleTitle = m => m.module_title_fr || m.module_title;
+  const moduleDescription = m => m.module_description_fr || m.module_description;
   const goToModule = id => { if (id) navigate(`/learning/module/${id}/units`); };
 
   // journey_stage helper — ex: "Cycle de vente — Qualification" → {cycle, focus}
@@ -266,7 +247,7 @@ export default function LearningPage() {
                     <span>{t[lang].progress}</span>
                     <span className={heroModule.progress_percent === 100 ? "text-emerald-600 font-bold" : "text-euk-primary"}>
                       {heroModule.progress_percent === 100
-                        ? (lang === "fr" ? "✓ Terminé" : "✓ Completed")
+                        ? "✓ Terminé"
                         : `${heroModule.progress_percent || 0}%`}
                     </span>
                   </div>

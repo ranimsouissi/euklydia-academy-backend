@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams, useOutletContext } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   getModule,
@@ -35,13 +35,7 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang, currentSectionType }) 
     setMessages([]);
   }, [sectionType]);
 
-  const l = lang === "en" ? {
-    btn: "Ask the tutor", title: "Euklydia Tutor",
-    subtitle: "Ask your questions about this module",
-    placeholder: "Ask your question...",
-    welcome: "Hello! I'm your tutor for this module. Feel free to ask me anything.",
-    error: "Error — please retry.",
-  } : {
+  const l = {
     btn: "Demander au tuteur", title: "Tuteur Euklydia",
     subtitle: "Posez vos questions sur ce module",
     placeholder: "Posez votre question...",
@@ -302,7 +296,6 @@ function ComparisonTableCard({ table }) {
 export default function ModulePage() {
   const { moduleId } = useParams();
   const navigate = useNavigate();
-  const { language } = useOutletContext();
 
   const [moduleData, setModuleData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -342,16 +335,16 @@ export default function ModulePage() {
     } catch { return null; }
   })();
 
-  const lang = language || "fr";
+  const lang = "fr";
 
 // ── Stepper — navigation par étapes ────────────────────────────────────
 const STEPS = [
-  { key: "use_case",          label: lang === "fr" ? "Use Case"      : "Use Case" },
-  { key: "kpi",               label: lang === "fr" ? "KPI"           : "KPI" },
-  { key: "execution_content", label: lang === "fr" ? "Contenu"       : "Content" },
-  { key: "execution_task",    label: lang === "fr" ? "Mission"       : "Mission" },
-  { key: "kpi_measurement",   label: lang === "fr" ? "Mesure KPI"    : "KPI Measure" },
-  { key: "progress_update",   label: lang === "fr" ? "Bilan"         : "Summary" },
+  { key: "use_case",          label: "Use Case" },
+  { key: "kpi",               label: "KPI" },
+  { key: "execution_content", label: "Contenu" },
+  { key: "execution_task",    label: "Mission" },
+  { key: "kpi_measurement",   label: "Mesure KPI" },
+  { key: "progress_update",   label: "Bilan" },
 ];
 
 const goToStep = async (nextStep) => {
@@ -443,83 +436,6 @@ const goToStep = async (nextStep) => {
       resourceTypeTemplate: "Template",
       resourceOpen: "Accéder →",
     },
-    en: {
-      loading: "Loading module...",
-      back: "Back to Learning",
-      notFound: "Module not found",
-      notFoundDesc: "This module could not be loaded.",
-      min: "min", completed: "Completed", inProgress: "In progress", notStarted: "Not started",
-      yourProgress: "Your progress",
-      promptsLabel: "prompts", workflowsLabel: "workflows",
-      scenarioTitle: "Scenario",
-      scenarioSubtitle: "A concrete case based on your business context.",
-      useCaseTitle: "The business problem",
-      useCaseSubtitle: "The real challenges you will solve with AI.",
-      kpiTitle: "KPI — Before / After",
-      kpiSubtitle: "The concrete business impact you will generate.",
-      programTitle: "What you'll learn",
-      programSubtitle: "The promise of this module and what you'll be able to deliver.",
-      learningObjective: "Learning objective",
-      expectedOutcome: "Expected outcome",
-      whyThisModule: "Why this module",
-      conceptsTitle: "Key concepts",
-      conceptsSubtitle: "The essential ideas you'll master.",
-      executionContentLabel: "Execution Content",
-      promptsTitle: "ChatGPT prompts",
-      promptsSubtitle: "Ready-to-use prompts to accelerate your work.",
-      toolsTitle: "Tools",
-      toolsSubtitle: "Compare tools and their Maghreb alternatives.",
-      workflowsTitle: "Workflows",
-      workflowsSubtitle: "Choose the workflow that matches your level.",
-      tutorialsTitle: "Tutorials",
-      tutorialsSubtitle: "Guided videos to get started quickly.",
-      tutorialWatch: "Watch tutorial",
-      tutorialTemplate: "Duplicate template",
-      missionLabel: "Field mission",
-      missionTitle: "Execution Task",
-      missionObjective: "Objective",
-      missionDuration: "Duration",
-      missionTools: "Tools required",
-      missionStepsLabel: "Steps",
-      missionSuccess: "Success criteria",
-      missionMaghreb: "Regional note",
-      stepsCompleted: "steps completed",
-      kpiMeasurementTitle: "KPI Measurement",
-      kpiMeasurementSubtitle: "How to measure your impact over time.",
-      kpiPatternTitle: "KPI temporal pattern",
-      milestonesTitle: "Measurement milestones",
-      progressTitle: "Progress Update",
-      submitTitle: "Submit my mission",
-      submitSubtitle: "Share your real deliverable and measure your impact.",
-      taskUrl: "Deliverable link *",
-      taskUrlPlaceholder: "https://figma.com/... or Google Drive, Notion...",
-      taskKpiAfter: "KPI after (measured) *",
-      taskKpiAfterPlaceholder: "Ex: 10 concepts in 30 min (vs 3 before)",
-      taskDifficulty: "Perceived difficulty",
-      diffEasy: "Easy", diffMedium: "Medium", diffHard: "Hard",
-      submitBtn: "Submit my mission →",
-      submitting: "Submitting...",
-      submitted: "✓ Mission submitted",
-      feedbackTitle: "Coach feedback",
-      nextStep: "Next step",
-      progressSubtitle: "Module recap and recommended next step.",
-      progressModuleDone: "Module completed",
-      progressNextStep: "Next step",
-      progressMarkDone: "Mark as completed",
-      progressDoneLabel: "✓ Module completed",
-      maghrebSpecifics: "Maghreb specifics",
-      masteryUpdated: "Updated after mission submission",
-      masteryCompleted: "Updated after module completion",
-      recommendedModule: "Recommended module",
-      goToModule: "Go to module →",
-      resourcesTitle: "Additional resources",
-      resourcesSubtitle: "Tools, articles and videos to go further.",
-      resourceTypeVideo: "Video",
-      resourceTypeArticle: "Article",
-      resourceTypeTool: "Tool",
-      resourceTypeTemplate: "Template",
-      resourceOpen: "Open →",
-    },
   };
 
   // ── Chargement du module ────────────────────────────────────────────────
@@ -546,7 +462,7 @@ const goToStep = async (nextStep) => {
     })();
   }, [moduleId, lang]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const pick = (frValue, enValue) => lang === "fr" ? frValue || enValue : enValue || frValue;
+  const pick = (frValue, enValue) => frValue || enValue;
 
   const statusBadgeClass = (status) => {
     if (status === "completed") return "border-emerald-200 bg-emerald-50 text-emerald-700";
@@ -637,12 +553,10 @@ const goToStep = async (nextStep) => {
 
   // ── Soumettre l'Execution Task ──────────────────────────────────────────
   const submitTask = async () => {
-    if (!taskForm.url || !taskForm.kpi_after) {
-      setTaskError(lang === "fr"
-        ? "Veuillez remplir le lien du livrable et le KPI après."
-        : "Please fill in the deliverable link and KPI after.");
-      return;
-    }
+  if (!taskForm.url || !taskForm.kpi_after) {
+    setTaskError("Veuillez remplir le lien du livrable et le KPI après.");
+    return;
+  }
     setTaskSubmitting(true);
     setTaskError("");
     try {
@@ -665,10 +579,10 @@ const goToStep = async (nextStep) => {
       if (fresh) setModuleData(fresh);
       fetchRecommendation();
     } catch {
-      setTaskError(lang === "fr" ? "Erreur lors de la soumission." : "Submission failed.");
-    } finally {
-      setTaskSubmitting(false);
-    }
+  setTaskError("Erreur lors de la soumission.");
+} finally {
+  setTaskSubmitting(false);
+}
   };
 
   const handleMarkComplete = async () => {
@@ -821,7 +735,7 @@ const goToStep = async (nextStep) => {
           {/* ── Votre progression — deux indicateurs clairs ── */}
 <div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50 p-4 space-y-4">
   <div className="text-xs font-bold uppercase tracking-wide text-slate-400">
-    {lang === "fr" ? "Votre progression" : "Your progress"}
+    Votre progression
   </div>
 
   {/* Ligne 1 — Contenu parcouru */}
@@ -829,19 +743,15 @@ const goToStep = async (nextStep) => {
     <div className="flex items-center justify-between text-sm mb-1.5">
       <div>
         <span className="font-semibold text-euk-dark">
-          📚 {lang === "fr" ? "Contenu parcouru" : "Content progress"}
+          📚 Contenu parcouru
         </span>
         <span className="block text-xs text-slate-400 mt-0.5">
-          {lang === "fr"
-            ? "Sections du module complétées"
-            : "Module sections completed"}
+          Sections du module complétées
         </span>
       </div>
       <span className={`font-bold text-sm ${progressPercent === 100 ? "text-emerald-600" : "text-euk-primary"}`}>
-        {progressPercent === 100
-          ? (lang === "fr" ? "✓ Terminé" : "✓ Done")
-          : `${progressPercent}%`}
-      </span>
+  {progressPercent === 100 ? "✓ Terminé" : `${progressPercent}%`}
+</span>
     </div>
     <div className="h-2 w-full rounded-full bg-slate-200">
       <div
@@ -860,10 +770,8 @@ const goToStep = async (nextStep) => {
             🎯 {moduleData.skill_mastery.skill_name}
           </span>
           <span className="block text-xs text-slate-400 mt-0.5">
-            {lang === "fr"
-              ? "Compétence acquise sur vos données réelles"
-              : "Skill acquired on your real data"}
-          </span>
+  Compétence acquise sur vos données réelles
+</span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <span className="font-bold text-sm text-euk-primary">
@@ -918,10 +826,10 @@ const goToStep = async (nextStep) => {
             {useCaseDetail.pain_points?.length > 0 && (
               <div className="space-y-2">
                 {useCaseDetail.pain_points.map((point, i) => (
-                  <div key={i} className="flex items-start gap-3 rounded-xl border border-red-100 bg-red-50 px-4 py-2.5">
-                    <span className="mt-0.5 text-red-400 shrink-0">✕</span>
-                    <span className="text-sm text-red-900">{point}</span>
-                  </div>
+                  <div key={i} className="flex items-start gap-3 rounded-xl border border-orange-100 bg-orange-50 px-4 py-2.5">
+  <span className="mt-0.5 text-orange-400 shrink-0">✕</span>
+  <span className="text-sm text-orange-900">{point}</span>
+</div>
                 ))}
               </div>
             )}
@@ -1131,9 +1039,9 @@ const goToStep = async (nextStep) => {
           </div>
           {tuto.steps?.length > 0 && (
             <div className="p-4">
-              <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">
-                {lang === "fr" ? "Étapes" : "Steps"}
-              </div>
+  <div className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-3">
+    Étapes
+  </div>
               <div className="space-y-2">
                 {tuto.steps.map((step, sIdx) => (
                   <div key={sIdx} className="flex items-start gap-3">
@@ -1472,9 +1380,9 @@ const goToStep = async (nextStep) => {
             {/* ── Saisie valeurs finales KPI ── */}
             {kpiTargets?.rows?.length > 0 && (
               <div className="mt-6">
-                <div className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-3">
-                  📊 {lang === "fr" ? "Saisir mes valeurs mesurées" : "Enter my measured values"}
-                </div>
+  <div className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-3">
+    📊 Saisir mes valeurs mesurées
+  </div>
                 <div className="space-y-3">
                   {kpiTargets.rows.map((row, idx) => (
                     <div key={idx} className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -1502,7 +1410,7 @@ const goToStep = async (nextStep) => {
                               : "bg-euk-primary text-white hover:bg-euk-deep disabled:opacity-50"
                           }`}
                         >
-                          {kpiMeasurementSaved[row[0]] ? "✓" : lang === "fr" ? "Enregistrer" : "Save"}
+                          {kpiMeasurementSaved[row[0]] ? "✓" : "Enregistrer"}
                         </button>
                       </div>
                     </div>
@@ -1543,16 +1451,16 @@ const goToStep = async (nextStep) => {
             {loadingRec && (
               <div className="flex items-center gap-2 text-xs text-slate-400">
                 <div className="h-3 w-3 animate-spin rounded-full border-2 border-euk-primary border-t-transparent" />
-                {lang === "fr" ? "Analyse de votre parcours..." : "Analyzing your path..."}
-              </div>
+  Analyse de votre parcours...
+</div>
             )}
 
             {/* STAGNATION ALERT */}
             {nextRecommendation?.stagnation?.is_stagnating && (
               <div className="w-full rounded-2xl border border-amber-300 bg-amber-50 p-4 text-left">
                 <div className="text-xs font-bold uppercase tracking-wide text-amber-700 mb-1">
-                  ⚠️ {lang === "fr" ? "Signal de stagnation" : "Stagnation detected"}
-                </div>
+  ⚠️ Signal de stagnation
+</div>
                 <p className="text-xs text-amber-800 leading-5">
                   {nextRecommendation.stagnation.reset_message}
                 </p>
@@ -1570,8 +1478,8 @@ const goToStep = async (nextStep) => {
             {nextRecommendation?.section_review?.section && (
               <div className="w-full rounded-2xl border border-sky-200 bg-sky-50 p-4 text-left">
                 <div className="text-xs font-bold uppercase tracking-wide text-sky-700 mb-1">
-                  📌 {lang === "fr" ? "Section a revoir" : "Section to review"}
-                </div>
+  📌 Section à revoir
+</div>
                 <div className="text-sm font-semibold text-sky-900">
                   {nextRecommendation.section_review.section_label}
                 </div>
@@ -1580,9 +1488,8 @@ const goToStep = async (nextStep) => {
                 </p>
                 {nextRecommendation.section_review.expected_result && (
                   <p className="mt-1 text-xs text-sky-600 italic">
-                    {lang === "fr" ? "Resultat attendu : " : "Expected: "}
-                    {nextRecommendation.section_review.expected_result}
-                  </p>
+  Résultat attendu : {nextRecommendation.section_review.expected_result}
+</p>
                 )}
               </div>
             )}
@@ -1617,16 +1524,16 @@ const goToStep = async (nextStep) => {
             {nextRecommendation?.session_plan && (
               <div className="w-full rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-left">
                 <div className="text-xs font-bold uppercase tracking-wide text-emerald-700 mb-1">
-                  🗓️ {lang === "fr" ? "Plan de la semaine" : "Weekly plan"}
-                </div>
+  🗓️ Plan de la semaine
+</div>
                 <p className="text-xs text-emerald-800 leading-5">
                   {nextRecommendation.session_plan.plan_description}
                 </p>
                 {nextRecommendation.session_plan.cta === "update_profile" && (
                   <button onClick={() => navigate("/account")}
-                    className="mt-2 rounded-xl bg-emerald-600 px-3 py-1 text-xs font-bold text-white hover:bg-emerald-700 transition">
-                    {lang === "fr" ? "Renseigner mon profil" : "Update my profile"}
-                  </button>
+  className="mt-2 rounded-xl bg-emerald-600 px-3 py-1 text-xs font-bold text-white hover:bg-emerald-700 transition">
+  Renseigner mon profil
+</button>
                 )}
               </div>
             )}
@@ -1637,19 +1544,19 @@ const goToStep = async (nextStep) => {
         {/* ══ NAVIGATION BUTTONS ══ */}
         <div className="flex justify-between mt-8 mb-4">
           <button
-            onClick={() => goToStep(currentStep - 1)}
-            disabled={currentStep === 0}
-            className="px-6 py-3 rounded-2xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition"
-          >
-            ← {lang === "fr" ? "Retour" : "Back"}
-          </button>
+  onClick={() => goToStep(currentStep - 1)}
+  disabled={currentStep === 0}
+  className="px-6 py-3 rounded-2xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition"
+>
+  ← Retour
+</button>
           {currentStep < STEPS.length - 1 ? (
             <button
-              onClick={() => goToStep(currentStep + 1)}
-              className="px-6 py-3 rounded-2xl bg-euk-primary text-sm font-bold text-white hover:bg-euk-deep transition"
-            >
-              {lang === "fr" ? "Suivant" : "Next"} →
-            </button>
+  onClick={() => goToStep(currentStep + 1)}
+  className="px-6 py-3 rounded-2xl bg-euk-primary text-sm font-bold text-white hover:bg-euk-deep transition"
+>
+  Suivant →
+</button>
           ) : (
             <button
               onClick={handleMarkComplete}

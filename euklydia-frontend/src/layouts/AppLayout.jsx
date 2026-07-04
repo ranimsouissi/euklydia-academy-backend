@@ -2,7 +2,7 @@ import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { logout } from "../services/auth";
 import Logo from "../assets/images/logo-full.png";
-import LanguageToggle from "../components/LanguageToggle";
+
 
 export default function AppLayout() {
   const navigate = useNavigate();
@@ -111,11 +111,6 @@ export default function AppLayout() {
           </div>
 
           <div className="flex items-center gap-3">
-            <LanguageToggle
-              language={language}
-              setLanguage={setLanguage}
-            />
-
             <div className="relative" ref={menuRef}>
               <button
                 type="button"

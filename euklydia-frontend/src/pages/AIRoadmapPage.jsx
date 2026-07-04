@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import ConfirmModal from "../components/ConfirmModal";
 import { apiFetch } from "../utils/api";
@@ -7,8 +7,7 @@ import RetakeDiagnosticBtn from "../components/RetakeDiagnosticBtn";
 
 export default function AIRoadmapPage() {
   const navigate = useNavigate();
-  const { language } = useOutletContext();
-  const lang = language || "fr";
+  const lang = "fr";
 
   const { data: roadmapData, loading, refetch } = useApi("/api/v1/roadmap");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -40,43 +39,6 @@ export default function AIRoadmapPage() {
   const canRetake = diagStatus?.recommended === true || roadmapProgress === 100;
 
   const t = {
-    en: {
-      badge:            "Personalized development plan",
-      title:            "AI Roadmap",
-      subtitle:         "Your 3 business use cases to master with AI — at your own pace.",
-      retakeDiagnostic: "Retake diagnostic",
-      confirmTitle:     "Retake diagnostic?",
-      confirmMessage:   "Your current scores will be replaced by the new results. This action cannot be undone.",
-      confirmLabel:     "Yes, retake",
-      cancelLabel:      "Cancel",
-      loading:          "Loading roadmap...",
-      noRoadmap:        "No roadmap available",
-      noRoadmapText:    "Complete the diagnostic to generate your personalized roadmap.",
-      startDiagnostic:  "Start diagnostic",
-      allCompleted:     "All use cases completed! You can retake the diagnostic.",
-      progression:      "Progress",
-      modulesLabel:     "modules completed",
-      useCases:         "Use cases",
-      of3:              "of 3",
-      duration:         "Total duration",
-      hours:            "hours",
-      over90:           "over 90 days",
-      skill:            "Skill",
-      score:            "Score",
-      min:              "min",
-      kpiBefore:        "Before",
-      kpiAfter:         "After",
-      completed:        "Completed",
-      inProgress:       "In progress",
-      notStarted:       "Not started",
-      high:             "High priority",
-      medium:           "Medium priority",
-      low:              "Optional",
-      yourUseCases:     "Your 3 use cases",
-      yourUseCasesDesc: "Each module tackles a concrete business problem with AI prompts, workflows and a real-data mission.",
-      days:             ["Days 1-30", "Days 31-60", "Days 61-90"],
-      daysTooltip:      "Recommended sequence — start with the highest priority",
-    },
     fr: {
       badge:            "Plan de développement personnalisé",
       title:            "Feuille de route IA",
@@ -147,9 +109,7 @@ export default function AIRoadmapPage() {
     if (v === "MEDIUM") return "border-amber-200 bg-amber-50 text-amber-700";
     return "border-slate-200 bg-slate-50 text-slate-500";
   };
-  const moduleTitle = m => lang === "fr"
-    ? m.module_title_fr || m.module_title
-    : m.module_title;
+  const moduleTitle = m => m.module_title_fr || m.module_title;
 
   const useCasesMastered = useMemo(
     () => roadmapItems.filter(m => String(m.status).toLowerCase().includes("complete")).length,

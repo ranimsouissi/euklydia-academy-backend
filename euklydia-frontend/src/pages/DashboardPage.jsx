@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 import ConfirmModal from "../components/ConfirmModal";
 import { ROLE_DETAILS } from "../data/roles";
@@ -7,8 +7,7 @@ import RetakeDiagnosticBtn from "../components/RetakeDiagnosticBtn";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const { language } = useOutletContext();
-  const lang = language || "en";
+  const lang = "fr";
 
   const [skills, setSkills] = useState([]);
   const [summary, setSummary] = useState(null);
@@ -20,61 +19,6 @@ export default function DashboardPage() {
   const [diagStatus, setDiagStatus] = useState(null);
 
   const t = {
-    en: {
-      heroBadge: "AI capability dashboard",
-      title: "Dashboard",
-      subtitle: "Track your progress on your 3 business use cases and activate the AI Blueprints that will take you to the next level.",
-      viewRoadmap: "View my AI Roadmap",
-      redodiagnostic: "Retake diagnostic",
-      confirmTitle: "Retake diagnostic?",
-      confirmMessage: "Your current scores will be replaced by the new results. This action cannot be undone.",
-      confirmLabel: "Yes, retake",
-      cancelLabel: "Cancel",
-      globalScore: "Global AI Score",
-      globalScoreText: "Estimated average score across all evaluated skills.",
-      highPriorityGaps: "High Priority Gaps",
-      highPrioritySkills: "High priority skills",
-      highPriorityText: "Skills to strengthen first in order to accelerate your progress.",
-      noGapsTitle: "No priority gaps",
-      noGapsText: "Great work! Keep advancing your skills with the recommended modules.",
-      nextFocus: "Next Focus",
-      completediagnosticNextFocus: "Complete the diagnostic to define your next focus area.",
-      priority: "Priority",
-      skillBreakdown: "Skill Breakdown",
-      skillBreakdownText: "Detailed view of the skills, levels, and priorities identified by the diagnostic.",
-      scoreLabel: "Score",
-      highPriorityDesc: "Address first with targeted training and guided practice.",
-      mediumPriorityDesc: "Strengthen with focused exercises and concrete use cases.",
-      lowPriorityDesc: "Good current level, with room for optimization and deeper development.",
-      noResults: "No diagnostic results found",
-      noResultsText: "Take the diagnostic to display your dashboard and generate your priorities.",
-      startdiagnostic: "Start diagnostic",
-      aiProfile: "Your AI Profile",
-      aiProfileGlobalScore: "Global Score",
-      aiNovice: "AI Novice",
-      aiPractitioner: "AI Practitioner",
-      aiLeader: "AI Leader",
-      yourUseCases: "Your 3 business use cases:",
-      perfTitle: "Performance Analysis",
-      perfSubtitle: "AI-generated insights on your learning blockers and recommended interventions.",
-      perfAnalyze: "Analyze my performance",
-      perfAnalyzing: "Analyzing...",
-      perfEngagement: "Engagement rate",
-      perfTrend: "Trend",
-      perfBlockers: "Top 3 blockers",
-      perfInterventions: "Recommended interventions",
-      perfEvidence: "Evidence",
-      perfImpact: "Business impact",
-      trendImproving: "📈 Improving",
-      trendStable: "➡️ Stable",
-      trendDeclining: "📉 Declining",
-      interventionReview: "Review section",
-      interventionTutorial: "Watch tutorial",
-      interventionCoach: "Coach session",
-      priorityHigh: "High",
-      priorityMedium: "Medium",
-      priorityLow: "Low",
-    },
     fr: {
       heroBadge: "Tableau de bord des capacités IA",
       title: "Tableau de bord",

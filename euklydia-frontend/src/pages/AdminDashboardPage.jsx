@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
 export default function AdminDashboardPage() {
-  const { language } = useOutletContext();
-  const lang = language || "fr";
+  const lang = "fr";
 
   // ── Overview state ──
   const [overviewData, setOverviewData] = useState(null);
@@ -76,46 +74,6 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
       priorityMedium: "Moyenne",
       priorityLow: "Basse",
     },
-    en: {
-      badge: "Administrator dashboard",
-      title: "Admin — Cohort Analysis",
-      subtitle: "Visualize engagement, drop-offs and AI insights across all your learners.",
-      overviewTitle: "Global overview",
-      overviewBtn: "Load global overview",
-      overviewLoading: "Loading...",
-      totalLearners: "Total learners",
-      avgMastery: "Avg mastery",
-      completions: "Completions",
-      painPoints: "Pain points detected",
-      byRole: "By role",
-      topModules: "Top modules",
-      learners: "learners",
-      progress: "progress",
-      moduleTitle: "Module analysis",
-      moduleBtn: "Analyze module",
-      moduleLoading: "Analyzing...",
-      moduleIdLabel: "Module ID",
-      engagement: "Engagement by section",
-      dropoffs: "Drop-off points",
-      insights: "AI Insights",
-      completion: "Completion",
-      abandonment: "Abandonment",
-      avgScore: "Avg score",
-      dropRate: "Drop rate",
-      blockers: "Top 3 blockers",
-      interventions: "Content interventions",
-      evidence: "Evidence",
-      roleTitle: "Role analysis",
-      roleBtn: "Analyze this role",
-      roleLoading: "Loading...",
-      completionRate: "Completion rate",
-      trendImproving: "📈 Improving",
-      trendStable: "➡️ Stable",
-      trendDeclining: "📉 Declining",
-      priorityHigh: "High",
-      priorityMedium: "Medium",
-      priorityLow: "Low",
-    },
   };
   const tx = t[lang];
 
@@ -179,9 +137,7 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
   };
   const exportCSV = () => {
   if (!overviewData && !roleData && !effectivenessData) {
-    alert(lang === "fr"
-  ? "Chargez au moins une section (Vue globale, Rôle, Module ou Effectiveness) avant d'exporter."
-  : "Load at least one section (Overview, Role, Module or Effectiveness) before exporting.");
+    alert("Chargez au moins une section (Vue globale, Rôle, Module ou Effectiveness) avant d'exporter.");
     return;
   }
   const rows = [];
@@ -498,7 +454,7 @@ const exportPDF = () => window.print();
         <section className="mt-8 mb-8">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-lg font-bold text-euk-dark">
-              {lang === "fr" ? "Content Effectiveness Scoring" : "Content Effectiveness Scoring"}
+              Content Effectiveness Scoring
             </h2>
             <div className="flex items-center gap-3">
               <input
@@ -512,9 +468,7 @@ const exportPDF = () => window.print();
                 onClick={analyzeEffectiveness}
                 disabled={effectivenessLoading}
                 className="rounded-2xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-700 disabled:opacity-50">
-                {effectivenessLoading
-                  ? (lang === "fr" ? "Analyse..." : "Analyzing...")
-                  : (lang === "fr" ? "Analyser l'efficacité" : "Analyze effectiveness")}
+                {effectivenessLoading ? "Analyse..." : "Analyser l'efficacité"}
               </button>
             </div>
           </div>
