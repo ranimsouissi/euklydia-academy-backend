@@ -198,18 +198,54 @@ def get_cohort_by_role(
         LIMIT 5
     """)).fetchall()
 
+    # Préparer les données pour le LLM
+    modules_for_llm = [
+        {
+            "id":              m.id,
+            "title":           m.title_fr,
+            "level":           m.level,
+            "learners":        m.learners or 0,
+            "avg_progress":    round(float(m.avg_progress or 0), 1),
+            "avg_mastery":     round(float(m.avg_mastery or 0) * 100, 1),
+            "completion_rate": round(
+                (m.completions or 0) / max(m.learners or 1, 1) * 100, 1
+            ),
+            "abandonments":    m.abandonments or 0,
+        }
+        for m in modules
+    ]
+
+    pain_points_for_llm = [
+        {
+            "category":     p.category,
+            "count":        p.count,
+            "avg_severity": round(float(p.avg_severity or 0), 1),
+        }
+        for p in pain_points
+    ]
+
+    # Générer les insights LLM pour le rôle
+    try:
+        role_insights = performance_service.generate_role_insights(
+            role=role,
+            modules=modules_for_llm,
+            pain_points=pain_points_for_llm,
+        )
+    except Exception as e:
+        role_insights = {"error": str(e), "summary": "Génération d'insights indisponible."}
+
     return {
         "role": role,
         "modules": [
             {
-                "id":            m.id,
-                "title":         m.title_fr,
-                "level":         m.level,
-                "learners":      m.learners or 0,
-                "avg_progress":  round(float(m.avg_progress or 0), 1),
-                "avg_mastery":   round(float(m.avg_mastery or 0) * 100, 1),
-                "completions":   m.completions or 0,
-                "abandonments":  m.abandonments or 0,
+                "id":              m.id,
+                "title":           m.title_fr,
+                "level":           m.level,
+                "learners":        m.learners or 0,
+                "avg_progress":    round(float(m.avg_progress or 0), 1),
+                "avg_mastery":     round(float(m.avg_mastery or 0) * 100, 1),
+                "completions":     m.completions or 0,
+                "abandonments":    m.abandonments or 0,
                 "completion_rate": round(
                     (m.completions or 0) / max(m.learners or 1, 1) * 100, 1
                 ),
@@ -224,6 +260,7 @@ def get_cohort_by_role(
             }
             for p in pain_points
         ],
+        "insights":     role_insights,  # 🆕 LLM
         "generated_at": datetime.utcnow().isoformat(),
     }
 

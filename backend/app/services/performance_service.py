@@ -740,3 +740,77 @@ Règles :
         return json.loads(raw)
     except Exception:
         return {"error": "Parsing failed", "_raw": raw[:500]}
+# ----------------------------------------------------------------
+# ROLE INSIGHTS — Analyse LLM par rôle (V2)
+# ----------------------------------------------------------------
+
+def generate_role_insights(
+    role:        str,
+    modules:     list[dict],
+    pain_points: list[dict] = [],
+) -> dict:
+    """
+    Génère un summary + blockers + interventions pour un rôle entier.
+    Appelé depuis GET /admin/cohort/role/{role}.
+    """
+    client = _get_client()
+
+    prompt = f"""Tu es un analyste pédagogique expert pour la plateforme Euklydia.
+Analyse les performances de la cohorte pour le rôle "{role}".
+
+--- MODULES DU RÔLE ---
+{json.dumps(modules, ensure_ascii=False, default=str)}
+Note : chaque module contient learners (apprenants), avg_progress (progression moyenne),
+avg_mastery (mastery moyenne en %), completion_rate (taux de complétion en %),
+abandonments (abandons).
+
+--- PAIN POINTS DÉTECTÉS ---
+{json.dumps(pain_points, ensure_ascii=False, default=str)}
+
+Génère EXACTEMENT ce JSON (sans texte autour) :
+{{
+  "summary": "résumé exécutif en 2 phrases sur la cohorte de ce rôle",
+  "weakest_module": "titre exact du module avec le taux de complétion le plus faible",
+  "strongest_module": "titre exact du module avec le meilleur taux de complétion",
+  "top_blockers": [
+    {{
+      "rank": 1,
+      "module": "titre exact du module concerné",
+      "evidence": "preuve concrète basée sur les données",
+      "impact": "impact pédagogique"
+    }}
+  ],
+  "interventions": [
+    {{
+      "module": "titre exact du module concerné",
+      "type": "content_revision|add_examples|simplify|add_checkpoint|coach_session",
+      "reason": "pourquoi cette intervention",
+      "priority": "high|medium|low"
+    }}
+  ],
+  "trend": "improving|stagnant|declining"
+}}
+
+Règles :
+- top_blockers : 3 items MAX, un par module différent
+- interventions : 1 par blocker
+- Base-toi uniquement sur les données fournies, pas d'invention
+- Réponds UNIQUEMENT avec le JSON valide"""
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.2,
+        max_tokens=800
+    )
+
+    raw = (response.choices[0].message.content or "").strip()
+    if raw.startswith("```"):
+        raw = raw.strip("`").strip()
+        if raw.lower().startswith("json"):
+            raw = raw[4:].strip()
+
+    try:
+        return json.loads(raw)
+    except Exception:
+        return {"error": "Parsing failed", "_raw": raw[:500]}
