@@ -681,7 +681,10 @@ Analyse ces données d'engagement pour le module {module_id}.
 {json.dumps(kpi_cohort, ensure_ascii=False, default=str)}
 Note : chaque entrée contient indicator, baseline_avg, current_avg, delta_avg_pct (variation moyenne en %),
 target_label (cible visée), learners_measured (nombre d'apprenants ayant saisi leur valeur finale),
-learners_total (nombre total), measurement_rate (taux de saisie).
+learners_total (nombre total), measurement_rate (taux de saisie 0.0 à 1.0).
+Pour calculer avg_measurement_rate : compte le nombre d'indicateurs ayant measurement_rate > 0,
+divise par le nombre total d'indicateurs.
+Exemple : 1 indicateur mesuré sur 3 → avg_measurement_rate = 0.33, PAS 1.0.
 Si delta_avg_pct est négatif → réduction (bon pour CAC, cycle). Si positif → augmentation (bon pour volume).
 Compare delta_avg_pct à target_label pour évaluer si la cohorte atteint globalement ses objectifs.
 
