@@ -317,6 +317,83 @@ const exportPDF = () => window.print();
               </div>
             </div>
           )}
+          {/* Insights LLM rôle */}
+          {roleData && roleData.insights && !roleData.insights.error && (
+            <div className="space-y-4 mt-4">
+
+              {/* Summary + trend */}
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <p className="flex-1 text-sm leading-6 text-slate-700">
+                    {roleData.insights.summary}
+                  </p>
+                  <span className={`rounded-full border px-3 py-1 text-xs font-semibold shrink-0 ${trendColor(roleData.insights.trend)}`}>
+                    {trendLabel(roleData.insights.trend)}
+                  </span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {roleData.insights.strongest_module && (
+                    <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                      ✅ Meilleur : {roleData.insights.strongest_module}
+                    </span>
+                  )}
+                  {roleData.insights.weakest_module && (
+                    <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">
+                      ⚠️ À renforcer : {roleData.insights.weakest_module}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Blockers */}
+              {roleData.insights.top_blockers?.length > 0 && (
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-bold text-euk-dark mb-4">Top blockers</h3>
+                  <div className="space-y-3">
+                    {roleData.insights.top_blockers.map((b, i) => (
+                      <div key={i} className="flex items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-red-100 text-sm font-bold text-red-700">
+                          {b.rank}
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-sm font-semibold text-euk-dark">{b.module}</div>
+                          <div className="mt-1 text-xs text-slate-500">
+                            <span className="font-medium">Evidence : </span>{b.evidence}
+                          </div>
+                          <div className="mt-1 text-xs text-slate-500">
+                            <span className="font-medium">Impact : </span>{b.impact}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Interventions */}
+              {roleData.insights.interventions?.length > 0 && (
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-bold text-euk-dark mb-4">Interventions recommandées</h3>
+                  <div className="grid gap-3 md:grid-cols-2">
+                    {roleData.insights.interventions.map((item, i) => (
+                      <div key={i} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">💡</span>
+                          <span className="text-xs font-bold text-euk-dark">{item.type}</span>
+                          <span className={`ml-auto rounded-full border px-2 py-0.5 text-xs font-semibold ${priorityColor(item.priority)}`}>
+                            {priorityLabel(item.priority)}
+                          </span>
+                        </div>
+                        <div className="text-xs font-semibold text-slate-600 mb-1">{item.module}</div>
+                        <div className="text-xs text-slate-500 leading-5">{item.reason}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
         </section>
 
         {/* ─── 3. ANALYSE MODULE ─── */}
