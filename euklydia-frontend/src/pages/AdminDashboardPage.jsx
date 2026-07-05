@@ -21,6 +21,8 @@ export default function AdminDashboardPage() {
 const [effectivenessModuleId, setEffectivenessModuleId] = useState(403);
 const [effectivenessData, setEffectivenessData] = useState(null);
 const [effectivenessLoading, setEffectivenessLoading] = useState(false);
+const [alertsData, setAlertsData] = useState(null);
+const [alertsLoading, setAlertsLoading] = useState(false);
 
   const ROLES = [
     "AI Sales Specialist",
@@ -94,6 +96,14 @@ const [effectivenessLoading, setEffectivenessLoading] = useState(false);
     } catch { /* non-blocking */ }
     finally { setModuleLoading(false); }
   };
+  const loadAlerts = async () => {
+  setAlertsLoading(true);
+  try {
+    const res = await apiFetch("/api/v1/admin/cohort/alerts");
+    if (res?.ok) setAlertsData(await res.json());
+  } catch { /* non-blocking */ }
+  finally { setAlertsLoading(false); }
+};
 
   const analyzeRole = async () => {
     setRoleLoading(true);
@@ -195,6 +205,127 @@ const exportPDF = () => window.print();
     🖨 Export PDF
   </button>
 </div>
+</section>
+{/* ─── ALERTES AUTOMATIQUES ─── */}
+<section className="mt-6">
+  <div className="mb-4 flex items-center justify-between">
+    <h2 className="text-lg font-bold text-euk-dark">
+      Alertes automatiques
+    </h2>
+    <button
+      onClick={loadAlerts}
+      disabled={alertsLoading}
+      className="rounded-2xl bg-red-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-700 disabled:opacity-50">
+      {alertsLoading ? "Chargement..." : "🔔 Charger les alertes"}
+    </button>
+  </div>
+
+  {alertsLoading && <Spinner color="border-red-600" />}
+
+  {alertsData && !alertsLoading && (
+    <div className="space-y-4">
+
+      {/* Compteurs */}
+      <div className="grid gap-4 md:grid-cols-3">
+        <KpiCard
+          label="Total alertes"
+          value={alertsData.total_alerts}
+          color="text-slate-700"
+        />
+        <KpiCard
+          label="🔴 Critiques"
+          value={alertsData.critical_count}
+          color="text-red-600"
+        />
+        <KpiCard
+          label="🟡 À surveiller"
+          value={alertsData.medium_count}
+          color="text-amber-600"
+        />
+      </div>
+
+      {/* Alertes critiques */}
+      {alertsData.critical?.length > 0 && (
+        <div className="rounded-3xl border border-red-200 bg-white p-6 shadow-sm">
+          <h3 className="text-base font-bold text-red-700 mb-4">
+            🔴 Modules critiques
+          </h3>
+          <div className="space-y-3">
+            {alertsData.critical.map((a, i) => (
+              <div key={i} className="rounded-2xl border border-red-100 bg-red-50 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="text-sm font-bold text-euk-dark">
+                      {a.module_title}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5">
+                      {a.role} • {a.level} • {a.learners_count} apprenant(s)
+                    </div>
+                    <div className="mt-2 text-xs font-semibold text-red-700">
+                      ⚠️ {a.message}
+                    </div>
+                  </div>
+                  <div className="shrink-0 text-right space-y-1">
+                    <div className="text-xs text-slate-500">
+                      Progression : <span className="font-bold text-euk-dark">{a.avg_progress}%</span>
+                    </div>
+                    <div className="text-xs text-slate-500">
+                      Mastery : <span className="font-bold text-euk-dark">{a.avg_mastery}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Alertes medium */}
+      {alertsData.medium?.length > 0 && (
+        <div className="rounded-3xl border border-amber-200 bg-white p-6 shadow-sm">
+          <h3 className="text-base font-bold text-amber-700 mb-4">
+            🟡 Modules à surveiller
+          </h3>
+          <div className="space-y-3">
+            {alertsData.medium.map((a, i) => (
+              <div key={i} className="rounded-2xl border border-amber-100 bg-amber-50 p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="text-sm font-bold text-euk-dark">
+                      {a.module_title}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5">
+                      {a.role} • {a.level} • {a.learners_count} apprenant(s)
+                    </div>
+                    <div className="mt-2 text-xs font-semibold text-amber-700">
+                      ⚠️ {a.message}
+                    </div>
+                  </div>
+                  <div className="shrink-0 text-right space-y-1">
+                    <div className="text-xs text-slate-500">
+                      Complétion : <span className="font-bold text-emerald-600">{a.completion_rate}%</span>
+                    </div>
+                    <div className="text-xs text-slate-500">
+                      Mastery : <span className="font-bold text-euk-dark">{a.avg_mastery}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {alertsData.total_alerts === 0 && (
+        <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 text-center">
+          <div className="text-emerald-700 font-semibold">
+            ✅ Aucune alerte détectée — tous les modules sont dans les seuils normaux.
+          </div>
+        </div>
+      )}
+
+    </div>
+  )}
 </section>
 
         {/* ─── 1. VUE GLOBALE ─── */}
