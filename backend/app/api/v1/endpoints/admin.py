@@ -344,3 +344,22 @@ def get_cohort_module_analysis(
     "insights":      insights,
     "generated_at":  datetime.utcnow().isoformat(),
 }
+# ----------------------------------------------------------------
+# GET /admin/cohort/alerts — Alertes automatiques modules critiques
+# ----------------------------------------------------------------
+
+@router.get("/cohort/alerts")
+def get_cohort_alerts(
+    db: Session = Depends(get_db),
+    _: User = Depends(require_admin),
+):
+    """
+    Détecte automatiquement les modules critiques sur toute la plateforme.
+    🔴 high   : completion_rate < 20% ou drop_off_rate > 50%
+    🟡 medium : KPI non mesuré, progression faible, mastery faible
+    """
+    alerts = performance_service.get_cohort_alerts(db)
+    return {
+        **alerts,
+        "generated_at": datetime.utcnow().isoformat(),
+    }

@@ -814,3 +814,144 @@ Règles :
         return json.loads(raw)
     except Exception:
         return {"error": "Parsing failed", "_raw": raw[:500]}
+    
+# ----------------------------------------------------------------
+# ALERTS — Détection automatique des modules critiques (V2)
+# ----------------------------------------------------------------
+
+def get_cohort_alerts(db: Session) -> dict:
+    """
+    Détecte automatiquement les modules critiques sur toute la plateforme.
+    Règles :
+      🔴 high   : completion_rate < 20% OU drop_off_rate > 50%
+      🟡 medium : measurement_rate = 0 OU avg_progress < 30% OU avg_mastery < 30%
+    """
+    # 1. Récupérer les stats de tous les modules actifs
+    modules = db.execute(text("""
+        SELECT
+            m.id,
+            m.title_fr,
+            m.role,
+            m.level,
+            COUNT(DISTINCT ump.user_id)                         AS learners_count,
+            AVG(ump.progress_percent)                           AS avg_progress,
+            AVG(lsm.mastery_score)                              AS avg_mastery,
+            SUM(CASE WHEN ump.status = 'completed'
+                THEN 1 ELSE 0 END)                              AS completions
+        FROM modules m
+        LEFT JOIN user_module_progress ump ON ump.module_id = m.id
+        LEFT JOIN module_skills ms         ON ms.module_id  = m.id
+        LEFT JOIN learner_skill_mastery lsm
+               ON lsm.skill_id = ms.skill_id
+               AND lsm.user_id = ump.user_id
+        WHERE m.is_active = true
+        GROUP BY m.id, m.title_fr, m.role, m.level
+        HAVING COUNT(DISTINCT ump.user_id) > 0
+    """)).fetchall()
+
+    # 2. Drop-off par module
+    dropoffs = db.execute(text("""
+        SELECT
+            e.module_id,
+            COUNT(DISTINCT e.user_id)                           AS users_with_dropoff,
+            (SELECT COUNT(DISTINCT user_id)
+             FROM user_module_progress
+             WHERE module_id = e.module_id)                     AS total_users,
+            MAX(e.section_type)                                 AS main_section
+        FROM events e
+        WHERE e.type = 'drop_off'
+        GROUP BY e.module_id
+    """)).fetchall()
+
+    dropoff_map = {
+        r.module_id: {
+            "rate": round(r.users_with_dropoff / r.total_users, 2)
+                    if r.total_users else 0,
+            "section": r.main_section,
+        }
+        for r in dropoffs
+    }
+
+    # 3. KPI measurement rate par module
+    kpi_rates = db.execute(text("""
+        SELECT
+            module_id,
+            COUNT(*)                                            AS total,
+            SUM(CASE WHEN current_value IS NOT NULL
+                THEN 1 ELSE 0 END)                             AS measured
+        FROM user_kpi_measurements
+        GROUP BY module_id
+    """)).fetchall()
+
+    kpi_map = {
+        r.module_id: round(r.measured / r.total, 2) if r.total else 0
+        for r in kpi_rates
+    }
+
+    # 4. Appliquer les règles d'alerte
+    critical = []
+    medium   = []
+
+    for m in modules:
+        learners     = m.learners_count or 0
+        avg_progress = float(m.avg_progress or 0)
+        avg_mastery  = float(m.avg_mastery  or 0) * 100
+        completion_rate = round(
+            (m.completions or 0) / max(learners, 1) * 100, 1
+        )
+        drop_info       = dropoff_map.get(m.id, {"rate": 0, "section": None})
+        kpi_rate        = kpi_map.get(m.id, None)
+
+        base = {
+            "module_id":       m.id,
+            "module_title":    m.title_fr,
+            "role":            m.role,
+            "level":           m.level,
+            "learners_count":  learners,
+            "completion_rate": completion_rate,
+            "avg_progress":    round(avg_progress, 1),
+            "avg_mastery":     round(avg_mastery, 1),
+            "drop_off_rate":   drop_info["rate"],
+        }
+
+        # 🔴 Alertes critiques
+        if completion_rate < 20:
+            critical.append({
+                **base,
+                "alert_type": "low_completion",
+                "message":    f"Taux de complétion critique : {completion_rate}%",
+                "severity":   "high",
+            })
+        elif drop_info["rate"] > 0.5:
+            critical.append({
+                **base,
+                "alert_type": "high_dropoff",
+                "message":    f"Drop-off élevé ({round(drop_info['rate']*100)}%) sur la section {drop_info['section']}",
+                "severity":   "high",
+            })
+
+        # 🟡 Alertes medium
+        else:
+            reasons = []
+            if kpi_rate is not None and kpi_rate == 0:
+                reasons.append("Aucun KPI mesuré par les apprenants")
+            if avg_progress < 30:
+                reasons.append(f"Progression moyenne faible : {round(avg_progress, 1)}%")
+            if avg_mastery < 30:
+                reasons.append(f"Mastery moyenne faible : {round(avg_mastery, 1)}%")
+
+            if reasons:
+                medium.append({
+                    **base,
+                    "alert_type": "needs_attention",
+                    "message":    " | ".join(reasons),
+                    "severity":   "medium",
+                })
+
+    return {
+        "total_alerts":  len(critical) + len(medium),
+        "critical_count": len(critical),
+        "medium_count":   len(medium),
+        "critical":      critical,
+        "medium":        medium,
+    }
