@@ -258,14 +258,17 @@ def get_cohort_module_analysis(
     # Récupérer engagement et drop-offs via performance_service
     engagement = performance_service.get_cohort_engagement(db, module_id)
     dropoffs   = performance_service.get_cohort_dropoffs(db, module_id)
-
+    engagement = performance_service.get_cohort_engagement(db, module_id)
+    dropoffs   = performance_service.get_cohort_dropoffs(db, module_id)
+    kpi_cohort = performance_service.get_cohort_kpi_data(db, module_id)  # 🆕
     # Générer les insights LLM
     try:
         insights = performance_service.generate_cohort_insights(
-            module_id=module_id,
-            engagement=engagement,
-            dropoffs=dropoffs,
-        )
+    module_id=module_id,
+    engagement=engagement,
+    dropoffs=dropoffs,
+    kpi_cohort=kpi_cohort,  # 🆕
+)
     except Exception as e:
         insights = {"error": str(e), "summary": "Génération d'insights indisponible."}
 
@@ -292,14 +295,15 @@ def get_cohort_module_analysis(
         db.rollback()  # Non bloquant — on retourne quand même les insights
 
     return {
-        "module": {
-            "id":    module.id,
-            "title": module.title_fr,
-            "role":  module.role,
-            "level": module.level,
-        },
-        "engagement":    engagement,
-        "dropoffs":      dropoffs,
-        "insights":      insights,
-        "generated_at":  datetime.utcnow().isoformat(),
-    }
+    "module": {
+        "id":    module.id,
+        "title": module.title_fr,
+        "role":  module.role,
+        "level": module.level,
+    },
+    "engagement":    engagement,
+    "dropoffs":      dropoffs,
+    "kpi_summary":   kpi_cohort,   # 🆕
+    "insights":      insights,
+    "generated_at":  datetime.utcnow().isoformat(),
+}

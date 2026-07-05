@@ -379,7 +379,93 @@ const exportPDF = () => window.print();
                   </div>
                 </div>
               )}
+              {/* KPI Cohorte */}
+{moduleData.kpi_summary?.length > 0 && (
+  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <h3 className="text-base font-bold text-euk-dark mb-4">
+      KPI Cohorte — Impact business
+    </h3>
+    <div className="space-y-3">
+      {moduleData.kpi_summary.map((kpi, i) => (
+        <div key={i} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-semibold text-euk-dark">
+              {kpi.indicator}
+            </span>
+            <span className="text-xs text-slate-500">
+              {kpi.learners_measured}/{kpi.learners_total} apprenants mesurés
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-xs">
+            <div className="rounded-xl bg-white border border-slate-200 p-2 text-center">
+              <div className="text-slate-500 mb-1">Baseline moy.</div>
+              <div className="font-bold text-euk-dark">
+                {kpi.baseline_avg ?? "—"} {kpi.unit}
+              </div>
+            </div>
+            <div className="rounded-xl bg-white border border-slate-200 p-2 text-center">
+              <div className="text-slate-500 mb-1">Actuel moy.</div>
+              <div className="font-bold text-euk-dark">
+                {kpi.current_avg != null ? `${kpi.current_avg} ${kpi.unit}` : "—"}
+              </div>
+            </div>
+            <div className="rounded-xl bg-white border border-slate-200 p-2 text-center">
+              <div className="text-slate-500 mb-1">Delta moy.</div>
+              <div className={`font-bold ${
+                kpi.delta_avg_pct == null
+                  ? "text-slate-400"
+                  : kpi.delta_avg_pct < 0
+                  ? "text-emerald-600"
+                  : "text-blue-600"
+              }`}>
+                {kpi.delta_avg_pct != null ? `${kpi.delta_avg_pct}%` : "—"}
+              </div>
+            </div>
+          </div>
+          <div className="mt-2 text-xs text-slate-500">
+            🎯 Cible : {kpi.target_label}
+          </div>
+          {/* Barre de progression mesure */}
+          <div className="mt-2 flex items-center gap-2">
+            <div className="h-1.5 flex-1 rounded-full bg-slate-200">
+              <div
+                className="h-1.5 rounded-full bg-euk-primary"
+                style={{ width: `${Math.round(kpi.measurement_rate * 100)}%` }}
+              />
+            </div>
+            <span className="text-xs text-slate-500 shrink-0">
+              {Math.round(kpi.measurement_rate * 100)}% saisi
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
 
+    {/* kpi_insights LLM */}
+    {moduleData.insights?.kpi_insights && (
+      <div className="mt-4 rounded-2xl border border-violet-100 bg-violet-50 p-4">
+        <div className="text-xs font-bold uppercase tracking-wide text-violet-700 mb-2">
+          Analyse IA
+        </div>
+        <p className="text-xs text-slate-700 leading-5">
+          {moduleData.insights.kpi_insights.comment}
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {moduleData.insights.kpi_insights.best_indicator && (
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+              ✅ Meilleur : {moduleData.insights.kpi_insights.best_indicator}
+            </span>
+          )}
+          {moduleData.insights.kpi_insights.worst_indicator && (
+            <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-700">
+              ⚠️ À améliorer : {moduleData.insights.kpi_insights.worst_indicator}
+            </span>
+          )}
+        </div>
+      </div>
+    )}
+  </div>
+)}
               {/* Insights IA */}
               {moduleData.insights && !moduleData.insights.error && (
                 <div className="space-y-4">

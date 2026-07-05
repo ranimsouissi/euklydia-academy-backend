@@ -358,10 +358,91 @@ def get_resources_data(db: Session, user_id: int) -> list[dict]:
             })
     return result
 
+# ----------------------------------------------------------------
+# STEP 5b — Calcul des moyennes KPI en Python (V2)
+# ----------------------------------------------------------------
 
+def compute_kpi_averages(kpi_data: list[dict]) -> tuple[float, float]:
+    """
+    Calcule kpi_before_avg et kpi_after_avg depuis les données structurées.
+    Retourne le ratio current/baseline pour les indicateurs mesurés.
+    """
+    measured = [k for k in kpi_data if k.get("measured") and
+                k.get("baseline_value") is not None and
+                k.get("current_value") is not None and
+                k.get("baseline_value") != 0]
+
+    if not measured:
+        return (0.0, 0.0)
+
+    ratios = []
+    for k in measured:
+        baseline = k["baseline_value"]
+        current  = k["current_value"]
+        ratio = current / baseline
+        ratios.append(ratio)
+
+    kpi_before_avg = round(1.0, 2)
+    kpi_after_avg  = round(sum(ratios) / len(ratios), 2)
+
+    return (kpi_before_avg, kpi_after_avg)
+
+# ----------------------------------------------------------------
+# COHORT KPI — Agrégation KPI structurés par module (V2)
+# ----------------------------------------------------------------
+
+def get_cohort_kpi_data(db: Session, module_id: int) -> list[dict]:
+    """
+    Agrège les KPI structurés depuis user_kpi_measurements pour un module.
+    Retourne par indicateur : baseline_avg, current_avg, delta_avg_pct,
+    learners_measured, learners_total, target_label, unit.
+    """
+    rows = db.execute(text("""
+        SELECT
+            ukm.indicator,
+            ukm.target_label,
+            ukm.unit,
+            AVG(ukm.baseline_value)                          AS baseline_avg,
+            AVG(ukm.current_value)                           AS current_avg,
+            COUNT(*)                                         AS learners_total,
+            SUM(CASE WHEN ukm.current_value IS NOT NULL
+                THEN 1 ELSE 0 END)                           AS learners_measured
+        FROM user_kpi_measurements ukm
+        WHERE ukm.module_id = :module_id
+        GROUP BY ukm.indicator, ukm.target_label, ukm.unit
+        ORDER BY ukm.indicator
+    """), {"module_id": module_id}).fetchall()
+
+    result = []
+    for r in rows:
+        baseline_avg = float(r.baseline_avg) if r.baseline_avg is not None else None
+        current_avg  = float(r.current_avg)  if r.current_avg  is not None else None
+
+        delta_avg_pct = None
+        if baseline_avg and current_avg and baseline_avg != 0:
+            delta_avg_pct = round(
+                (current_avg - baseline_avg) / abs(baseline_avg) * 100, 1
+            )
+
+        result.append({
+            "indicator":         r.indicator,
+            "target_label":      r.target_label,
+            "unit":              r.unit,
+            "baseline_avg":      round(baseline_avg, 2) if baseline_avg else None,
+            "current_avg":       round(current_avg, 2)  if current_avg  else None,
+            "delta_avg_pct":     delta_avg_pct,
+            "learners_measured": int(r.learners_measured),
+            "learners_total":    int(r.learners_total),
+            "measurement_rate":  round(
+                int(r.learners_measured) / int(r.learners_total), 2
+            ) if r.learners_total else 0,
+        })
+
+    return result
 # ----------------------------------------------------------------
 # STEP 5 — Appel LLM pour générer les insights
 # ----------------------------------------------------------------
+
 
 def generate_insights(
     engagement,
@@ -582,7 +663,8 @@ def get_cohort_dropoffs(db: Session, module_id: int) -> list[dict]:
 def generate_cohort_insights(
     module_id:  int,
     engagement: list[dict],
-    dropoffs:   list[dict]
+    dropoffs:   list[dict],
+    kpi_cohort: list[dict] = [],  # 🆕
 ) -> dict:
     client = _get_client()
 
@@ -595,12 +677,26 @@ Analyse ces données d'engagement pour le module {module_id}.
 --- DROP-OFF PAR SECTION ---
 {json.dumps(dropoffs, ensure_ascii=False, default=str)}
 
+--- KPI COHORTE (données structurées V2) ---
+{json.dumps(kpi_cohort, ensure_ascii=False, default=str)}
+Note : chaque entrée contient indicator, baseline_avg, current_avg, delta_avg_pct (variation moyenne en %),
+target_label (cible visée), learners_measured (nombre d'apprenants ayant saisi leur valeur finale),
+learners_total (nombre total), measurement_rate (taux de saisie).
+Si delta_avg_pct est négatif → réduction (bon pour CAC, cycle). Si positif → augmentation (bon pour volume).
+Compare delta_avg_pct à target_label pour évaluer si la cohorte atteint globalement ses objectifs.
+
 Génère EXACTEMENT ce JSON (sans texte autour) :
 {{
   "summary": "résumé exécutif en 2 phrases sur la cohorte",
   "completion_rate": 0.0 à 1.0,
   "execution_task_completion_rate": 0.0 à 1.0,
   "main_drop_off_section": "section_type ou null",
+  "kpi_insights": {{
+    "best_indicator": "indicateur avec le meilleur delta ou null",
+    "worst_indicator": "indicateur le moins bien mesuré ou null",
+    "avg_measurement_rate": 0.0 à 1.0,
+    "comment": "commentaire en 1 phrase sur l'impact business global de la cohorte"
+  }},
   "top_blockers": [
     {{
       "rank": 1,
@@ -624,13 +720,14 @@ Génère EXACTEMENT ce JSON (sans texte autour) :
 Règles :
 - top_blockers : 3 items MAX
 - interventions : 1 par blocker
+- Si kpi_cohort est vide → kpi_insights avec tous les champs à null et comment = "Aucune donnée KPI disponible"
 - Réponds UNIQUEMENT avec le JSON valide"""
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.2,
-        max_tokens=800
+        max_tokens=1000  # augmenté car prompt plus riche
     )
 
     raw = (response.choices[0].message.content or "").strip()
