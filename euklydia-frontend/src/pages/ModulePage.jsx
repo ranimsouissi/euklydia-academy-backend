@@ -1,5 +1,6 @@
-﻿import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getFullRecommendation, getRecommendationHistory } from "../services/sequencing";
 
 import {
   getModule,
@@ -8,7 +9,7 @@ import {
   completeModule,
   updateSection,
 } from "../services/modules";
-import { getFullRecommendation } from "../services/sequencing";
+import ReactMarkdown from "react-markdown";
 import {
   createSession,
   sendChatMessage,
@@ -106,7 +107,7 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang, currentSectionType }) 
       </button>
       {open && (
         <div className="fixed bottom-6 right-6 z-50 flex w-72 flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl md:w-80"
-  style={{ height: "420px", maxHeight: "60vh", boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}>
+  style={{ height: "650px", maxHeight: "75vh", boxShadow: "0 8px 40px rgba(0,0,0,0.18)" }}>
           <div className="flex items-center justify-between border-b border-slate-100 bg-euk-primary px-4 py-3">
             <div>
               <div className="text-sm font-bold text-white">{l.title}</div>
@@ -127,7 +128,9 @@ function TutorChat({ moduleId, userId, kpiBaseline, lang, currentSectionType }) 
                     <div className="mr-2 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-euk-primary/10 text-sm">🤖</div>
                   )}
                   <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-6 ${msg.role === "user" ? "bg-euk-primary text-white rounded-br-sm" : "bg-white border border-slate-200 text-slate-700 rounded-bl-sm"}`}>
-                    <p className="whitespace-pre-wrap">{msg.content}</p>
+                  <ReactMarkdown>
+  {msg.content}
+</ReactMarkdown>
                     {msg.citations?.length > 0 && (
                       <div className="mt-1.5 flex flex-wrap gap-1">
                         {msg.citations.map((c, i) => (
@@ -318,6 +321,7 @@ export default function ModulePage() {
   const [taskError, setTaskError] = useState("");
   const [nextRecommendation, setNextRecommendation] = useState(null);
   const [loadingRec, setLoadingRec] = useState(false);
+  const [recommendationHistory, setRecommendationHistory] = useState([]);
 
   // ── KPI saisie ──────────────────────────────────────────────────────────
   const [kpiBaselines, setKpiBaselines] = useState({});        // { "CAC moyen": "45", ... }
@@ -446,7 +450,10 @@ const goToStep = async (nextStep) => {
         const data = await getModule(moduleId);
         if (!data) return;
         setModuleData(data);
-        if (data.module_status === "completed") setProgressDone(true);
+if (data.module_status === "completed") {
+  setProgressDone(true);
+  fetchRecommendation();
+}
 
         // Auto-start si module not_started
         if (data.module_status === "not_started") {
@@ -482,16 +489,6 @@ const goToStep = async (nextStep) => {
       setCopiedPromptId(id);
       setTimeout(() => setCopiedPromptId(null), 2000);
     } catch { /* non-blocking */ }
-  };
-
-  const fetchRecommendation = async () => {
-    if (loadingRec || nextRecommendation) return;
-    setLoadingRec(true);
-    try {
-      const data = await getFullRecommendation(moduleId);
-      if (data) setNextRecommendation(data);
-    } catch { /* non-blocking */ }
-    finally { setLoadingRec(false); }
   };
 
   // ── KPI : sauvegarder la baseline ───────────────────────────────────────
@@ -584,6 +581,17 @@ const goToStep = async (nextStep) => {
   setTaskSubmitting(false);
 }
   };
+  const fetchRecommendation = async () => {
+  if (loadingRec || nextRecommendation) return;
+  setLoadingRec(true);
+  try {
+    const data = await getFullRecommendation(moduleId);
+    if (data) setNextRecommendation(data);
+    const history = await getRecommendationHistory();
+    if (history) setRecommendationHistory(history);
+  } catch { /* non-blocking */ }
+  finally { setLoadingRec(false); }
+};
 
   const handleMarkComplete = async () => {
     try {
@@ -1507,9 +1515,20 @@ const goToStep = async (nextStep) => {
                   <p className="mt-1 text-xs text-slate-600">{nextRecommendation.next_module.reason}</p>
                 )}
                 <div className="mt-2 flex items-center gap-2">
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${nextRecommendation.next_module.source === "llm" ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-600"}`}>
-                    {nextRecommendation.next_module.source === "llm" ? "🤖 IA" : "📋 Regle"}
-                  </span>
+  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${nextRecommendation.next_module.source === "llm" ? "bg-violet-100 text-violet-700" : "bg-slate-100 text-slate-600"}`}>
+    {nextRecommendation.next_module.source === "llm" ? "🤖 IA" : "📋 Règle"}
+  </span>
+  {nextRecommendation.next_module.confidence && (
+    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+      nextRecommendation.next_module.confidence === "high"   ? "bg-emerald-100 text-emerald-700" :
+      nextRecommendation.next_module.confidence === "medium" ? "bg-amber-100 text-amber-700" :
+                                                               "bg-slate-100 text-slate-500"
+    }`}>
+      {nextRecommendation.next_module.confidence === "high"   ? "✓ Confiance élevée" :
+       nextRecommendation.next_module.confidence === "medium" ? "~ Confiance moyenne" :
+                                                                "↓ Confiance faible"}
+    </span>
+  )}
                   {nextRecommendation.next_module.module_id && nextRecommendation.next_module.module_id !== parseInt(moduleId) && (
                     <button onClick={() => navigate(`/learning/module/${nextRecommendation.next_module.module_id}/units`)}
                       className="rounded-xl bg-euk-primary px-3 py-1 text-xs font-bold text-white hover:bg-euk-deep transition">
@@ -1537,6 +1556,38 @@ const goToStep = async (nextStep) => {
                 )}
               </div>
             )}
+             {/* HISTORIQUE DES RECOMMANDATIONS */}
+{recommendationHistory.length > 0 && (
+  <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 text-left">
+    <div className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-3">
+      🕒 Historique des recommandations
+    </div>
+    <div className="space-y-2">
+      {recommendationHistory.map((rec, idx) => (
+        <div key={rec.id} className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-euk-primary/10 text-xs font-bold text-euk-primary">
+            {idx + 1}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-semibold text-euk-dark">{rec.module_title}</div>
+            <p className="mt-0.5 text-xs text-slate-500 leading-5">{rec.recommendation_summary}</p>
+            <div className="mt-1 flex items-center gap-2">
+              {rec.stagnation_alert && (
+                <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">⚠️ Stagnation</span>
+              )}
+              {rec.section_review && (
+                <span className="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-semibold text-sky-700">📌 {rec.section_review}</span>
+              )}
+              <span className="text-xs text-slate-400">
+                {new Date(rec.created_at).toLocaleDateString("fr-FR")}
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
           </div>
         </section>
         </>)}
