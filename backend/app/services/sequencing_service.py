@@ -247,17 +247,32 @@ def generate_next_recommendation(
             if raw.lower().startswith("json"):
                 raw = raw[4:].strip()
 
-        recommendation         = json.loads(raw)
-        recommendation["source"] = "llm"
+        recommendation = json.loads(raw)
+
+        # ── Score de confiance ──────────────────────────────
+        mastery_score = float(current.get("mastery_score") or 0) if current else 0
+        kpi_after     = current.get("kpi_after") if current else None
+
+        if mastery_score >= 0.6 and kpi_after:
+            confidence = "high"
+        elif mastery_score >= 0.3 or kpi_after:
+            confidence = "medium"
+        else:
+            confidence = "low"
+
+        recommendation["source"]     = "llm"
+        recommendation["confidence"] = confidence
         return recommendation
 
     except Exception:
         fallback = get_next_module_rule_based(roadmap, current_module_id)
         if fallback:
-            fallback["source"] = "rule_based"
+            fallback["source"]     = "rule_based"
+            fallback["confidence"] = "low"
             return fallback
         return {
             "recommendation": None,
             "reason":         "Aucune recommandation disponible",
-            "source":         "none"
+            "source":         "none",
+            "confidence":     "low"
         }

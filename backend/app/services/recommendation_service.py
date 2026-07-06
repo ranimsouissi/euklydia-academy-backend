@@ -347,32 +347,89 @@ def detect_stagnation(db: Session, user_id: int) -> dict:
 # ══════════════════════════════════════════════════════════
 # ORCHESTRATION — Endpoint principal /recommendation/full
 # ══════════════════════════════════════════════════════════
+def save_recommendation(
+    db:       Session,
+    user_id:  int,
+    module_id: int,
+    section_review: Optional[str],
+    stagnation_alert: bool,
+    recommendation_summary: Optional[str]
+) -> None:
+    """Stocke la recommandation — évite les doublons du même jour."""
+    existing = db.execute(text("""
+        SELECT id FROM user_recommendations
+        WHERE user_id = :user_id
+          AND module_id = :module_id
+          AND section_review IS NOT DISTINCT FROM :section_review
+          AND DATE(created_at) = CURRENT_DATE
+        LIMIT 1
+    """), {
+        "user_id":        user_id,
+        "module_id":      module_id,
+        "section_review": section_review
+    }).fetchone()
 
+    if existing:
+        return  # Doublon détecté — ne pas réinsérer
+
+    db.execute(text("""
+        INSERT INTO user_recommendations
+            (user_id, module_id, section_review, stagnation_alert, recommendation_summary)
+        VALUES
+            (:user_id, :module_id, :section_review, :stagnation_alert, :recommendation_summary)
+    """), {
+        "user_id":                user_id,
+        "module_id":              module_id,
+        "section_review":         section_review,
+        "stagnation_alert":       stagnation_alert,
+        "recommendation_summary": recommendation_summary
+    })
+    db.commit()
 def get_full_recommendation(
     db:                Session,
     user_id:           int,
     current_module_id: int
 ) -> dict:
-    """
-    Agrège les 3 features + la recommandation de module existante.
-
-    Retourne un objet complet consommé directement par le frontend.
-    """
-    # Recommandation module suivant (existant — sequencing_service)
-    next_module = generate_next_recommendation(db, user_id, current_module_id)
-
-    # Feature 1 — section à revoir
+    next_module    = generate_next_recommendation(db, user_id, current_module_id)
     section_review = get_section_to_review(db, user_id, current_module_id)
+    session_plan   = get_weekly_session_plan(db, user_id)
+    stagnation     = detect_stagnation(db, user_id)
 
-    # Feature 2 — plan micro-sessions
-    session_plan = get_weekly_session_plan(db, user_id)
+    # Stocker la recommandation pour Agent 1
+    section_name = section_review.get("section") if section_review else None
+    is_stagnant  = stagnation.get("stagnation_detected", False) if stagnation else False
+    summary      = section_review.get("reason") if section_review else None
 
-    # Feature 3 — stagnation
-    stagnation = detect_stagnation(db, user_id)
+    save_recommendation(
+        db=db,
+        user_id=user_id,
+        module_id=current_module_id,
+        section_review=section_name,
+        stagnation_alert=is_stagnant,
+        recommendation_summary=summary
+    )
 
     return {
-        "next_module":     next_module,      # module recommandé (existant)
-        "section_review":  section_review,   # Feature 1
-        "session_plan":    session_plan,     # Feature 2
-        "stagnation":      stagnation        # Feature 3
+        "next_module":    next_module,
+        "section_review": section_review,
+        "session_plan":   session_plan,
+        "stagnation":     stagnation
     }
+def get_recommendation_history(
+    db: Session,
+    user_id: int,
+    limit: int = 5
+) -> list[dict]:
+    """Retourne les dernières recommandations de l'apprenant."""
+    rows = db.execute(text("""
+        SELECT ur.id, ur.module_id, m.title_fr AS module_title,
+               ur.section_review, ur.stagnation_alert,
+               ur.recommendation_summary, ur.created_at
+        FROM user_recommendations ur
+        JOIN modules m ON m.id = ur.module_id
+        WHERE ur.user_id = :user_id
+        ORDER BY ur.created_at DESC
+        LIMIT :limit
+    """), {"user_id": user_id, "limit": limit}).fetchall()
+
+    return [dict(r._mapping) for r in rows]

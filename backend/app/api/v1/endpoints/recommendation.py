@@ -60,3 +60,12 @@ def get_session_plan(
     Utile si l'apprenant vient de mettre à jour son temps disponible.
     """
     return recommendation_service.get_weekly_session_plan(db, current_user.id)
+@router.get("/history")
+def get_recommendation_history(
+    db:           Session = Depends(get_db),
+    current_user: User    = Depends(get_current_user),
+):
+    """Retourne l'historique des recommandations de l'apprenant."""
+    return recommendation_service.get_recommendation_history(
+        db, current_user.id
+    )

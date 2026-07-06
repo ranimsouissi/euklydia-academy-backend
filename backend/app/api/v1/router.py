@@ -8,7 +8,6 @@ from app.api.v1.endpoints import modules
 from app.api.v1.endpoints import upload
 from app.api.v1.endpoints import coaching
 from app.api.v1.endpoints import performance
-from app.api.v1.endpoints import sequencing
 from app.api.v1.endpoints import admin
 from app.api.v1.endpoints import recommendation
 from app.api.v1.endpoints import analytics
@@ -25,7 +24,6 @@ api_router.include_router(modules.router,           prefix="/modules",      tags
 api_router.include_router(upload.router,            prefix="/upload",       tags=["upload"])
 api_router.include_router(coaching.router,          prefix="/coaching",     tags=["coaching"])
 api_router.include_router(performance.router,       prefix="/performance",  tags=["performance"])
-api_router.include_router(sequencing.router,        prefix="/sequencing",   tags=["sequencing"])
 api_router.include_router(admin.router,             prefix="/admin",        tags=["admin"])
 api_router.include_router(recommendation.router,  prefix="/recommendation", tags=["recommendation"])
 api_router.include_router(analytics.router,        prefix="/analytics",      tags=["analytics"])
