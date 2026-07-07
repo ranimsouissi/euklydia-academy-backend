@@ -29,6 +29,9 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [saving, setSaving] = useState(false);
+  const [timeAvailable, setTimeAvailable] = useState(null);
+  const [timeAvailableSaving, setTimeAvailableSaving] = useState(false);
+  const [timeAvailableSaved, setTimeAvailableSaved] = useState(false);
 
   // Charger profil + diagnostic status
   useEffect(() => {
@@ -67,6 +70,14 @@ export default function ProfilePage() {
             aiProfile: getAIProfile(score),
           });
         }
+        // 3. Temps disponible par semaine
+const profileRes = await fetch(`${API}/api/v1/users/me/profile`, {
+  headers: { Authorization: `Bearer ${token}` },
+});
+if (profileRes.ok) {
+  const profileData = await profileRes.json();
+  setTimeAvailable(profileData.time_available_per_week || null);
+}
       } catch (e) {
         console.error(e);
       } finally {
@@ -118,6 +129,26 @@ export default function ProfilePage() {
       alert(e.message);
     } finally {
       setSaving(false);
+    }
+  };
+  const saveTimeAvailable = async () => {   // ← ajoute ici
+    if (!timeAvailable || isNaN(parseInt(timeAvailable))) return;
+    setTimeAvailableSaving(true);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API}/api/v1/users/me/time-available`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ time_available_per_week: parseInt(timeAvailable) }),
+      });
+      if (res.ok) setTimeAvailableSaved(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setTimeAvailableSaving(false);
     }
   };
 
@@ -260,7 +291,55 @@ export default function ProfilePage() {
             </div>
           </div>
         </section>
+
+        {/* Préférences d'apprentissage */}
+        <section className="mt-6">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div>
+              <h2 className="text-lg font-bold text-euk-dark">Préférences d'apprentissage</h2>
+              <p className="mt-1 text-sm text-slate-500">Personnalisez votre plan de micro-sessions hebdomadaire.</p>
+            </div>
+            <div className="mt-6">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Temps disponible par semaine (heures)
+                </div>
+                <p className="mt-1 text-xs text-slate-400">
+                  Utilisé par l'agent de recommandation pour générer votre plan de sessions.
+                </p>
+                <div className="mt-3 flex items-center gap-3">
+                  <input
+                    type="number"
+                    min="1"
+                    max="40"
+                    value={timeAvailable ?? ""}
+                    onChange={e => {
+                      setTimeAvailable(e.target.value);
+                      setTimeAvailableSaved(false);
+                    }}
+                    placeholder="Ex: 5"
+                    className="w-32 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary"
+                  />
+                  <span className="text-sm text-slate-500">heures / semaine</span>
+                  <button
+                    onClick={saveTimeAvailable}
+                    disabled={timeAvailableSaving || timeAvailableSaved}
+                    className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
+                      timeAvailableSaved
+                        ? "bg-emerald-500 text-white cursor-default"
+                        : "bg-euk-primary text-white hover:bg-euk-deep disabled:opacity-50"
+                    }`}
+                  >
+                    {timeAvailableSaving ? "Sauvegarde..." : timeAvailableSaved ? "✓ Enregistré" : "Enregistrer"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
   );
 }
+ 

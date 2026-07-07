@@ -447,6 +447,7 @@ const goToStep = async (nextStep) => {
     (async () => {
       try {
         setLoading(true);
+        setCurrentStep(0); // ← ajoute ici
         const data = await getModule(moduleId);
         if (!data) return;
         setModuleData(data);
@@ -582,7 +583,7 @@ if (data.module_status === "completed") {
 }
   };
   const fetchRecommendation = async () => {
-  if (loadingRec || nextRecommendation) return;
+  if (loadingRec) return; // ← force reset
   setLoadingRec(true);
   try {
     const data = await getFullRecommendation(moduleId);
