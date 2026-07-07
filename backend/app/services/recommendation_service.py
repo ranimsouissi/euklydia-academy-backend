@@ -151,10 +151,17 @@ def get_weekly_session_plan(
     modules        = roadmap["modules"]
 
     # Modules restants (non complétés, uniques par id)
-    seen     = set()
+    # Récupérer le rôle de l'apprenant depuis le module actuel
+# Modules restants (non complétés, uniques par id)
+    # Récupérer le rôle de l'apprenant depuis le module actuel
+    learner_role = modules[0].get("role") if modules else None
+
+    seen      = set()
     remaining = []
     for m in modules:
-        if m["id"] not in seen and m.get("module_status") != "completed":
+        if (m["id"] not in seen
+            and m.get("module_status") != "completed"
+            and (learner_role is None or m.get("role") == learner_role)):
             seen.add(m["id"])
             remaining.append(m)
 
