@@ -1549,7 +1549,7 @@ if (data.module_status === "completed") {
                   {nextRecommendation.session_plan.plan_description}
                 </p>
                 {nextRecommendation.session_plan.cta === "update_profile" && (
-                  <button onClick={() => navigate("/account")}
+                  <button onClick={() => navigate("/profile")}
   className="mt-2 rounded-xl bg-emerald-600 px-3 py-1 text-xs font-bold text-white hover:bg-emerald-700 transition">
   Renseigner mon profil
 </button>
