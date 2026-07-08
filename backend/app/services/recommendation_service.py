@@ -201,10 +201,10 @@ def get_weekly_session_plan(
         )
     else:
         plan_description = (
-            f"Avec {time_available}h disponibles par semaine : "
-            f"{sessions_per_week} session(s) de {SESSION_DURATION_MINUTES} min — "
-            f"{modules_remaining_count} modules restants — "
-            f"objectif en ~{estimated_weeks} semaine(s)."
+            f"Avec {time_available}h disponibles par semaine, nous te recommandons "
+            f"{sessions_per_week} séance(s) de travail de {SESSION_DURATION_MINUTES} min. "
+            f"Il te reste {modules_remaining_count} module(s) à compléter — "
+            f"objectif atteignable en ~{estimated_weeks} semaine(s) à ce rythme."
         )
 
     return {
