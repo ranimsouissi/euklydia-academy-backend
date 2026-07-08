@@ -1447,7 +1447,9 @@ if (data.module_status === "completed") {
             </div>
             <div className="rounded-2xl border border-violet-200 bg-violet-50 p-4 text-center">
               <div className="text-2xl">→</div>
-              <div className="mt-1 text-xs font-semibold text-violet-700">{progressUpdate?.next_step || t[lang].progressNextStep}</div>
+              <div className="mt-1 text-xs font-semibold text-violet-700">
+               {nextRecommendation?.next_module?.module_title || progressUpdate?.next_step || t[lang].progressNextStep}
+              </div>
             </div>
           </div>
           <div className="mt-5 flex flex-col items-center gap-3">
