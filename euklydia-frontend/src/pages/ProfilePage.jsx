@@ -180,7 +180,7 @@ if (profileRes.ok) {
                 onClick={() => navigate("/diagnostic")}
                 className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-euk-dark transition hover:bg-slate-50"
               >
-                Retake diagnostic
+                Refaire diagnostic
               </button>
             </div>
           </div>

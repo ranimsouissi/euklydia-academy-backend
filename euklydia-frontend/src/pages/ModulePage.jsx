@@ -312,16 +312,19 @@ export default function ModulePage() {
 
   // ── Execution Task submission (nouvelle structure) ──────────────────────
   const [taskForm, setTaskForm] = useState({
-    url: "",
-    kpi_after: "",
-    difficulty: "",
-  });
+  url: "",
+  kpi_after: "",
+  difficulty: "",
+  description: "",
+});
   const [taskSubmitting, setTaskSubmitting] = useState(false);
   const [taskFeedback, setTaskFeedback] = useState(null);
   const [taskError, setTaskError] = useState("");
   const [nextRecommendation, setNextRecommendation] = useState(null);
   const [loadingRec, setLoadingRec] = useState(false);
   const [recommendationHistory, setRecommendationHistory] = useState([]);
+  const [recFeedback, setRecFeedback] = useState(null); // 'followed' | 'not_relevant'
+  const [recFeedbackSaving, setRecFeedbackSaving] = useState(false);
 
   // ── KPI saisie ──────────────────────────────────────────────────────────
   const [kpiBaselines, setKpiBaselines] = useState({});        // { "CAC moyen": "45", ... }
@@ -506,15 +509,11 @@ if (data.module_status === "completed") {
     if (!indicators.length) return;
     setKpiBaselineSaving(true);
     try {
-      const token = localStorage.getItem("access_token");
-      await fetch(`${process.env.REACT_APP_API_URL}/kpi/baseline`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ module_id: parseInt(moduleId, 10), indicators }),
-      });
+      const { apiFetch } = await import("../utils/api");
+await apiFetch(`/api/v1/kpi/baseline`, {
+  method: "POST",
+  body: JSON.stringify({ module_id: parseInt(moduleId, 10), indicators }),
+});
       setKpiBaselineSaved(true);
     } catch {
       console.error("Erreur sauvegarde baseline KPI");
@@ -528,19 +527,15 @@ if (data.module_status === "completed") {
     if (!value || isNaN(parseFloat(value))) return;
     setKpiMeasurementSaving(true);
     try {
-      const token = localStorage.getItem("access_token");
-      await fetch(`${process.env.REACT_APP_API_URL}/kpi/measurement`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          module_id:     parseInt(moduleId, 10),
-          indicator,
-          current_value: parseFloat(value),
-        }),
-      });
+      const { apiFetch } = await import("../utils/api");
+await apiFetch(`/api/v1/kpi/measurement`, {
+  method: "POST",
+  body: JSON.stringify({
+    module_id:     parseInt(moduleId, 10),
+    indicator,
+    current_value: parseFloat(value),
+  }),
+});
       setKpiMeasurementSaved(prev => ({ ...prev, [indicator]: true }));
     } catch {
       console.error("Erreur sauvegarde mesure KPI");
@@ -559,10 +554,11 @@ if (data.module_status === "completed") {
     setTaskError("");
     try {
       await submitExecutionTask(moduleId, {
-        url: taskForm.url,
-        kpiAfter: taskForm.kpi_after,
-        difficulty: taskForm.difficulty || null,
-      });
+  url: taskForm.url,
+  kpiAfter: taskForm.kpi_after,
+  difficulty: taskForm.difficulty || null,
+  description: taskForm.description || null,
+});
       const kpiBefore = pick(moduleData?.kpi_before_fr, moduleData?.kpi_before_en);
       const feedback = await getExecutionTaskFeedback({
         moduleId: parseInt(moduleId, 10),
@@ -583,7 +579,7 @@ if (data.module_status === "completed") {
 }
   };
   const fetchRecommendation = async () => {
-  if (loadingRec) return; // ← force reset
+  if (loadingRec) return;
   setLoadingRec(true);
   try {
     const data = await getFullRecommendation(moduleId);
@@ -592,6 +588,20 @@ if (data.module_status === "completed") {
     if (history) setRecommendationHistory(history);
   } catch { /* non-blocking */ }
   finally { setLoadingRec(false); }
+};
+
+const submitRecFeedback = async (feedback) => {
+  if (!nextRecommendation?.id || recFeedbackSaving) return;
+  setRecFeedbackSaving(true);
+  try {
+    const { apiFetch } = await import("../utils/api");
+    await apiFetch(`/api/v1/recommendation/${nextRecommendation.id}/feedback`, {
+      method: "POST",
+      body: JSON.stringify({ feedback }),
+    });
+    setRecFeedback(feedback);
+  } catch { /* non-blocking */ }
+  finally { setRecFeedbackSaving(false); }
 };
 
   const handleMarkComplete = async () => {
@@ -1277,6 +1287,19 @@ if (data.module_status === "completed") {
                 </div>
               ) : (
                 <div className="space-y-4">
+                  {/* Description de ce qui a été réalisé */}
+<div>
+  <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+    📝 Décrivez ce que vous avez réalisé *
+  </label>
+  <textarea
+    value={taskForm.description}
+    onChange={e => setTaskForm(f => ({ ...f, description: e.target.value }))}
+    placeholder="Ex: J'ai créé une campagne email avec ChatGPT, rédigé 3 variantes A/B et mesuré le taux d'ouverture..."
+    rows={4}
+    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:border-euk-primary focus:outline-none focus:ring-1 focus:ring-euk-primary resize-none"
+  />
+</div>
                   {/* Lien du livrable */}
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">{t[lang].taskUrl}</label>
@@ -1532,12 +1555,34 @@ if (data.module_status === "completed") {
                                                                 "↓ Confiance faible"}
     </span>
   )}
-                  {nextRecommendation.next_module.module_id && nextRecommendation.next_module.module_id !== parseInt(moduleId) && (
-                    <button onClick={() => navigate(`/learning/module/${nextRecommendation.next_module.module_id}/units`)}
-                      className="rounded-xl bg-euk-primary px-3 py-1 text-xs font-bold text-white hover:bg-euk-deep transition">
-                      {t[lang].goToModule}
-                    </button>
-                  )}
+                  {nextRecommendation?.next_module?.module_id && nextRecommendation.next_module.module_id !== parseInt(moduleId) && (
+  <button onClick={() => navigate(`/learning/module/${nextRecommendation.next_module.module_id}/units`)}
+    className="rounded-xl bg-euk-primary px-3 py-1 text-xs font-bold text-white hover:bg-euk-deep transition">
+    {t[lang].goToModule}
+  </button>
+)}
+{/* Feedback recommandation */}
+{!recFeedback ? (
+  <div className="mt-3 flex items-center gap-2">
+    <span className="text-xs text-slate-500">Cette recommandation vous a-t-elle aidé ?</span>
+    <button
+      onClick={() => submitRecFeedback("followed")}
+      disabled={recFeedbackSaving}
+      className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition disabled:opacity-50">
+      ✓ Suivie
+    </button>
+    <button
+      onClick={() => submitRecFeedback("not_relevant")}
+      disabled={recFeedbackSaving}
+      className="rounded-xl border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-500 hover:bg-slate-50 transition disabled:opacity-50">
+      ✗ Pas pertinent
+    </button>
+  </div>
+) : (
+  <div className="mt-3 text-xs font-semibold text-emerald-600">
+    {recFeedback === "followed" ? "✓ Merci — feedback enregistré !" : "✓ Feedback pris en compte."}
+  </div>
+)}
                 </div>
               </div>
             )}

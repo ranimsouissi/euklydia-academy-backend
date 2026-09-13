@@ -1,151 +1,64 @@
-// ═══════════════════════════════════════════════════════════════════
-// SOURCE UNIQUE DE VÉRITÉ pour les 4 rôles professionnels
-// Utilisé par : ProfessionalRoles.jsx + OnboardingPage.jsx
-// ═══════════════════════════════════════════════════════════════════
-
 export const roles = [
-  {
-    id: "sales",
-    name: "AI Sales Specialist",
-    title: "AI Sales Specialist",
-    tag: "Sales",
+  { id: 1, tag: "AI SALES SPECIALIST", title: "AI Sales Specialist", forWho: "For Sales & Business Development", desc: "Automate prospecting, personalize outreach at scale, and forecast pipeline with AI-driven insights.", tagColor: { bg: "rgba(0,179,160,0.10)", color: "#006355" } },
+  { id: 2, tag: "AI MARKETING STRATEGIST", title: "AI Marketing Strategist", forWho: "For Marketing & Growth", desc: "Generate campaigns, optimize content performance, and segment audiences using AI-powered analytics.", tagColor: { bg: "rgba(99,102,241,0.10)", color: "#4338ca" } },
+  { id: 3, tag: "AI DESIGNER", title: "AI Designer", forWho: "For Design & Creative", desc: "Accelerate visual production, generate briefs, and iterate on creative assets with generative AI tools.", tagColor: { bg: "rgba(236,72,153,0.10)", color: "#be185d" } },
+  { id: 4, tag: "AI PROJECT MANAGER", title: "AI Project Manager", forWho: "For Project & Operations", desc: "Automate status reports, detect risks early, and optimize resource allocation with AI-assisted workflows.", tagColor: { bg: "rgba(245,158,11,0.10)", color: "#b45309" } },
+];
+
+export const ROLE_DETAILS = {
+  "AI Sales Specialist": {
+    tag: "AI SALES SPECIALIST",
+    forWho: "Sales & Business Development",
+    desc: "Automate prospecting, personalize outreach at scale, and forecast pipeline with AI-driven insights.",
     tagColor: { bg: "rgba(0,179,160,0.10)", color: "#006355" },
-    forWho: "Sales managers, account executives, business developers",
-    desc: "Master AI to qualify leads faster, personalize outreach at scale, and prepare every sales call with data-driven insights.",
-    roleContext: "The AI Sales Specialist uses AI as a force multiplier — not a replacement. Your role is to identify where AI creates leverage in the sales funnel: from prospecting to closing.",
+    roleContext: "You spend your days prospecting, qualifying leads, and closing deals. This path gives you AI blueprints to automate repetitive tasks and focus on high-value conversations.",
     useCases: [
-      {
-        name: "Lead Qualification Automation",
-        kpiBefore: "Low conversion rate (~10–15%)",
-        kpiAfter: "+25–40% qualified leads",
-        blueprint: "AI Lead Scoring Agent Blueprint",
-      },
-      {
-        name: "Personalized Outreach at Scale",
-        kpiBefore: "Low reply rate (~5–10%)",
-        kpiAfter: "2–3x reply rate",
-        blueprint: "Hyper-Personalization Engine",
-      },
-      {
-        name: "Sales Call Preparation",
-        kpiBefore: "Low close rate",
-        kpiAfter: "+15–25% close rate",
-        blueprint: "AI Sales Copilot System",
-      },
+      { name: "Intelligent Prospecting", kpiBefore: "5 qualified leads/week, 3h prospecting/day", kpiAfter: "20 qualified leads/week, 45min prospecting/day", blueprint: "AI Prospecting Workflow + Scoring Template" },
+      { name: "Personalized Outreach at Scale", kpiBefore: "12% email open rate, 2% reply rate", kpiAfter: "35% open rate, 8% reply rate", blueprint: "GPT Outreach Generator + A/B Testing Kit" },
+      { name: "Pipeline Forecast & AI Insights", kpiBefore: "60% forecast accuracy, reactive pipeline review", kpiAfter: "85% forecast accuracy, proactive risk alerts", blueprint: "AI Pipeline Tracker + Weekly Insight Report" },
     ],
   },
-  {
-    id: "marketing",
-    name: "AI Marketing Strategist",
-    title: "AI Marketing Strategist",
-    tag: "Go-to-Market",
-    tagColor: { bg: "rgba(212,83,126,0.10)", color: "#993556" },
-    forWho: "Marketing managers, content managers, growth leads",
-    desc: "Accelerate content production, sharpen campaign targeting, and turn marketing data into strategic insight — with AI as your growth engine.",
-    roleContext: "The AI Marketing Strategist builds scalable growth systems. Your role is to orchestrate AI across content, campaigns, and analytics to create measurable business impact.",
+  "AI Marketing Strategist": {
+    tag: "AI MARKETING STRATEGIST",
+    forWho: "Marketing & Growth",
+    desc: "Generate campaigns, optimize content performance, and segment audiences using AI-powered analytics.",
+    tagColor: { bg: "rgba(99,102,241,0.10)", color: "#4338ca" },
+    roleContext: "You run campaigns, analyze performance, and manage content calendars. This path gives you AI blueprints to generate content faster and make data-driven decisions.",
     useCases: [
-      {
-        name: "Content Strategy Optimization",
-        kpiBefore: "Low engagement",
-        kpiAfter: "+30–50% engagement",
-        blueprint: "AI Content Engine System",
-      },
-      {
-        name: "Campaign Performance Optimization",
-        kpiBefore: "High CAC",
-        kpiAfter: "-20–30% CAC",
-        blueprint: "AI Growth Loop Framework",
-      },
-      {
-        name: "Audience Insights & Segmentation",
-        kpiBefore: "Poor targeting",
-        kpiAfter: "+25% conversion",
-        blueprint: "AI Persona Intelligence System",
-      },
+      { name: "AI Campaign Generation", kpiBefore: "3 campaigns/month, 2 weeks production time", kpiAfter: "12 campaigns/month, 3 days production time", blueprint: "Campaign Brief Generator + Content Matrix" },
+      { name: "Campaign Performance Optimization", kpiBefore: "CAC 450 TND, iteration cycle 2-3 weeks", kpiAfter: "CAC 315 TND (-30%), iteration cycle 3-5 days", blueprint: "AI Performance Loop + A/B Testing Workflow" },
+      { name: "AI Audience Segmentation", kpiBefore: "2 audience segments, 18% email CTR", kpiAfter: "8 dynamic segments, 34% email CTR", blueprint: "Segmentation Playbook + Persona Generator" },
     ],
   },
-  {
-    id: "designer",
-    name: "AI Designer",
-    title: "AI Designer",
-    tag: "Creativity",
-    tagColor: { bg: "rgba(127,119,221,0.10)", color: "#534AB7" },
-    forWho: "Designers, architects, creative directors",
-    desc: "Accelerate your design process — from rapid concept generation to scalable design systems — using AI to ideate faster, optimize user experience, and automate design consistency.",
-    roleContext: "The AI Designer keeps human creativity at the helm. Your role is to use AI to remove friction from your workflow, explore more ideas faster, and deliver higher-quality outputs.",
+  "AI Designer": {
+    tag: "AI DESIGNER",
+    forWho: "Design & Creative",
+    desc: "Accelerate visual production, generate briefs, and iterate on creative assets with generative AI tools.",
+    tagColor: { bg: "rgba(236,72,153,0.10)", color: "#be185d" },
+    roleContext: "You create visuals, manage briefs, and iterate on creative assets. This path gives you AI workflows to produce more in less time without sacrificing quality.",
     useCases: [
-      {
-        name: "Rapid Concept Generation",
-        kpiBefore: "Slow ideation",
-        kpiAfter: "5x faster ideation",
-        blueprint: "AI Design Ideation System",
-      },
-      {
-        name: "UX Optimization",
-        kpiBefore: "Low engagement",
-        kpiAfter: "+20–30% engagement",
-        blueprint: "AI UX Intelligence Framework",
-      },
-      {
-        name: "Design System Automation",
-        kpiBefore: "Inconsistency",
-        kpiAfter: "+40% consistency",
-        blueprint: "AI Design System Builder",
-      },
+      { name: "Accelerated Visual Production", kpiBefore: "4 visual variants/day, 2h per concept", kpiAfter: "20 visual variants/day, 25min per concept", blueprint: "AI Image Workflow + Prompt Library" },
+      { name: "AI Brief Generation", kpiBefore: "Brief writing: 3h, 40% client revision rate", kpiAfter: "Brief writing: 30min, 15% client revision rate", blueprint: "Brief Generator + Feedback Capture Template" },
+      { name: "Creative Asset Iteration", kpiBefore: "3 iteration rounds, 5 days per campaign", kpiAfter: "1 iteration round, 1.5 days per campaign", blueprint: "AI Iteration Playbook + Review Checklist" },
     ],
   },
-  {
-    id: "pm",
-    name: "AI Project Manager",
-    title: "AI Project Manager",
-    tag: "Delivery",
-    tagColor: { bg: "rgba(56,130,221,0.10)", color: "#1a5fa8" },
-    forWho: "Project managers, PMOs, coordinators",
-    desc: "Deliver AI projects on time and on scope — by mastering planning, risk anticipation, and team productivity in an AI-driven environment.",
-    roleContext: "The AI Project Manager bridges strategy and execution. Your role is to own the end-to-end delivery of AI initiatives while managing the human, organizational and technical complexity they bring.",
+  "AI Project Manager": {
+    tag: "AI PROJECT MANAGER",
+    forWho: "Project & Operations",
+    desc: "Automate status reports, detect risks early, and optimize resource allocation with AI-assisted workflows.",
+    tagColor: { bg: "rgba(245,158,11,0.10)", color: "#b45309" },
+    roleContext: "You coordinate teams, track deliverables, and manage stakeholders. This path gives you AI tools to automate reporting and catch risks before they become blockers.",
     useCases: [
-      {
-        name: "Project Planning Automation",
-        kpiBefore: "Slow planning",
-        kpiAfter: "50–70% time saved",
-        blueprint: "AI Planning Engine",
-      },
-      {
-        name: "Risk Identification",
-        kpiBefore: "Reactive issues",
-        kpiAfter: "-30% delays",
-        blueprint: "AI Risk Intelligence System",
-      },
-      {
-        name: "Team Productivity Optimization",
-        kpiBefore: "Low efficiency",
-        kpiAfter: "+25% productivity",
-        blueprint: "AI Execution Optimization System",
-      },
+      { name: "Automated Status Reports", kpiBefore: "3h/week on reporting, 1-day delay on updates", kpiAfter: "20min/week on reporting, real-time updates", blueprint: "AI Report Generator + Status Dashboard" },
+      { name: "Early Risk Detection", kpiBefore: "Risks identified after impact, 35% reactive fixes", kpiAfter: "Risks flagged 5 days early, 80% proactive fixes", blueprint: "Risk Scoring Matrix + AI Alert Workflow" },
+      { name: "Resource Optimization", kpiBefore: "65% team utilization, manual allocation", kpiAfter: "88% team utilization, AI-assisted allocation", blueprint: "Capacity Planner + Workload Balancer" },
     ],
   },
-];
+};
 
-// ═══════════════════════════════════════════════════════════════════
-// Items "What You'll Get" — communs aux 4 rôles
-// ═══════════════════════════════════════════════════════════════════
 export const whatYoullGetItems = [
-  { icon: "📦", label: "3 ready-to-use AI Blueprints" },
-  { icon: "📚", label: "Templates, prompts & playbooks" },
-  { icon: "📊", label: "Initial KPI → Projected KPI tracker" },
-  { icon: "🎯", label: "Personalized learning pathway" },
+  { icon: "🎯", label: "Real business use cases" },
+  { icon: "📊", label: "KPIs Before → After" },
+  { icon: "📦", label: "Ready-to-use AI Blueprints" },
+  { icon: "🚀", label: "Personalized learning path" },
 ];
-
-// ═══════════════════════════════════════════════════════════════════
-// Helper : retrouve un rôle par son nom (utilisé dans OnboardingPage)
-// ═══════════════════════════════════════════════════════════════════
-export const getRoleByName = (name) => roles.find((r) => r.name === name);
-
-// ═══════════════════════════════════════════════════════════════════
-// Helper : map { "AI Sales Specialist": {...}, ... }
-// Pour compatibilité avec l'ancien code OnboardingPage
-// ═══════════════════════════════════════════════════════════════════
-export const ROLE_DETAILS = roles.reduce((acc, role) => {
-  acc[role.name] = role;
-  return acc;
-}, {});

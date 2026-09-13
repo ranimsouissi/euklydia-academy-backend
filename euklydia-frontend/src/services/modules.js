@@ -43,7 +43,7 @@ export async function updateSection(moduleId, sectionType, status) {
 }
 
 // ── Soumettre l'Execution Task ───────────────────────────────
-export async function submitExecutionTask(moduleId, { url, kpiAfter, difficulty }) {
+export async function submitExecutionTask(moduleId, { url, kpiAfter, difficulty, description }) {
   const res = await apiFetch(
     `/api/v1/modules/${moduleId}/execution-task/submit`,
     {
@@ -52,6 +52,7 @@ export async function submitExecutionTask(moduleId, { url, kpiAfter, difficulty 
         url,
         kpi_after: kpiAfter,
         difficulty: difficulty || null,
+        description: description || null,
       }),
     }
   );
