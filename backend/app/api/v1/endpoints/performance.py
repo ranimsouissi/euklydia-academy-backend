@@ -29,15 +29,22 @@ def analyze_performance(
     tutorials  = performance_service.get_tutorials_data(db, user_id)
     resources  = performance_service.get_resources_data(db, user_id)  # 🆕 V2
 
+    # Calcul des moyennes KPI en Python avant l'appel LLM
+    kpi_before_avg, kpi_after_avg = performance_service.compute_kpi_averages(kpi_data)
+
     insights = performance_service.generate_insights(
         engagement=engagement,
         mastery=mastery,
         dropoffs=dropoffs,
         kpi_data=kpi_data,
         tutorials=tutorials,
-        resources=resources,   # 🆕 V2
+        resources=resources,
         scope=req.scope
     )
+
+    # Injecter les vraies moyennes calculées en Python (écrase les valeurs LLM)
+    insights["kpi_before_avg"] = kpi_before_avg
+    insights["kpi_after_avg"]  = kpi_after_avg
 
     if "error" in insights:
         raise HTTPException(

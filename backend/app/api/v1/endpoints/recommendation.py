@@ -10,6 +10,7 @@ GET /recommendation/stagnation
 """
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 from app.core.deps import get_db, get_current_user
 from app.models.user import User
@@ -69,3 +70,30 @@ def get_recommendation_history(
     return recommendation_service.get_recommendation_history(
         db, current_user.id
     )
+@router.post("/{recommendation_id}/feedback")
+def submit_recommendation_feedback(
+    recommendation_id: int,
+    payload:           dict,
+    db:                Session = Depends(get_db),
+    current_user:      User    = Depends(get_current_user),
+):
+    """
+    Enregistre le feedback de l'apprenant sur une recommandation.
+    payload: { "feedback": "followed" | "not_relevant" }
+    """
+    feedback = payload.get("feedback")
+    if feedback not in ("followed", "not_relevant"):
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail="feedback doit être 'followed' ou 'not_relevant'")
+
+    db.execute(text("""
+        UPDATE user_recommendations
+        SET feedback = :feedback
+        WHERE id = :id AND user_id = :user_id
+    """), {
+        "feedback": feedback,
+        "id":       recommendation_id,
+        "user_id":  current_user.id
+    })
+    db.commit()
+    return {"message": "Feedback enregistré", "id": recommendation_id, "feedback": feedback}

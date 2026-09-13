@@ -29,6 +29,7 @@ from openai import OpenAI
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.core.config import settings
+import re
 
 _client: Optional[OpenAI] = None
 
@@ -116,7 +117,12 @@ def get_time_to_mastery_data(db: Session, module_id: int) -> dict:
     for r in rows:
         try:
             opened = r.section_opened_at
-            # section_opened_at est un dict JSON — on prend use_case ou la première section
+            # Fallback : si section_opened_at est une string JSON, on la parse
+            if isinstance(opened, str):
+                try:
+                    opened = json.loads(opened)
+                except Exception:
+                    continue
             if isinstance(opened, dict):
                 first_key = next(iter(opened), None)
                 if first_key:
@@ -284,11 +290,11 @@ Règles :
         temperature=0.2,
         max_tokens=1000
     )
+    # Extraction robuste du JSON
     raw = (response.choices[0].message.content or "").strip()
-    if raw.startswith("```"):
-        raw = raw.strip("`").strip()
-        if raw.lower().startswith("json"):
-            raw = raw[4:].strip()
+    match = re.search(r'\{.*\}', raw, re.DOTALL)
+    if match:
+        raw = match.group(0)
     try:
         return json.loads(raw)
     except Exception:

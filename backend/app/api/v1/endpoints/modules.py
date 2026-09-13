@@ -270,9 +270,10 @@ def submit_execution_task(
     Soumet l'Execution Task d'un module.
     payload: { "url": str, "kpi_after": str, "difficulty": str (optionnel) }
     """
-    url        = payload.get("url")
-    kpi_after  = payload.get("kpi_after")
-    difficulty = payload.get("difficulty")
+    url         = payload.get("url")
+    kpi_after   = payload.get("kpi_after")
+    difficulty  = payload.get("difficulty")
+    description = payload.get("description")
 
     if not url:
         raise HTTPException(status_code=400, detail="url du livrable obligatoire")
@@ -304,6 +305,7 @@ def submit_execution_task(
     progress.execution_task_url          = url
     progress.kpi_after                   = kpi_after
     progress.execution_task_difficulty   = difficulty
+    progress.execution_task_description  = description
     progress.execution_task_submitted_at = now
     progress.updated_at                  = now
 

@@ -20,27 +20,14 @@ from sqlalchemy import text
 import json
 from datetime import datetime
 
-from app.core.deps import get_db, get_current_user
+
+# APRÈS
+from app.core.deps import get_db, require_admin
 from app.models.user import User
 from app.services import performance_service
 
 router = APIRouter()
-
-
-# ----------------------------------------------------------------
-# Guard — vérifie que l'utilisateur est admin
-# ----------------------------------------------------------------
-
-def require_admin(current_user: User = Depends(get_current_user)) -> User:
-    """
-    Vérifie que l'utilisateur connecté est admin.
-    """
-    if not current_user.role or current_user.role.name != "admin":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Accès réservé aux administrateurs."
-        )
-    return current_user
+# ← plus de définition locale de require_admin
 
 
 # ----------------------------------------------------------------
@@ -186,17 +173,20 @@ def get_cohort_by_role(
         )
 
     # Pain points pour ce rôle
+    # APRÈS
     pain_points = db.execute(text("""
-        SELECT
-            pp.category,
-            COUNT(*)        AS count,
-            AVG(pp.severity) AS avg_severity
-        FROM pain_points pp
-        JOIN users u ON u.id = pp.user_id
-        GROUP BY pp.category
-        ORDER BY count DESC
-        LIMIT 5
-    """)).fetchall()
+      SELECT
+        pp.category,
+        COUNT(*)         AS count,
+        AVG(pp.severity) AS avg_severity
+      FROM pain_points pp
+      JOIN users u        ON u.id = pp.user_id
+      JOIN career_paths cp ON cp.id = u.career_path_id
+      WHERE cp.name = :role
+      GROUP BY pp.category
+      ORDER BY count DESC
+      LIMIT 5
+    """), {"role": role}).fetchall()
 
     # Préparer les données pour le LLM
     modules_for_llm = [
@@ -293,11 +283,10 @@ def get_cohort_module_analysis(
         )
 
     # Récupérer engagement et drop-offs via performance_service
+    # APRÈS
     engagement = performance_service.get_cohort_engagement(db, module_id)
     dropoffs   = performance_service.get_cohort_dropoffs(db, module_id)
-    engagement = performance_service.get_cohort_engagement(db, module_id)
-    dropoffs   = performance_service.get_cohort_dropoffs(db, module_id)
-    kpi_cohort = performance_service.get_cohort_kpi_data(db, module_id)  # 🆕
+    kpi_cohort = performance_service.get_cohort_kpi_data(db, module_id)
     # Générer les insights LLM
     try:
         insights = performance_service.generate_cohort_insights(

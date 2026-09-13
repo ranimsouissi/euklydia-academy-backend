@@ -26,7 +26,6 @@ def get_current_user(
         sub = payload.get("sub")
         if not sub:
             raise HTTPException(status_code=401, detail="Invalid token")
-
         user_id = int(sub)
 
     except (JWTError, ValueError):
@@ -44,3 +43,16 @@ def get_current_user(
         )
 
     return user
+
+
+def require_admin(current_user: User = Depends(get_current_user)) -> User:
+    """
+    Dependency réutilisable — vérifie que l'utilisateur est admin (role_id = 2).
+    À utiliser via Depends(require_admin) dans tous les endpoints admin.
+    """
+    if current_user.role_id != 2:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Accès réservé aux administrateurs.",
+        )
+    return current_user

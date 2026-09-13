@@ -416,7 +416,16 @@ def get_full_recommendation(
         recommendation_summary=summary
     )
 
+    # Récupérer l'ID de la recommandation sauvegardée
+    rec_row = db.execute(text("""
+        SELECT id FROM user_recommendations
+        WHERE user_id = :user_id AND module_id = :module_id
+        ORDER BY created_at DESC
+        LIMIT 1
+    """), {"user_id": user_id, "module_id": current_module_id}).fetchone()
+
     return {
+        "id":             rec_row.id if rec_row else None,
         "next_module":    next_module,
         "section_review": section_review,
         "session_plan":   session_plan,

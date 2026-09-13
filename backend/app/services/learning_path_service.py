@@ -1,4 +1,4 @@
-from sqlalchemy import select, desc
+from sqlalchemy import select, desc, text
 from sqlalchemy.orm import Session
 
 from app.models.diagnostic_session import DiagnosticSession
@@ -92,6 +92,22 @@ def build_learning_path(
 
     progress_by_module_id = {row.module_id: row for row in progress_rows}
 
+    # 4b. Récupérer les mastery scores par module
+    mastery_rows = db.execute(text("""
+        SELECT ms.module_id, lsm.mastery_score, lsm.mastery_level
+        FROM learner_skill_mastery lsm
+        JOIN module_skills ms ON ms.skill_id = lsm.skill_id
+        WHERE lsm.user_id = :user_id
+    """), {"user_id": user_id}).fetchall()
+
+    mastery_by_module = {
+        row.module_id: {
+            "mastery_score": float(row.mastery_score),
+            "mastery_level": row.mastery_level
+        }
+        for row in mastery_rows
+    }
+
     # 5. Récupérer le profil apprenant — temps disponible
     profile_row = db.execute(
         select(UserProfile)
@@ -122,14 +138,13 @@ def build_learning_path(
         if not module_row:
             continue
 
-        module, _      = module_row
+        module, _       = module_row
         module_progress = progress_by_module_id.get(module.id)
         module_status   = module_progress.status if module_progress else "not_started"
         primary_skill   = skills_by_id.get(skill_item.skill_id)
 
         if module.id not in items_by_module_id:
 
-            # ── Section progress ─────────────────────────────
             section_progress = []
             if module_progress and module_progress.section_progress:
                 for section_type, status in module_progress.section_progress.items():
@@ -138,7 +153,6 @@ def build_learning_path(
                         status=status
                     ))
 
-            # ── Execution Task soumission ────────────────────
             execution_task = None
             if module_progress:
                 execution_task = ExecutionTaskSubmissionOut(
@@ -149,9 +163,6 @@ def build_learning_path(
                     submitted_at=module_progress.execution_task_submitted_at
                 )
 
-            # ── KPI after réel vs KPI cible ──────────────────
-            # kpi_after réel = ce que l'apprenant a mesuré
-            # kpi_after cible = ce que le module promet
             kpi_after_value = (
                 module_progress.kpi_after
                 if module_progress and module_progress.kpi_after
@@ -190,9 +201,10 @@ def build_learning_path(
                 kpi_after=kpi_after_value,
                 blueprint_name=primary_skill.blueprint_name if primary_skill else None,
                 use_case_display_order=primary_skill.display_order if primary_skill else None,
-                # ── Nouveaux champs ──────────────────────────
                 section_progress=section_progress,
                 execution_task=execution_task,
+                mastery_score=mastery_by_module.get(module.id, {}).get("mastery_score"),
+                mastery_level=mastery_by_module.get(module.id, {}).get("mastery_level"),
                 mastery_last_updated=str(module_progress.updated_at)
                                      if module_progress else None,
             )
@@ -250,7 +262,6 @@ def build_learning_path(
                 module_status   = module_progress.status if module_progress else "not_started"
                 primary_skill   = first_skill_row
 
-                # ── Section progress ─────────────────────────
                 section_progress = []
                 if module_progress and module_progress.section_progress:
                     for section_type, status in module_progress.section_progress.items():
@@ -259,7 +270,6 @@ def build_learning_path(
                             status=status
                         ))
 
-                # ── Execution Task soumission ────────────────
                 execution_task = None
                 if module_progress:
                     execution_task = ExecutionTaskSubmissionOut(
@@ -294,7 +304,7 @@ def build_learning_path(
                     takeaway_fr=module.takeaway_fr,
                     next_recommended_module_en=None,
                     next_recommended_module_fr=None,
-                    skill_id=primary_skill.id   if primary_skill else 0,
+                    skill_id=primary_skill.id    if primary_skill else 0,
                     skill_name=primary_skill.name if primary_skill else "",
                     score=real_scores.get(primary_skill.id, 0) if primary_skill else 0,
                     level=module.level,
@@ -309,9 +319,10 @@ def build_learning_path(
                     kpi_after=kpi_after_value,
                     blueprint_name=primary_skill.blueprint_name if primary_skill else None,
                     use_case_display_order=primary_skill.display_order if primary_skill else None,
-                    # ── Nouveaux champs ──────────────────────
                     section_progress=section_progress,
                     execution_task=execution_task,
+                    mastery_score=mastery_by_module.get(module.id, {}).get("mastery_score"),
+                    mastery_level=mastery_by_module.get(module.id, {}).get("mastery_level"),
                     mastery_last_updated=str(module_progress.updated_at)
                                          if module_progress else None,
                 )
@@ -382,7 +393,6 @@ def build_learning_path(
         high_count=sum(1 for i in items if i.priority == "High"),
         medium_count=sum(1 for i in items if i.priority == "Medium"),
         low_count=sum(1 for i in items if i.priority == "Low"),
-        # ── Nouveaux champs ──────────────────────────────────
         next_recommended_module_id=next_module.module_id if next_module else None,
         stagnation_detected=stagnation_detected,
         time_available_per_week=time_available,

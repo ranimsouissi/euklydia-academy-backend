@@ -194,8 +194,11 @@ def generate_next_recommendation(
         (m for m in modules if m["id"] == current_module_id), None
     )
 
+    # IDs valides pour validation
+    valid_ids = list({m["id"] for m in modules})
+
     mastery_summary = [
-        f"- {m['title_fr']} ({m['level']}) : "
+        f"- [{m['id']}] {m['title_fr']} ({m['level']}) : "
         f"mastery={round(float(m.get('mastery_score') or 0)*100)}%, "
         f"status={m.get('module_status') or 'not_started'}, "
         f"execution_task={m.get('execution_task_submitted', False)}, "
@@ -208,7 +211,7 @@ def generate_next_recommendation(
         prompt = (
             "Tu es un conseiller pédagogique expert pour Euklydia.\n\n"
             f"Module venant d'être complété : "
-            f"{current['title_fr'] if current else 'inconnu'}\n"
+            f"[{current_module_id}] {current['title_fr'] if current else 'inconnu'}\n"
             f"Execution Task soumise : "
             f"{current.get('execution_task_submitted', False) if current else False}\n"
             f"KPI before : "
@@ -219,9 +222,12 @@ def generate_next_recommendation(
             f"{current.get('execution_task_difficulty', 'aucune') if current else 'aucune'}\n"
             f"Temps disponible/semaine : "
             f"{roadmap.get('time_available_per_week', 'non renseigné')} h\n\n"
+            f"Rôle de l'apprenant : {current['role'] if current else 'inconnu'}\n"
+            f"IDs valides à utiliser UNIQUEMENT (même rôle) : {[m['id'] for m in modules if m.get('role') == (current['role'] if current else '')]}\n\n"
             "ÉTAT ACTUEL DES COMPÉTENCES :\n"
             + "\n".join(mastery_summary) + "\n\n"
             "Recommande le prochain module OU la section à revoir.\n"
+            "IMPORTANT : utilise UNIQUEMENT un module_id de la liste des IDs valides ci-dessus.\n"
             "Réponds UNIQUEMENT avec ce JSON :\n"
             "{\n"
             '  "module_id": <id>,\n'
@@ -248,6 +254,24 @@ def generate_next_recommendation(
                 raw = raw[4:].strip()
 
         recommendation = json.loads(raw)
+
+        # ── Validation module_id ────────────────────────────────
+        raw_id = recommendation.get("module_id")
+        try:
+            clean_id = int(str(raw_id).split(":")[0].strip())
+            if clean_id not in valid_ids:
+                # ID invalide → premier module non complété
+                fallback_mod = next(
+                    (m for m in modules if m.get("module_status") != "completed"),
+                    modules[0] if modules else None
+                )
+                if fallback_mod:
+                    recommendation["module_id"]    = fallback_mod["id"]
+                    recommendation["module_title"] = fallback_mod["title_fr"]
+            else:
+                recommendation["module_id"] = clean_id
+        except (ValueError, TypeError):
+            recommendation["module_id"] = None
 
         # ── Score de confiance ──────────────────────────────
         mastery_score = float(current.get("mastery_score") or 0) if current else 0

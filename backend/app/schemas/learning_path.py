@@ -24,17 +24,17 @@ class SectionProgressItem(BaseModel):
                     "progress_update"
                   ]
     status:       Literal["not_started", "in_progress", "completed"] = "not_started"
-    started_at:   Optional[datetime] = None   # timestamp pour time-to-mastery V2
+    started_at:   Optional[datetime] = None
     completed_at: Optional[datetime] = None
 
 
 class ExecutionTaskSubmissionOut(BaseModel):
     """Soumission de l'Execution Task — lecture"""
-    submitted:  bool              = False
-    url:        Optional[str]     = None   # lien du livrable
-    kpi_after:  Optional[str]     = None   # KPI mesuré après
-    difficulty: Optional[str]     = None   # difficulté déclarée
-    submitted_at: Optional[datetime] = None
+    submitted:    bool                 = False
+    url:          Optional[str]        = None
+    kpi_after:    Optional[str]        = None
+    difficulty:   Optional[str]        = None
+    submitted_at: Optional[datetime]   = None
 
 
 class LearningPathItemOut(BaseModel):
@@ -49,7 +49,6 @@ class LearningPathItemOut(BaseModel):
     estimated_duration_min: Optional[int] = None
     format:                 Optional[str] = None
 
-    # Champs enrichis pour le frontend
     key_concepts_en:             Optional[list[str]] = None
     key_concepts_fr:             Optional[list[str]] = None
     why_this_module_en:          Optional[str] = None
@@ -68,14 +67,14 @@ class LearningPathItemOut(BaseModel):
     status:     str = "not_started"
 
     # ── Use Case + KPI ───────────────────────────────────────
-    use_case_name:           Optional[str] = None
-    kpi_before:              Optional[str] = None   # KPI baseline
-    kpi_after:               Optional[str] = None   # KPI cible
-    blueprint_name:          Optional[str] = None
-    use_case_display_order:  Optional[int] = None
+    use_case_name:          Optional[str] = None
+    kpi_before:             Optional[str] = None
+    kpi_after:              Optional[str] = None
+    blueprint_name:         Optional[str] = None
+    use_case_display_order: Optional[int] = None
 
     # ── Progression globale ──────────────────────────────────
-    progress_percent: Optional[float] = None         # 0-100
+    progress_percent: Optional[float] = None
 
     # ── Progression par section ──────────────────────────────
     section_progress: list[SectionProgressItem] = []
@@ -84,7 +83,9 @@ class LearningPathItemOut(BaseModel):
     execution_task: Optional[ExecutionTaskSubmissionOut] = None
 
     # ── Mastery ──────────────────────────────────────────────
-    mastery_last_updated: Optional[datetime] = None  # pour time-to-mastery V2
+    mastery_score:        Optional[float]    = None
+    mastery_level:        Optional[str]      = None
+    mastery_last_updated: Optional[datetime] = None
 
     # ── Skills couverts ──────────────────────────────────────
     covered_skills: list[SkillCovered] = []
@@ -106,10 +107,9 @@ class RoadmapSummaryOut(BaseModel):
     medium_count:   int = 0
     low_count:      int = 0
 
-    # ── Adaptive Engine ──────────────────────────────────────
-    next_recommended_module_id: Optional[int]  = None  # module suivant
-    stagnation_detected:        bool           = False  # détection stagnation
-    time_available_per_week:    Optional[int]  = None  # heures/semaine
+    next_recommended_module_id: Optional[int]  = None
+    stagnation_detected:        bool           = False
+    time_available_per_week:    Optional[int]  = None
 
 
 class LearningPathOut(BaseModel):

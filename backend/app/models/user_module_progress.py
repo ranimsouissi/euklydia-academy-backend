@@ -63,11 +63,14 @@ class UserModuleProgress(Base):
         Text, nullable=True
     )
     execution_task_difficulty: Mapped[str | None] = mapped_column(
-        String(100), nullable=True
+    String(100), nullable=True
+    )
+    execution_task_description: Mapped[str | None] = mapped_column(
+    Text, nullable=True
     )
     execution_task_submitted_at: Mapped[datetime | None] = mapped_column(
-        DateTime, nullable=True
-    )
+    DateTime, nullable=True
+   )
 
     # ── KPI after — mesuré par l'apprenant ──────────────────
     kpi_after: Mapped[str | None] = mapped_column(

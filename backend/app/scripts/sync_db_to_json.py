@@ -25,6 +25,9 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL manquant dans .env")
 
+# Convertit le format SQLAlchemy → format psycopg2
+# postgresql+psycopg2://user:pass@host:port/db → postgresql://user:pass@host:port/db
+DATABASE_URL = DATABASE_URL.replace("postgresql+psycopg2://", "postgresql://")
 # ── Correspondance module_id → chemin JSON ────────────────────────────────
 # Adapté à la structure content/roles/ de ton projet
 MODULE_JSON_MAP = {

@@ -25,6 +25,7 @@ from typing import Optional
 from openai import OpenAI
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+import re 
 
 from app.core.config import settings
 
@@ -456,7 +457,21 @@ def generate_insights(
     """
     Appelle GPT pour générer des insights actionnables.
     V2 : injecte tutorials ET resources dans le prompt.
+    kpi_before_avg et kpi_after_avg calculés en Python (pas par le LLM).
     """
+    # ── Calcul Python des moyennes KPI ──
+    kpi_before_avg, kpi_after_avg = compute_kpi_averages(kpi_data)
+
+    # ── Calcul Python engagement_rate ──
+    modules_list = engagement.get("modules", []) if isinstance(engagement, dict) else engagement
+    modules_started = len([m for m in modules_list if m.get("status") in ("in_progress", "completed")])
+    total_modules = len(modules_list)
+    engagement_rate = round(modules_started / total_modules, 2) if total_modules else 0.0
+
+    # ── Calcul Python execution_task_completion_rate ──
+    submitted = [m for m in modules_list if m.get("execution_task_submitted")]
+    execution_task_completion_rate = round(len(submitted) / total_modules, 2) if total_modules else 0.0
+
     prompt = f"""Tu es un analyste pédagogique expert pour la plateforme Euklydia.
 Analyse ces données d'apprentissage et génère des insights actionnables.
 
@@ -481,13 +496,19 @@ Compare delta_pct à target_label pour évaluer si la cible est atteinte.
 --- RESOURCES DISPONIBLES ---
 {json.dumps(resources, ensure_ascii=False, default=str)}
 
+--- MÉTRIQUES PRÉ-CALCULÉES (utilise ces valeurs exactes, ne les recalcule pas) ---
+engagement_rate: {engagement_rate}
+kpi_before_avg: {kpi_before_avg}
+kpi_after_avg: {kpi_after_avg}
+execution_task_completion_rate: {execution_task_completion_rate}
+
 Génère EXACTEMENT ce JSON (sans texte autour) :
 {{
   "summary": "résumé exécutif en 2 phrases max",
-  "engagement_rate": 0.0 à 1.0,
-  "kpi_before_avg": 0.0 à 1.0,
-  "kpi_after_avg": 0.0 à 1.0,
-  "execution_task_completion_rate": 0.0 à 1.0,
+  "engagement_rate": {engagement_rate},
+  "kpi_before_avg": {kpi_before_avg},
+  "kpi_after_avg": {kpi_after_avg},
+  "execution_task_completion_rate": {execution_task_completion_rate},
   "main_drop_off_section": "section_type ou null",
   "top_blockers": [
     {{
@@ -515,6 +536,7 @@ Génère EXACTEMENT ce JSON (sans texte autour) :
 }}
 
 Règles :
+- NE RECALCULE PAS engagement_rate, kpi_before_avg, kpi_after_avg, execution_task_completion_rate — utilise les valeurs pré-calculées ci-dessus
 - top_blockers : 3 items MAX, jamais le même skill
 - interventions : 1 par blocker
 - types disponibles : review_section | watch_tutorial | read_resource | coach_session
@@ -532,15 +554,14 @@ Règles :
         max_tokens=800
     )
 
+ 
     raw = (response.choices[0].message.content or "").strip()
-    if raw.startswith("```"):
-        raw = raw.strip("`").strip()
-        if raw.lower().startswith("json"):
-            raw = raw[4:].strip()
-
+    match = re.search(r'\{.*\}', raw, re.DOTALL)
+    if match:
+        raw = match.group(0)
     try:
         return json.loads(raw)
-    except json.JSONDecodeError:
+    except Exception:
         return {"error": "Parsing failed", "_raw": raw[:500]}
 
 
@@ -733,12 +754,11 @@ Règles :
         max_tokens=1000  # augmenté car prompt plus riche
     )
 
+    # APRÈS
     raw = (response.choices[0].message.content or "").strip()
-    if raw.startswith("```"):
-        raw = raw.strip("`").strip()
-        if raw.lower().startswith("json"):
-            raw = raw[4:].strip()
-
+    match = re.search(r'\{.*\}', raw, re.DOTALL)
+    if match:
+        raw = match.group(0)
     try:
         return json.loads(raw)
     except Exception:
@@ -808,11 +828,9 @@ Règles :
     )
 
     raw = (response.choices[0].message.content or "").strip()
-    if raw.startswith("```"):
-        raw = raw.strip("`").strip()
-        if raw.lower().startswith("json"):
-            raw = raw[4:].strip()
-
+    match = re.search(r'\{.*\}', raw, re.DOTALL)
+    if match:
+        raw = match.group(0)
     try:
         return json.loads(raw)
     except Exception:

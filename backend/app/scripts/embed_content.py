@@ -178,45 +178,56 @@ def build_question_chunks(session):
 
 def build_tutorial_chunks(session):
     rows = session.execute(text("""
-        SELECT id, title_fr, role, tutorials_fr
+        SELECT id, title_fr, role, level, tutorials_fr
         FROM modules
         WHERE is_active = true
           AND tutorials_fr IS NOT NULL
     """)).fetchall()
-
     chunks = []
     for row in rows:
         tutorials = row.tutorials_fr
         if not tutorials:
             continue
         for tuto in tutorials:
-            parts = [f"Tutoriel : {tuto.get('title', '')}"]
-            if tuto.get("tool"):
-                parts.append(f"Outil : {tuto['tool']}")
-            if tuto.get("steps"):
-                steps_text = "\n".join(
-                    f"Étape {i+1} : {step}"
-                    for i, step in enumerate(tuto["steps"])
-                )
-                parts.append(f"Étapes :\n{steps_text}")
-            if not parts:
-                continue
-            chunks.append({
-                "source_type": "module",
-                "source_id":   row.id,
-                "lang":        LANG,
-                "chunk_text":  "\n".join(parts),
-                "metadata":    {
-    "module_title": row.title_fr,
-    "role": row.role,
-    "section_type": "execution_content",
-    "chunk_subtype": "tutorial",
-    "tutorial_id": tuto.get("id", ""),
-},
-"citation_ref": f"{row.id}.tutorial.{tuto.get('id', '')}",
-            })
+            tuto_title = tuto.get("title", "")
+            tuto_tool  = tuto.get("tool", "")
+            tuto_raw_id = tuto.get("id", "t1")
+            # ID unique : module DB id + tutorial id
+            unique_tuto_id = f"{row.id}_{tuto_raw_id}"
 
-    print(f"  → {len(chunks)} chunks tutoriels construits")
+            steps = tuto.get("steps", [])
+            if not steps:
+                continue
+
+            for i, step in enumerate(steps):
+                parts = [
+                    f"Tutoriel : {tuto_title}",
+                ]
+                if tuto_tool:
+                    parts.append(f"Outil : {tuto_tool}")
+                parts.append(f"Étape {i+1} : {step}")
+
+                chunks.append({
+                    "source_type": "module",
+                    "source_id":   row.id,
+                    "lang":        LANG,
+                    "chunk_text":  "\n".join(parts),
+                    "metadata": {
+                        "module_title":  row.title_fr,
+                        "module":        row.title_fr,
+                        "role":          row.role,
+                        "level":         getattr(row, "level", None),
+                        "section_type":  "execution_content",
+                        "chunk_subtype": "tutorial",
+                        "tutorial_id":   unique_tuto_id,
+                        "tutorial_title": tuto_title,
+                        "step_number":   i + 1,
+                        "total_steps":   len(steps),
+                    },
+                    "citation_ref": f"{row.id}.tutorial.{tuto_raw_id}.step{i+1}",
+                })
+
+    print(f"  → {len(chunks)} chunks tutoriels construits (step-by-step)")
     return chunks
 def build_prompt_chunks(session):
     rows = session.execute(text("""
